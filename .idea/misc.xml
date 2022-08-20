@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/berka/AndroidStudioProjects/newestprayer/app/src/main/res/drawable-v24/ic_sunnycloudy.xml" value="0.25" />
+        <entry key="..\:/Users/berka/AndroidStudioProjects/newestprayer/app/src/main/res/drawable-v32/greengradient.xml" value="0.3415" />
+        <entry key="..\:/Users/berka/AndroidStudioProjects/newestprayer/app/src/main/res/drawable/chevron_right-48px.xml" value="0.4385" />
+        <entry key="..\:/Users/berka/AndroidStudioProjects/newestprayer/app/src/main/res/drawable/circle_dark_blue.xml" value="0.228" />
+        <entry key="..\:/Users/berka/AndroidStudioProjects/newestprayer/app/src/main/res/drawable/circle_yellow.xml" value="0.228" />
+        <entry key="..\:/Users/berka/AndroidStudioProjects/newestprayer/app/src/main/res/drawable/circular.xml" value="0.241" />
+        <entry key="..\:/Users/berka/AndroidStudioProjects/newestprayer/app/src/main/res/drawable/dialog_bg.xml" value="0.2165" />
+        <entry key="..\:/Users/berka/AndroidStudioProjects/newestprayer/app/src/main/res/drawable/greengradient.xml" value="0.14" />
+        <entry key="..\:/Users/berka/AndroidStudioProjects/newestprayer/app/src/main/res/drawable/ic_arrowright.xml" value="0.4385" />
+        <entry key="..\:/Users/berka/AndroidStudioProjects/newestprayer/app/src/main/res/drawable/ic_bigmosque.xml" value="0.1325" />
+        <entry key="..\:/Users/berka/AndroidStudioProjects/newestprayer/app/src/main/res/drawable/ic_cardback.xml" value="0.2445" />
+        <entry key="..\:/Users/berka/AndroidStudioProjects/newestprayer/app/src/main/res/drawable/ic_explore_black_24dp.xml" value="0.4385" />
+        <entry key="..\:/Users/berka/AndroidStudioProjects/newestprayer/app/src/main/res/drawable/ic_fajr.xml" value="0.367" />
+        <entry key="..\:/Users/berka/AndroidStudioProjects/newestprayer/app/src/main/res/drawable/ic_home_black_24dp.xml" value="0.4725" />
+        <entry key="..\:/Users/berka/AndroidStudioProjects/newestprayer/app/src/main/res/drawable/ic_location.xml" value="0.2445" />
+        <entry key="..\:/Users/berka/AndroidStudioProjects/newestprayer/app/src/main/res/drawable/ic_location2.xml" value="0.2445" />
+        <entry key="..\:/Users/berka/AndroidStudioProjects/newestprayer/app/src/main/res/drawable/ic_location3.xml" value="0.2445" />
+        <entry key="..\:/Users/berka/AndroidStudioProjects/newestprayer/app/src/main/res/drawable/ic_maghrib2.xml" value="0.264" />
+        <entry key="..\:/Users/berka/AndroidStudioProjects/newestprayer/app/src/main/res/drawable/ic_moon_svgrepo_com.xml" value="0.3125" />
+        <entry key="..\:/Users/berka/AndroidStudioProjects/newestprayer/app/src/main/res/drawable/ic_mosque_black_24dp.xml" value="0.2665" />
+        <entry key="..\:/Users/berka/AndroidStudioProjects/newestprayer/app/src/main/res/drawable/ic_rose_petals.xml" value="0.228" />
+        <entry key="..\:/Users/berka/AndroidStudioProjects/newestprayer/app/src/main/res/drawable/ic_sunny.xml" value="0.162" />
+        <entry key="..\:/Users/berka/AndroidStudioProjects/newestprayer/app/src/main/res/drawable/ic_sunrise.xml" value="0.367" />
+        <entry key="..\:/Users/berka/AndroidStudioProjects/newestprayer/app/src/main/res/drawable/ic_volume_off_black_24dp.xml" value="0.3885" />
+        <entry key="..\:/Users/berka/AndroidStudioProjects/newestprayer/app/src/main/res/drawable/ic_volume_up_black_24dp.xml" value="0.274" />
+        <entry key="..\:/Users/berka/AndroidStudioProjects/newestprayer/app/src/main/res/drawable/ic_volume_up_black_opt.xml" value="0.348" />
+        <entry key="..\:/Users/berka/AndroidStudioProjects/newestprayer/app/src/main/res/drawable/ic_web_1920___1.xml" value="0.264" />
+        <entry key="..\:/Users/berka/AndroidStudioProjects/newestprayer/app/src/main/res/drawable/prayer_asr.xml" value="0.3885" />
+        <entry key="..\:/Users/berka/AndroidStudioProjects/newestprayer/app/src/main/res/drawable/prayer_cardnight.xml" value="0.3885" />
+        <entry key="..\:/Users/berka/AndroidStudioProjects/newestprayer/app/src/main/res/drawable/prayer_dhuhr.xml" value="0.3625" />
+        <entry key="..\:/Users/berka/AndroidStudioProjects/newestprayer/app/src/main/res/drawable/prayer_fajr.xml" value="0.264" />
+        <entry key="..\:/Users/berka/AndroidStudioProjects/newestprayer/app/src/main/res/drawable/prayer_ishaa.xml" value="0.3885" />
+        <entry key="..\:/Users/berka/AndroidStudioProjects/newestprayer/app/src/main/res/drawable/prayer_maghrib.xml" value="0.3625" />
+        <entry key="..\:/Users/berka/AndroidStudioProjects/newestprayer/app/src/main/res/drawable/prayer_midnight.xml" value="0.3125" />
+        <entry key="..\:/Users/berka/AndroidStudioProjects/newestprayer/app/src/main/res/drawable/prayer_night2.xml" value="0.268" />
+        <entry key="..\:/Users/berka/AndroidStudioProjects/newestprayer/app/src/main/res/drawable/prayer_night3.xml" value="0.268" />
+        <entry key="..\:/Users/berka/AndroidStudioProjects/newestprayer/app/src/main/res/drawable/prayer_night4.xml" value="0.3125" />
+        <entry key="..\:/Users/berka/AndroidStudioProjects/newestprayer/app/src/main/res/drawable/prayer_sunrise.xml" value="0.264" />
+        <entry key="..\:/Users/berka/AndroidStudioProjects/newestprayer/app/src/main/res/drawable/purplegradient.xml" value="0.3885" />
+        <entry key="..\:/Users/berka/AndroidStudioProjects/newestprayer/app/src/main/res/drawable/round_corner.xml" value="0.1" />
+        <entry key="..\:/Users/berka/AndroidStudioProjects/newestprayer/app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="..\:/Users/berka/AndroidStudioProjects/newestprayer/app/src/main/res/layout/bottomsheet_asrcalculation.xml" value="0.3859375" />
+        <entry key="..\:/Users/berka/AndroidStudioProjects/newestprayer/app/src/main/res/layout/bottomsheet_latadjustments.xml" value="0.3859375" />
+        <entry key="..\:/Users/berka/AndroidStudioProjects/newestprayer/app/src/main/res/layout/bottomsheetlayout.xml" value="0.25" />
+        <entry key="..\:/Users/berka/AndroidStudioProjects/newestprayer/app/src/main/res/layout/fragment_dashboard.xml" value="0.18" />
+        <entry key="..\:/Users/berka/AndroidStudioProjects/newestprayer/app/src/main/res/layout/fragment_dashboard_tomorrow.xml" value="0.28396739130434784" />
+        <entry key="..\:/Users/berka/AndroidStudioProjects/newestprayer/app/src/main/res/layout/fragment_dashboard_tormorrow.xml" value="0.11423505572441743" />
+        <entry key="..\:/Users/berka/AndroidStudioProjects/newestprayer/app/src/main/res/layout/fragment_home.xml" value="0.2418478260869565" />
+        <entry key="..\:/Users/berka/AndroidStudioProjects/newestprayer/app/src/main/res/layout/fragment_notifications.xml" value="0.1" />
+        <entry key="..\:/Users/berka/AndroidStudioProjects/newestprayer/app/src/main/res/layout/fragment_prayer.xml" value="0.18" />
+        <entry key="..\:/Users/berka/AndroidStudioProjects/newestprayer/app/src/main/res/layout/fragment_prayer_tomorrow.xml" value="0.32518115942028986" />
+        <entry key="..\:/Users/berka/AndroidStudioProjects/newestprayer/app/src/main/res/layout/fragment_settings.xml" value="0.33" />
+        <entry key="..\:/Users/berka/AndroidStudioProjects/newestprayer/app/src/main/res/layout/fragment_settings_new.xml" value="0.25" />
+        <entry key="..\:/Users/berka/AndroidStudioProjects/newestprayer/app/src/main/res/layout/fragment_tab.xml" value="0.22" />
+        <entry key="..\:/Users/berka/AndroidStudioProjects/newestprayer/app/src/main/res/layout/fragment_today.xml" value="0.14454976303317535" />
+        <entry key="..\:/Users/berka/AndroidStudioProjects/newestprayer/app/src/main/res/layout/fragment_tomorrow.xml" value="0.32864583333333336" />
+        <entry key="..\:/Users/berka/AndroidStudioProjects/newestprayer/app/src/main/res/menu/bottom_nav_menu.xml" value="0.3255208333333333" />
+        <entry key="..\:/Users/berka/AndroidStudioProjects/newestprayer/app/src/main/res/xml/root_preferences.xml" value="0.33" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

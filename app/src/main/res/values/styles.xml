@@ -1,0 +1,19 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="ActivityStyle" parent="Theme.Material3.Light.NoActionBar">
+    </style>
+    <style name="prayer_name" parent="ActivityStyle">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
+    </style>
+
+    <style name="toptitle" parent="ActivityStyle">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
+    </style>
+    <style name="item_details" parent="ActivityStyle">
+        <item name="android:textSize">2000sp</item>
+    </style>
+
+
+</resources>
