@@ -1,10 +1,13 @@
 package com.freeislamicapps.athantime;
 
-import android.app.ActivityManager;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -13,8 +16,10 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.freeislamicapps.athantime.PrayerTimes.PrayTimes;
+import com.freeislamicapps.athantime.PrayerTimes.PrayTimesMain;
 import com.freeislamicapps.athantime.databinding.ActivityMainBinding;
-import com.freeislamicapps.athantime.ui.prayer.ForegroundService;
+import com.freeislamicapps.athantime.ui.settings.SettingsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.io.BufferedReader;
@@ -24,6 +29,9 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,14 +47,8 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        if(!foregroundServiceRunning()) {
-            Intent serviceIntent = new Intent(this, ForegroundService.class);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                startForegroundService(serviceIntent);
-            } else {
-                startService(serviceIntent);
-            }
-        }
+
+        setAlarm();
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
 
@@ -72,14 +74,30 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public boolean foregroundServiceRunning() {
-        ActivityManager activityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-        for(ActivityManager.RunningServiceInfo service: activityManager.getRunningServices(Integer.MAX_VALUE)) {
-            if(ForegroundService.class.getName().equals(service.service.getClassName())) {
-                return true;
-            }
+    private void setAlarm() {
+        PrayTimesMain prayTimesMain = new PrayTimesMain(LocalDate.now(), getApplication().getApplicationContext());
+        PrayTimes prayTimes = prayTimesMain.getPrayTimes();
+        SharedPreferences sharedPreferences = getApplication().getApplicationContext().getSharedPreferences(SettingsFragment.SHARED_PREFS, Context.MODE_PRIVATE);
+
+        Calendar lastThirdTime = prayTimesMain.getCalendarFromPrayerTime(Calendar.getInstance(),prayTimesMain.getLastThird(),false);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+        Intent intent = new Intent(this, AlarmStart.class);
+
+        PendingIntent pendingIntent = null;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            pendingIntent = PendingIntent.getBroadcast(this,0,intent,PendingIntent.FLAG_MUTABLE);
+        } else {
+            pendingIntent = PendingIntent.getBroadcast(this,0,intent,0);
         }
-        return false;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP,lastThirdTime.getTimeInMillis(),pendingIntent);
+        } else {
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP,lastThirdTime.getTimeInMillis(),pendingIntent);
+        }
+
+        Toast.makeText(this,"Alarm is set",Toast.LENGTH_SHORT).show();
     }
 
 

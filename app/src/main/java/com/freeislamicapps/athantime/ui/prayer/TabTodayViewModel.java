@@ -11,6 +11,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.freeislamicapps.athantime.PrayerTimes.HighLatsAdjustment;
 import com.freeislamicapps.athantime.PrayerTimes.Method;
 import com.freeislamicapps.athantime.PrayerTimes.PrayTimes;
+import com.freeislamicapps.athantime.PrayerTimes.PrayTimesMain;
 import com.freeislamicapps.athantime.PrayerTimes.Times;
 import com.freeislamicapps.athantime.ui.settings.SettingsFragment;
 
@@ -54,20 +55,9 @@ public class TabTodayViewModel extends AndroidViewModel {
     }
 
     public void init() {
-        PrayTimes prayTimes = new PrayTimes();
-         sharedPreferences = getApplication().getSharedPreferences(SettingsFragment.SHARED_PREFS, Context.MODE_PRIVATE);
-        String latitudestr = sharedPreferences.getString("latitude", "0.0");
-        String longitudestr = sharedPreferences.getString("longitude", "0.0");
-
-        prayTimes.setCoordinates(Double.parseDouble(latitudestr), Double.parseDouble(longitudestr), 0.0);
-
-        prayTimes.setMethod(getCurrentMethod());
-        prayTimes.setHighLatsAdjustment(getCurrentHighlatsadjustment());
-
-        int year = LocalDate.now().getYear();
-        int month = LocalDate.now().getMonthValue();
-        int day = LocalDate.now().getDayOfMonth();
-        prayTimes.setDate(year, month, day);
+        PrayTimesMain prayTimesMain = new PrayTimesMain(LocalDate.now(), getApplication().getApplicationContext());
+        PrayTimes prayTimes = prayTimesMain.getPrayTimes();
+        sharedPreferences = getApplication().getApplicationContext().getSharedPreferences(SettingsFragment.SHARED_PREFS, Context.MODE_PRIVATE);
 
         //TODO
         // Log.d("prayadj",String.valueOf(prayTimes.getTimeZone()));
