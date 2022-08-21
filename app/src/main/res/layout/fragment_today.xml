@@ -147,12 +147,10 @@
 
                             />
 
-                        <ImageButton
+                        <com.google.android.material.switchmaterial.SwitchMaterial
                             android:id="@+id/fajrsound"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/ic_volume_up_black_opt"
-                            android:background="@null"
                            />
 
 
@@ -230,12 +228,10 @@
 
                             />
 
-                        <ImageButton
+                        <com.google.android.material.switchmaterial.SwitchMaterial
                             android:id="@+id/sunrisesound"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/ic_volume_up_black_opt"
-                            android:background="@null"
                             />
 
 
@@ -314,12 +310,10 @@
 
                             />
 
-                        <ImageButton
+                        <com.google.android.material.switchmaterial.SwitchMaterial
                             android:id="@+id/dhuhrsound"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/ic_volume_up_black_opt"
-                            android:background="@null"
                             />
 
 
@@ -399,7 +393,7 @@
 
                             />
 
-                        <ImageButton
+                        <com.google.android.material.switchmaterial.SwitchMaterial
                             android:id="@+id/asrsound"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -481,7 +475,7 @@
 
                             />
 
-                        <ImageButton
+                        <com.google.android.material.switchmaterial.SwitchMaterial
                             android:id="@+id/maghribsound"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -564,12 +558,10 @@
 
                             />
 
-                        <ImageButton
+                        <com.google.android.material.switchmaterial.SwitchMaterial
                             android:id="@+id/ishaasound"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/ic_volume_up_black_opt"
-                            android:background="@null"
                             />
 
 
@@ -583,168 +575,6 @@
             <com.google.android.material.divider.MaterialDivider
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
-
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/midnightCard"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                app:cardCornerRadius="0dp"
-                app:cardBackgroundColor="?attr/backgroundColor"
-                tools:layout_editor_absoluteX="8dp"
-                app:strokeWidth="0dp">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:layout_marginStart="10dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/prayer_midnight"/>
-
-                        <TextView
-                            android:id="@+id/midnightText"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
-                            android:text="Midnight"
-                            android:textAppearance="@style/prayer_name"
-                            android:textSize="20sp"
-                            android:textStyle="bold"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:layout_marginEnd="10dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <TextView
-                            android:id="@+id/midnightTime"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="10dp"
-                            android:text="01:30"
-                            android:textAppearance="@style/prayer_name"
-
-                            />
-
-                        <ImageButton
-                            android:id="@+id/midnightSound"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/ic_volume_up_black_opt"
-                            android:background="@null"
-                            />
-
-
-                    </LinearLayout>
-
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.divider.MaterialDivider
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/lastThirdCard"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                app:cardCornerRadius="0dp"
-                app:cardBackgroundColor="?attr/backgroundColor"
-                tools:layout_editor_absoluteX="8dp"
-                app:strokeWidth="0dp">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:layout_marginStart="10dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/ic_moon_svgrepo_com"/>
-
-                        <TextView
-                            android:id="@+id/lastThirdText"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
-                            android:text="Last Third"
-                            android:textAppearance="@style/prayer_name"
-                            android:textSize="20sp"
-                            android:textStyle="bold"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:layout_marginEnd="10dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <TextView
-                            android:id="@+id/lastThirdTime"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="10dp"
-                            android:text="02:30"
-                            android:textAppearance="@style/prayer_name"
-
-                            />
-
-                        <ImageButton
-                            android:id="@+id/lastThirdSound"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/ic_volume_up_black_opt"
-                            android:background="@null"
-                            />
-
-
-                    </LinearLayout>
-
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </com.google.android.material.card.MaterialCardView>
 
         </LinearLayout>
     </ScrollView>

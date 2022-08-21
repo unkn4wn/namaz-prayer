@@ -1,6 +1,8 @@
 package com.freeislamicapps.athantime;
 
 import android.app.AlarmManager;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -38,13 +40,13 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private String filename,filepath,fileContent;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
 
 
 
@@ -74,12 +76,13 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void setAlarm() {
-        PrayTimesMain prayTimesMain = new PrayTimesMain(LocalDate.now(), getApplication().getApplicationContext());
-        PrayTimes prayTimes = prayTimesMain.getPrayTimes();
-        SharedPreferences sharedPreferences = getApplication().getApplicationContext().getSharedPreferences(SettingsFragment.SHARED_PREFS, Context.MODE_PRIVATE);
 
-        Calendar lastThirdTime = prayTimesMain.getCalendarFromPrayerTime(Calendar.getInstance(),prayTimesMain.getLastThird(),false);
+    private void setAlarm() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY,0);
+        calendar.set(Calendar.MINUTE,1);
+        calendar.set(Calendar.SECOND,0);
+
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 
         Intent intent = new Intent(this, AlarmStart.class);
@@ -92,9 +95,9 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP,lastThirdTime.getTimeInMillis(),pendingIntent);
+            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),pendingIntent);
         } else {
-            alarmManager.setExact(AlarmManager.RTC_WAKEUP,lastThirdTime.getTimeInMillis(),pendingIntent);
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),pendingIntent);
         }
 
         Toast.makeText(this,"Alarm is set",Toast.LENGTH_SHORT).show();

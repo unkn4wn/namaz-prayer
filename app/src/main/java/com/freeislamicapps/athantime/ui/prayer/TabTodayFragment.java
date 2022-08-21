@@ -1,12 +1,16 @@
 package com.freeislamicapps.athantime.ui.prayer;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -17,8 +21,10 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.freeislamicapps.athantime.R;
 import com.freeislamicapps.athantime.databinding.FragmentTodayBinding;
+import com.freeislamicapps.athantime.ui.settings.SettingsFragment;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.color.MaterialColors;
+import com.google.android.material.switchmaterial.SwitchMaterial;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -52,12 +58,14 @@ public class TabTodayFragment extends Fragment {
 
     private FragmentTodayBinding binding;
 
-    TextView fajrTime, sunriseTime, dhuhrTime, asrTime, maghribTime, ishaaTime, midnightTime,lastThirdTime;
-    MaterialCardView fajrCard,sunriseCard,dhuhrCard,asrCard,maghribCard,ishaaCard,midnightCard,lastThirdCard;
+    TextView fajrTime, sunriseTime, dhuhrTime, asrTime, maghribTime, ishaaTime;
+    MaterialCardView fajrCard, sunriseCard, dhuhrCard, asrCard, maghribCard, ishaaCard;
     TabTodayViewModel tabTodayViewModel;
     MaterialCardView currentPrayerCard;
     ArrayList<MaterialCardView> materialCardViewArrayList;
     ScrollView scrollView;
+    SwitchMaterial fajrSound,sunriseSound,dhuhrSound,asrSound,maghribSound,ishaaSound;
+    SharedPreferences sharedPreferences;
 
 
 
@@ -77,8 +85,6 @@ public class TabTodayFragment extends Fragment {
         asrTime = binding.asrtime;
         maghribTime = binding.maghribtime;
         ishaaTime = binding.ishaatime;
-        midnightTime = binding.midnightTime;
-        lastThirdTime = binding.lastThirdTime;
 
         fajrCard = binding.fajrCard;
         sunriseCard = binding.sunriseCard;
@@ -86,31 +92,49 @@ public class TabTodayFragment extends Fragment {
         asrCard = binding.asrCard;
         maghribCard = binding.maghribCard;
         ishaaCard = binding.ishaaCard;
-        midnightCard = binding.midnightCard;
-        lastThirdCard = binding.lastThirdCard;
 
-        materialCardViewArrayList = new ArrayList<>(Arrays.asList(fajrCard,sunriseCard,dhuhrCard,asrCard,maghribCard,ishaaCard,midnightCard,lastThirdCard));
+        fajrSound = binding.fajrsound;
+        sunriseSound = binding.sunrisesound;
+        dhuhrSound = binding.dhuhrsound;
+        asrSound = binding.asrsound;
+        maghribSound = binding.maghribsound;
+        ishaaSound = binding.ishaasound;
+
+        materialCardViewArrayList = new ArrayList<>(Arrays.asList(fajrCard, sunriseCard, dhuhrCard, asrCard, maghribCard, ishaaCard));
         scrollView = binding.scrollViewToday;
-
 
 
         TypedValue typedValue = new TypedValue();
         requireActivity().getTheme().resolveAttribute(com.google.android.material.R.attr.colorSurface, typedValue, true);
         int color = MaterialColors.getColor(requireContext(), com.google.android.material.R.attr.colorSurface, Color.BLACK);
-
-
-
-
-         minutes = String.valueOf(2);
+        minutes = String.valueOf(2);
 
 
         // method call to initialize the views
         progressBarCircle = (ProgressBar) binding.progressBarCircle;
         textViewTime = (TextView) binding.textViewTime;
         // method call to initialize the listeners
-      startStop();
+        startStop();
+        sharedPreferences = requireActivity().getSharedPreferences(SettingsFragment.SHARED_PREFS, Context.MODE_PRIVATE);
 
-
+        fajrSound.setOnCheckedChangeListener((compoundButton, b) -> {
+            saveData("Fajr_Sound", b);
+        });
+        sunriseSound.setOnCheckedChangeListener((compoundButton, b) -> {
+            saveData("Sunrise_Sound", b);
+        });
+        dhuhrSound.setOnCheckedChangeListener((compoundButton, b) -> {
+            saveData("Dhuhr_Sound", b);
+        });
+        asrSound.setOnCheckedChangeListener((compoundButton, b) -> {
+            saveData("Asr_Sound", b);
+        });
+        maghribSound.setOnCheckedChangeListener((compoundButton, b) -> {
+            saveData("Maghrib_Sound", b);
+        });
+        ishaaSound.setOnCheckedChangeListener((compoundButton, b) -> {
+            saveData("Ishaa_Sound", b);
+        });
 
         return binding.getRoot();
     }
@@ -127,11 +151,11 @@ public class TabTodayFragment extends Fragment {
         super.setMenuVisibility(menuVisible);
         if (menuVisible) {
             onStart();
-        }
-        else {
+        } else {
             onStop();
         }
     }
+
     public void scrollToViewTop(ScrollView scrollView, View childView) {
         long delay = 100; //delay to let finish with possible modifications to ScrollView
         scrollView.postDelayed(new Runnable() {
@@ -140,6 +164,7 @@ public class TabTodayFragment extends Fragment {
             }
         }, delay);
     }
+
     public void scrollToViewBottom(ScrollView scrollView, View childView) {
         long delay = 100; //delay to let finish with possible modifications to ScrollView
         scrollView.postDelayed(new Runnable() {
@@ -189,8 +214,8 @@ public class TabTodayFragment extends Fragment {
      */
     private void setTimerValues() {
         int time = 0;
-            // fetching value from edit text and type cast to integer
-            time = Integer.parseInt(minutes);
+        // fetching value from edit text and type cast to integer
+        time = Integer.parseInt(minutes);
 
         // assigning values after converting to milliseconds
         timeCountInMilliSeconds = time * 60 * 1000;
@@ -218,7 +243,7 @@ public class TabTodayFragment extends Fragment {
                 // call to initialize the progress bar values
                 setProgressBarValues();
                 // making edit text editable
-               // editTextMinute.setEnabled(true);
+                // editTextMinute.setEnabled(true);
                 // changing the timer status to stopped
                 timerStatus = TimerStatus.STOPPED;
             }
@@ -266,46 +291,46 @@ public class TabTodayFragment extends Fragment {
         // create tree set object
         TreeSet<LocalTime> treeadd = new TreeSet<LocalTime>();
 
-      for (int i =0;i<8;i++) {
-          treeadd.add(Objects.requireNonNull(tabTodayViewModel.getPrayerTimesList().getValue()).get(i));
-      }
+        for (int i = 0; i < 6; i++) {
+            treeadd.add(Objects.requireNonNull(tabTodayViewModel.getPrayerTimesList().getValue()).get(i));
+        }
 
         String hours = (String.valueOf(LocalTime.now().getHour()));
         String minutes = (String.valueOf(LocalTime.now().getMinute()));
 
-        if(hours.length()==1) {
-            hours = 0+hours;
+        if (hours.length() == 1) {
+            hours = 0 + hours;
         }
 
-        if(minutes.length()==1) {
-            minutes = 0+minutes;
+        if (minutes.length() == 1) {
+            minutes = 0 + minutes;
         }
 
         DateTimeFormatter parseFormat = new DateTimeFormatterBuilder().appendPattern("HH:mm").toFormatter();
-        LocalTime localTime = LocalTime.parse(hours+":"+minutes, parseFormat);
+        LocalTime localTime = LocalTime.parse(hours + ":" + minutes, parseFormat);
 
 
         LocalTime value;
-            // getting the floor value for 25
-            // using floor() method
-             value = treeadd.floor(localTime);
+        // getting the floor value for 25
+        // using floor() method
+        value = treeadd.floor(localTime);
 
-             if(value==null) {
-                 value = treeadd.last();
-             }
+        if (value == null) {
+            value = treeadd.last();
+        }
 
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < 6; i++) {
             materialCardViewArrayList.get(i).setCardBackgroundColor(getResources().getColor(R.color.testcolor));
         }
 
-        for (int i =0;i<8;i++) {
-        if(value.compareTo(tabTodayViewModel.getPrayerTimesList().getValue().get(i))==0) {
-            currentPrayerCard  = materialCardViewArrayList.get(i);
-            currentPrayerCard.setCardBackgroundColor(getResources().getColor(R.color.bottom_navigation));
-            currentPrayerCard.setRadius(1f);
-            currentPrayerCard.setStrokeWidth(2);
-            scrollToViewTop(scrollView,currentPrayerCard);
-        }
+        for (int i = 0; i < 6; i++) {
+            if (value.compareTo(tabTodayViewModel.getPrayerTimesList().getValue().get(i)) == 0) {
+                currentPrayerCard = materialCardViewArrayList.get(i);
+                currentPrayerCard.setCardBackgroundColor(getResources().getColor(R.color.bottom_navigation));
+                currentPrayerCard.setRadius(1f);
+                currentPrayerCard.setStrokeWidth(2);
+                scrollToViewTop(scrollView, currentPrayerCard);
+            }
         }
 
 
@@ -335,9 +360,20 @@ public class TabTodayFragment extends Fragment {
         tabTodayViewModel.getAsrTime().observe(getViewLifecycleOwner(), asrTime::setText);
         tabTodayViewModel.getMaghribTime().observe(getViewLifecycleOwner(), maghribTime::setText);
         tabTodayViewModel.getIshaaTime().observe(getViewLifecycleOwner(), ishaaTime::setText);
-        tabTodayViewModel.getMidnightTime().observe(getViewLifecycleOwner(),midnightTime::setText);
-        tabTodayViewModel.getLastThirdTime().observe(getViewLifecycleOwner(),lastThirdTime::setText);
+
+        tabTodayViewModel.getFajrSound().observe(getViewLifecycleOwner(),fajrSound::setChecked);
+        tabTodayViewModel.getSunriseSound().observe(getViewLifecycleOwner(),sunriseSound::setChecked);
+        tabTodayViewModel.getDhuhrSound().observe(getViewLifecycleOwner(),dhuhrSound::setChecked);
+        tabTodayViewModel.getAsrSound().observe(getViewLifecycleOwner(),asrSound::setChecked);
+        tabTodayViewModel.getMaghribSound().observe(getViewLifecycleOwner(),maghribSound::setChecked);
+        tabTodayViewModel.getIshaaSound().observe(getViewLifecycleOwner(),ishaaSound::setChecked);
 
         getCurrentPrayer();
+    }
+    public void saveData(String savedKey, Boolean savedValue) {
+        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences(SettingsFragment.SHARED_PREFS, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(savedKey, savedValue);
+        editor.apply();
     }
 }

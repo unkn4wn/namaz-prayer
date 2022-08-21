@@ -58,8 +58,6 @@ public class PrayTimesMain {
         }
         maghrib = prayTimes.getTime(Times.Maghrib);
         ishaa = prayTimes.getTime(Times.Ishaa);
-        midnight = prayTimes.getTime(Times.Midnight);
-        lastThird = prayTimes.getTime(Times.LastThird);
 
         prayerTimesList = new ArrayList<>();
         prayerTimesList.add(fajr);
@@ -68,8 +66,6 @@ public class PrayTimesMain {
         prayerTimesList.add(asr);
         prayerTimesList.add(maghrib);
         prayerTimesList.add(ishaa);
-        prayerTimesList.add(midnight);
-        prayerTimesList.add(lastThird);
 
     }
 
@@ -135,23 +131,13 @@ public class PrayTimesMain {
         return ishaa;
     }
 
-    public String getMidnight() {
-        return midnight;
-    }
 
-    public String getLastThird() {
-        return lastThird;
-    }
-
-    public Calendar getCalendarFromPrayerTime(Calendar cal, String prayerTime, boolean maybeTomorrow) {
+    public Calendar getCalendarFromPrayerTime(Calendar cal, String prayerTime) {
         String[] time = prayerTime.split(":");
         cal.set(Calendar.HOUR_OF_DAY, Integer.parseInt(time[0]));
         cal.set(Calendar.MINUTE, Integer.parseInt(time[1]));
-        if(maybeTomorrow) {
-            if(Integer.parseInt(time[0])<8) {
-                cal.add(Calendar.DAY_OF_YEAR,1);
-            }
-        }
+
+
         cal.set(Calendar.SECOND, 0);
         cal.set(Calendar.MILLISECOND, 0);
         return cal;
@@ -172,8 +158,6 @@ public class PrayTimesMain {
         treeadd.add(getLocalTimeFromPrayerTime(getAsr()));
         treeadd.add(getLocalTimeFromPrayerTime(getMaghrib()));
         treeadd.add(getLocalTimeFromPrayerTime(getIshaa()));
-        treeadd.add(getLocalTimeFromPrayerTime(getMidnight()));
-        treeadd.add(getLocalTimeFromPrayerTime(getLastThird()));
 
         String hours = String.valueOf(localTime.getHour());
         String minutes = String.valueOf(localTime.getMinute());

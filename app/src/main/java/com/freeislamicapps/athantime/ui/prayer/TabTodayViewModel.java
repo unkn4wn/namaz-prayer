@@ -30,8 +30,13 @@ public class TabTodayViewModel extends AndroidViewModel {
     private final MutableLiveData<String> asrTime;
     private final MutableLiveData<String> maghribTime;
     private final MutableLiveData<String> ishaaTime;
-    private final MutableLiveData<String> midnightTime;
-    private final MutableLiveData<String> lastThirdTime;
+
+    private final MutableLiveData<Boolean> fajrSound;
+    private final MutableLiveData<Boolean> sunriseSound;
+    private final MutableLiveData<Boolean> dhuhrSound;
+    private final MutableLiveData<Boolean> asrSound;
+    private final MutableLiveData<Boolean> maghribSound;
+    private final MutableLiveData<Boolean> ishaaSound;
 
     private final MutableLiveData<ArrayList<LocalTime>> prayerTimesLocalTime;
     ArrayList<String> prayerTimesLocalTimeString;
@@ -47,8 +52,13 @@ public class TabTodayViewModel extends AndroidViewModel {
         asrTime = new MutableLiveData<>();
         maghribTime = new MutableLiveData<>();
         ishaaTime = new MutableLiveData<>();
-        midnightTime = new MutableLiveData<>();
-        lastThirdTime = new MutableLiveData<>();
+
+        fajrSound = new MutableLiveData<>();
+        sunriseSound = new MutableLiveData<>();
+        dhuhrSound = new MutableLiveData<>();
+        asrSound = new MutableLiveData<>();
+        maghribSound = new MutableLiveData<>();
+        ishaaSound = new MutableLiveData<>();
 
         prayerTimesLocalTime = new MutableLiveData<>();
 
@@ -72,8 +82,6 @@ public class TabTodayViewModel extends AndroidViewModel {
         }
         maghribTime.setValue(prayTimes.getTime(Times.Maghrib));
         ishaaTime.setValue(prayTimes.getTime(Times.Ishaa));
-        midnightTime.setValue(prayTimes.getTime(Times.Midnight));
-        lastThirdTime.setValue(prayTimes.getTime(Times.LastThird));
 
 
         if (sharedPreferences.getString("AsrCalculation", "Shafi").equals("Shafi, Hanbali, Maliki")) {
@@ -84,6 +92,12 @@ public class TabTodayViewModel extends AndroidViewModel {
 
         prayerTimesLocalTime.setValue(stringToLocalTime(prayerTimesLocalTimeString));
 
+        fajrSound.setValue(sharedPreferences.getBoolean("Fajr_Sound",false));
+        sunriseSound.setValue(sharedPreferences.getBoolean("Sunrise_Sound",false));
+        dhuhrSound.setValue(sharedPreferences.getBoolean("Dhuhr_Sound",false));
+        asrSound.setValue(sharedPreferences.getBoolean("Asr_Sound",false));
+        maghribSound.setValue(sharedPreferences.getBoolean("Maghrib_Sound",false));
+        ishaaSound.setValue(sharedPreferences.getBoolean("Ishaa_Sound",false));
 
 
     }
@@ -147,9 +161,13 @@ public class TabTodayViewModel extends AndroidViewModel {
         return ishaaTime;
     }
 
-    public LiveData<String> getMidnightTime() {
-        return midnightTime;
-    }
+    public LiveData<Boolean> getFajrSound() { return fajrSound;}
+    public LiveData<Boolean> getSunriseSound() { return sunriseSound;}
+    public LiveData<Boolean> getDhuhrSound() { return dhuhrSound;}
+    public LiveData<Boolean> getAsrSound() { return asrSound;}
+    public LiveData<Boolean> getMaghribSound() { return maghribSound;}
+    public LiveData<Boolean> getIshaaSound() { return ishaaSound;}
+
 
 
     private ArrayList<LocalTime> stringToLocalTime(ArrayList<String> stringArrayList) {
@@ -162,7 +180,6 @@ public class TabTodayViewModel extends AndroidViewModel {
         return localTimeArrayList;
     }
 
-    public LiveData<String> getLastThirdTime() { return lastThirdTime;}
 
     public LiveData<ArrayList<LocalTime>> getPrayerTimesList() {
         return prayerTimesLocalTime;
