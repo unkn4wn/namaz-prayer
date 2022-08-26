@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.freeislamicapps.athantime.PrayerTimes.PrayTimesMain;
 
@@ -21,16 +22,16 @@ public class AlarmStart extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
-       // scheduleAlarm(context);
+       setAlarm(context);
         schedulenewAlarm(context);
     }
 
-    private void scheduleAlarm(Context context) {
-         prayTimesMain = new PrayTimesMain(LocalDate.now(),context);
+    private void setAlarm(Context context) {
         Calendar calendar = Calendar.getInstance();
-       // calendar = prayTimesMain.getCalendarFromPrayerTime(calendar,prayTimesMain.getLastThird(),true);
-
-        Log.d("calendar",calendar.getTime().toString());
+        calendar.set(Calendar.HOUR_OF_DAY,0);
+        calendar.set(Calendar.MINUTE,1);
+        calendar.set(Calendar.SECOND,0);
+        calendar.add(Calendar.DAY_OF_YEAR,1);
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
@@ -38,9 +39,9 @@ public class AlarmStart extends BroadcastReceiver {
 
         PendingIntent pendingIntent = null;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            pendingIntent = PendingIntent.getBroadcast(context,0,intent,PendingIntent.FLAG_MUTABLE);
+            pendingIntent = PendingIntent.getBroadcast(context,10,intent,PendingIntent.FLAG_MUTABLE);
         } else {
-            pendingIntent = PendingIntent.getBroadcast(context,0,intent,0);
+            pendingIntent = PendingIntent.getBroadcast(context,10,intent,0);
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -48,6 +49,9 @@ public class AlarmStart extends BroadcastReceiver {
         } else {
             alarmManager.setExact(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),pendingIntent);
         }
+
+        Log.d("Calendar",calendar.getTime().toString());
+
     }
 
     private void schedulenewAlarm(Context context) {

@@ -104,9 +104,7 @@ public class TabTodayFragment extends Fragment {
         scrollView = binding.scrollViewToday;
 
 
-        TypedValue typedValue = new TypedValue();
-        requireActivity().getTheme().resolveAttribute(com.google.android.material.R.attr.colorSurface, typedValue, true);
-        int color = MaterialColors.getColor(requireContext(), com.google.android.material.R.attr.colorSurface, Color.BLACK);
+
         minutes = String.valueOf(2);
 
 

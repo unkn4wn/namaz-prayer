@@ -100,7 +100,6 @@ public class MainActivity extends AppCompatActivity {
             alarmManager.setExact(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),pendingIntent);
         }
 
-        Toast.makeText(this,"Alarm is set",Toast.LENGTH_SHORT).show();
     }
 
 
