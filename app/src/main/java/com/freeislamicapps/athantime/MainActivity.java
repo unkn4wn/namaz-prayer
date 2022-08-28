@@ -40,6 +40,9 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private String filename,filepath,fileContent;
 
+    private SharedPreferences sharedPreferences;
+    public static final String CHANNEL_1_ID = "prayerChannel";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +51,12 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        sharedPreferences = this.getSharedPreferences(SettingsFragment.SHARED_PREFS, Context.MODE_PRIVATE);
+        boolean firstStart = sharedPreferences.getBoolean("firstStart",true);
+
+        if (firstStart) {
+            startFirstTime();
+        }
 
 
         setAlarm();
@@ -76,6 +85,19 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void startFirstTime() {
+        Toast.makeText(this,"FIRSSTTIME",Toast.LENGTH_SHORT).show();
+        saveDataBoolean("firstStart",false);
+
+        //Default values
+        saveDataString("AsrCalculation", "Shafi, Hanbali, Maliki");
+        saveDataString("Method", "Islamic Society of North America (ISNA)");
+        saveDataString("HighLatsAdjustment", "Angle-Based");
+
+        //Create notification channel and ask for permission first time
+        createNotificationChannel(this);
+    }
+
 
     private void setAlarm() {
         Calendar calendar = Calendar.getInstance();
@@ -89,9 +111,9 @@ public class MainActivity extends AppCompatActivity {
 
         PendingIntent pendingIntent = null;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            pendingIntent = PendingIntent.getBroadcast(this,0,intent,PendingIntent.FLAG_MUTABLE);
+            pendingIntent = PendingIntent.getBroadcast(this,20,intent,PendingIntent.FLAG_MUTABLE);
         } else {
-            pendingIntent = PendingIntent.getBroadcast(this,0,intent,0);
+            pendingIntent = PendingIntent.getBroadcast(this,20,intent,0);
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -147,6 +169,36 @@ public class MainActivity extends AppCompatActivity {
         String path = context.getFilesDir().getAbsolutePath() + "/" + fileName;
         File file = new File(path);
         return file.exists();
+    }
+
+    public void saveDataBoolean(String savedKey, Boolean savedValue) {
+        SharedPreferences sharedPreferences = this.getSharedPreferences(SettingsFragment.SHARED_PREFS, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(savedKey, savedValue);
+        editor.apply();
+    }
+
+    public void saveDataString(String savedKey, String savedValue) {
+        SharedPreferences sharedPreferences = this.getSharedPreferences(SettingsFragment.SHARED_PREFS, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(savedKey, savedValue);
+        editor.apply();
+    }
+
+    private void createNotificationChannel(Context context) {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = CHANNEL_1_ID;
+            String description = CHANNEL_1_ID;
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_1_ID, name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = context.getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
     }
 
 }

@@ -3,6 +3,7 @@ package com.freeislamicapps.athantime.ui.prayer;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
@@ -11,11 +12,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -62,11 +65,12 @@ public class TabTodayFragment extends Fragment {
     MaterialCardView fajrCard, sunriseCard, dhuhrCard, asrCard, maghribCard, ishaaCard;
     TabTodayViewModel tabTodayViewModel;
     MaterialCardView currentPrayerCard;
+    ImageView titleBackgroundImage;
     ArrayList<MaterialCardView> materialCardViewArrayList;
+    ArrayList<Drawable> backgroundCardViewArrayList;
     ScrollView scrollView;
-    SwitchMaterial fajrSound,sunriseSound,dhuhrSound,asrSound,maghribSound,ishaaSound;
+    SwitchMaterial fajrSound, sunriseSound, dhuhrSound, asrSound, maghribSound, ishaaSound;
     SharedPreferences sharedPreferences;
-
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -101,18 +105,17 @@ public class TabTodayFragment extends Fragment {
         ishaaSound = binding.ishaasound;
 
         materialCardViewArrayList = new ArrayList<>(Arrays.asList(fajrCard, sunriseCard, dhuhrCard, asrCard, maghribCard, ishaaCard));
+        Drawable fajrDrawable = AppCompatResources.getDrawable(requireContext(), R.drawable.ic_fajrmaybe);
+        Drawable dhuhrDrawable = AppCompatResources.getDrawable(requireContext(), R.drawable.ic_dhuhrmaybe);
+        Drawable asrDrawable = AppCompatResources.getDrawable(requireContext(), R.drawable.ic_asrmaybe);
+        Drawable maghribDrawable = AppCompatResources.getDrawable(requireContext(), R.drawable.ic_maghribmaybe);
+
+        backgroundCardViewArrayList = new ArrayList<>(Arrays.asList(fajrDrawable, fajrDrawable, dhuhrDrawable, asrDrawable, maghribDrawable, maghribDrawable));
         scrollView = binding.scrollViewToday;
 
+        titleBackgroundImage = binding.titleBackgroundImage;
 
 
-        minutes = String.valueOf(2);
-
-
-        // method call to initialize the views
-        progressBarCircle = (ProgressBar) binding.progressBarCircle;
-        textViewTime = (TextView) binding.textViewTime;
-        // method call to initialize the listeners
-        startStop();
         sharedPreferences = requireActivity().getSharedPreferences(SettingsFragment.SHARED_PREFS, Context.MODE_PRIVATE);
 
         fajrSound.setOnCheckedChangeListener((compoundButton, b) -> {
@@ -312,9 +315,13 @@ public class TabTodayFragment extends Fragment {
         // getting the floor value for 25
         // using floor() method
         value = treeadd.floor(localTime);
+        boolean nextDay = false;
 
         if (value == null) {
             value = treeadd.last();
+            if(Integer.parseInt(hours)>=0) {
+                nextDay = true;
+            }
         }
 
         for (int i = 0; i < 6; i++) {
@@ -322,7 +329,9 @@ public class TabTodayFragment extends Fragment {
         }
 
         for (int i = 0; i < 6; i++) {
-            if (value.compareTo(tabTodayViewModel.getPrayerTimesList().getValue().get(i)) == 0) {
+            if (value.compareTo(tabTodayViewModel.getPrayerTimesList().getValue().get(i)) == 0 && !nextDay) {
+                // Set title background
+                titleBackgroundImage.setImageDrawable(backgroundCardViewArrayList.get(i));
                 currentPrayerCard = materialCardViewArrayList.get(i);
                 currentPrayerCard.setCardBackgroundColor(getResources().getColor(R.color.bottom_navigation));
                 currentPrayerCard.setRadius(1f);
@@ -359,15 +368,16 @@ public class TabTodayFragment extends Fragment {
         tabTodayViewModel.getMaghribTime().observe(getViewLifecycleOwner(), maghribTime::setText);
         tabTodayViewModel.getIshaaTime().observe(getViewLifecycleOwner(), ishaaTime::setText);
 
-        tabTodayViewModel.getFajrSound().observe(getViewLifecycleOwner(),fajrSound::setChecked);
-        tabTodayViewModel.getSunriseSound().observe(getViewLifecycleOwner(),sunriseSound::setChecked);
-        tabTodayViewModel.getDhuhrSound().observe(getViewLifecycleOwner(),dhuhrSound::setChecked);
-        tabTodayViewModel.getAsrSound().observe(getViewLifecycleOwner(),asrSound::setChecked);
-        tabTodayViewModel.getMaghribSound().observe(getViewLifecycleOwner(),maghribSound::setChecked);
-        tabTodayViewModel.getIshaaSound().observe(getViewLifecycleOwner(),ishaaSound::setChecked);
+        tabTodayViewModel.getFajrSound().observe(getViewLifecycleOwner(), fajrSound::setChecked);
+        tabTodayViewModel.getSunriseSound().observe(getViewLifecycleOwner(), sunriseSound::setChecked);
+        tabTodayViewModel.getDhuhrSound().observe(getViewLifecycleOwner(), dhuhrSound::setChecked);
+        tabTodayViewModel.getAsrSound().observe(getViewLifecycleOwner(), asrSound::setChecked);
+        tabTodayViewModel.getMaghribSound().observe(getViewLifecycleOwner(), maghribSound::setChecked);
+        tabTodayViewModel.getIshaaSound().observe(getViewLifecycleOwner(), ishaaSound::setChecked);
 
         getCurrentPrayer();
     }
+
     public void saveData(String savedKey, Boolean savedValue) {
         SharedPreferences sharedPreferences = requireActivity().getSharedPreferences(SettingsFragment.SHARED_PREFS, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();

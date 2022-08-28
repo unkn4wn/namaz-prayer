@@ -32,9 +32,9 @@ public class BroadcastReceiver extends android.content.BroadcastReceiver {
 
         PendingIntent pendingIntent = null;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            pendingIntent = PendingIntent.getBroadcast(context,0,intent,PendingIntent.FLAG_MUTABLE);
+            pendingIntent = PendingIntent.getBroadcast(context,20,intent,PendingIntent.FLAG_MUTABLE);
         } else {
-            pendingIntent = PendingIntent.getBroadcast(context,0,intent,0);
+            pendingIntent = PendingIntent.getBroadcast(context,20,intent,0);
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

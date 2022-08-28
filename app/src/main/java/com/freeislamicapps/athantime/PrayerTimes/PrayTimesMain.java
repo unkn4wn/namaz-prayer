@@ -40,7 +40,7 @@ public class PrayTimesMain {
 
         int year = date.getYear();
         int month = date.getMonthValue();
-        int day = date.getDayOfMonth();
+        int day = date.getDayOfYear();
         prayTimes.setDate(year, month, day);
 
         //TODO

@@ -50,7 +50,6 @@ public class SettingsFragment extends Fragment {
     TextView methodText, asrCalculationText, highLatsAdjustmentText;
     private LocationRequest locationRequest;
     public static final String SHARED_PREFS = "sharedPrefs";
-    public static final String TEXT = "text";
 
 
     @Override
@@ -108,7 +107,7 @@ public class SettingsFragment extends Fragment {
             public void onClick(View v) {
                 LocationManager locationManager = (LocationManager) requireContext().getSystemService(LOCATION_SERVICE);
 
-                if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) && locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
                     if (ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                         // WHEN Permission is granted
                         getCurrentLocation();
@@ -117,7 +116,7 @@ public class SettingsFragment extends Fragment {
                     }
                 }
                 else {
-                    Toast.makeText(requireContext(),"Please enable Location first",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(requireContext(),"Please enable Location and Internet first",Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -400,7 +399,6 @@ public class SettingsFragment extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
-        Log.d("HELLO","DARK TIMES");
         setAlarm();
     }
 
@@ -413,9 +411,9 @@ public class SettingsFragment extends Fragment {
 
         PendingIntent pendingIntent = null;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            pendingIntent = PendingIntent.getBroadcast(requireContext(),0,intent,PendingIntent.FLAG_MUTABLE);
+            pendingIntent = PendingIntent.getBroadcast(requireContext(),20,intent,PendingIntent.FLAG_MUTABLE);
         } else {
-            pendingIntent = PendingIntent.getBroadcast(requireContext(),0,intent,0);
+            pendingIntent = PendingIntent.getBroadcast(requireContext(),20,intent,0);
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -424,6 +422,5 @@ public class SettingsFragment extends Fragment {
             alarmManager.setExact(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),pendingIntent);
         }
 
-        Toast.makeText(requireContext(),"Alarm is set",Toast.LENGTH_SHORT).show();
     }
 }

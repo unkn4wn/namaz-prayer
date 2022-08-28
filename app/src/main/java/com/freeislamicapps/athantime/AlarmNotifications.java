@@ -58,7 +58,6 @@ public class AlarmNotifications extends BroadcastReceiver {
         if(time.equals(prayTimesMain.getPrayerTimesList().get(requestcode))) {
             if(switchPrayer.get(requestcode)) {
                 currentPrayer = getCurrentPrayer(requestcode);
-                createNotificationChannel(context);
                 showNotification(context);
             }
         }
@@ -98,19 +97,5 @@ public class AlarmNotifications extends BroadcastReceiver {
         notificationManagerCompat.notify(1,notification);
     }
 
-    private void createNotificationChannel(Context context) {
-        // Create the NotificationChannel, but only on API 26+ because
-        // the NotificationChannel class is new and not in the support library
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = CHANNEL_1_ID;
-            String description = CHANNEL_1_ID;
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel(CHANNEL_1_ID, name, importance);
-            channel.setDescription(description);
-            // Register the channel with the system; you can't change the importance
-            // or other notification behaviors after this
-            NotificationManager notificationManager = context.getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
-        }
-    }
+
 }

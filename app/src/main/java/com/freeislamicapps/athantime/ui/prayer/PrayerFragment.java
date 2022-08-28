@@ -14,9 +14,22 @@ import com.freeislamicapps.athantime.R;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.Month;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+import java.time.format.TextStyle;
+import java.util.Locale;
+import java.util.TimeZone;
+
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link PrayerFragment#newInstance} factory method to
+ * Use the {@link PrayerFragment#} factory method to
  * create an instance of this fragment.
  */
 public class PrayerFragment extends Fragment {
@@ -37,9 +50,17 @@ public class PrayerFragment extends Fragment {
         tabLayout = myFragment.findViewById(R.id.tabLayout);
 
 
+
+
         Adapter adapter = new Adapter(this.requireActivity());
-        adapter.addFragment(new TabTodayFragment(), "Today");
-        adapter.addFragment(new TabTomorrowFragment(), "Tomorrow");
+        String yesterdayAsCalendar = LocalDate.now().minusDays(1).getDayOfWeek().getDisplayName(TextStyle.FULL,Locale.getDefault());
+        String todayAsCalendar = LocalDate.now().getDayOfWeek().getDisplayName(TextStyle.FULL,Locale.getDefault());
+        String tomorrowAsCalendar = LocalDate.now().plusDays(1).getDayOfWeek().getDisplayName(TextStyle.FULL,Locale.getDefault());
+
+        adapter.addFragment(new TabTodayFragment(), yesterdayAsCalendar);
+        adapter.addFragment(new TabTodayFragment(), todayAsCalendar);
+        adapter.addFragment(new TabTomorrowFragment(), tomorrowAsCalendar);
+
         viewPager.setOffscreenPageLimit(1);
         viewPager.setAdapter(adapter);
 
@@ -60,6 +81,7 @@ public class PrayerFragment extends Fragment {
                 PrayerFragment.super.onPause();
             }
         });
+
 
         return myFragment;
     }
