@@ -74,23 +74,63 @@
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
         android:layout_marginTop="15dp"
-        android:layout_below="@+id/cityview">
+        android:layout_below="@+id/cityview"
+        app:strokeWidth="0dp">
 
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabLayout"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
 
-        </com.google.android.material.tabs.TabLayout>
+            <ImageButton
+                android:id="@+id/previousDay"
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:src="@drawable/arrow_back"
+                android:layout_marginStart="5dp"
+                app:tint="@color/checked_colorascard"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/monthDayText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="Feb 2021"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/nextDay"
+                app:layout_constraintStart_toEndOf="@+id/previousDay"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/nextDay"
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:src="@drawable/arrow_forward"
+                android:layout_marginEnd="5dp"
+                app:tint="@color/checked_colorascard"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>
 
+
     <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/view_Pager"
+      android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/datepicker"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        android:layout_below="@id/datepicker" />
+
 
 </RelativeLayout>

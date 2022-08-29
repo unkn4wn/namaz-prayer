@@ -22,6 +22,8 @@ import androidx.appcompat.content.res.AppCompatResources;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.freeislamicapps.athantime.MainActivity;
+import com.freeislamicapps.athantime.PrayerTimes.Times;
 import com.freeislamicapps.athantime.R;
 import com.freeislamicapps.athantime.databinding.FragmentTodayBinding;
 import com.freeislamicapps.athantime.ui.settings.SettingsFragment;
@@ -30,6 +32,7 @@ import com.google.android.material.color.MaterialColors;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -44,6 +47,9 @@ import java.util.concurrent.TimeUnit;
 import jakarta.validation.constraints.NotNull;
 
 public class TabTodayFragment extends Fragment {
+    private static final String ARG_SECTION_NUMBER = "section_number";
+    String index;
+
     private long timeCountInMilliSeconds = 1 * 60000;
     String minutes;
 
@@ -72,6 +78,23 @@ public class TabTodayFragment extends Fragment {
     SwitchMaterial fajrSound, sunriseSound, dhuhrSound, asrSound, maghribSound, ishaaSound;
     SharedPreferences sharedPreferences;
 
+    public static TabTodayFragment newInstance(String date) {
+        TabTodayFragment fragment = new TabTodayFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString(ARG_SECTION_NUMBER, date);
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        index = "default";
+        if (getArguments() != null) {
+            index = getArguments().getString(ARG_SECTION_NUMBER);
+        }
+    }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -137,6 +160,11 @@ public class TabTodayFragment extends Fragment {
             saveData("Ishaa_Sound", b);
         });
 
+
+        Log.d("stopper","Second");
+
+
+
         return binding.getRoot();
     }
 
@@ -150,10 +178,30 @@ public class TabTodayFragment extends Fragment {
     @Override
     public void setMenuVisibility(boolean menuVisible) {
         super.setMenuVisibility(menuVisible);
-        if (menuVisible) {
-            onStart();
-        } else {
-            onStop();
+        if(menuVisible) {
+            LocalDate dt = LocalDate.parse(index);
+            MainActivity.prayTimes.setDate(dt.getYear(),dt.getMonthValue(),dt.getDayOfMonth());
+            tabTodayViewModel.init();
+            tabTodayViewModel.getFajrTime().observe(getViewLifecycleOwner(), fajrTime::setText);
+            tabTodayViewModel.getSunriseTime().observe(getViewLifecycleOwner(), sunriseTime::setText);
+            tabTodayViewModel.getDhuhrTime().observe(getViewLifecycleOwner(), dhuhrTime::setText);
+            tabTodayViewModel.getAsrTime().observe(getViewLifecycleOwner(), asrTime::setText);
+            tabTodayViewModel.getMaghribTime().observe(getViewLifecycleOwner(), maghribTime::setText);
+            tabTodayViewModel.getIshaaTime().observe(getViewLifecycleOwner(), ishaaTime::setText);
+
+            tabTodayViewModel.getFajrSound().observe(getViewLifecycleOwner(), fajrSound::setChecked);
+            tabTodayViewModel.getSunriseSound().observe(getViewLifecycleOwner(), sunriseSound::setChecked);
+            tabTodayViewModel.getDhuhrSound().observe(getViewLifecycleOwner(), dhuhrSound::setChecked);
+            tabTodayViewModel.getAsrSound().observe(getViewLifecycleOwner(), asrSound::setChecked);
+            tabTodayViewModel.getMaghribSound().observe(getViewLifecycleOwner(), maghribSound::setChecked);
+            tabTodayViewModel.getIshaaSound().observe(getViewLifecycleOwner(), ishaaSound::setChecked);
+            getCurrentPrayer();
+
+            //TODO GET PARENT FRAGMENT
+          //  PrayerFragment frag = ((PrayerFragment)this.getChildFragmentManager().getFragments().get(0));
+
+             // TextView monthDayText = (TextView) frag.binding.monthDayText;
+           //  monthDayText.setText("JIDS");
         }
     }
 
@@ -175,118 +223,6 @@ public class TabTodayFragment extends Fragment {
         }, delay);
     }
 
-
-    /**
-     * method to reset count down timer
-     */
-    private void reset() {
-        stopCountDownTimer();
-        startCountDownTimer();
-    }
-
-
-    /**
-     * method to start and stop count down timer
-     */
-    private void startStop() {
-        if (timerStatus == TimerStatus.STOPPED) {
-
-            // call to initialize the timer values
-            setTimerValues();
-            // call to initialize the progress bar values
-            setProgressBarValues();
-            // changing the timer status to started
-            timerStatus = TimerStatus.STARTED;
-            // call to start the count down timer
-            startCountDownTimer();
-
-        } else {
-
-            // changing the timer status to stopped
-            timerStatus = TimerStatus.STOPPED;
-            stopCountDownTimer();
-
-        }
-
-    }
-
-    /**
-     * method to initialize the values for count down timer
-     */
-    private void setTimerValues() {
-        int time = 0;
-        // fetching value from edit text and type cast to integer
-        time = Integer.parseInt(minutes);
-
-        // assigning values after converting to milliseconds
-        timeCountInMilliSeconds = time * 60 * 1000;
-    }
-
-    /**
-     * method to start count down timer
-     */
-    private void startCountDownTimer() {
-
-        countDownTimer = new CountDownTimer(timeCountInMilliSeconds, 1000) {
-            @Override
-            public void onTick(long millisUntilFinished) {
-
-                textViewTime.setText(hmsTimeFormatter(millisUntilFinished));
-
-                progressBarCircle.setProgress((int) (millisUntilFinished / 1000));
-
-            }
-
-            @Override
-            public void onFinish() {
-
-                textViewTime.setText(hmsTimeFormatter(timeCountInMilliSeconds));
-                // call to initialize the progress bar values
-                setProgressBarValues();
-                // making edit text editable
-                // editTextMinute.setEnabled(true);
-                // changing the timer status to stopped
-                timerStatus = TimerStatus.STOPPED;
-            }
-
-        }.start();
-        countDownTimer.start();
-    }
-
-    /**
-     * method to stop count down timer
-     */
-    private void stopCountDownTimer() {
-        countDownTimer.cancel();
-    }
-
-    /**
-     * method to set circular progress bar values
-     */
-    private void setProgressBarValues() {
-
-        progressBarCircle.setMax((int) timeCountInMilliSeconds / 1000);
-        progressBarCircle.setProgress((int) timeCountInMilliSeconds / 1000);
-    }
-
-
-    /**
-     * method to convert millisecond to time format
-     *
-     * @param milliSeconds
-     * @return HH:mm:ss time formatted string
-     */
-    private String hmsTimeFormatter(long milliSeconds) {
-
-        String hms = String.format("%02d:%02d:%02d",
-                TimeUnit.MILLISECONDS.toHours(milliSeconds),
-                TimeUnit.MILLISECONDS.toMinutes(milliSeconds) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(milliSeconds)),
-                TimeUnit.MILLISECONDS.toSeconds(milliSeconds) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(milliSeconds)));
-
-        return hms;
-
-
-    }
 
     public void getCurrentPrayer() {
         // create tree set object
@@ -343,15 +279,6 @@ public class TabTodayFragment extends Fragment {
 
     }
 
-    @NotNull
-    private static Comparator<LocalDateTime> getClosestDateComparator(LocalDateTime now) {
-        return (o1, o2) -> {
-            long modul1 = Math.abs(Duration.between(now, o1).toDays());
-            long modul2 = Math.abs(Duration.between(now, o2).toDays());
-            return Long.compare(modul1, modul2);
-        };
-    }
-
     @Override
     public void onStop() {
         super.onStop();
@@ -360,22 +287,6 @@ public class TabTodayFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        tabTodayViewModel.init();
-        tabTodayViewModel.getFajrTime().observe(getViewLifecycleOwner(), fajrTime::setText);
-        tabTodayViewModel.getSunriseTime().observe(getViewLifecycleOwner(), sunriseTime::setText);
-        tabTodayViewModel.getDhuhrTime().observe(getViewLifecycleOwner(), dhuhrTime::setText);
-        tabTodayViewModel.getAsrTime().observe(getViewLifecycleOwner(), asrTime::setText);
-        tabTodayViewModel.getMaghribTime().observe(getViewLifecycleOwner(), maghribTime::setText);
-        tabTodayViewModel.getIshaaTime().observe(getViewLifecycleOwner(), ishaaTime::setText);
-
-        tabTodayViewModel.getFajrSound().observe(getViewLifecycleOwner(), fajrSound::setChecked);
-        tabTodayViewModel.getSunriseSound().observe(getViewLifecycleOwner(), sunriseSound::setChecked);
-        tabTodayViewModel.getDhuhrSound().observe(getViewLifecycleOwner(), dhuhrSound::setChecked);
-        tabTodayViewModel.getAsrSound().observe(getViewLifecycleOwner(), asrSound::setChecked);
-        tabTodayViewModel.getMaghribSound().observe(getViewLifecycleOwner(), maghribSound::setChecked);
-        tabTodayViewModel.getIshaaSound().observe(getViewLifecycleOwner(), ishaaSound::setChecked);
-
-        getCurrentPrayer();
     }
 
     public void saveData(String savedKey, Boolean savedValue) {

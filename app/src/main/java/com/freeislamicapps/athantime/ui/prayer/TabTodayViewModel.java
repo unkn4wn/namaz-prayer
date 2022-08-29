@@ -8,10 +8,9 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.freeislamicapps.athantime.MainActivity;
 import com.freeislamicapps.athantime.PrayerTimes.HighLatsAdjustment;
 import com.freeislamicapps.athantime.PrayerTimes.Method;
-import com.freeislamicapps.athantime.PrayerTimes.PrayTimes;
-import com.freeislamicapps.athantime.PrayerTimes.PrayTimesMain;
 import com.freeislamicapps.athantime.PrayerTimes.Times;
 import com.freeislamicapps.athantime.ui.settings.SettingsFragment;
 
@@ -65,29 +64,27 @@ public class TabTodayViewModel extends AndroidViewModel {
     }
 
     public void init() {
-        PrayTimesMain prayTimesMain = new PrayTimesMain(LocalDate.now(), getApplication().getApplicationContext());
-        PrayTimes prayTimes = prayTimesMain.getPrayTimes();
         sharedPreferences = getApplication().getApplicationContext().getSharedPreferences(SettingsFragment.SHARED_PREFS, Context.MODE_PRIVATE);
 
         //TODO
-        // Log.d("prayadj",String.valueOf(prayTimes.getTimeZone()));
+        // Log.d("prayadj",String.valueOf(MainActivity.prayTimes.getTimeZone()));
 
-        fajrTime.setValue(prayTimes.getTime(Times.Fajr));
-        sunriseTime.setValue(prayTimes.getTime(Times.Sunrise));
-        dhuhrTime.setValue(prayTimes.getTime(Times.Dhuhr));
+        fajrTime.setValue(MainActivity.prayTimes.getTime(Times.Fajr));
+        sunriseTime.setValue(MainActivity.prayTimes.getTime(Times.Sunrise));
+        dhuhrTime.setValue(MainActivity.prayTimes.getTime(Times.Dhuhr));
         if (sharedPreferences.getString("AsrCalculation", "Shafi").equals("Shafi, Hanbali, Maliki")) {
-            asrTime.setValue(prayTimes.getTime(Times.AsrShafi));
+            asrTime.setValue(MainActivity.prayTimes.getTime(Times.AsrShafi));
         } else {
-            asrTime.setValue(prayTimes.getTime(Times.AsrHanafi));
+            asrTime.setValue(MainActivity.prayTimes.getTime(Times.AsrHanafi));
         }
-        maghribTime.setValue(prayTimes.getTime(Times.Maghrib));
-        ishaaTime.setValue(prayTimes.getTime(Times.Ishaa));
+        maghribTime.setValue(MainActivity.prayTimes.getTime(Times.Maghrib));
+        ishaaTime.setValue(MainActivity.prayTimes.getTime(Times.Ishaa));
 
 
         if (sharedPreferences.getString("AsrCalculation", "Shafi").equals("Shafi, Hanbali, Maliki")) {
-            prayerTimesLocalTimeString = new ArrayList<String>(Arrays.asList(prayTimes.getTime(Times.Fajr),prayTimes.getTime(Times.Sunrise),prayTimes.getTime(Times.Dhuhr),prayTimes.getTime(Times.AsrShafi),prayTimes.getTime(Times.Maghrib),prayTimes.getTime(Times.Ishaa),prayTimes.getTime(Times.Midnight),prayTimes.getTime(Times.LastThird)));
+            prayerTimesLocalTimeString = new ArrayList<String>(Arrays.asList(MainActivity.prayTimes.getTime(Times.Fajr),MainActivity.prayTimes.getTime(Times.Sunrise),MainActivity.prayTimes.getTime(Times.Dhuhr),MainActivity.prayTimes.getTime(Times.AsrShafi),MainActivity.prayTimes.getTime(Times.Maghrib),MainActivity.prayTimes.getTime(Times.Ishaa),MainActivity.prayTimes.getTime(Times.Midnight),MainActivity.prayTimes.getTime(Times.LastThird)));
         } else {
-            prayerTimesLocalTimeString = new ArrayList<String>(Arrays.asList(prayTimes.getTime(Times.Fajr),prayTimes.getTime(Times.Sunrise),prayTimes.getTime(Times.Dhuhr),prayTimes.getTime(Times.AsrHanafi),prayTimes.getTime(Times.Maghrib),prayTimes.getTime(Times.Ishaa),prayTimes.getTime(Times.Midnight),prayTimes.getTime(Times.LastThird)));
+            prayerTimesLocalTimeString = new ArrayList<String>(Arrays.asList(MainActivity.prayTimes.getTime(Times.Fajr),MainActivity.prayTimes.getTime(Times.Sunrise),MainActivity.prayTimes.getTime(Times.Dhuhr),MainActivity.prayTimes.getTime(Times.AsrHanafi),MainActivity.prayTimes.getTime(Times.Maghrib),MainActivity.prayTimes.getTime(Times.Ishaa),MainActivity.prayTimes.getTime(Times.Midnight),MainActivity.prayTimes.getTime(Times.LastThird)));
         }
 
         prayerTimesLocalTime.setValue(stringToLocalTime(prayerTimesLocalTimeString));

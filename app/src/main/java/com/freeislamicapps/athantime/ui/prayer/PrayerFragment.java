@@ -6,13 +6,23 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
+import com.freeislamicapps.athantime.MainActivity;
 import com.freeislamicapps.athantime.R;
+import com.freeislamicapps.athantime.databinding.FragmentPrayerBinding;
+import com.freeislamicapps.athantime.databinding.FragmentTodayBinding;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+
+import org.apache.commons.lang3.time.CalendarUtils;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -24,6 +34,7 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.time.format.TextStyle;
+import java.util.Calendar;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -33,58 +44,106 @@ import java.util.TimeZone;
  * create an instance of this fragment.
  */
 public class PrayerFragment extends Fragment {
+    public static LocalDate selectedDate;
 
     View myFragment;
 
     ViewPager2 viewPager;
     TabLayout tabLayout;
+    TextView monthDayText;
+    FragmentPrayerBinding binding;
+    LocalDate today;
+    LocalDate currentDate;
+    ImageButton previousDay,nextDay;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        myFragment = inflater.inflate(R.layout.fragment_prayer, container, false);
+        binding = FragmentPrayerBinding.inflate(inflater, container, false);
 
+        monthDayText = binding.monthDayText;
 
-        viewPager = myFragment.findViewById(R.id.view_Pager);
-        tabLayout = myFragment.findViewById(R.id.tabLayout);
+        previousDay = binding.previousDay;
+        nextDay = binding.nextDay;
 
+        LocalDate today = LocalDate.now();
+        selectedDate = today;
+        String month = today.getMonth().getDisplayName(TextStyle.FULL,Locale.getDefault());
+        String dayOfMonth = String.valueOf(today.getDayOfMonth());
+        String monthAndDay = month + " " + dayOfMonth;
 
+        monthDayText.setText(monthAndDay);
+        Log.d("stopper","First");
 
+        MainActivity.updateSettings();
 
-        Adapter adapter = new Adapter(this.requireActivity());
-        String yesterdayAsCalendar = LocalDate.now().minusDays(1).getDayOfWeek().getDisplayName(TextStyle.FULL,Locale.getDefault());
-        String todayAsCalendar = LocalDate.now().getDayOfWeek().getDisplayName(TextStyle.FULL,Locale.getDefault());
-        String tomorrowAsCalendar = LocalDate.now().plusDays(1).getDayOfWeek().getDisplayName(TextStyle.FULL,Locale.getDefault());
-
-        adapter.addFragment(new TabTodayFragment(), yesterdayAsCalendar);
-        adapter.addFragment(new TabTodayFragment(), todayAsCalendar);
-        adapter.addFragment(new TabTomorrowFragment(), tomorrowAsCalendar);
-
-        viewPager.setOffscreenPageLimit(1);
-        viewPager.setAdapter(adapter);
-
-
-        new TabLayoutMediator(tabLayout, viewPager, new TabLayoutMediator.TabConfigurationStrategy() {
+        previousDay.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
-                tab.setText(adapter.getTitles().get(position));
+            public void onClick(View view) {
+                PrayerFragment.selectedDate = PrayerFragment.selectedDate.minusDays(1);
+                setDayView();
             }
-        }).attach();
+        });
 
-
-        viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+        nextDay.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onPageSelected(int position) {
-                super.onPageSelected(position);
-                new TabTodayFragment();
-                PrayerFragment.super.onPause();
+            public void onClick(View view) {
+                PrayerFragment.selectedDate = PrayerFragment.selectedDate.plusDays(1);
+                setDayView();
             }
         });
 
 
-        return myFragment;
+
+        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(requireActivity());
+        ViewPager2 viewPager = binding.viewPager;
+        viewPager.setAdapter(sectionsPagerAdapter);
+
+        viewPager.setCurrentItem(1000, false);
+        viewPager.post(new Runnable() {
+            public void run() {
+                viewPager.setCurrentItem(1000, false);
+                sectionsPagerAdapter.notifyDataSetChanged();
+            }
+        });
+
+        viewPager.setOffscreenPageLimit(2);
+
+
+
+
+        return binding.getRoot();
     }
 
+
+    private void setDayView() {
+        String month = selectedDate.getMonth().getDisplayName(TextStyle.FULL,Locale.getDefault());
+        String dayOfMonth = String.valueOf(selectedDate.getDayOfMonth());
+        String monthAndDay = month + " " + dayOfMonth;
+
+        monthDayText.setText(monthAndDay);
+
+        /*
+        String dayOfWeek = selectedDate.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.getDefault());
+        dayOfWeekTV.setText(dayOfWeek);
+        setHourAdapter();
+        */
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+    }
+
+    public TextView getMonthDayText() {
+       return monthDayText;
+    }
 
 }

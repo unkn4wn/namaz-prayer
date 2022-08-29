@@ -33,6 +33,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.freeislamicapps.athantime.AlarmStart;
+import com.freeislamicapps.athantime.MainActivity;
 import com.freeislamicapps.athantime.R;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;

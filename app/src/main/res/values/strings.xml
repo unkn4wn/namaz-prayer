@@ -277,4 +277,7 @@
     <string name="Zambia">Zambia</string>
     <string name="Zimbabwe">Zimbabwe</string>
 
+    <string name="back" translatable="false"><![CDATA[<-]]></string>
+    <string name="forward" translatable="false"><![CDATA[->]]></string>
+
 </resources>

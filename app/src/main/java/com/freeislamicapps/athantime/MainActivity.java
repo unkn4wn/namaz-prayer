@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,6 +19,8 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.freeislamicapps.athantime.PrayerTimes.HighLatsAdjustment;
+import com.freeislamicapps.athantime.PrayerTimes.Method;
 import com.freeislamicapps.athantime.PrayerTimes.PrayTimes;
 import com.freeislamicapps.athantime.PrayerTimes.PrayTimesMain;
 import com.freeislamicapps.athantime.databinding.ActivityMainBinding;
@@ -36,11 +39,12 @@ import java.time.LocalTime;
 import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
+    public static PrayTimes prayTimes;
 
     private ActivityMainBinding binding;
     private String filename,filepath,fileContent;
 
-    private SharedPreferences sharedPreferences;
+    public static SharedPreferences sharedPreferences;
     public static final String CHANNEL_1_ID = "prayerChannel";
 
 
@@ -57,6 +61,8 @@ public class MainActivity extends AppCompatActivity {
         if (firstStart) {
             startFirstTime();
         }
+
+        createPrayerTimes();
 
 
         setAlarm();
@@ -125,52 +131,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
-
-
-
-
-    public String read(Context context, String fileName) {
-        try {
-            FileInputStream fis = context.openFileInput(fileName);
-            InputStreamReader isr = new InputStreamReader(fis);
-            BufferedReader bufferedReader = new BufferedReader(isr);
-            StringBuilder sb = new StringBuilder();
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                sb.append(line);
-            }
-            return sb.toString();
-        } catch (FileNotFoundException fileNotFound) {
-            return null;
-        } catch (IOException ioException) {
-            return null;
-        }
-    }
-
-    public boolean create(Context context, String fileName, String jsonString){
-        String FILENAME = "storage.json";
-        try {
-            FileOutputStream fos = context.openFileOutput(fileName,Context.MODE_PRIVATE);
-            if (jsonString != null) {
-                fos.write(jsonString.getBytes());
-            }
-            fos.close();
-            return true;
-        } catch (FileNotFoundException fileNotFound) {
-            return false;
-        } catch (IOException ioException) {
-            return false;
-        }
-
-    }
-
-    public boolean isFilePresent(Context context, String fileName) {
-        String path = context.getFilesDir().getAbsolutePath() + "/" + fileName;
-        File file = new File(path);
-        return file.exists();
-    }
-
     public void saveDataBoolean(String savedKey, Boolean savedValue) {
         SharedPreferences sharedPreferences = this.getSharedPreferences(SettingsFragment.SHARED_PREFS, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -199,6 +159,63 @@ public class MainActivity extends AppCompatActivity {
             NotificationManager notificationManager = context.getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
         }
+    }
+
+    private void createPrayerTimes() {
+        prayTimes = new PrayTimes();
+        String latitudestr = sharedPreferences.getString("latitude", "0.0");
+        String longitudestr = sharedPreferences.getString("longitude", "0.0");
+
+        prayTimes.setCoordinates(Double.parseDouble(latitudestr), Double.parseDouble(longitudestr), 0.0);
+
+        prayTimes.setMethod(getCurrentMethod());
+        prayTimes.setHighLatsAdjustment(getCurrentHighlatsadjustment());
+
+        LocalDate today = LocalDate.now();
+        int year = today.getYear();
+        int month = today.getMonthValue();
+        int day = today.getDayOfYear();
+        prayTimes.setDate(year, month, day);
+    }
+
+    private static HighLatsAdjustment getCurrentHighlatsadjustment() {
+        switch (sharedPreferences.getString("HighLatsAdjustment", "Angle-Based")) {
+            case "None":
+                return HighLatsAdjustment.None;
+            case "Middle of the night":
+                return HighLatsAdjustment.NightMiddle;
+            case "One-Seventh of the Night":
+                return HighLatsAdjustment.OneSeventh;
+            default:
+                return HighLatsAdjustment.AngleBased;
+        }
+    }
+
+    private static Method getCurrentMethod() {
+        switch (sharedPreferences.getString("Method", "Islamic Society of North America (ISNA)")) {
+            case "Egyptian General Authority of Survey":
+                return Method.Egypt;
+            case "Institute of Geophysics, University of Tehran":
+                return Method.Tehran;
+            case "Muslim World League":
+                return Method.MWL;
+            case "Umm Al-Qura University, Makkah":
+                return Method.Makkah;
+            case "Union des organisations islamiques de France":
+                return Method.UOIF;
+            case "University of Islamic Sciences, Karachi":
+                return Method.Karachi;
+            default:
+                return Method.ISNA;
+        }
+    }
+
+    public static void updateSettings() {
+        String latitudestr = sharedPreferences.getString("latitude", "0.0");
+        String longitudestr = sharedPreferences.getString("longitude", "0.0");
+        prayTimes.setCoordinates(Double.parseDouble(latitudestr), Double.parseDouble(longitudestr), 0.0);
+        prayTimes.setMethod(getCurrentMethod());
+        prayTimes.setHighLatsAdjustment(getCurrentHighlatsadjustment());
     }
 
 }
