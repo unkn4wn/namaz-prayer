@@ -36,6 +36,7 @@ import java.time.format.FormatStyle;
 import java.time.format.TextStyle;
 import java.util.Calendar;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.TimeZone;
 
 /**
@@ -46,15 +47,11 @@ import java.util.TimeZone;
 public class PrayerFragment extends Fragment {
     public static LocalDate selectedDate;
 
-    View myFragment;
 
     ViewPager2 viewPager;
-    TabLayout tabLayout;
     TextView monthDayText;
     FragmentPrayerBinding binding;
-    LocalDate today;
-    LocalDate currentDate;
-    ImageButton previousDay,nextDay;
+    ImageButton previousDay, nextDay;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -67,83 +64,49 @@ public class PrayerFragment extends Fragment {
         previousDay = binding.previousDay;
         nextDay = binding.nextDay;
 
+
         LocalDate today = LocalDate.now();
         selectedDate = today;
-        String month = today.getMonth().getDisplayName(TextStyle.FULL,Locale.getDefault());
+        String month = today.getMonth().getDisplayName(TextStyle.FULL, Locale.getDefault());
         String dayOfMonth = String.valueOf(today.getDayOfMonth());
         String monthAndDay = month + " " + dayOfMonth;
 
         monthDayText.setText(monthAndDay);
-        Log.d("stopper","First");
-
-        MainActivity.updateSettings();
-
-        previousDay.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                PrayerFragment.selectedDate = PrayerFragment.selectedDate.minusDays(1);
-                setDayView();
-            }
-        });
-
-        nextDay.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                PrayerFragment.selectedDate = PrayerFragment.selectedDate.plusDays(1);
-                setDayView();
-            }
-        });
 
 
+        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(getChildFragmentManager(),getLifecycle());
 
-        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(requireActivity());
-        ViewPager2 viewPager = binding.viewPager;
+         viewPager = binding.viewPager;
         viewPager.setAdapter(sectionsPagerAdapter);
 
         viewPager.setCurrentItem(1000, false);
         viewPager.post(new Runnable() {
             public void run() {
                 viewPager.setCurrentItem(1000, false);
-                sectionsPagerAdapter.notifyDataSetChanged();
             }
         });
 
-        viewPager.setOffscreenPageLimit(2);
 
 
+
+        viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+                // If I swipe right Date changes to August 30 and vice versa it changes to August 28
+                LocalDate pagerdate = LocalDate.now();
+                LocalDate days = pagerdate.plusDays(position - 1000);
+                String month2 = days.getMonth().getDisplayName(TextStyle.FULL, Locale.getDefault());
+                String dayOfMonth2 = String.valueOf(days.getDayOfMonth());
+                String monthAndDay2 = month2 + " " + dayOfMonth2;
+                monthDayText.setText(monthAndDay2);
+            }
+        });
+
+        viewPager.setOffscreenPageLimit(1);
 
 
         return binding.getRoot();
-    }
-
-
-    private void setDayView() {
-        String month = selectedDate.getMonth().getDisplayName(TextStyle.FULL,Locale.getDefault());
-        String dayOfMonth = String.valueOf(selectedDate.getDayOfMonth());
-        String monthAndDay = month + " " + dayOfMonth;
-
-        monthDayText.setText(monthAndDay);
-
-        /*
-        String dayOfWeek = selectedDate.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.getDefault());
-        dayOfWeekTV.setText(dayOfWeek);
-        setHourAdapter();
-        */
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
-    }
-
-    public TextView getMonthDayText() {
-       return monthDayText;
     }
 
 }

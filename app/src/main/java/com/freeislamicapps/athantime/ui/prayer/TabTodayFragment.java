@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
@@ -50,16 +51,6 @@ public class TabTodayFragment extends Fragment {
     private static final String ARG_SECTION_NUMBER = "section_number";
     String index;
 
-    private long timeCountInMilliSeconds = 1 * 60000;
-    String minutes;
-
-
-    private enum TimerStatus {
-        STARTED,
-        STOPPED
-    }
-
-    private TimerStatus timerStatus = TimerStatus.STOPPED;
 
     private ProgressBar progressBarCircle;
     private TextView textViewTime;
@@ -160,9 +151,24 @@ public class TabTodayFragment extends Fragment {
             saveData("Ishaa_Sound", b);
         });
 
+        LocalDate dt = LocalDate.parse(index);
+        MainActivity.prayTimes.setDate(dt.getYear(), dt.getMonthValue(), dt.getDayOfMonth());
+        MainActivity.updateSettings();
+        tabTodayViewModel.init();
+        tabTodayViewModel.getFajrTime().observe(getViewLifecycleOwner(), fajrTime::setText);
+        tabTodayViewModel.getSunriseTime().observe(getViewLifecycleOwner(), sunriseTime::setText);
+        tabTodayViewModel.getDhuhrTime().observe(getViewLifecycleOwner(), dhuhrTime::setText);
+        tabTodayViewModel.getAsrTime().observe(getViewLifecycleOwner(), asrTime::setText);
+        tabTodayViewModel.getMaghribTime().observe(getViewLifecycleOwner(), maghribTime::setText);
+        tabTodayViewModel.getIshaaTime().observe(getViewLifecycleOwner(), ishaaTime::setText);
 
-        Log.d("stopper","Second");
-
+        tabTodayViewModel.getFajrSound().observe(getViewLifecycleOwner(), fajrSound::setChecked);
+        tabTodayViewModel.getSunriseSound().observe(getViewLifecycleOwner(), sunriseSound::setChecked);
+        tabTodayViewModel.getDhuhrSound().observe(getViewLifecycleOwner(), dhuhrSound::setChecked);
+        tabTodayViewModel.getAsrSound().observe(getViewLifecycleOwner(), asrSound::setChecked);
+        tabTodayViewModel.getMaghribSound().observe(getViewLifecycleOwner(), maghribSound::setChecked);
+        tabTodayViewModel.getIshaaSound().observe(getViewLifecycleOwner(), ishaaSound::setChecked);
+        getCurrentPrayer();
 
 
         return binding.getRoot();
@@ -172,37 +178,6 @@ public class TabTodayFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
-
-    }
-
-    @Override
-    public void setMenuVisibility(boolean menuVisible) {
-        super.setMenuVisibility(menuVisible);
-        if(menuVisible) {
-            LocalDate dt = LocalDate.parse(index);
-            MainActivity.prayTimes.setDate(dt.getYear(),dt.getMonthValue(),dt.getDayOfMonth());
-            tabTodayViewModel.init();
-            tabTodayViewModel.getFajrTime().observe(getViewLifecycleOwner(), fajrTime::setText);
-            tabTodayViewModel.getSunriseTime().observe(getViewLifecycleOwner(), sunriseTime::setText);
-            tabTodayViewModel.getDhuhrTime().observe(getViewLifecycleOwner(), dhuhrTime::setText);
-            tabTodayViewModel.getAsrTime().observe(getViewLifecycleOwner(), asrTime::setText);
-            tabTodayViewModel.getMaghribTime().observe(getViewLifecycleOwner(), maghribTime::setText);
-            tabTodayViewModel.getIshaaTime().observe(getViewLifecycleOwner(), ishaaTime::setText);
-
-            tabTodayViewModel.getFajrSound().observe(getViewLifecycleOwner(), fajrSound::setChecked);
-            tabTodayViewModel.getSunriseSound().observe(getViewLifecycleOwner(), sunriseSound::setChecked);
-            tabTodayViewModel.getDhuhrSound().observe(getViewLifecycleOwner(), dhuhrSound::setChecked);
-            tabTodayViewModel.getAsrSound().observe(getViewLifecycleOwner(), asrSound::setChecked);
-            tabTodayViewModel.getMaghribSound().observe(getViewLifecycleOwner(), maghribSound::setChecked);
-            tabTodayViewModel.getIshaaSound().observe(getViewLifecycleOwner(), ishaaSound::setChecked);
-            getCurrentPrayer();
-
-            //TODO GET PARENT FRAGMENT
-          //  PrayerFragment frag = ((PrayerFragment)this.getChildFragmentManager().getFragments().get(0));
-
-             // TextView monthDayText = (TextView) frag.binding.monthDayText;
-           //  monthDayText.setText("JIDS");
-        }
     }
 
     public void scrollToViewTop(ScrollView scrollView, View childView) {
@@ -210,15 +185,6 @@ public class TabTodayFragment extends Fragment {
         scrollView.postDelayed(new Runnable() {
             public void run() {
                 scrollView.smoothScrollTo(0, childView.getTop());
-            }
-        }, delay);
-    }
-
-    public void scrollToViewBottom(ScrollView scrollView, View childView) {
-        long delay = 100; //delay to let finish with possible modifications to ScrollView
-        scrollView.postDelayed(new Runnable() {
-            public void run() {
-                scrollView.smoothScrollTo(0, childView.getBottom());
             }
         }, delay);
     }
@@ -255,7 +221,7 @@ public class TabTodayFragment extends Fragment {
 
         if (value == null) {
             value = treeadd.last();
-            if(Integer.parseInt(hours)>=0) {
+            if (Integer.parseInt(hours) >= 0) {
                 nextDay = true;
             }
         }
@@ -266,22 +232,22 @@ public class TabTodayFragment extends Fragment {
 
         for (int i = 0; i < 6; i++) {
             if (value.compareTo(tabTodayViewModel.getPrayerTimesList().getValue().get(i)) == 0 && !nextDay) {
-                // Set title background
+
+                // Set background image according to current prayer
                 titleBackgroundImage.setImageDrawable(backgroundCardViewArrayList.get(i));
-                currentPrayerCard = materialCardViewArrayList.get(i);
-                currentPrayerCard.setCardBackgroundColor(getResources().getColor(R.color.bottom_navigation));
-                currentPrayerCard.setRadius(1f);
-                currentPrayerCard.setStrokeWidth(2);
-                scrollToViewTop(scrollView, currentPrayerCard);
+
+                if(LocalDate.parse(index).compareTo(LocalDate.now())==0) {
+                    // highlight current prayer time
+                    currentPrayerCard = materialCardViewArrayList.get(i);
+                    currentPrayerCard.setCardBackgroundColor(getResources().getColor(R.color.bottom_navigation));
+                    currentPrayerCard.setRadius(1f);
+                    currentPrayerCard.setStrokeWidth(2);
+
+                    // scroll to current prayer time
+                    scrollToViewTop(scrollView, currentPrayerCard);
+                }
             }
         }
-
-
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
     }
 
     @Override
@@ -294,5 +260,10 @@ public class TabTodayFragment extends Fragment {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean(savedKey, savedValue);
         editor.apply();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 }

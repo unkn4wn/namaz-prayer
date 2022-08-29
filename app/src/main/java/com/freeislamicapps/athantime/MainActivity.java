@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -75,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_qiblah, R.id.navigation_prayer, R.id.navigation_settings2)
                 .build();
+
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         //  NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
@@ -102,6 +104,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Create notification channel and ask for permission first time
         createNotificationChannel(this);
+        setAlarm();
     }
 
 
@@ -218,4 +221,9 @@ public class MainActivity extends AppCompatActivity {
         prayTimes.setHighLatsAdjustment(getCurrentHighlatsadjustment());
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+       setAlarm();
+    }
 }

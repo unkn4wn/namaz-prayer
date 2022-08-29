@@ -4,7 +4,11 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.337" />
+        <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/drawable/arrow_back_ios-48px.xml" value="0.249" />
+        <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/drawable/arrow_back_ios_new-24px.xml" value="0.249" />
+        <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/drawable/arrow_forward_ios-48px.xml" value="0.249" />
         <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/drawable/circular.xml" value="0.337" />
+        <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/drawable/ic_arrowright.xml" value="0.249" />
         <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/drawable/ic_asrmaybe.xml" value="0.2465" />
         <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/drawable/ic_dayback2.xml" value="0.337" />
         <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/drawable/ic_dhuhrmaybe.xml" value="0.2465" />
@@ -18,8 +22,10 @@
         <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/drawable/prayer_night3.xml" value="0.337" />
         <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/drawable/purplegradient.xml" value="0.337" />
         <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/layout/activity_main.xml" value="0.3260416666666667" />
+        <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/layout/bottomsheet_asrcalculation.xml" value="0.24322916666666666" />
         <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/layout/fragment_home.xml" value="0.35625" />
         <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/layout/fragment_prayer.xml" value="0.3260416666666667" />
+        <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/layout/fragment_settings.xml" value="0.28854166666666664" />
         <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/layout/fragment_today.xml" value="0.4276041666666667" />
         <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/layout/fragment_tomorrow.xml" value="0.3484375" />
         <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/menu/bottom_nav_menu.xml" value="0.35625" />

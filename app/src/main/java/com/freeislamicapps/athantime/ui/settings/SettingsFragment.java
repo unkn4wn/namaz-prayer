@@ -31,6 +31,7 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.freeislamicapps.athantime.AlarmStart;
 import com.freeislamicapps.athantime.MainActivity;
@@ -96,7 +97,6 @@ public class SettingsFragment extends Fragment {
         locationRequest.setInterval(5000);
         locationRequest.setFastestInterval(2000);
 
-
         currentLocation.setText(loadData("longitude"));
         methodText.setText(loadData("Method"));
         asrCalculationText.setText(loadData("AsrCalculation"));
@@ -115,9 +115,8 @@ public class SettingsFragment extends Fragment {
                     } else {
                         requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 100);
                     }
-                }
-                else {
-                    Toast.makeText(requireContext(),"Please enable Location and Internet first",Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(requireContext(), "Please enable Location and Internet first", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -137,47 +136,28 @@ public class SettingsFragment extends Fragment {
         MaterialCardView cardViewHighLatsSeventh = dialog.findViewById(R.id.cardViewHighlatsseventh);
 
 
-        cardViewHighLatsNone.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                dialog.dismiss();
-                highLatsAdjustmentText.setText("None");
-                saveData("HighLatsAdjustment", "None");
-
-            }
+        cardViewHighLatsNone.setOnClickListener(v -> {
+            dialog.dismiss();
+            highLatsAdjustmentText.setText("None");
+            saveData("HighLatsAdjustment", "None");
         });
 
-        cardViewHighLatsAngle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                dialog.dismiss();
-                highLatsAdjustmentText.setText("Angle-Based");
-                saveData("HighLatsAdjustment", "Angle-Based");
-
-            }
+        cardViewHighLatsAngle.setOnClickListener(v -> {
+            dialog.dismiss();
+            highLatsAdjustmentText.setText("Angle-Based");
+            saveData("HighLatsAdjustment", "Angle-Based");
         });
 
-        cardViewHighLatsMiddle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                dialog.dismiss();
-                highLatsAdjustmentText.setText("Middle of the night");
-                saveData("HighLatsAdjustment", "Middle of the night");
-            }
+        cardViewHighLatsMiddle.setOnClickListener(v -> {
+            dialog.dismiss();
+            highLatsAdjustmentText.setText("Middle of the night");
+            saveData("HighLatsAdjustment", "Middle of the night");
         });
 
-        cardViewHighLatsSeventh.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                dialog.dismiss();
-                highLatsAdjustmentText.setText("One-Seventh of the Night");
-                saveData("HighLatsAdjustment", "One-Seventh of the Night");
-
-            }
+        cardViewHighLatsSeventh.setOnClickListener(v -> {
+            dialog.dismiss();
+            highLatsAdjustmentText.setText("One-Seventh of the Night");
+            saveData("HighLatsAdjustment", "One-Seventh of the Night");
         });
 
         dialog.show();
@@ -196,26 +176,16 @@ public class SettingsFragment extends Fragment {
         MaterialCardView cardViewHanafi = dialog.findViewById(R.id.cardViewHanafi);
 
 
-        cardViewShafi.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                dialog.dismiss();
-                asrCalculationText.setText("Shafi, Hanbali, Maliki");
-                saveData("AsrCalculation", "Shafi, Hanbali, Maliki");
-
-            }
+        cardViewShafi.setOnClickListener(v -> {
+            dialog.dismiss();
+            asrCalculationText.setText("Shafi, Hanbali, Maliki");
+            saveData("AsrCalculation", "Shafi, Hanbali, Maliki");
         });
 
-        cardViewHanafi.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                dialog.dismiss();
-                asrCalculationText.setText("Hanafi");
-                saveData("AsrCalculation", "Hanafi");
-
-            }
+        cardViewHanafi.setOnClickListener(v -> {
+            dialog.dismiss();
+            asrCalculationText.setText("Hanafi");
+            saveData("AsrCalculation", "Hanafi");
         });
 
         dialog.show();
@@ -239,81 +209,46 @@ public class SettingsFragment extends Fragment {
         MaterialCardView cardViewKarachi = dialog.findViewById(R.id.cardViewKarachi);
 
 
-        cardviewEgypt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                dialog.dismiss();
-                methodText.setText("Egyptian General Authority of Survey");
-                saveData("Method", "Egyptian General Authority of Survey");
-
-            }
+        cardviewEgypt.setOnClickListener(v -> {
+            dialog.dismiss();
+            methodText.setText("Egyptian General Authority of Survey");
+            saveData("Method", "Egyptian General Authority of Survey");
         });
 
-        cardviewTehran.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                dialog.dismiss();
-                methodText.setText("Institute of Geophysics, University of Tehran");
-                saveData("Method", "Institute of Geophysics, University of Tehran");
-
-            }
+        cardviewTehran.setOnClickListener(v -> {
+            dialog.dismiss();
+            methodText.setText("Institute of Geophysics, University of Tehran");
+            saveData("Method", "Institute of Geophysics, University of Tehran");
         });
 
-        cardViewIsna.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                dialog.dismiss();
-                methodText.setText("Islamic Society of North America (ISNA)");
-                saveData("Method", "Islamic Society of North America (ISNA)");
-
-            }
+        cardViewIsna.setOnClickListener(v -> {
+            dialog.dismiss();
+            methodText.setText("Islamic Society of North America (ISNA)");
+            saveData("Method", "Islamic Society of North America (ISNA)");
         });
 
-        cardViewMwl.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                dialog.dismiss();
-                methodText.setText("Muslim World League (MWL)");
-                saveData("Method", "Muslim World League (MWL)");
-
-            }
+        cardViewMwl.setOnClickListener(v -> {
+            dialog.dismiss();
+            methodText.setText("Muslim World League (MWL)");
+            saveData("Method", "Muslim World League (MWL)");
         });
 
-        cardViewMakkah.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                dialog.dismiss();
-                methodText.setText("Umm Al-Qura University, Makkah");
-                saveData("Method", "Umm Al-Qura University, Makkah");
-
-            }
+        cardViewMakkah.setOnClickListener(v -> {
+            dialog.dismiss();
+            methodText.setText("Umm Al-Qura University, Makkah");
+            saveData("Method", "Umm Al-Qura University, Makkah");
         });
 
-        cardviewUoif.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                dialog.dismiss();
-                methodText.setText("Union des organisations islamiques de France");
-                saveData("Method", "Union des organisations islamiques de France");
-
-            }
+        cardviewUoif.setOnClickListener(v -> {
+            dialog.dismiss();
+            methodText.setText("Union des organisations islamiques de France");
+            saveData("Method", "Union des organisations islamiques de France");
         });
 
-        cardViewKarachi.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                dialog.dismiss();
-                methodText.setText("University of Islamic Sciences, Karachi");
-                saveData("Method", "University of Islamic Sciences, Karachi");
-
-            }
+        cardViewKarachi.setOnClickListener(v -> {
+            dialog.dismiss();
+            methodText.setText("University of Islamic Sciences, Karachi");
+            saveData("Method", "University of Islamic Sciences, Karachi");
         });
 
         dialog.show();
@@ -386,17 +321,6 @@ public class SettingsFragment extends Fragment {
         return sharedPreferences.getString(savedKey, "");
     }
 
-    public void updateViews() {
-        // currentLocation.setText(loadedText);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-
-    }
-
     @Override
     public void onStop() {
         super.onStop();
@@ -412,16 +336,18 @@ public class SettingsFragment extends Fragment {
 
         PendingIntent pendingIntent = null;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            pendingIntent = PendingIntent.getBroadcast(requireContext(),20,intent,PendingIntent.FLAG_MUTABLE);
+            pendingIntent = PendingIntent.getBroadcast(requireContext(), 20, intent, PendingIntent.FLAG_MUTABLE);
         } else {
-            pendingIntent = PendingIntent.getBroadcast(requireContext(),20,intent,0);
+            pendingIntent = PendingIntent.getBroadcast(requireContext(), 20, intent, 0);
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),pendingIntent);
+            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
         } else {
-            alarmManager.setExact(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),pendingIntent);
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
         }
 
     }
+
+
 }
