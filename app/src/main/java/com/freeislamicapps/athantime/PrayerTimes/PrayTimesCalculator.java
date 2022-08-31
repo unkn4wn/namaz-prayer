@@ -16,9 +16,10 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Objects;
+import java.util.TimeZone;
 import java.util.TreeSet;
 
-public class PrayTimesMain {
+public class PrayTimesCalculator {
     SharedPreferences sharedPreferences;
     private PrayTimes prayTimes;
     private Context context;
@@ -26,7 +27,7 @@ public class PrayTimesMain {
     Times currentAsr;
     ArrayList<String> prayerTimesList;
 
-    public PrayTimesMain(LocalDate date, Context context) {
+    public PrayTimesCalculator(LocalDate date, Context context) {
         prayTimes = new PrayTimes();
         this.context = context;
         sharedPreferences = context.getSharedPreferences(SettingsFragment.SHARED_PREFS, Context.MODE_PRIVATE);
@@ -34,13 +35,12 @@ public class PrayTimesMain {
         String longitudestr = sharedPreferences.getString("longitude", "0.0");
 
         prayTimes.setCoordinates(Double.parseDouble(latitudestr), Double.parseDouble(longitudestr), 0.0);
-
         prayTimes.setMethod(getCurrentMethod());
         prayTimes.setHighLatsAdjustment(getCurrentHighlatsadjustment());
 
         int year = date.getYear();
         int month = date.getMonthValue();
-        int day = date.getDayOfYear();
+        int day = date.getDayOfMonth();
         prayTimes.setDate(year, month, day);
 
         //TODO
@@ -51,10 +51,8 @@ public class PrayTimesMain {
         dhuhr = prayTimes.getTime(Times.Dhuhr);
         if (sharedPreferences.getString("AsrCalculation", "Shafi").equals("Shafi, Hanbali, Maliki")) {
             asr = prayTimes.getTime(Times.AsrShafi);
-            currentAsr = Times.AsrShafi;
         } else {
             asr = prayTimes.getTime(Times.AsrHanafi);
-            currentAsr = Times.AsrHanafi;
         }
         maghrib = prayTimes.getTime(Times.Maghrib);
         ishaa = prayTimes.getTime(Times.Ishaa);
@@ -67,10 +65,6 @@ public class PrayTimesMain {
         prayerTimesList.add(maghrib);
         prayerTimesList.add(ishaa);
 
-    }
-
-    public PrayTimes getPrayTimes() {
-        return prayTimes;
     }
 
     private HighLatsAdjustment getCurrentHighlatsadjustment() {
@@ -136,8 +130,6 @@ public class PrayTimesMain {
         String[] time = prayerTime.split(":");
         cal.set(Calendar.HOUR_OF_DAY, Integer.parseInt(time[0]));
         cal.set(Calendar.MINUTE, Integer.parseInt(time[1]));
-
-
         cal.set(Calendar.SECOND, 0);
         cal.set(Calendar.MILLISECOND, 0);
         return cal;
@@ -195,8 +187,6 @@ public class PrayTimesMain {
     }
 
     public ArrayList<String> getPrayerTimesList() {
-
-
         return prayerTimesList;
     }
 }

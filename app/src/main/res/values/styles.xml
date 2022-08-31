@@ -15,5 +15,9 @@
         <item name="android:textSize">2000sp</item>
     </style>
 
+    <style name="card_view_style">
+        <item name="cardBackgroundColor">#E9E9E9</item>
+        <item name="elevationOverlayEnabled">false</item>
+    </style>
 
 </resources>

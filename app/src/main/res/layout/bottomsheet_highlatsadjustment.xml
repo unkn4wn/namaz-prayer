@@ -3,13 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/dialog_bg"
         android:orientation="vertical">
-
-
 
         <TextView
             android:id="@+id/choosetxt"
@@ -17,12 +16,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="16dp"
-            android:text="Asr Calculation"
+            android:text="High Lat Adjustment"
             android:textAlignment="center"
-            android:textColor="@color/black"
             android:textSize="25sp"
             android:textStyle="bold" />
-
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
@@ -33,82 +30,93 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <com.google.android.material.card.MaterialCardView
+                <LinearLayout
                     android:id="@+id/cardViewHighlatsnone"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:orientation="horizontal"
                     android:padding="8dp"
-                    app:cardCornerRadius="0dp">
+                    app:cardCornerRadius="0dp"
+                    android:background="@drawable/button_state">
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
                         android:text="None"
                         android:textSize="16sp" />
 
-                </com.google.android.material.card.MaterialCardView>
+                </LinearLayout>
 
-                <com.google.android.material.card.MaterialCardView
+                <com.google.android.material.divider.MaterialDivider
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <LinearLayout
                     android:id="@+id/cardViewHighlatsangle"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:orientation="horizontal"
                     android:padding="8dp"
-                    app:cardCornerRadius="0dp">
-
+                    app:cardCornerRadius="0dp"
+                    android:background="@drawable/button_state">
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
                         android:text="Angle-Based"
                         android:textSize="16sp" />
 
-                </com.google.android.material.card.MaterialCardView>
+                </LinearLayout>
 
-                <com.google.android.material.card.MaterialCardView
+                <com.google.android.material.divider.MaterialDivider
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <LinearLayout
                     android:id="@+id/cardViewHighlatsmiddle"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:orientation="horizontal"
                     android:padding="8dp"
-                    app:cardCornerRadius="0dp">
-
+                    app:cardCornerRadius="0dp"
+                    android:background="@drawable/button_state">
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
                         android:text="Middle of the night"
                         android:textSize="16sp" />
 
-                </com.google.android.material.card.MaterialCardView>
+                </LinearLayout>
 
-                <com.google.android.material.card.MaterialCardView
+                <com.google.android.material.divider.MaterialDivider
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <LinearLayout
                     android:id="@+id/cardViewHighlatsseventh"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:orientation="horizontal"
                     android:padding="8dp"
-                    app:cardCornerRadius="0dp">
-
+                    app:cardCornerRadius="0dp"
+                    android:background="@drawable/button_state">
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="One-Seventh of the Night"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="One-Seventh of the night"
                         android:textSize="16sp" />
 
-
-                </com.google.android.material.card.MaterialCardView>
+                </LinearLayout>
 
 
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
-
 
 
     </LinearLayout>

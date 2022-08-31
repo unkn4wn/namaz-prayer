@@ -16,10 +16,10 @@
 
 
 
-        <item name="colorSurface">#ECF0FB</item>
+        <item name="colorSurface">#E9E9E9</item>
         <item name="colorOnSurface">#151D2C</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/backgroundColor</item>
+        <item name="android:statusBarColor" >?attr/backgroundColor</item>
 
         <!-- Customize your theme here. -->
         use this code for icon change color

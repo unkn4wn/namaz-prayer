@@ -24,10 +24,14 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -49,7 +53,7 @@ import java.util.Calendar;
 
 public class SettingsFragment extends Fragment {
     TextView currentLocation;
-    TextView methodText, asrCalculationText, highLatsAdjustmentText;
+    TextView methodText, asrCalculationText, highLatsAdjustmentText, styleText;
     private LocationRequest locationRequest;
     public static final String SHARED_PREFS = "sharedPrefs";
 
@@ -62,11 +66,14 @@ public class SettingsFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_settings, container, false);
 
-        Button refreshLocationBtn = view.findViewById(R.id.refreshlocation2);
+        MaterialCardView cardViewLocation = view.findViewById(R.id.cardViewLocation);
         currentLocation = view.findViewById(R.id.currentlocation);
         methodText = view.findViewById(R.id.methodsText);
         asrCalculationText = view.findViewById(R.id.asrcalculationText);
         highLatsAdjustmentText = view.findViewById(R.id.highlatsadjustmentText);
+
+        styleText = view.findViewById(R.id.styleText);
+
 
         MaterialCardView cardViewmethod = view.findViewById(R.id.cardViewMethod);
         cardViewmethod.setOnClickListener(new View.OnClickListener() {
@@ -92,6 +99,14 @@ public class SettingsFragment extends Fragment {
             }
         });
 
+        MaterialCardView cardViewStyle = view.findViewById(R.id.cardViewStyle);
+        cardViewStyle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDialogStyle();
+            }
+        });
+
         locationRequest = LocationRequest.create();
         locationRequest.setPriority(Priority.PRIORITY_HIGH_ACCURACY);
         locationRequest.setInterval(5000);
@@ -101,9 +116,11 @@ public class SettingsFragment extends Fragment {
         methodText.setText(loadData("Method"));
         asrCalculationText.setText(loadData("AsrCalculation"));
         highLatsAdjustmentText.setText(loadData("HighLatsAdjustment"));
+        styleText.setText(loadData("Style"));
 
 
-        refreshLocationBtn.setOnClickListener(new View.OnClickListener() {
+
+        cardViewLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 LocationManager locationManager = (LocationManager) requireContext().getSystemService(LOCATION_SERVICE);
@@ -125,15 +142,16 @@ public class SettingsFragment extends Fragment {
         return view;
     }
 
+
     private void showDialogHighlatsadjustment() {
         final Dialog dialog = new Dialog(requireActivity());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.bottomsheet_highlatsadjustment);
 
-        MaterialCardView cardViewHighLatsNone = dialog.findViewById(R.id.cardViewHighlatsnone);
-        MaterialCardView cardViewHighLatsAngle = dialog.findViewById(R.id.cardViewHighlatsangle);
-        MaterialCardView cardViewHighLatsMiddle = dialog.findViewById(R.id.cardViewHighlatsmiddle);
-        MaterialCardView cardViewHighLatsSeventh = dialog.findViewById(R.id.cardViewHighlatsseventh);
+        LinearLayout cardViewHighLatsNone = dialog.findViewById(R.id.cardViewHighlatsnone);
+        LinearLayout cardViewHighLatsAngle = dialog.findViewById(R.id.cardViewHighlatsangle);
+        LinearLayout cardViewHighLatsMiddle = dialog.findViewById(R.id.cardViewHighlatsmiddle);
+        LinearLayout cardViewHighLatsSeventh = dialog.findViewById(R.id.cardViewHighlatsseventh);
 
 
         cardViewHighLatsNone.setOnClickListener(v -> {
@@ -172,8 +190,8 @@ public class SettingsFragment extends Fragment {
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.bottomsheet_asrcalculation);
 
-        MaterialCardView cardViewShafi = dialog.findViewById(R.id.cardViewShafi);
-        MaterialCardView cardViewHanafi = dialog.findViewById(R.id.cardViewHanafi);
+        LinearLayout cardViewShafi = dialog.findViewById(R.id.cardViewShafi);
+        LinearLayout cardViewHanafi = dialog.findViewById(R.id.cardViewHanafi);
 
 
         cardViewShafi.setOnClickListener(v -> {
@@ -200,13 +218,13 @@ public class SettingsFragment extends Fragment {
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.bottomsheet_methods);
 
-        MaterialCardView cardviewEgypt = dialog.findViewById(R.id.cardViewEgypt);
-        MaterialCardView cardviewTehran = dialog.findViewById(R.id.cardViewTehran);
-        MaterialCardView cardViewIsna = dialog.findViewById(R.id.cardViewIsna);
-        MaterialCardView cardViewMwl = dialog.findViewById(R.id.cardViewMwl);
-        MaterialCardView cardViewMakkah = dialog.findViewById(R.id.cardViewMakkah);
-        MaterialCardView cardviewUoif = dialog.findViewById(R.id.cardViewUOIF);
-        MaterialCardView cardViewKarachi = dialog.findViewById(R.id.cardViewKarachi);
+        LinearLayout cardviewEgypt = dialog.findViewById(R.id.cardViewEgypt);
+        LinearLayout cardviewTehran = dialog.findViewById(R.id.cardViewTehran);
+        LinearLayout cardViewIsna = dialog.findViewById(R.id.cardViewIsna);
+        LinearLayout cardViewMwl = dialog.findViewById(R.id.cardViewMwl);
+        LinearLayout cardViewMakkah = dialog.findViewById(R.id.cardViewMakkah);
+        LinearLayout cardviewUoif = dialog.findViewById(R.id.cardViewUOIF);
+        LinearLayout cardViewKarachi = dialog.findViewById(R.id.cardViewKarachi);
 
 
         cardviewEgypt.setOnClickListener(v -> {
@@ -259,6 +277,39 @@ public class SettingsFragment extends Fragment {
 
     }
 
+    private void showDialogStyle() {
+        final Dialog dialog = new Dialog(requireActivity());
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.bottomsheet_style);
+
+        LinearLayout cardViewAutomatic = dialog.findViewById(R.id.cardviewAutomatic);
+        LinearLayout cardViewLightmode = dialog.findViewById(R.id.cardViewLightmode);
+        LinearLayout cardViewDarkmode = dialog.findViewById(R.id.cardViewDarkmode);
+
+        cardViewAutomatic.setOnClickListener(v -> {
+            dialog.dismiss();
+            styleText.setText("Automatic (System settings)");
+            saveData("Style", "Automatic (System settings)");
+        });
+
+        cardViewLightmode.setOnClickListener(v -> {
+            dialog.dismiss();
+            styleText.setText("Always light mode");
+            saveData("Style", "Always light mode");
+        });
+
+        cardViewDarkmode.setOnClickListener(v -> {
+            dialog.dismiss();
+            styleText.setText("Always dark mode");
+            saveData("Style", "Always dark mode");
+        });
+
+        dialog.show();
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+        dialog.getWindow().setGravity(Gravity.BOTTOM);
+    }
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -324,30 +375,6 @@ public class SettingsFragment extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
-        setAlarm();
     }
-
-    private void setAlarm() {
-        Calendar calendar = Calendar.getInstance();
-
-        AlarmManager alarmManager = (AlarmManager) requireContext().getSystemService(Context.ALARM_SERVICE);
-
-        Intent intent = new Intent(requireContext(), AlarmStart.class);
-
-        PendingIntent pendingIntent = null;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            pendingIntent = PendingIntent.getBroadcast(requireContext(), 20, intent, PendingIntent.FLAG_MUTABLE);
-        } else {
-            pendingIntent = PendingIntent.getBroadcast(requireContext(), 20, intent, 0);
-        }
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-        } else {
-            alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-        }
-
-    }
-
 
 }

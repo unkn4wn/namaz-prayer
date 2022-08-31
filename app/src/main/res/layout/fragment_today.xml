@@ -27,13 +27,6 @@
                 android:scaleType="centerCrop"
                 android:adjustViewBounds="true"
                 android:background="@drawable/ic_fajrmaybe"/>
-
-
-
-
-
-
-
         </com.google.android.material.card.MaterialCardView>
 
 

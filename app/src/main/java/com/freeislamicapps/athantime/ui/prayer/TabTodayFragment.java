@@ -24,6 +24,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.freeislamicapps.athantime.MainActivity;
+import com.freeislamicapps.athantime.PrayerTimes.PrayTimesCalculator;
 import com.freeislamicapps.athantime.PrayerTimes.Times;
 import com.freeislamicapps.athantime.R;
 import com.freeislamicapps.athantime.databinding.FragmentTodayBinding;
@@ -49,12 +50,7 @@ import jakarta.validation.constraints.NotNull;
 
 public class TabTodayFragment extends Fragment {
     private static final String ARG_SECTION_NUMBER = "section_number";
-    String index;
-
-
-    private ProgressBar progressBarCircle;
-    private TextView textViewTime;
-    private CountDownTimer countDownTimer;
+    static String index;
 
     private FragmentTodayBinding binding;
 
@@ -81,16 +77,19 @@ public class TabTodayFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        index = "default";
-        if (getArguments() != null) {
-            index = getArguments().getString(ARG_SECTION_NUMBER);
-        }
+
+
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         tabTodayViewModel =
                 new ViewModelProvider(this).get(TabTodayViewModel.class);
+
+        index = "default";
+        if (getArguments() != null) {
+            index = getArguments().getString(ARG_SECTION_NUMBER);
+        }
 
         binding = FragmentTodayBinding.inflate(inflater, container, false);
 
@@ -117,6 +116,8 @@ public class TabTodayFragment extends Fragment {
         asrSound = binding.asrsound;
         maghribSound = binding.maghribsound;
         ishaaSound = binding.ishaasound;
+
+
 
         materialCardViewArrayList = new ArrayList<>(Arrays.asList(fajrCard, sunriseCard, dhuhrCard, asrCard, maghribCard, ishaaCard));
         Drawable fajrDrawable = AppCompatResources.getDrawable(requireContext(), R.drawable.ic_fajrmaybe);
@@ -151,9 +152,7 @@ public class TabTodayFragment extends Fragment {
             saveData("Ishaa_Sound", b);
         });
 
-        LocalDate dt = LocalDate.parse(index);
-        MainActivity.prayTimes.setDate(dt.getYear(), dt.getMonthValue(), dt.getDayOfMonth());
-        MainActivity.updateSettings();
+
         tabTodayViewModel.init();
         tabTodayViewModel.getFajrTime().observe(getViewLifecycleOwner(), fajrTime::setText);
         tabTodayViewModel.getSunriseTime().observe(getViewLifecycleOwner(), sunriseTime::setText);
@@ -265,5 +264,17 @@ public class TabTodayFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
+
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+
     }
 }

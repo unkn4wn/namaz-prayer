@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -10,15 +11,14 @@
         android:orientation="vertical">
 
 
-
         <TextView
+            android:id="@+id/choosetxt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="16dp"
-            android:text="Asr Calculation"
+            android:text="Style"
             android:textAlignment="center"
-            android:textColor="@color/black"
             android:textSize="25sp"
             android:textStyle="bold" />
 
@@ -33,7 +33,7 @@
                 android:orientation="vertical">
 
                 <LinearLayout
-                    android:id="@+id/cardViewShafi"
+                    android:id="@+id/cardviewAutomatic"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:orientation="horizontal"
@@ -45,7 +45,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="Shafi, Maliki, Hanbali (Standard)"
+                        android:text="Automatic (System settings)"
                         android:textSize="16sp" />
 
                 </LinearLayout>
@@ -55,7 +55,7 @@
                     android:layout_height="match_parent"/>
 
                 <LinearLayout
-                    android:id="@+id/cardViewHanafi"
+                    android:id="@+id/cardViewLightmode"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:orientation="horizontal"
@@ -68,17 +68,37 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="Hanafi"
+                        android:text="Always light mode"
                         android:textSize="16sp" />
 
                 </LinearLayout>
 
+                <com.google.android.material.divider.MaterialDivider
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
 
 
+                <LinearLayout
+                    android:id="@+id/cardViewDarkmode"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:orientation="horizontal"
+                    android:padding="8dp"
+                    app:cardCornerRadius="0dp"
+                    android:background="@drawable/button_state">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Always dark mode"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
 
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
-
 
 
     </LinearLayout>

@@ -3,6 +3,7 @@ package com.freeislamicapps.athantime.ui.prayer;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
@@ -11,8 +12,10 @@ import androidx.lifecycle.MutableLiveData;
 import com.freeislamicapps.athantime.MainActivity;
 import com.freeislamicapps.athantime.PrayerTimes.HighLatsAdjustment;
 import com.freeislamicapps.athantime.PrayerTimes.Method;
+import com.freeislamicapps.athantime.PrayerTimes.PrayTimesCalculator;
 import com.freeislamicapps.athantime.PrayerTimes.Times;
 import com.freeislamicapps.athantime.ui.settings.SettingsFragment;
+import com.google.android.material.tabs.TabLayout;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -20,6 +23,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Locale;
 
 public class TabTodayViewModel extends AndroidViewModel {
 
@@ -68,24 +72,21 @@ public class TabTodayViewModel extends AndroidViewModel {
 
         //TODO
         // Log.d("prayadj",String.valueOf(MainActivity.prayTimes.getTimeZone()));
-
-        fajrTime.setValue(MainActivity.prayTimes.getTime(Times.Fajr));
-        sunriseTime.setValue(MainActivity.prayTimes.getTime(Times.Sunrise));
-        dhuhrTime.setValue(MainActivity.prayTimes.getTime(Times.Dhuhr));
-        if (sharedPreferences.getString("AsrCalculation", "Shafi").equals("Shafi, Hanbali, Maliki")) {
-            asrTime.setValue(MainActivity.prayTimes.getTime(Times.AsrShafi));
-        } else {
-            asrTime.setValue(MainActivity.prayTimes.getTime(Times.AsrHanafi));
-        }
-        maghribTime.setValue(MainActivity.prayTimes.getTime(Times.Maghrib));
-        ishaaTime.setValue(MainActivity.prayTimes.getTime(Times.Ishaa));
+        PrayTimesCalculator prayTimesCalculator = new PrayTimesCalculator(LocalDate.parse(TabTodayFragment.index),getApplication().getApplicationContext());
+        Log.d("currentIndex",TabTodayFragment.index);
+        Log.d("currentIndexDate", String.valueOf(LocalDate.parse(TabTodayFragment.index).getYear()));
+        Log.d("currentIndexDate", String.valueOf(LocalDate.parse(TabTodayFragment.index).getMonth()));
+        Log.d("currentIndexDate", String.valueOf(LocalDate.parse(TabTodayFragment.index).getDayOfMonth()));
 
 
-        if (sharedPreferences.getString("AsrCalculation", "Shafi").equals("Shafi, Hanbali, Maliki")) {
-            prayerTimesLocalTimeString = new ArrayList<String>(Arrays.asList(MainActivity.prayTimes.getTime(Times.Fajr),MainActivity.prayTimes.getTime(Times.Sunrise),MainActivity.prayTimes.getTime(Times.Dhuhr),MainActivity.prayTimes.getTime(Times.AsrShafi),MainActivity.prayTimes.getTime(Times.Maghrib),MainActivity.prayTimes.getTime(Times.Ishaa),MainActivity.prayTimes.getTime(Times.Midnight),MainActivity.prayTimes.getTime(Times.LastThird)));
-        } else {
-            prayerTimesLocalTimeString = new ArrayList<String>(Arrays.asList(MainActivity.prayTimes.getTime(Times.Fajr),MainActivity.prayTimes.getTime(Times.Sunrise),MainActivity.prayTimes.getTime(Times.Dhuhr),MainActivity.prayTimes.getTime(Times.AsrHanafi),MainActivity.prayTimes.getTime(Times.Maghrib),MainActivity.prayTimes.getTime(Times.Ishaa),MainActivity.prayTimes.getTime(Times.Midnight),MainActivity.prayTimes.getTime(Times.LastThird)));
-        }
+        fajrTime.setValue(prayTimesCalculator.getFajr());
+        sunriseTime.setValue(prayTimesCalculator.getSunrise());
+        dhuhrTime.setValue(prayTimesCalculator.getDhuhr());
+        asrTime.setValue(prayTimesCalculator.getAsr());
+        maghribTime.setValue(prayTimesCalculator.getMaghrib());
+        ishaaTime.setValue(prayTimesCalculator.getIshaa());
+
+        prayerTimesLocalTimeString = prayTimesCalculator.getPrayerTimesList();
 
         prayerTimesLocalTime.setValue(stringToLocalTime(prayerTimesLocalTimeString));
 

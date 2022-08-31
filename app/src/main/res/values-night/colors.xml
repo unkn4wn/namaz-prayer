@@ -16,4 +16,5 @@
     <color name="checked_colorascard">#ED8DB3</color>
 
     <color name="testcolor">#000000</color>
+    <color name="button_pressed">#3D3E43</color>
 </resources>

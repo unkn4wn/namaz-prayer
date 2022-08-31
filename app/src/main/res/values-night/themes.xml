@@ -16,7 +16,7 @@
 
 
 
-        <item name="colorSurface">#131825</item>
+        <item name="colorSurface">#181A1E</item>
         <item name="colorOnSurface">#CCD1E6</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/backgroundColor</item>

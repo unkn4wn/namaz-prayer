@@ -10,9 +10,10 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
+import android.view.MenuItem;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.navigation.NavController;
@@ -22,25 +23,18 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.freeislamicapps.athantime.PrayerTimes.HighLatsAdjustment;
 import com.freeislamicapps.athantime.PrayerTimes.Method;
+import com.freeislamicapps.athantime.PrayerTimes.Midnight;
 import com.freeislamicapps.athantime.PrayerTimes.PrayTimes;
-import com.freeislamicapps.athantime.PrayerTimes.PrayTimesMain;
+import com.freeislamicapps.athantime.PrayerTimes.Times;
 import com.freeislamicapps.athantime.databinding.ActivityMainBinding;
 import com.freeislamicapps.athantime.ui.settings.SettingsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
-    public static PrayTimes prayTimes;
+
 
     private ActivityMainBinding binding;
     private String filename,filepath,fileContent;
@@ -63,12 +57,22 @@ public class MainActivity extends AppCompatActivity {
             startFirstTime();
         }
 
-        createPrayerTimes();
-
+        PrayTimes prayTimes = new PrayTimes();
+        prayTimes.setCoordinates(51.2768,8.8736,0.0);
+        prayTimes.setMethod(Method.ISNA);
+        prayTimes.setHighLatsAdjustment(HighLatsAdjustment.AngleBased);
+        prayTimes.setMidnightMode(Midnight.Jafari);
+        LocalDate today = LocalDate.now();
+        prayTimes.setDate(today.getYear(),today.getMonthValue(),today.getDayOfMonth());
 
         setAlarm();
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
+
+        navView.setSelectedItemId(R.id.navigation_prayer);
+
+
+
 
 
         // Passing each menu ID as a set of Ids because each
@@ -78,14 +82,10 @@ public class MainActivity extends AppCompatActivity {
                 .build();
 
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
-        //  NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
+
+
        // DynamicColors.applyToActivitiesIfAvailable(this.getApplication());
-
-        //   String filename = "prayertimes";
-        //   String jsonFromFile = JsonHelper.getJSONFromFile(filename,this);
-        //  TabTodayFragment.adhanResponse = new Gson().fromJson(jsonFromFile, AdhanResponse.class);
-
         if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
 
         } else {
@@ -101,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
         saveDataString("AsrCalculation", "Shafi, Hanbali, Maliki");
         saveDataString("Method", "Islamic Society of North America (ISNA)");
         saveDataString("HighLatsAdjustment", "Angle-Based");
+        saveDataString("Style","Automatic (System settings)");
 
         //Create notification channel and ask for permission first time
         createNotificationChannel(this);
@@ -164,62 +165,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void createPrayerTimes() {
-        prayTimes = new PrayTimes();
-        String latitudestr = sharedPreferences.getString("latitude", "0.0");
-        String longitudestr = sharedPreferences.getString("longitude", "0.0");
-
-        prayTimes.setCoordinates(Double.parseDouble(latitudestr), Double.parseDouble(longitudestr), 0.0);
-
-        prayTimes.setMethod(getCurrentMethod());
-        prayTimes.setHighLatsAdjustment(getCurrentHighlatsadjustment());
-
-        LocalDate today = LocalDate.now();
-        int year = today.getYear();
-        int month = today.getMonthValue();
-        int day = today.getDayOfYear();
-        prayTimes.setDate(year, month, day);
-    }
-
-    private static HighLatsAdjustment getCurrentHighlatsadjustment() {
-        switch (sharedPreferences.getString("HighLatsAdjustment", "Angle-Based")) {
-            case "None":
-                return HighLatsAdjustment.None;
-            case "Middle of the night":
-                return HighLatsAdjustment.NightMiddle;
-            case "One-Seventh of the Night":
-                return HighLatsAdjustment.OneSeventh;
-            default:
-                return HighLatsAdjustment.AngleBased;
-        }
-    }
-
-    private static Method getCurrentMethod() {
-        switch (sharedPreferences.getString("Method", "Islamic Society of North America (ISNA)")) {
-            case "Egyptian General Authority of Survey":
-                return Method.Egypt;
-            case "Institute of Geophysics, University of Tehran":
-                return Method.Tehran;
-            case "Muslim World League":
-                return Method.MWL;
-            case "Umm Al-Qura University, Makkah":
-                return Method.Makkah;
-            case "Union des organisations islamiques de France":
-                return Method.UOIF;
-            case "University of Islamic Sciences, Karachi":
-                return Method.Karachi;
-            default:
-                return Method.ISNA;
-        }
-    }
-
-    public static void updateSettings() {
-        String latitudestr = sharedPreferences.getString("latitude", "0.0");
-        String longitudestr = sharedPreferences.getString("longitude", "0.0");
-        prayTimes.setCoordinates(Double.parseDouble(latitudestr), Double.parseDouble(longitudestr), 0.0);
-        prayTimes.setMethod(getCurrentMethod());
-        prayTimes.setHighLatsAdjustment(getCurrentHighlatsadjustment());
-    }
 
     @Override
     protected void onStop() {

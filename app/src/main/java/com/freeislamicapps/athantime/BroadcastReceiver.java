@@ -4,11 +4,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-import android.widget.Toast;
 
-import com.freeislamicapps.athantime.PrayerTimes.PrayTimesMain;
-
-import java.time.LocalDate;
 import java.util.Calendar;
 
 public class BroadcastReceiver extends android.content.BroadcastReceiver {

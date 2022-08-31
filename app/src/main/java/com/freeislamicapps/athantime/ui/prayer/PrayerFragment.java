@@ -3,9 +3,13 @@ package com.freeislamicapps.athantime.ui.prayer;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.core.widget.TextViewCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +27,7 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
 import org.apache.commons.lang3.time.CalendarUtils;
+import org.w3c.dom.Text;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -52,6 +57,9 @@ public class PrayerFragment extends Fragment {
     TextView monthDayText;
     FragmentPrayerBinding binding;
     ImageButton previousDay, nextDay;
+    TextView cityText;
+
+    SectionsPagerAdapter sectionsPagerAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -64,6 +72,8 @@ public class PrayerFragment extends Fragment {
         previousDay = binding.previousDay;
         nextDay = binding.nextDay;
 
+        cityText = binding.cityText;
+
 
         LocalDate today = LocalDate.now();
         selectedDate = today;
@@ -73,8 +83,24 @@ public class PrayerFragment extends Fragment {
 
         monthDayText.setText(monthAndDay);
 
+        /*
+        FragmentManager fm = getChildFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
 
-        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(getChildFragmentManager(),getLifecycle());
+
+        for (Fragment fragment : getChildFragmentManager().getFragments()){
+            ft.remove(fragment);
+        }
+        ft.commit();
+*/
+
+
+        sectionsPagerAdapter = new SectionsPagerAdapter(getChildFragmentManager(),getLifecycle());
+
+
+
+
+
 
          viewPager = binding.viewPager;
         viewPager.setAdapter(sectionsPagerAdapter);
@@ -83,11 +109,17 @@ public class PrayerFragment extends Fragment {
         viewPager.post(new Runnable() {
             public void run() {
                 viewPager.setCurrentItem(1000, false);
+                sectionsPagerAdapter.notifyDataSetChanged();
             }
         });
+        sectionsPagerAdapter.createFragment(1000);
 
 
+        TextViewCompat.setAutoSizeTextTypeWithDefaults(cityText, TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM);
 
+        String city = "<B>Kassel, </B>";
+        String country = "Germany";
+        cityText.setText(Html.fromHtml(city + country));
 
         viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
@@ -109,4 +141,9 @@ public class PrayerFragment extends Fragment {
         return binding.getRoot();
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+
+    }
 }

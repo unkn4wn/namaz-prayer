@@ -1,27 +1,21 @@
 package com.freeislamicapps.athantime;
 
 import android.app.Notification;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
-import com.freeislamicapps.athantime.PrayerTimes.PrayTimesMain;
-import com.freeislamicapps.athantime.ui.prayer.PrayerFragment;
+import com.freeislamicapps.athantime.PrayerTimes.PrayTimesCalculator;
 import com.freeislamicapps.athantime.ui.settings.SettingsFragment;
-import com.google.android.gms.location.Priority;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Calendar;
 
 public class AlarmNotifications extends BroadcastReceiver {
     String currentPrayer;
@@ -52,10 +46,10 @@ public class AlarmNotifications extends BroadcastReceiver {
         }
 
         String time = hours + ":" + minutes;
-        PrayTimesMain prayTimesMain = new PrayTimesMain(LocalDate.now(),context);
+        PrayTimesCalculator prayTimesCalculator = new PrayTimesCalculator(LocalDate.now(),context);
 
 
-        if(time.equals(prayTimesMain.getPrayerTimesList().get(requestcode))) {
+        if(time.equals(prayTimesCalculator.getPrayerTimesList().get(requestcode))) {
             if(switchPrayer.get(requestcode)) {
                 currentPrayer = getCurrentPrayer(requestcode);
                 showNotification(context);

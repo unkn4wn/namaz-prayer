@@ -7,15 +7,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.util.Log;
-import android.widget.Toast;
 
-import com.freeislamicapps.athantime.PrayerTimes.PrayTimesMain;
+import com.freeislamicapps.athantime.PrayerTimes.PrayTimesCalculator;
 
 import java.time.LocalDate;
 import java.util.Calendar;
 
 public class AlarmStart extends BroadcastReceiver {
-    PrayTimesMain prayTimesMain;
+    PrayTimesCalculator prayTimesCalculator;
     public static int requestcode;
 
 
@@ -55,11 +54,11 @@ public class AlarmStart extends BroadcastReceiver {
     }
 
     private void schedulenewAlarm(Context context) {
-        prayTimesMain = new PrayTimesMain(LocalDate.now(),context);
+        prayTimesCalculator = new PrayTimesCalculator(LocalDate.now(),context);
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
-        for (int i = 0;i<prayTimesMain.getPrayerTimesList().size();i++) {
+        for (int i = 0; i< prayTimesCalculator.getPrayerTimesList().size(); i++) {
 
             int requestcode = i;
             Intent intent = new Intent(context, AlarmNotifications.class);
@@ -77,11 +76,11 @@ public class AlarmStart extends BroadcastReceiver {
 
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, prayTimesMain.getCalendarFromPrayerTime(Calendar.getInstance(),prayTimesMain.getPrayerTimesList().get(i)).getTimeInMillis(), pendingIntent);
+                alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, prayTimesCalculator.getCalendarFromPrayerTime(Calendar.getInstance(), prayTimesCalculator.getPrayerTimesList().get(i)).getTimeInMillis(), pendingIntent);
             } else {
-                alarmManager.setExact(AlarmManager.RTC_WAKEUP, prayTimesMain.getCalendarFromPrayerTime(Calendar.getInstance(),prayTimesMain.getPrayerTimesList().get(i)).getTimeInMillis(), pendingIntent);
+                alarmManager.setExact(AlarmManager.RTC_WAKEUP, prayTimesCalculator.getCalendarFromPrayerTime(Calendar.getInstance(), prayTimesCalculator.getPrayerTimesList().get(i)).getTimeInMillis(), pendingIntent);
             }
-            Log.d("fajr2",String.valueOf(prayTimesMain.getCalendarFromPrayerTime(Calendar.getInstance(),prayTimesMain.getPrayerTimesList().get(i)).getTime()));
+            Log.d("fajr2",String.valueOf(prayTimesCalculator.getCalendarFromPrayerTime(Calendar.getInstance(), prayTimesCalculator.getPrayerTimesList().get(i)).getTime()));
         }
     }
 }
