@@ -67,7 +67,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
-                android:src="@drawable/ic_refresh"
+                android:src="@drawable/symbol_refresh"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -93,7 +93,7 @@
         android:layout_marginStart="30dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="30dp"
-        android:backgroundTint="@color/bottom_navigation"
+        android:backgroundTint="@color/selected_prayercard"
         app:cardElevation="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -149,7 +149,7 @@
                         android:layout_centerVertical="true"
                         android:layout_gravity="center_vertical"
                         android:layout_marginEnd="8dp"
-                        android:background="@drawable/ic_arrowright" />
+                        android:background="@drawable/symbol_arrow_right" />
 
                 </RelativeLayout>
 
@@ -206,7 +206,7 @@
                         android:layout_centerVertical="true"
                         android:layout_gravity="center_vertical"
                         android:layout_marginEnd="8dp"
-                        android:background="@drawable/ic_arrowright" />
+                        android:background="@drawable/symbol_arrow_right" />
                 </RelativeLayout>
             </com.google.android.material.card.MaterialCardView>
 
@@ -264,7 +264,7 @@
                         android:layout_centerVertical="true"
                         android:layout_gravity="center_vertical"
                         android:layout_marginEnd="8dp"
-                        android:background="@drawable/ic_arrowright" />
+                        android:background="@drawable/symbol_arrow_right" />
                 </RelativeLayout>
             </com.google.android.material.card.MaterialCardView>
 
@@ -307,7 +307,7 @@
                         android:layout_centerVertical="true"
                         android:layout_gravity="center_vertical"
                         android:layout_marginEnd="8dp"
-                        android:background="@drawable/ic_arrowright" />
+                        android:background="@drawable/symbol_arrow_right" />
                 </RelativeLayout>
             </com.google.android.material.card.MaterialCardView>
 
@@ -373,7 +373,7 @@
                         android:layout_centerVertical="true"
                         android:layout_gravity="center_vertical"
                         android:layout_marginEnd="8dp"
-                        android:background="@drawable/ic_arrowright" />
+                        android:background="@drawable/symbol_arrow_right" />
 
                 </RelativeLayout>
 

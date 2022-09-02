@@ -39,7 +39,7 @@
                 android:maxLines="1"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:drawableLeftCompat="@drawable/ic_location2" />
+                app:drawableLeftCompat="@drawable/symbol_location" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
@@ -65,9 +65,9 @@
                 android:layout_width="60dp"
                 android:layout_height="match_parent"
                 android:background="@null"
-                android:src="@drawable/arrow_back"
+                android:src="@drawable/symbol_arrow_left"
                 android:layout_marginStart="5dp"
-                app:tint="@color/checked_colorascard"
+                app:tint="?attr/colorPrimary"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -90,9 +90,9 @@
                 android:layout_width="60dp"
                 android:layout_height="match_parent"
                 android:background="@null"
-                android:src="@drawable/arrow_forward"
+                android:src="@drawable/symbol_arrow_right"
                 android:layout_marginEnd="5dp"
-                app:tint="@color/checked_colorascard"
+                app:tint="?attr/colorPrimary"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

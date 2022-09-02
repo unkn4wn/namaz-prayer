@@ -3,17 +3,17 @@
 
     <item
         android:id="@+id/navigation_qiblah"
-        android:icon="@drawable/ic_explore_black_24dp"
+        android:icon="@drawable/navigation_qiblah"
         android:title="@string/title_qiblah" />
 
     <item
         android:id="@+id/navigation_prayer"
-        android:icon="@drawable/ic_home_black_24dp"
+        android:icon="@drawable/navigation_prayer"
         android:title="@string/title_prayer" />
 
     <item
         android:id="@+id/navigation_settings2"
-        android:icon="@drawable/ic_settings_black_24dp"
+        android:icon="@drawable/navigation_settings"
         android:title="@string/title_settings" />
 
 </menu>

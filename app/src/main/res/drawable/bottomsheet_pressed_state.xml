@@ -3,7 +3,7 @@
     <item android:state_pressed="true" >
         <shape>
             <solid
-                android:color="@color/button_pressed"
+                android:color="@color/bottomsheet_pressed_state"
                 />
         </shape>
 

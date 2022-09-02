@@ -1,20 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    // main background color
-    <color name="background_color">#000000</color>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="weak_text">#80FFFFFF</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="material_green_600">#43A047</color>
-    <color name="material_lightgreen_600">#9CCC65</color>
-    <color name="bottom_navigation">#131825</color>
-    <color name="checked_colorascard">#ED8DB3</color>
-
-    <color name="testcolor">#000000</color>
-    <color name="button_pressed">#3D3E43</color>
+    <color name="selected_prayercard">#323642</color>
+    <color name="bottomsheet_pressed_state">#3D3E43</color>
 </resources>

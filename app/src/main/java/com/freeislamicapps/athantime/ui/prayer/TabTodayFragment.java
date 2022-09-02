@@ -1,52 +1,40 @@
 package com.freeislamicapps.athantime.ui.prayer;
 
+import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Color;
+import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.freeislamicapps.athantime.MainActivity;
-import com.freeislamicapps.athantime.PrayerTimes.PrayTimesCalculator;
-import com.freeislamicapps.athantime.PrayerTimes.Times;
 import com.freeislamicapps.athantime.R;
 import com.freeislamicapps.athantime.databinding.FragmentTodayBinding;
 import com.freeislamicapps.athantime.ui.settings.SettingsFragment;
 import com.google.android.material.card.MaterialCardView;
-import com.google.android.material.color.MaterialColors;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 
-import java.time.Duration;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.Objects;
 import java.util.TreeSet;
-import java.util.concurrent.TimeUnit;
-
-import jakarta.validation.constraints.NotNull;
 
 public class TabTodayFragment extends Fragment {
     private static final String ARG_SECTION_NUMBER = "section_number";
@@ -120,10 +108,10 @@ public class TabTodayFragment extends Fragment {
 
 
         materialCardViewArrayList = new ArrayList<>(Arrays.asList(fajrCard, sunriseCard, dhuhrCard, asrCard, maghribCard, ishaaCard));
-        Drawable fajrDrawable = AppCompatResources.getDrawable(requireContext(), R.drawable.ic_fajrmaybe);
-        Drawable dhuhrDrawable = AppCompatResources.getDrawable(requireContext(), R.drawable.ic_dhuhrmaybe);
-        Drawable asrDrawable = AppCompatResources.getDrawable(requireContext(), R.drawable.ic_asrmaybe);
-        Drawable maghribDrawable = AppCompatResources.getDrawable(requireContext(), R.drawable.ic_maghribmaybe);
+        Drawable fajrDrawable = AppCompatResources.getDrawable(requireContext(), R.drawable.background_fajr);
+        Drawable dhuhrDrawable = AppCompatResources.getDrawable(requireContext(), R.drawable.background_dhuhr);
+        Drawable asrDrawable = AppCompatResources.getDrawable(requireContext(), R.drawable.background_asr);
+        Drawable maghribDrawable = AppCompatResources.getDrawable(requireContext(), R.drawable.background_maghrib);
 
         backgroundCardViewArrayList = new ArrayList<>(Arrays.asList(fajrDrawable, fajrDrawable, dhuhrDrawable, asrDrawable, maghribDrawable, maghribDrawable));
         scrollView = binding.scrollViewToday;
@@ -225,8 +213,21 @@ public class TabTodayFragment extends Fragment {
             }
         }
 
+        TypedValue typedValueBackground = new TypedValue();
+        requireActivity().getTheme().resolveAttribute(com.google.android.material.R.attr.backgroundColor, typedValueBackground, true);
+        int colorBackground = typedValueBackground.data;
+
+        TypedValue typedValuePrimary = new TypedValue();
+        requireActivity().getTheme().resolveAttribute(com.google.android.material.R.attr.colorPrimary, typedValuePrimary, true);
+        int colorPrimary = typedValuePrimary.data;
+
+        TypedValue typedValueSurface = new TypedValue();
+        requireActivity().getTheme().resolveAttribute(com.google.android.material.R.attr.colorSurface, typedValueSurface, true);
+        int colorSurface = typedValueSurface.data;
+
+
         for (int i = 0; i < 6; i++) {
-            materialCardViewArrayList.get(i).setCardBackgroundColor(getResources().getColor(R.color.testcolor));
+            materialCardViewArrayList.get(i).setCardBackgroundColor(colorBackground);
         }
 
         for (int i = 0; i < 6; i++) {
@@ -238,7 +239,7 @@ public class TabTodayFragment extends Fragment {
                 if(LocalDate.parse(index).compareTo(LocalDate.now())==0) {
                     // highlight current prayer time
                     currentPrayerCard = materialCardViewArrayList.get(i);
-                    currentPrayerCard.setCardBackgroundColor(getResources().getColor(R.color.bottom_navigation));
+                    currentPrayerCard.setCardBackgroundColor(colorSurface);
                     currentPrayerCard.setRadius(1f);
                     currentPrayerCard.setStrokeWidth(2);
 
@@ -264,6 +265,12 @@ public class TabTodayFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        fajrSound.setChecked(sharedPreferences.getBoolean("Fajr_Sound",false));
+       sunriseSound.setChecked(sharedPreferences.getBoolean("Sunrise_Sound",false));
+        dhuhrSound.setChecked(sharedPreferences.getBoolean("Dhuhr_Sound",false));
+        asrSound.setChecked(sharedPreferences.getBoolean("Asr_Sound",false));
+        maghribSound.setChecked(sharedPreferences.getBoolean("Maghrib_Sound",false));
+        ishaaSound.setChecked(sharedPreferences.getBoolean("Ishaa_Sound",false));
     }
 
     @Override

@@ -26,7 +26,7 @@
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
                 android:adjustViewBounds="true"
-                android:background="@drawable/ic_fajrmaybe"/>
+                android:background="@drawable/background_fajr"/>
         </com.google.android.material.card.MaterialCardView>
 
 
@@ -90,7 +90,7 @@
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/prayer_fajr"/>
+                            android:background="@drawable/symbol_fajr"/>
 
                     <TextView
                         android:id="@+id/fajrtext"
@@ -171,7 +171,7 @@
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/prayer_sunrise"/>
+                            android:background="@drawable/symbol_sunrise"/>
 
                         <TextView
                             android:id="@+id/sunrisetext"
@@ -253,7 +253,7 @@
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/prayer_dhuhr"/>
+                            android:background="@drawable/symbol_dhuhr"/>
 
                         <TextView
                             android:id="@+id/dhuhrtext"
@@ -336,7 +336,7 @@
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/prayer_asr"/>
+                            android:background="@drawable/symbol_asr"/>
 
                         <TextView
                             android:id="@+id/asrtext"
@@ -376,7 +376,6 @@
                             android:id="@+id/asrsound"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/ic_volume_up_black_opt"
                             android:background="@null"
                             />
 
@@ -418,7 +417,7 @@
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/prayer_maghrib"/>
+                            android:background="@drawable/symbol_maghrib"/>
 
                         <TextView
                             android:id="@+id/maghribtext"
@@ -458,7 +457,6 @@
                             android:id="@+id/maghribsound"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/ic_volume_up_black_opt"
                             android:background="@null"
                             />
 
@@ -501,7 +499,7 @@
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/prayer_night4"/>
+                            android:background="@drawable/symbol_ishaa"/>
 
                         <TextView
                             android:id="@+id/ishaatext"

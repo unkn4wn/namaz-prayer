@@ -7,6 +7,7 @@ import android.util.Log;
 import com.freeislamicapps.athantime.R;
 import com.freeislamicapps.athantime.ui.settings.SettingsFragment;
 
+import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;

@@ -27,6 +27,8 @@ import com.freeislamicapps.athantime.PrayerTimes.Midnight;
 import com.freeislamicapps.athantime.PrayerTimes.PrayTimes;
 import com.freeislamicapps.athantime.PrayerTimes.Times;
 import com.freeislamicapps.athantime.databinding.ActivityMainBinding;
+import com.freeislamicapps.athantime.ui.intro.IntroActivity;
+import com.freeislamicapps.athantime.ui.intro.LocationFragment;
 import com.freeislamicapps.athantime.ui.settings.SettingsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -57,13 +59,8 @@ public class MainActivity extends AppCompatActivity {
             startFirstTime();
         }
 
-        PrayTimes prayTimes = new PrayTimes();
-        prayTimes.setCoordinates(51.2768,8.8736,0.0);
-        prayTimes.setMethod(Method.ISNA);
-        prayTimes.setHighLatsAdjustment(HighLatsAdjustment.AngleBased);
-        prayTimes.setMidnightMode(Midnight.Jafari);
-        LocalDate today = LocalDate.now();
-        prayTimes.setDate(today.getYear(),today.getMonthValue(),today.getDayOfMonth());
+        //Create notification channel and ask for permission first time
+       // createNotificationChannel(this);
 
         setAlarm();
 
@@ -95,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void startFirstTime() {
         Toast.makeText(this,"FIRSSTTIME",Toast.LENGTH_SHORT).show();
-        saveDataBoolean("firstStart",false);
+
 
         //Default values
         saveDataString("AsrCalculation", "Shafi, Hanbali, Maliki");
@@ -103,8 +100,10 @@ public class MainActivity extends AppCompatActivity {
         saveDataString("HighLatsAdjustment", "Angle-Based");
         saveDataString("Style","Automatic (System settings)");
 
-        //Create notification channel and ask for permission first time
-        createNotificationChannel(this);
+        Intent intent = new Intent(MainActivity.this,IntroActivity.class);
+        startActivity(intent);
+
+
         setAlarm();
     }
 
