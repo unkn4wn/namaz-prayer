@@ -51,6 +51,7 @@ import com.freeislamicapps.athantime.BuildConfig;
 import com.freeislamicapps.athantime.MainActivity;
 import com.freeislamicapps.athantime.R;
 import com.freeislamicapps.athantime.helper.HttpDataHandler;
+import com.freeislamicapps.athantime.ui.intro.LocationFragment;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
@@ -147,18 +148,11 @@ public class SettingsFragment extends Fragment {
         cardViewLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LocationManager locationManager = (LocationManager) requireContext().getSystemService(LOCATION_SERVICE);
-
-                if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) && locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-                    if (ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                        // WHEN Permission is granted
-                        getCurrentLocation();
-                    } else {
-                        requestPermissionLauncher.launch(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION});
-                    }
-                } else {
-                    Toast.makeText(requireContext(), "Please enable Location and Internet first", Toast.LENGTH_SHORT).show();
-                }
+              /*  FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.nav_host_fragment_activity_main, new MapsFragment());
+                transaction.commit(); */
+            MapsFragment mapsFragment = new MapsFragment();
+            mapsFragment.show(getChildFragmentManager(),"MyFragment");
             }
         });
 
@@ -176,6 +170,8 @@ public class SettingsFragment extends Fragment {
         LinearLayout cardViewHighLatsAngle = dialog.findViewById(R.id.cardViewHighlatsangle);
         LinearLayout cardViewHighLatsMiddle = dialog.findViewById(R.id.cardViewHighlatsmiddle);
         LinearLayout cardViewHighLatsSeventh = dialog.findViewById(R.id.cardViewHighlatsseventh);
+
+        ImageButton closeButton = dialog.findViewById(R.id.closeBottomsheetButton);
 
 
         cardViewHighLatsNone.setOnClickListener(v -> {
@@ -202,6 +198,13 @@ public class SettingsFragment extends Fragment {
             saveData("HighLatsAdjustment", "One-Seventh of the Night");
         });
 
+        closeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
         dialog.show();
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -217,6 +220,8 @@ public class SettingsFragment extends Fragment {
         LinearLayout cardViewShafi = dialog.findViewById(R.id.cardViewShafi);
         LinearLayout cardViewHanafi = dialog.findViewById(R.id.cardViewHanafi);
 
+        ImageButton closeButton = dialog.findViewById(R.id.closeBottomsheetButton);
+
 
         cardViewShafi.setOnClickListener(v -> {
             dialog.dismiss();
@@ -228,6 +233,13 @@ public class SettingsFragment extends Fragment {
             dialog.dismiss();
             asrCalculationText.setText("Hanafi");
             saveData("AsrCalculation", "Hanafi");
+        });
+
+        closeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
         });
 
         dialog.show();
@@ -249,6 +261,8 @@ public class SettingsFragment extends Fragment {
         LinearLayout cardViewMakkah = dialog.findViewById(R.id.cardViewMakkah);
         LinearLayout cardviewUoif = dialog.findViewById(R.id.cardViewUOIF);
         LinearLayout cardViewKarachi = dialog.findViewById(R.id.cardViewKarachi);
+
+        ImageButton closeButton = dialog.findViewById(R.id.closeBottomsheetButton);
 
 
         cardviewEgypt.setOnClickListener(v -> {
@@ -293,6 +307,13 @@ public class SettingsFragment extends Fragment {
             saveData("Method", "University of Islamic Sciences, Karachi");
         });
 
+        closeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
         dialog.show();
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -310,6 +331,8 @@ public class SettingsFragment extends Fragment {
         LinearLayout cardViewLightmode = dialog.findViewById(R.id.cardViewLightmode);
         LinearLayout cardViewDarkmode = dialog.findViewById(R.id.cardViewDarkmode);
 
+        ImageButton closeButton = dialog.findViewById(R.id.closeBottomsheetButton);
+
         cardViewAutomatic.setOnClickListener(v -> {
             dialog.dismiss();
             styleText.setText("Automatic (System settings)");
@@ -326,6 +349,13 @@ public class SettingsFragment extends Fragment {
             dialog.dismiss();
             styleText.setText("Always dark mode");
             saveData("Style", "Always dark mode");
+        });
+
+        closeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
         });
 
         dialog.show();

@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/drawable-v24/button_round_corner.xml" value="0.29" />
+        <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/drawable-v24/close-40px.xml" value="0.2445" />
         <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.337" />
         <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/drawable-v24/ic_sunnycloudy.xml" value="0.29" />
         <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/drawable-v24/round_corner_blackwhite.xml" value="0.176" />
@@ -20,10 +21,15 @@
         <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/drawable/background_fajr2.xml" value="0.29" />
         <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/drawable/background_fajr3.xml" value="0.29" />
         <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/drawable/background_maghrib.xml" value="0.29" />
+        <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/drawable/background_maghrib2.xml" value="0.221" />
+        <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/drawable/bottomsheet_background.xml" value="0.2355" />
+        <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/drawable/bottomsheet_background_maps.xml" value="0.2355" />
+        <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/drawable/button_round_corner.xml" value="0.221" />
         <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/drawable/button_state.xml" value="0.2345" />
         <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/drawable/circle_dark_blue.xml" value="0.29" />
         <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/drawable/circle_yellow.xml" value="0.29" />
         <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/drawable/circular.xml" value="0.337" />
+        <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/drawable/close-40px.xml" value="0.2445" />
         <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/drawable/dialog_bg.xml" value="0.2935" />
         <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/drawable/greengradient.xml" value="0.29" />
         <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/drawable/ic_arrowright.xml" value="0.249" />
@@ -78,9 +84,11 @@
         <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/drawable/refresh-48px.xml" value="0.209" />
         <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/drawable/round_corner.xml" value="0.213" />
         <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/drawable/roundcorner_refresh.xml" value="0.18" />
+        <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/drawable/searchview_background.xml" value="0.3075" />
         <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/drawable/slider_privacy.xml" value="0.176" />
         <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/drawable/symbol_arrow_left.xml" value="0.29" />
         <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/drawable/symbol_arrow_right.xml" value="0.29" />
+        <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/drawable/symbol_close.xml" value="0.2445" />
         <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/drawable/symbol_notification.xml" value="0.2685" />
         <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/drawable/symbol_volumeoff.xml" value="0.244" />
         <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/layout/activity_intro.xml" value="0.3255208333333333" />
@@ -91,8 +99,10 @@
         <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/layout/bottomsheet_style.xml" value="0.359375" />
         <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/layout/fragment_home.xml" value="0.35625" />
         <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/layout/fragment_location.xml" value="0.33" />
+        <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/layout/fragment_maps.xml" value="0.20344827586206896" />
         <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/layout/fragment_prayer.xml" value="0.25" />
         <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/layout/fragment_settings.xml" value="0.33" />
+        <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/layout/fragment_settings_maps.xml" value="0.3078125" />
         <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/layout/fragment_settings_sub.xml" value="0.25677083333333334" />
         <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/layout/fragment_today.xml" value="0.2845528455284553" />
         <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/layout/fragment_tomorrow.xml" value="0.3484375" />

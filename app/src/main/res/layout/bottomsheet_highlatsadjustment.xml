@@ -10,16 +10,32 @@
         android:background="@drawable/bottomsheet_background"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/choosetxt"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="horizontal"
             android:layout_marginTop="5dp"
-            android:layout_marginBottom="16dp"
-            android:text="High Lat Adjustment"
-            android:textAlignment="center"
-            android:textSize="25sp"
-            android:textStyle="bold" />
+            android:layout_marginBottom="16dp">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="High Lat Adjustment"
+                android:textAlignment="center"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+
+            <ImageButton
+                android:id="@+id/closeBottomsheetButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:background="?attr/backgroundColor"
+                android:src="@drawable/symbol_close" />
+
+        </RelativeLayout>
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
