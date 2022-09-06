@@ -3,6 +3,7 @@ package com.freeislamicapps.athantime.ui.settings;
 import static android.content.Context.LOCATION_SERVICE;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.Dialog;
 import android.app.PendingIntent;
@@ -12,10 +13,15 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.pdf.PdfDocument;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Looper;
+import android.util.JsonReader;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -41,8 +47,10 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.freeislamicapps.athantime.AlarmStart;
+import com.freeislamicapps.athantime.BuildConfig;
 import com.freeislamicapps.athantime.MainActivity;
 import com.freeislamicapps.athantime.R;
+import com.freeislamicapps.athantime.helper.HttpDataHandler;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
@@ -51,8 +59,16 @@ import com.google.android.gms.location.Priority;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 
@@ -71,6 +87,8 @@ public class SettingsFragment extends Fragment {
 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_settings, container, false);
+
+
 
         MaterialCardView cardViewLocation = view.findViewById(R.id.cardViewLocation);
         currentLocation = view.findViewById(R.id.currentlocation);
@@ -337,6 +355,7 @@ public class SettingsFragment extends Fragment {
             });
 
 
+    @SuppressLint("MissingPermission")
     private void getCurrentLocation() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ActivityCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
@@ -345,8 +364,6 @@ public class SettingsFragment extends Fragment {
                 TextView progressBarText = requireActivity().findViewById(R.id.progressbarText);
                 progressBar.setVisibility(View.VISIBLE);
                 progressBarText.setVisibility(View.VISIBLE);
-                requireActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 LocationServices.getFusedLocationProviderClient(requireActivity())
                         .requestLocationUpdates(locationRequest, new LocationCallback() {
                             @Override
@@ -364,9 +381,33 @@ public class SettingsFragment extends Fragment {
                                     currentLocation.setText("Latitude: " + latitude + "\n" + "Longitude: " + longitude);
                                     saveData("latitude", String.valueOf(latitude));
                                     saveData("longitude", String.valueOf(longitude));
-                                    progressBar.setVisibility(View.GONE);
-                                    progressBarText.setVisibility(View.GONE);
-                                    requireActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
+                                    Handler handler = new Handler();
+
+                                    Runnable runnable = new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            HttpDataHandler httpDataHandler = new HttpDataHandler();
+                                            String startUrl = "https://maps.googleapis.com/maps/api/geocode/json?latlng=40.714224,-73.961452&key=";
+                                            String apikey = BuildConfig.MAPS_API_KEY;
+                                            String response = httpDataHandler.getHTTPData(startUrl+apikey);
+                                            JsonObject jsonObject = JsonParser.parseString(response).getAsJsonObject();
+                                            Log.d("address",response);
+
+                                            handler.post(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    progressBar.setVisibility(View.GONE);
+                                                    progressBarText.setVisibility(View.GONE);
+                                                }
+                                            });
+                                        }
+
+                                    };
+                                    Thread thread = new Thread(runnable);
+                                    thread.start();
+
+
                                 }
                             }
                         }, Looper.getMainLooper());

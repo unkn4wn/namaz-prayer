@@ -1,5 +1,6 @@
 plugins {
     id 'com.android.application'
+    id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
 }
 
 android {
@@ -51,6 +52,7 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.9.0'
     implementation 'org.jsonschema2pojo:jsonschema2pojo-gradle-plugin:1.1.2'
     implementation 'com.google.android.gms:play-services-location:20.0.0'
+    implementation 'com.google.gms:google-services:4.3.13'
 
     implementation 'androidx.work:work-runtime:2.7.1'
 
