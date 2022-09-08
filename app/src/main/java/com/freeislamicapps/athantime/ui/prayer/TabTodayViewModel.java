@@ -73,10 +73,6 @@ public class TabTodayViewModel extends AndroidViewModel {
         //TODO
         // Log.d("prayadj",String.valueOf(MainActivity.prayTimes.getTimeZone()));
         PrayTimesCalculator prayTimesCalculator = new PrayTimesCalculator(LocalDate.parse(TabTodayFragment.index),getApplication().getApplicationContext());
-        Log.d("currentIndex",TabTodayFragment.index);
-        Log.d("currentIndexDate", String.valueOf(LocalDate.parse(TabTodayFragment.index).getYear()));
-        Log.d("currentIndexDate", String.valueOf(LocalDate.parse(TabTodayFragment.index).getMonth()));
-        Log.d("currentIndexDate", String.valueOf(LocalDate.parse(TabTodayFragment.index).getDayOfMonth()));
 
 
         fajrTime.setValue(prayTimesCalculator.getFajr());

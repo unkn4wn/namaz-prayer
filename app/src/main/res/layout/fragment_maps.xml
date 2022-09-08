@@ -35,8 +35,15 @@
             android:src="@drawable/symbol_close" />
     </RelativeLayout>
 
-    <!--TODO SEARCHVIEW-->
-    <!--
+        <Spinner
+            android:id="@+id/spinnerCountry"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="10dp"
+            />
+
         <SearchView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -49,8 +56,23 @@
             android:layout_marginEnd="18dp"
             android:background="@drawable/searchview_background"
             />
-            -->
 
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="18dp"
+        android:layout_marginEnd="18dp">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_location"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:orientation="vertical" />
+    </com.google.android.material.card.MaterialCardView>
+
+
+    <!--TODO SEARCHVIEW-->
+    <!--
     <androidx.cardview.widget.CardView
         android:id="@+id/enableLocationCard"
         android:layout_width="match_parent"
@@ -89,14 +111,6 @@
                 android:layout_centerInParent="true"/>
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
+       -->
 
-
-    <fragment
-        android:id="@+id/map"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="18dp"
-        android:layout_marginEnd="18dp"
-        tools:context=".ui.settings.MapsFragment" />
 </LinearLayout>

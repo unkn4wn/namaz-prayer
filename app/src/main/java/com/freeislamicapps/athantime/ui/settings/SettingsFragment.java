@@ -146,7 +146,7 @@ public class SettingsFragment extends Fragment implements DialogInterface.OnDism
         locationRequest.setInterval(5000);
         locationRequest.setFastestInterval(2000);
 
-        currentLocation.setText(loadData("longitude"));
+        currentLocation.setText(loadData("location"));
         methodText.setText(loadData("Method"));
         asrCalculationText.setText(loadData("AsrCalculation"));
         highLatsAdjustmentText.setText(loadData("HighLatsAdjustment"));
@@ -480,7 +480,7 @@ public class SettingsFragment extends Fragment implements DialogInterface.OnDism
     @Override
     public void onDismiss(DialogInterface dialogInterface) {
         Log.d("DISPLAY3","DISPLAY DISMISSED FINALLY");
-
+        currentLocation.setText(loadData("location"));
 
     }
 }

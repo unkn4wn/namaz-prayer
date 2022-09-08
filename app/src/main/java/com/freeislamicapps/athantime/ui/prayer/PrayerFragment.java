@@ -115,11 +115,6 @@ public class PrayerFragment extends Fragment {
         sectionsPagerAdapter.createFragment(1000);
 
 
-        TextViewCompat.setAutoSizeTextTypeWithDefaults(cityText, TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM);
-
-        String city = "<B>Kassel, </B>";
-        String country = "Germany";
-        cityText.setText(Html.fromHtml(city + country));
 
         viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override

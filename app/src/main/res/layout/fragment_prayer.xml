@@ -10,39 +10,20 @@
 
 
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cityview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-       android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
-        app:cardCornerRadius="10dp"
-        app:strokeWidth="0dp"
-        app:cardBackgroundColor="?attr/backgroundColor"
-        >
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="5dp">
 
             <TextView
                 android:id="@+id/cityText"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="16dp"
+                android:textAppearance="@style/prayer_name"
+                android:textStyle="bold"
                 android:gravity="center"
-                android:text="Kassel, Germany"
-                android:textSize="25sp"
-                android:autoSizeTextType="uniform"
-                android:maxLines="1"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:drawableLeftCompat="@drawable/symbol_location" />
+                android:layout_alignParentTop="true"
+                android:text="Prayer" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/datepicker"
@@ -51,7 +32,7 @@
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
         android:layout_marginTop="10dp"
-        android:layout_below="@+id/cityview"
+        android:layout_below="@+id/cityText"
         app:strokeWidth="0dp">
 
 

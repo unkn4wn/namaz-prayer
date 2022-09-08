@@ -14,6 +14,8 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -33,10 +35,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -58,14 +63,30 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.squareup.okhttp.Callback;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.TreeMap;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
-public class MapsFragment extends DialogFragment implements OnMapReadyCallback {
+public class MapsFragment extends DialogFragment implements RecyclerViewInterface {
     SearchView searchView;
     GoogleMap googleMap;
     SupportMapFragment map;
@@ -76,6 +97,10 @@ public class MapsFragment extends DialogFragment implements OnMapReadyCallback {
     private LocationRequest locationRequest;
     public static final String SHARED_PREFS = "sharedPrefs";
     LatLng latLng;
+
+    private ArrayList<locationModel> arrayList;
+
+    Spinner spinnerCountry;
 
 
     @Override
@@ -89,27 +114,6 @@ public class MapsFragment extends DialogFragment implements OnMapReadyCallback {
 
     }
 
-
-    private OnMapReadyCallback callback = new OnMapReadyCallback() {
-
-        /**
-         * Manipulates the map once available.
-         * This callback is triggered when the map is ready to be used.
-         * This is where we can add markers or lines, add listeners or move the camera.
-         * In this case, we just add a marker near Sydney, Australia.
-         * If Google Play services is not installed on the device, the user will be prompted to
-         * install it inside the SupportMapFragment. This method will only be triggered once the
-         * user has installed Google Play services and returned to the app.
-         */
-        @Override
-        public void onMapReady(GoogleMap googleMap) {
-            Log.d("displayed", "onMapReady");
-            googleMap.addMarker(new MarkerOptions().position(latLng).title("Current location"));
-            CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 10);
-            googleMap.moveCamera(cameraUpdate);
-        }
-    };
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -118,9 +122,8 @@ public class MapsFragment extends DialogFragment implements OnMapReadyCallback {
         getDialog().getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
         Log.d("displayed", "onCreateView");
         View view = inflater.inflate(R.layout.fragment_maps, container, false);
-        map = (SupportMapFragment) this.getChildFragmentManager().findFragmentById(R.id.map);
-        map.getMapAsync(this);
-        latLng = new LatLng(Double.parseDouble(loadData("latitude")), Double.parseDouble(loadData("longitude")));
+
+        latLng = new LatLng(Double.parseDouble(loadData("latitude","")), Double.parseDouble(loadData("longitude","")));
 
 
         ImageButton closeButton = view.findViewById(R.id.closeBottomsheetButton);
@@ -130,29 +133,107 @@ public class MapsFragment extends DialogFragment implements OnMapReadyCallback {
                 dismiss();
             }
         });
-        locationRequest = LocationRequest.create();
-        locationRequest.setPriority(Priority.PRIORITY_HIGH_ACCURACY);
-        locationRequest.setInterval(5000);
-        locationRequest.setFastestInterval(2000);
 
-        enableLocationCard = view.findViewById(R.id.enableLocationCard);
-        enableLocationProgressbar = view.findViewById(R.id.enableLocationProgressbar);
-        enableLocationText = view.findViewById(R.id.enableLocationText);
-        enableLocationCard.setOnClickListener(new View.OnClickListener() {
+        RecyclerView recyclerView = view.findViewById(R.id.recycler_view_location);
+
+
+        SearchView searchView = view.findViewById(R.id.sv_location);
+
+        searchView.setOnSearchClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                LocationManager locationManager = (LocationManager) requireContext().getSystemService(LOCATION_SERVICE);
 
-                if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) && locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-                    if (ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                        // WHEN Permission is granted
-                        getCurrentLocation();
-                    } else {
-                        requestPermissionLauncher.launch(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION});
+            }
+        });
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                arrayList = new ArrayList<>();
+                RecyclerAdapter recyclerAdapter = new RecyclerAdapter(arrayList, MapsFragment.this);
+                recyclerView.setAdapter(recyclerAdapter);
+                Handler handler = new Handler(Looper.getMainLooper());
+                OkHttpClient client = new OkHttpClient();
+                String startUrl = "https://forward-reverse-geocoding.p.rapidapi.com/v1/forward?city=";
+                String midUrl = "&accept-language="+ loadData("countrycode","en") + "&countrycodes="+loadData("countrycode","en"); //BEFORE: Locale.getDefault().getCountry().toLowerCase(Locale.ROOT);
+                String endUrl = "&limit=20&polygon_threshold=0.0";
+                Log.d("URLWEBSITE",startUrl+s+midUrl+endUrl);
+                Request request = new Request.Builder()
+                        .url(startUrl + s + midUrl+ endUrl)
+                        .get()
+                        .addHeader("X-RapidAPI-Key", BuildConfig.RAPID_GEOCODING_API_KEY)
+                        .addHeader("X-RapidAPI-Host", "forward-reverse-geocoding.p.rapidapi.com")
+                        .build();
+
+                client.newCall(request).enqueue(new Callback() {
+                    @Override
+                    public void onFailure(Request request, IOException e) {
+                        e.printStackTrace();
                     }
-                } else {
-                    Toast.makeText(requireContext(), "Please enable Location and Internet first", Toast.LENGTH_SHORT).show();
-                }
+
+                    @Override
+                    public void onResponse(Response response) throws IOException {
+                        if (response.isSuccessful()) {
+
+
+                            Log.d("FLUSHHHH","ARRAY CLEARED");
+                            String myResponse = response.body().string();
+                            try {
+                                JSONArray jsonArray = new JSONArray(myResponse);
+                                for (int i = 0; i < jsonArray.length(); i++) {
+                                    JSONObject jsonObject = new JSONObject(jsonArray.get(i).toString());
+                                    Log.d("myResponse", jsonObject.get("display_name").toString());
+                                    String location = jsonObject.get("display_name").toString();
+                                    Double latitude = Double.parseDouble(jsonObject.get("lat").toString());
+                                    Double longitude = Double.parseDouble(jsonObject.get("lon").toString());
+                                    locationModel locationModel = new locationModel(location, latitude, longitude);
+                                    arrayList.add(locationModel);
+                                    Log.d("myResponse", jsonObject.get("lon").toString());
+                                }
+                                handler.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Log.d("ARRAYLI", arrayList.get(0).getLocation());
+                                        RecyclerAdapter recyclerAdapter = new RecyclerAdapter(arrayList, MapsFragment.this);
+                                        recyclerView.setAdapter(recyclerAdapter);
+                                        LinearLayoutManager llm = new LinearLayoutManager(requireContext());
+                                        llm.setOrientation(LinearLayoutManager.VERTICAL);
+                                        recyclerView.setLayoutManager(llm);
+                                        searchView.clearFocus();
+                                    }
+                                });
+
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+                    }
+                });
+
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                return false;
+            }
+        });
+
+        spinnerCountry = view.findViewById(R.id.spinnerCountry);
+
+        setData();
+        spinnerCountry.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                Country country = (Country) parent.getSelectedItem();
+                saveData("countrycode",country.getId().toLowerCase(Locale.ROOT));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
             }
         });
 
@@ -195,92 +276,6 @@ public class MapsFragment extends DialogFragment implements OnMapReadyCallback {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Log.d("displayed", "onViewCreated");
-        SupportMapFragment mapFragment =
-                (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
-        if (mapFragment != null) {
-            mapFragment.getMapAsync(callback);
-        }
-    }
-
-    private ActivityResultLauncher<String[]> requestPermissionLauncher = registerForActivityResult(
-            new ActivityResultContracts.RequestMultiplePermissions(), new ActivityResultCallback<Map<String, Boolean>>() {
-                @Override
-                public void onActivityResult(Map<String, Boolean> result) {
-                    if (Boolean.TRUE.equals(result.get(Manifest.permission.ACCESS_COARSE_LOCATION))) {
-                        if (Boolean.TRUE.equals(result.get(Manifest.permission.ACCESS_FINE_LOCATION))) {
-                            getCurrentLocation();
-                        } else {
-                            Snackbar.make(requireContext(), requireView(), "Please allow to retrieve your exact location to provide accurate prayer times", Toast.LENGTH_SHORT)
-                                    .show();
-                        }
-                    } else {
-                        Snackbar.make(requireContext(), requireView(), "Please allow to retrieve your location", Toast.LENGTH_SHORT)
-                                .show();
-                    }
-                }
-            });
-
-    @SuppressLint("MissingPermission")
-    private void getCurrentLocation() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (ActivityCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-
-                enableLocationProgressbar.setVisibility(View.VISIBLE);
-                enableLocationText.setText("Please wait...");
-                LocationServices.getFusedLocationProviderClient(requireActivity())
-                        .requestLocationUpdates(locationRequest, new LocationCallback() {
-                            @Override
-                            public void onLocationResult(@NonNull LocationResult locationResult) {
-                                super.onLocationResult(locationResult);
-
-                                LocationServices.getFusedLocationProviderClient(requireActivity())
-                                        .removeLocationUpdates(this);
-
-
-                                if (locationResult != null && locationResult.getLocations().size() > 0) {
-                                    int index = locationResult.getLocations().size() - 1;
-                                    double latitude = locationResult.getLocations().get(index).getLatitude();
-                                    double longitude = locationResult.getLocations().get(index).getLongitude();
-                                    latLng = new LatLng(latitude, longitude);
-                                    saveData("latitude", String.valueOf(latitude));
-                                    saveData("longitude", String.valueOf(longitude));
-                                    enableLocationText.setText("Reading location...");
-                                    Log.d("currentLocationLat", String.valueOf(latitude));
-                                    Log.d("currentLocationlong", String.valueOf(longitude));
-
-                                    Handler handler = new Handler();
-                                    Runnable runnable = new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            HttpDataHandler httpDataHandler = new HttpDataHandler();
-                                            String startUrl = "https://maps.googleapis.com/maps/api/geocode/json?latlng=";
-                                            String latitude = loadData("latitude");
-                                            String longitude = loadData("longitude");
-                                            String apikey = BuildConfig.MAPS_API_KEY;
-                                            String response = httpDataHandler.getHTTPData(startUrl + latitude + "," + longitude + "&key=" + apikey);
-                                            JsonObject jsonObject = JsonParser.parseString(response).getAsJsonObject();
-                                            Log.d("address", jsonObject.get("results").toString());
-
-                                            handler.post(new Runnable() {
-                                                @Override
-                                                public void run() {
-                                                    enableLocationProgressbar.setVisibility(View.INVISIBLE);
-                                                    map.getMapAsync(MapsFragment.this);
-                                                    dismiss();
-                                                }
-                                            });
-                                        }
-
-                                    };
-                                    Thread thread = new Thread(runnable);
-                                    thread.start();
-
-                                }
-                            }
-                        }, Looper.getMainLooper());
-
-            }
-        }
     }
 
 
@@ -291,19 +286,9 @@ public class MapsFragment extends DialogFragment implements OnMapReadyCallback {
         editor.apply();
     }
 
-    public String loadData(String savedKey) {
+    public String loadData(String savedKey,String defaultValue) {
         SharedPreferences sharedPreferences = requireActivity().getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
-        return sharedPreferences.getString(savedKey, "");
-    }
-
-
-    @Override
-    public void onMapReady(@NonNull GoogleMap googleMap) {
-        Log.d("displayed", "BottomonMapReady");
-        googleMap.addMarker(new MarkerOptions().position(latLng).title("Current location"));
-        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 10);
-        googleMap.animateCamera(cameraUpdate);
-
+        return sharedPreferences.getString(savedKey, defaultValue);
     }
 
     @Override
@@ -313,5 +298,38 @@ public class MapsFragment extends DialogFragment implements OnMapReadyCallback {
         if (parentFragment instanceof DialogInterface.OnDismissListener) {
             ((DialogInterface.OnDismissListener) parentFragment).onDismiss(dialog);
         }
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        saveData("location", String.valueOf(arrayList.get(position).getLocation()));
+        saveData("latitude", String.valueOf(arrayList.get(position).getLatitude()));
+        saveData("longitude", String.valueOf(arrayList.get(position).getLongitude()));
+        dismiss();
+    }
+
+    private void setData() {
+
+        ArrayList<Country> countryList = new ArrayList<>();
+        //Add countries
+
+        Map<String,String> englishcountries = Arrays.stream( Locale.getISOCountries() ).collect(
+                Collectors.toMap( (String code)-> new Locale( "", code ).getDisplayCountry(Locale.getDefault()),
+                        Function.identity(),(o1, o2) -> o1, TreeMap::new ));
+
+
+        for (Map.Entry<String, String> entry : englishcountries.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue();
+            countryList.add(new Country(value,key));
+        }
+/*
+        List keys = new ArrayList(englishcountries.values());
+        int index = keys.indexOf(Locale.getDefault().getCountry()); */
+
+        //fill data in spinner
+        ArrayAdapter<Country> adapter = new ArrayAdapter<Country>(requireContext(), android.R.layout.simple_spinner_dropdown_item, countryList);
+        spinnerCountry.setAdapter(adapter);
+     //   spinnerCountry.setSelection(adapter.getPosition(myItem));//Optional to set the selected item.
     }
 }
