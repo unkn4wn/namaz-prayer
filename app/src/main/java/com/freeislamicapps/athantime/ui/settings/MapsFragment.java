@@ -8,6 +8,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
+import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
@@ -17,6 +18,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Address;
@@ -24,6 +26,7 @@ import android.location.Geocoder;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -32,11 +35,14 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.freeislamicapps.athantime.BuildConfig;
 import com.freeislamicapps.athantime.R;
+import com.freeislamicapps.athantime.helper.HttpDataHandler;
 import com.freeislamicapps.athantime.ui.intro.NotificationFragment;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -52,6 +58,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import java.io.IOException;
 import java.util.List;
@@ -62,10 +70,13 @@ public class MapsFragment extends DialogFragment implements OnMapReadyCallback {
     GoogleMap googleMap;
     SupportMapFragment map;
 
-    Button enableLocationButton;
+    CardView enableLocationCard;
+    ProgressBar enableLocationProgressbar;
+    TextView enableLocationText;
     private LocationRequest locationRequest;
     public static final String SHARED_PREFS = "sharedPrefs";
     LatLng latLng;
+
 
     @Override
     public void onResume() {
@@ -74,8 +85,10 @@ public class MapsFragment extends DialogFragment implements OnMapReadyCallback {
         params.width = ViewGroup.LayoutParams.MATCH_PARENT;
         params.height = ViewGroup.LayoutParams.MATCH_PARENT;
         getDialog().getWindow().setAttributes(params);
-        getDialog().getWindow().setBackgroundDrawable(AppCompatResources.getDrawable(requireContext(),R.drawable.bottomsheet_background_maps));
+        getDialog().getWindow().setBackgroundDrawable(AppCompatResources.getDrawable(requireContext(), R.drawable.bottomsheet_background_maps));
+
     }
+
 
     private OnMapReadyCallback callback = new OnMapReadyCallback() {
 
@@ -90,9 +103,9 @@ public class MapsFragment extends DialogFragment implements OnMapReadyCallback {
          */
         @Override
         public void onMapReady(GoogleMap googleMap) {
-            Log.d("displayed","onMapReady");
+            Log.d("displayed", "onMapReady");
             googleMap.addMarker(new MarkerOptions().position(latLng).title("Current location"));
-            CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng,10);
+            CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 10);
             googleMap.moveCamera(cameraUpdate);
         }
     };
@@ -102,12 +115,12 @@ public class MapsFragment extends DialogFragment implements OnMapReadyCallback {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        Log.d("displayed","onCreateView");
+        getDialog().getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+        Log.d("displayed", "onCreateView");
         View view = inflater.inflate(R.layout.fragment_maps, container, false);
         map = (SupportMapFragment) this.getChildFragmentManager().findFragmentById(R.id.map);
         map.getMapAsync(this);
-        latLng = new LatLng(Double.parseDouble(loadData("latitude")),Double.parseDouble(loadData("longitude")));
-
+        latLng = new LatLng(Double.parseDouble(loadData("latitude")), Double.parseDouble(loadData("longitude")));
 
 
         ImageButton closeButton = view.findViewById(R.id.closeBottomsheetButton);
@@ -122,8 +135,10 @@ public class MapsFragment extends DialogFragment implements OnMapReadyCallback {
         locationRequest.setInterval(5000);
         locationRequest.setFastestInterval(2000);
 
-        enableLocationButton = view.findViewById(R.id.enableLocationButton);
-        enableLocationButton.setOnClickListener(new View.OnClickListener() {
+        enableLocationCard = view.findViewById(R.id.enableLocationCard);
+        enableLocationProgressbar = view.findViewById(R.id.enableLocationProgressbar);
+        enableLocationText = view.findViewById(R.id.enableLocationText);
+        enableLocationCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 LocationManager locationManager = (LocationManager) requireContext().getSystemService(LOCATION_SERVICE);
@@ -176,11 +191,10 @@ public class MapsFragment extends DialogFragment implements OnMapReadyCallback {
     }
 
 
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Log.d("displayed","onViewCreated");
+        Log.d("displayed", "onViewCreated");
         SupportMapFragment mapFragment =
                 (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         if (mapFragment != null) {
@@ -192,16 +206,15 @@ public class MapsFragment extends DialogFragment implements OnMapReadyCallback {
             new ActivityResultContracts.RequestMultiplePermissions(), new ActivityResultCallback<Map<String, Boolean>>() {
                 @Override
                 public void onActivityResult(Map<String, Boolean> result) {
-                    if(Boolean.TRUE.equals(result.get(Manifest.permission.ACCESS_COARSE_LOCATION))) {
-                        if(Boolean.TRUE.equals(result.get(Manifest.permission.ACCESS_FINE_LOCATION))) {
+                    if (Boolean.TRUE.equals(result.get(Manifest.permission.ACCESS_COARSE_LOCATION))) {
+                        if (Boolean.TRUE.equals(result.get(Manifest.permission.ACCESS_FINE_LOCATION))) {
                             getCurrentLocation();
-                        }
-                        else {
-                            Snackbar.make(requireContext(), requireView(),"Please allow to retrieve your exact location to provide accurate prayer times",Toast.LENGTH_SHORT)
+                        } else {
+                            Snackbar.make(requireContext(), requireView(), "Please allow to retrieve your exact location to provide accurate prayer times", Toast.LENGTH_SHORT)
                                     .show();
                         }
                     } else {
-                        Snackbar.make(requireContext(), requireView(),"Please allow to retrieve your location",Toast.LENGTH_SHORT)
+                        Snackbar.make(requireContext(), requireView(), "Please allow to retrieve your location", Toast.LENGTH_SHORT)
                                 .show();
                     }
                 }
@@ -212,7 +225,8 @@ public class MapsFragment extends DialogFragment implements OnMapReadyCallback {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ActivityCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 
-              enableLocationButton.setText("Loading location...");
+                enableLocationProgressbar.setVisibility(View.VISIBLE);
+                enableLocationText.setText("Please wait...");
                 LocationServices.getFusedLocationProviderClient(requireActivity())
                         .requestLocationUpdates(locationRequest, new LocationCallback() {
                             @Override
@@ -227,14 +241,39 @@ public class MapsFragment extends DialogFragment implements OnMapReadyCallback {
                                     int index = locationResult.getLocations().size() - 1;
                                     double latitude = locationResult.getLocations().get(index).getLatitude();
                                     double longitude = locationResult.getLocations().get(index).getLongitude();
-                                     latLng = new LatLng(latitude,longitude);
+                                    latLng = new LatLng(latitude, longitude);
                                     saveData("latitude", String.valueOf(latitude));
                                     saveData("longitude", String.valueOf(longitude));
-                                    enableLocationButton.setText("Get your Location");
-                                    Log.d("currentLocationLat",String.valueOf(latitude));
-                                    Log.d("currentLocationlong",String.valueOf(longitude));
+                                    enableLocationText.setText("Reading location...");
+                                    Log.d("currentLocationLat", String.valueOf(latitude));
+                                    Log.d("currentLocationlong", String.valueOf(longitude));
 
-                                    map.getMapAsync(MapsFragment.this);
+                                    Handler handler = new Handler();
+                                    Runnable runnable = new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            HttpDataHandler httpDataHandler = new HttpDataHandler();
+                                            String startUrl = "https://maps.googleapis.com/maps/api/geocode/json?latlng=";
+                                            String latitude = loadData("latitude");
+                                            String longitude = loadData("longitude");
+                                            String apikey = BuildConfig.MAPS_API_KEY;
+                                            String response = httpDataHandler.getHTTPData(startUrl + latitude + "," + longitude + "&key=" + apikey);
+                                            JsonObject jsonObject = JsonParser.parseString(response).getAsJsonObject();
+                                            Log.d("address", jsonObject.get("results").toString());
+
+                                            handler.post(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    enableLocationProgressbar.setVisibility(View.INVISIBLE);
+                                                    map.getMapAsync(MapsFragment.this);
+                                                    dismiss();
+                                                }
+                                            });
+                                        }
+
+                                    };
+                                    Thread thread = new Thread(runnable);
+                                    thread.start();
 
                                 }
                             }
@@ -260,10 +299,19 @@ public class MapsFragment extends DialogFragment implements OnMapReadyCallback {
 
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
-        Log.d("displayed","BottomonMapReady");
+        Log.d("displayed", "BottomonMapReady");
         googleMap.addMarker(new MarkerOptions().position(latLng).title("Current location"));
-        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng,10);
+        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 10);
         googleMap.animateCamera(cameraUpdate);
 
+    }
+
+    @Override
+    public void onDismiss(@NonNull DialogInterface dialog) {
+        super.onDismiss(dialog);
+        Fragment parentFragment = getParentFragment();
+        if (parentFragment instanceof DialogInterface.OnDismissListener) {
+            ((DialogInterface.OnDismissListener) parentFragment).onDismiss(dialog);
+        }
     }
 }

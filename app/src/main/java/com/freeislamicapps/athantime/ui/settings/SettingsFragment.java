@@ -4,10 +4,12 @@ import static android.content.Context.LOCATION_SERVICE;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.Dialog;
 import android.app.PendingIntent;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -40,6 +42,7 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -74,12 +77,18 @@ import java.util.Map;
 import java.util.Objects;
 
 
-public class SettingsFragment extends Fragment {
+public class SettingsFragment extends Fragment implements DialogInterface.OnDismissListener {
     TextView currentLocation;
     TextView methodText, asrCalculationText, highLatsAdjustmentText, styleText;
     private LocationRequest locationRequest;
     public static final String SHARED_PREFS = "sharedPrefs";
 
+
+    @Override
+    public void setMenuVisibility(boolean menuVisible) {
+        super.setMenuVisibility(menuVisible);
+        Log.d("display2","VISIBLE");
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -365,7 +374,7 @@ public class SettingsFragment extends Fragment {
         dialog.getWindow().setGravity(Gravity.BOTTOM);
     }
 
-    private ActivityResultLauncher<String[]> requestPermissionLauncher = registerForActivityResult(
+    private final ActivityResultLauncher<String[]> requestPermissionLauncher = registerForActivityResult(
             new ActivityResultContracts.RequestMultiplePermissions(), new ActivityResultCallback<Map<String, Boolean>>() {
                 @Override
                 public void onActivityResult(Map<String, Boolean> result) {
@@ -459,8 +468,19 @@ public class SettingsFragment extends Fragment {
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
+    public void onResume() {
+        super.onResume();
+        Log.d("displayed","SETTINGS FRAGMENT RSUMED");
     }
 
+    public void updateLocationText() {
+        currentLocation.setText("");
+    }
+
+    @Override
+    public void onDismiss(DialogInterface dialogInterface) {
+        Log.d("DISPLAY3","DISPLAY DISMISSED FINALLY");
+
+
+    }
 }

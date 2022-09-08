@@ -2,19 +2,19 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_height="match_parent"
     android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@drawable/bottomsheet_background_maps"
     android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="18dp"
-        android:layout_marginBottom="16dp"
         android:layout_marginStart="18dp"
-        android:layout_marginEnd="18dp">
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="18dp"
+        android:layout_marginBottom="16dp"
+        android:orientation="horizontal">
 
 
         <TextView
@@ -51,19 +51,44 @@
             />
             -->
 
-        <Button
-            android:id="@+id/enableLocationButton"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/enableLocationCard"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginEnd="18dp"
+        android:layout_marginBottom="10dp"
+        android:fontFamily="@font/poppins_bold"
+        android:text="Get my location"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:cardBackgroundColor="?attr/colorPrimary">
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Get my location"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:fontFamily="@font/poppins_bold"
-            android:layout_marginStart="18dp"
-            android:layout_marginEnd="18dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/navigation_background"
-            />
+            android:layout_height="match_parent">
+            <ProgressBar
+                android:visibility="gone"
+                android:id="@+id/enableLocationProgressbar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_toLeftOf="@+id/enableLocationText"
+                android:indeterminateTint="@color/white"
+                android:indeterminateTintMode="src_atop"
+                android:layout_centerVertical="true"/>
+            <TextView
+                android:id="@+id/enableLocationText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Enable your Location"
+                android:textSize="20sp"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:layout_centerInParent="true"/>
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
 
 
     <fragment
@@ -74,4 +99,4 @@
         android:layout_marginStart="18dp"
         android:layout_marginEnd="18dp"
         tools:context=".ui.settings.MapsFragment" />
-    </LinearLayout>
+</LinearLayout>
