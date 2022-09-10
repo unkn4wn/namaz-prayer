@@ -34,6 +34,7 @@ android {
 
 dependencies {
     implementation 'com.google.android.gms:play-services-maps:18.1.0'
+    implementation 'com.google.android.libraries.places:places:2.6.0'
 
     // Dependency with the implementation code for the APIs
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
@@ -58,7 +59,8 @@ dependencies {
 
     implementation 'androidx.work:work-runtime:2.7.1'
 
-    implementation 'com.squareup.okhttp:okhttp:2.7.5'
+    implementation 'com.squareup.okhttp3:okhttp:4.10.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
 
 
 

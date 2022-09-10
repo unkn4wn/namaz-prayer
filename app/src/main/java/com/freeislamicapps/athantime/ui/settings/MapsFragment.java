@@ -66,10 +66,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.squareup.okhttp.Callback;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
+
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -85,6 +82,12 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class MapsFragment extends DialogFragment implements RecyclerViewInterface {
     SearchView searchView;
@@ -123,7 +126,8 @@ public class MapsFragment extends DialogFragment implements RecyclerViewInterfac
         Log.d("displayed", "onCreateView");
         View view = inflater.inflate(R.layout.fragment_maps, container, false);
 
-        latLng = new LatLng(Double.parseDouble(loadData("latitude","")), Double.parseDouble(loadData("longitude","")));
+        latLng = new LatLng(Double.parseDouble(loadData("latitude", "")), Double.parseDouble(loadData("longitude", "")));
+
 
 
         ImageButton closeButton = view.findViewById(R.id.closeBottomsheetButton);
@@ -154,64 +158,73 @@ public class MapsFragment extends DialogFragment implements RecyclerViewInterfac
                 recyclerView.setAdapter(recyclerAdapter);
                 Handler handler = new Handler(Looper.getMainLooper());
                 OkHttpClient client = new OkHttpClient();
-                String startUrl = "https://forward-reverse-geocoding.p.rapidapi.com/v1/forward?city=";
-                String midUrl = "&accept-language="+ loadData("countrycode","en") + "&countrycodes="+loadData("countrycode","en"); //BEFORE: Locale.getDefault().getCountry().toLowerCase(Locale.ROOT);
-                String endUrl = "&limit=20&polygon_threshold=0.0";
-                Log.d("URLWEBSITE",startUrl+s+midUrl+endUrl);
+                String startUrl = "https://geoapify-platform.p.rapidapi.com/v1/geocode/search?apiKey=857d9a3e83b44167a3a4801a3fcd7edf&text=";
+                String midUrl = "&lang=" + loadData("countrycode", "en") + "&countrycodes=" + loadData("countrycode", "en"); //BEFORE: Locale.getDefault().getCountry().toLowerCase(Locale.ROOT);
+                String endUrl = "&limit=20&type=city";
+                Log.d("URLWEBSITE", startUrl + s + midUrl + endUrl);
                 Request request = new Request.Builder()
-                        .url(startUrl + s + midUrl+ endUrl)
+                        .url(startUrl + s + midUrl + endUrl)
                         .get()
-                        .addHeader("X-RapidAPI-Key", BuildConfig.RAPID_GEOCODING_API_KEY)
-                        .addHeader("X-RapidAPI-Host", "forward-reverse-geocoding.p.rapidapi.com")
+                        .addHeader("X-RapidAPI-Key", "0a2ca5b1a0mshbc853a41b466c39p13f5c9jsn8c6b152135fa")
+                        .addHeader("X-RapidAPI-Host", "geoapify-platform.p.rapidapi.com")
                         .build();
 
                 client.newCall(request).enqueue(new Callback() {
+
                     @Override
-                    public void onFailure(Request request, IOException e) {
+                    public void onFailure(@NonNull Call call, @NonNull IOException e) {
                         e.printStackTrace();
                     }
 
                     @Override
-                    public void onResponse(Response response) throws IOException {
-                        if (response.isSuccessful()) {
+                    public void onResponse(Call call, Response response) throws IOException {
 
 
-                            Log.d("FLUSHHHH","ARRAY CLEARED");
-                            String myResponse = response.body().string();
-                            try {
-                                JSONArray jsonArray = new JSONArray(myResponse);
-                                for (int i = 0; i < jsonArray.length(); i++) {
-                                    JSONObject jsonObject = new JSONObject(jsonArray.get(i).toString());
-                                    Log.d("myResponse", jsonObject.get("display_name").toString());
-                                    String location = jsonObject.get("display_name").toString();
-                                    Double latitude = Double.parseDouble(jsonObject.get("lat").toString());
-                                    Double longitude = Double.parseDouble(jsonObject.get("lon").toString());
-                                    locationModel locationModel = new locationModel(location, latitude, longitude);
-                                    arrayList.add(locationModel);
-                                    Log.d("myResponse", jsonObject.get("lon").toString());
-                                }
-                                handler.post(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        Log.d("ARRAYLI", arrayList.get(0).getLocation());
-                                        RecyclerAdapter recyclerAdapter = new RecyclerAdapter(arrayList, MapsFragment.this);
-                                        recyclerView.setAdapter(recyclerAdapter);
-                                        LinearLayoutManager llm = new LinearLayoutManager(requireContext());
-                                        llm.setOrientation(LinearLayoutManager.VERTICAL);
-                                        recyclerView.setLayoutManager(llm);
-                                        searchView.clearFocus();
-                                    }
-                                });
-
-
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-
+                        String myResponse = response.body().string();
+                        JSONObject myResponseJson = null;
+                        try {
+                            myResponseJson = new JSONObject(myResponse);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
-                    }
-                });
+                        try {
+                            JSONArray jsonArray = myResponseJson.getJSONArray("features");
+                            System.out.println(jsonArray.length());
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                JSONObject jsonObject = new JSONObject(jsonArray.get(i).toString());
+                                JSONObject propertiesJson = jsonObject.getJSONObject("properties");
+                                String location = propertiesJson.getString("formatted");
+                                Double latitude = propertiesJson.getDouble("lat");
+                                Double longitude = propertiesJson.getDouble("lon");
 
+                                locationModel locationModel = new locationModel(location, latitude, longitude);
+                                arrayList.add(locationModel);
+                                System.out.println(location + latitude + longitude);
+
+                            }
+                            handler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    RecyclerAdapter recyclerAdapter = new RecyclerAdapter(arrayList, MapsFragment.this);
+                                    recyclerView.setAdapter(recyclerAdapter);
+                                    LinearLayoutManager llm = new LinearLayoutManager(requireContext());
+                                    llm.setOrientation(LinearLayoutManager.VERTICAL);
+                                    recyclerView.setLayoutManager(llm);
+                                    searchView.clearFocus();
+                                }
+                            });
+
+                            client.dispatcher().executorService().shutdown();
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+
+
+                });
                 return true;
             }
 
@@ -229,7 +242,9 @@ public class MapsFragment extends DialogFragment implements RecyclerViewInterfac
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
                 Country country = (Country) parent.getSelectedItem();
-                saveData("countrycode",country.getId().toLowerCase(Locale.ROOT));
+                saveData("countrycode", country.getId().toLowerCase(Locale.ROOT));
+
+                saveData("countryPosition",String.valueOf(position));
             }
 
             @Override
@@ -237,7 +252,7 @@ public class MapsFragment extends DialogFragment implements RecyclerViewInterfac
             }
         });
 
-        // TODO SEARCHVIEW FOR MAP
+        // TODO LOCATION FOR MAP
         /*
         searchView = view.findViewById(R.id.sv_location);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -286,7 +301,7 @@ public class MapsFragment extends DialogFragment implements RecyclerViewInterfac
         editor.apply();
     }
 
-    public String loadData(String savedKey,String defaultValue) {
+    public String loadData(String savedKey, String defaultValue) {
         SharedPreferences sharedPreferences = requireActivity().getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
         return sharedPreferences.getString(savedKey, defaultValue);
     }
@@ -313,16 +328,20 @@ public class MapsFragment extends DialogFragment implements RecyclerViewInterfac
         ArrayList<Country> countryList = new ArrayList<>();
         //Add countries
 
-        Map<String,String> englishcountries = Arrays.stream( Locale.getISOCountries() ).collect(
-                Collectors.toMap( (String code)-> new Locale( "", code ).getDisplayCountry(Locale.getDefault()),
-                        Function.identity(),(o1, o2) -> o1, TreeMap::new ));
+        Map<String, String> englishcountries = Arrays.stream(Locale.getISOCountries()).collect(
+                Collectors.toMap((String code) -> new Locale("", code).getDisplayCountry(Locale.getDefault()),
+                        Function.identity(), (o1, o2) -> o1, TreeMap::new));
 
 
         for (Map.Entry<String, String> entry : englishcountries.entrySet()) {
             String key = entry.getKey();
             String value = entry.getValue();
-            countryList.add(new Country(value,key));
+            countryList.add(new Country(value, key));
         }
+
+
+
+
 /*
         List keys = new ArrayList(englishcountries.values());
         int index = keys.indexOf(Locale.getDefault().getCountry()); */
@@ -330,6 +349,6 @@ public class MapsFragment extends DialogFragment implements RecyclerViewInterfac
         //fill data in spinner
         ArrayAdapter<Country> adapter = new ArrayAdapter<Country>(requireContext(), android.R.layout.simple_spinner_dropdown_item, countryList);
         spinnerCountry.setAdapter(adapter);
-     //   spinnerCountry.setSelection(adapter.getPosition(myItem));//Optional to set the selected item.
+        spinnerCountry.setSelection(Integer.parseInt(loadData("countryPosition","0")));
     }
 }

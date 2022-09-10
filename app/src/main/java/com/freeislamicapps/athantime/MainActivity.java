@@ -100,6 +100,8 @@ public class MainActivity extends AppCompatActivity {
         saveDataString("Method", "Islamic Society of North America (ISNA)");
         saveDataString("HighLatsAdjustment", "Angle-Based");
         saveDataString("Style","Automatic (System settings)");
+        saveDataString("latitude","52.0");
+        saveDataString("longitude","9.0");
 
         Intent intent = new Intent(MainActivity.this,IntroActivity.class);
         startActivity(intent);
