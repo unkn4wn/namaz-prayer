@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,374 +10,338 @@
 
     <TextView
         android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
-        android:text="Settings"
-        android:textAppearance="@style/prayer_name"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/categoryLocations"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
-        android:text="Your location"
-        android:textColor="@color/weak_text"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="@+id/cardViewLocation"
-        app:layout_constraintTop_toBottomOf="@+id/title" />
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cardViewLocation"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="30dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/categoryLocations"
-        app:strokeWidth="0dp">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center_horizontal"
+        android:text="@string/title_settings"
+        android:textAppearance="@style/prayer_name"
+        android:textStyle="bold" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/scrollViewConstraint"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
 
             <TextView
-                android:id="@+id/currentlocation"
+                android:id="@+id/categoryLocations"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_marginStart="16dp"
-                android:gravity="center_vertical"
-                android:text="Korbach,34497"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.516" />
-
-            <ImageView
-                android:id="@+id/refreshlocation2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:src="@drawable/symbol_arrow_right"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.google.android.material.card.MaterialCardView>
-
-
-    <TextView
-        android:id="@+id/categoryMethods"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:text="Prayer calculation"
-        android:textColor="@color/weak_text"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="@+id/cardViewPrayerCalculations"
-        app:layout_constraintTop_toBottomOf="@+id/cardViewLocation" />
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cardViewPrayerCalculations"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="30dp"
-        android:backgroundTint="@color/selected_prayercard"
-        app:cardElevation="0dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/categoryMethods"
-        app:strokeWidth="0dp">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
+                android:layout_marginTop="48dp"
+                android:text="@string/title_location"
+                android:textColor="@color/weak_text"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/cardViewLocation"
+                app:layout_constraintTop_toTopOf="@+id/scrollViewConstraint" />
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardViewMethod"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="0dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:strokeWidth="0dp">
-
-                <RelativeLayout
-                    android:id="@+id/relativeLayoutMethod"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp">
-
-                    <RelativeLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center_vertical">
-
-                        <TextView
-                            android:id="@+id/methodTitle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
-                            android:text="Method" />
-
-                        <TextView
-                            android:id="@+id/methodsText"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@+id/methodTitle"
-                            android:layout_alignStart="@+id/methodTitle"
-                            android:text="University of Islamic Science"
-                            android:textColor="@color/weak_text" />
-                    </RelativeLayout>
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginEnd="8dp"
-                        android:background="@drawable/symbol_arrow_right" />
-
-                </RelativeLayout>
-
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.divider.MaterialDivider
+                android:id="@+id/cardViewLocation"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="16dp"
-                app:layout_constraintBottom_toTopOf="@+id/cardViewAsrcalculation"
-                app:layout_constraintTop_toBottomOf="@+id/cardViewMethod" />
-
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardViewAsrcalculation"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="0dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cardViewMethod"
-                app:strokeWidth="0dp">
-
-                <RelativeLayout
-                    android:id="@+id/relativeLayoutAsrcalculation"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp">
-
-                    <RelativeLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center_vertical">
-
-                        <TextView
-                            android:id="@+id/asrcalculationTitle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
-                            android:text="Asr Calculation" />
-
-                        <TextView
-                            android:id="@+id/asrcalculationText"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@+id/asrcalculationTitle"
-                            android:layout_alignStart="@+id/asrcalculationTitle"
-                            android:text="Shafi"
-                            android:textColor="@color/weak_text" />
-                    </RelativeLayout>
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginEnd="8dp"
-                        android:background="@drawable/symbol_arrow_right" />
-                </RelativeLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.divider.MaterialDivider
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="16dp"
-                app:layout_constraintBottom_toTopOf="@+id/cardViewHighlatsadjustment"
-                app:layout_constraintTop_toBottomOf="@+id/cardViewAsrcalculation" />
-
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardViewHighlatsadjustment"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="0dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cardViewAsrcalculation"
-                app:strokeWidth="0dp">
-
-                <RelativeLayout
-                    android:id="@+id/relativeLayoutHighlatsadjustments"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cardViewAsrcalculation">
-
-                    <RelativeLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center_vertical">
-
-                        <TextView
-                            android:id="@+id/highlatsadjustmentTitle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
-                            android:text="High Lat Adjustment" />
-
-                        <TextView
-                            android:id="@+id/highlatsadjustmentText"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@+id/highlatsadjustmentTitle"
-                            android:layout_alignStart="@+id/highlatsadjustmentTitle"
-                            android:text="None"
-                            android:textColor="@color/weak_text" />
-                    </RelativeLayout>
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginEnd="8dp"
-                        android:background="@drawable/symbol_arrow_right" />
-                </RelativeLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.divider.MaterialDivider
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="16dp"
-                app:layout_constraintBottom_toTopOf="@+id/cardviewTunes"
-                app:layout_constraintTop_toBottomOf="@+id/cardViewHighlatsadjustment" />
-
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardviewTunes"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="0dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cardViewHighlatsadjustment"
-                app:strokeWidth="0dp">
-
-                <RelativeLayout
-                    android:id="@+id/relativeLayoutTunes"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cardViewHighlatsadjustment">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginStart="16dp"
-                        android:text="Tunes" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginEnd="8dp"
-                        android:background="@drawable/symbol_arrow_right" />
-                </RelativeLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </com.google.android.material.card.MaterialCardView>
-
-    <TextView
-        android:id="@+id/categoryAppearance"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:text="Appearance"
-        android:textColor="@color/weak_text"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="@+id/cardViewPrayerCalculations"
-        app:layout_constraintTop_toBottomOf="@+id/cardViewPrayerCalculations" />
-
-
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardViewStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
                 android:layout_marginStart="30dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="30dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/categoryAppearance"
+                app:layout_constraintTop_toBottomOf="@+id/categoryLocations"
                 app:strokeWidth="0dp">
 
-                <RelativeLayout
-                    android:id="@+id/relativeLayoutStyle"
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="60dp">
+                    android:layout_height="match_parent">
 
-                    <RelativeLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center_vertical">
-
-                        <TextView
-                            android:id="@+id/styleTitle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
-                            android:text="Style" />
-
-                        <TextView
-                            android:id="@+id/styleText"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@+id/styleTitle"
-                            android:layout_alignStart="@+id/styleTitle"
-                            android:text="Dark Mode"
-                            android:textColor="@color/weak_text" />
-                    </RelativeLayout>
-
-                    <ImageView
+                    <TextView
+                        android:id="@+id/currentlocation"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginEnd="8dp"
-                        android:background="@drawable/symbol_arrow_right" />
+                        android:layout_alignParentStart="true"
+                        android:layout_marginStart="16dp"
+                        android:gravity="center_vertical"
+                        android:paddingEnd="40dp"
+                        android:text="Korbach,34497"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/refreshlocation2"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                </RelativeLayout>
+                    <ImageView
+                        android:id="@+id/refreshlocation2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:src="@drawable/symbol_arrow_right"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+
+            <TextView
+                android:id="@+id/categoryMethods"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:text="@string/title_prayercalculation"
+                android:textColor="@color/weak_text"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/cardViewPrayerCalculations"
+                app:layout_constraintTop_toBottomOf="@+id/cardViewLocation" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardViewPrayerCalculations"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="30dp"
+                android:backgroundTint="@color/selected_prayercard"
+                app:cardElevation="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/categoryMethods"
+                app:strokeWidth="0dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cardViewMethod"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:cardCornerRadius="0dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:strokeWidth="0dp">
+
+                        <RelativeLayout
+                            android:id="@+id/relativeLayoutMethod"
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp">
+
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:gravity="center_vertical">
+
+                                <TextView
+                                    android:id="@+id/methodTitle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="16dp"
+                                    android:text="@string/title_method" />
+
+                                <TextView
+                                    android:id="@+id/methodsText"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/methodTitle"
+                                    android:layout_alignStart="@+id/methodTitle"
+                                    android:text="University of Islamic Science"
+                                    android:textColor="@color/weak_text" />
+                            </RelativeLayout>
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:layout_centerVertical="true"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginEnd="8dp"
+                                android:background="@drawable/symbol_arrow_right" />
+
+                        </RelativeLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.divider.MaterialDivider
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="16dp"
+                        app:layout_constraintBottom_toTopOf="@+id/cardViewAsrcalculation"
+                        app:layout_constraintTop_toBottomOf="@+id/cardViewMethod" />
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cardViewAsrcalculation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:cardCornerRadius="0dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/cardViewMethod"
+                        app:strokeWidth="0dp">
+
+                        <RelativeLayout
+                            android:id="@+id/relativeLayoutAsrcalculation"
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp">
+
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:gravity="center_vertical">
+
+                                <TextView
+                                    android:id="@+id/asrcalculationTitle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="16dp"
+                                    android:text="@string/title_asrcalculation" />
+
+                                <TextView
+                                    android:id="@+id/asrcalculationText"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/asrcalculationTitle"
+                                    android:layout_alignStart="@+id/asrcalculationTitle"
+                                    android:text="Shafi"
+                                    android:textColor="@color/weak_text" />
+                            </RelativeLayout>
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:layout_centerVertical="true"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginEnd="8dp"
+                                android:background="@drawable/symbol_arrow_right" />
+                        </RelativeLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.divider.MaterialDivider
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="16dp"
+                        app:layout_constraintBottom_toTopOf="@+id/cardViewHighlatsadjustment"
+                        app:layout_constraintTop_toBottomOf="@+id/cardViewAsrcalculation" />
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cardViewHighlatsadjustment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:cardCornerRadius="0dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/cardViewAsrcalculation"
+                        app:strokeWidth="0dp">
+
+                        <RelativeLayout
+                            android:id="@+id/relativeLayoutHighlatadjustments"
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/cardViewAsrcalculation">
+
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:gravity="center_vertical">
+
+                                <TextView
+                                    android:id="@+id/highlatadjustmentTitle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="16dp"
+                                    android:text="@string/title_highlatadjustment" />
+
+                                <TextView
+                                    android:id="@+id/highlatadjustmentText"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/highlatadjustmentTitle"
+                                    android:layout_alignStart="@+id/highlatadjustmentTitle"
+                                    android:text="None"
+                                    android:textColor="@color/weak_text" />
+                            </RelativeLayout>
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:layout_centerVertical="true"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginEnd="8dp"
+                                android:background="@drawable/symbol_arrow_right" />
+                        </RelativeLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.divider.MaterialDivider
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="16dp"
+                        app:layout_constraintBottom_toTopOf="@+id/cardviewManualtunes"
+                        app:layout_constraintTop_toBottomOf="@+id/cardViewHighlatsadjustment" />
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cardviewManualtunes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:cardCornerRadius="0dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/cardViewHighlatsadjustment"
+                        app:strokeWidth="0dp">
+
+                        <RelativeLayout
+                            android:id="@+id/relativeLayoutManualtunes"
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/cardViewAsrcalculation">
+
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:gravity="center_vertical">
+
+                                <TextView
+                                    android:id="@+id/manualtunesTitle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="16dp"
+                                    android:text="@string/title_manualtunes" />
+
+                                <TextView
+                                    android:id="@+id/manualtunesText"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/manualtunesTitle"
+                                    android:layout_alignStart="@+id/manualtunesTitle"
+                                    android:text="0"
+                                    android:textColor="@color/weak_text" />
+                            </RelativeLayout>
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:layout_centerVertical="true"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginEnd="8dp"
+                                android:background="@drawable/symbol_arrow_right" />
+                        </RelativeLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
             </com.google.android.material.card.MaterialCardView>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+
+</LinearLayout>
 

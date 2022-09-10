@@ -20,7 +20,9 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.preference.PreferenceManager;
 
+import android.os.Handler;
 import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,6 +32,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.freeislamicapps.athantime.BuildConfig;
 import com.freeislamicapps.athantime.MainActivity;
 import com.freeislamicapps.athantime.R;
 import com.google.android.gms.location.LocationCallback;
@@ -40,7 +43,17 @@ import com.google.android.gms.location.Priority;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
 import com.google.android.material.snackbar.Snackbar;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.Map;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -51,9 +64,8 @@ public class LocationFragment extends Fragment {
     private LocationRequest locationRequest;
     public static final String SHARED_PREFS = "sharedPrefs";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    View mainView;
+    private Context mContext;
 
     public LocationFragment() {
         // Required empty public constructor
@@ -66,6 +78,12 @@ public class LocationFragment extends Fragment {
     }
 
     @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        mContext = context;
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         locationRequest = LocationRequest.create();
@@ -75,6 +93,8 @@ public class LocationFragment extends Fragment {
 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.intro_fragment_location, container, false);
+
+        mainView = view;
 
         Button enableLocationButton = view.findViewById(R.id.enableLocationButton);
         enableLocationButton.setOnClickListener(new View.OnClickListener() {
@@ -160,6 +180,56 @@ public class LocationFragment extends Fragment {
                                     progressBarText.setVisibility(View.GONE);
                                     requireActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
+                                    Handler handler = new Handler();
+
+                                    Runnable runnable = new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            OkHttpClient client = new OkHttpClient();
+                                            String startUrl = "https://forward-reverse-geocoding.p.rapidapi.com/v1/reverse?";
+                                            String midUrl = "lat="+ loadData("latitude","52.0") +"&lon=" + loadData("longitude","52.0");
+                                            String endUrl = "&accept-language=en&polygon_threshold=0.0";
+                                            Request request = new Request.Builder()
+                                                    .url(startUrl+midUrl+endUrl)
+                                                    .get()
+                                                    .addHeader("X-RapidAPI-Key", BuildConfig.RAPID_GEOCODING_API_KEY)
+                                                    .addHeader("X-RapidAPI-Host", "forward-reverse-geocoding.p.rapidapi.com")
+                                                    .build();
+
+                                            client.newCall(request).enqueue(new Callback() {
+                                                @Override
+                                                public void onFailure(@NonNull Call call, @NonNull IOException e) {
+
+                                                }
+
+                                                @Override
+                                                public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                                                    String myResponse = response.body().string();
+                                                    JSONObject myResponseJson = null;
+                                                    try {
+                                                        myResponseJson = new JSONObject(myResponse);
+                                                        saveData("location",myResponseJson.getString("display_name"));
+                                                    } catch (JSONException e) {
+                                                        e.printStackTrace();
+                                                    }
+
+                                                }
+                                            });
+
+                                            handler.post(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    progressBar.setVisibility(View.GONE);
+                                                    progressBarText.setText("Task Done");
+                                                    //   dismiss();
+                                                }
+                                            });
+                                        }
+
+                                    };
+                                    Thread thread = new Thread(runnable);
+                                    thread.start();
+
                                     FragmentTransaction transaction = getFragmentManager().beginTransaction();
                                     transaction.replace(R.id.fragment_container, new NotificationFragment());
                                     transaction.commit();
@@ -172,9 +242,14 @@ public class LocationFragment extends Fragment {
     }
 
     public void saveData(String savedKey, String savedValue) {
-        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = mContext.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(savedKey, savedValue);
         editor.apply();
+    }
+
+    public String loadData(String savedKey, String defaultValue) {
+        SharedPreferences sharedPreferences = mContext.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
+        return sharedPreferences.getString(savedKey, defaultValue);
     }
 }

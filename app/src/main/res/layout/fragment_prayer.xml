@@ -4,35 +4,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.prayer.PrayerFragment"
-    >
+    tools:context=".ui.prayer.PrayerFragment">
 
-
-
-
-
-
-            <TextView
-                android:id="@+id/cityText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="16dp"
-                android:textAppearance="@style/prayer_name"
-                android:textStyle="bold"
-                android:gravity="center"
-                android:layout_alignParentTop="true"
-                android:text="Prayer" />
+    <TextView
+        android:id="@+id/cityText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:text="@string/title_prayer"
+        android:textAppearance="@style/prayer_name"
+        android:textStyle="bold" />
 
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/datepicker"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginTop="10dp"
         android:layout_below="@+id/cityText"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="30dp"
         app:strokeWidth="0dp">
 
 
@@ -45,13 +39,13 @@
                 android:id="@+id/previousDay"
                 android:layout_width="60dp"
                 android:layout_height="match_parent"
+                android:layout_marginStart="5dp"
                 android:background="@null"
                 android:src="@drawable/symbol_arrow_left"
-                android:layout_marginStart="5dp"
-                app:tint="?attr/colorPrimary"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="?attr/colorPrimary" />
 
             <TextView
                 android:id="@+id/monthDayText"
@@ -70,13 +64,13 @@
                 android:id="@+id/nextDay"
                 android:layout_width="60dp"
                 android:layout_height="match_parent"
+                android:layout_marginEnd="5dp"
                 android:background="@null"
                 android:src="@drawable/symbol_arrow_right"
-                android:layout_marginEnd="5dp"
-                app:tint="?attr/colorPrimary"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="?attr/colorPrimary" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -84,7 +78,7 @@
 
 
     <androidx.viewpager2.widget.ViewPager2
-      android:id="@+id/viewPager"
+        android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/datepicker" />

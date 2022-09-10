@@ -13,7 +13,6 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,8 +22,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.location.Address;
-import android.location.Geocoder;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -35,9 +32,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
@@ -47,25 +41,16 @@ import android.widget.Toast;
 
 import com.freeislamicapps.athantime.BuildConfig;
 import com.freeislamicapps.athantime.R;
-import com.freeislamicapps.athantime.helper.HttpDataHandler;
-import com.freeislamicapps.athantime.ui.intro.NotificationFragment;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.Priority;
-import com.google.android.gms.maps.CameraUpdate;
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.material.progressindicator.CircularProgressIndicator;
+import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 
 
 import org.json.JSONArray;
@@ -74,14 +59,8 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.TreeMap;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -102,6 +81,8 @@ public class MapsFragment extends DialogFragment implements RecyclerViewInterfac
     LatLng latLng;
 
     private ArrayList<locationModel> arrayList;
+
+    View mainView;
 
     Spinner spinnerCountry;
 
@@ -124,10 +105,15 @@ public class MapsFragment extends DialogFragment implements RecyclerViewInterfac
                              @Nullable Bundle savedInstanceState) {
         getDialog().getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
         Log.d("displayed", "onCreateView");
-        View view = inflater.inflate(R.layout.fragment_maps, container, false);
+        View view = inflater.inflate(R.layout.fragment_settings_location, container, false);
+        mainView = view;
+
+        locationRequest = LocationRequest.create();
+        locationRequest.setPriority(Priority.PRIORITY_HIGH_ACCURACY);
+        locationRequest.setInterval(5000);
+        locationRequest.setFastestInterval(2000);
 
         latLng = new LatLng(Double.parseDouble(loadData("latitude", "")), Double.parseDouble(loadData("longitude", "")));
-
 
 
         ImageButton closeButton = view.findViewById(R.id.closeBottomsheetButton);
@@ -158,14 +144,14 @@ public class MapsFragment extends DialogFragment implements RecyclerViewInterfac
                 recyclerView.setAdapter(recyclerAdapter);
                 Handler handler = new Handler(Looper.getMainLooper());
                 OkHttpClient client = new OkHttpClient();
-                String startUrl = "https://geoapify-platform.p.rapidapi.com/v1/geocode/search?apiKey=857d9a3e83b44167a3a4801a3fcd7edf&text=";
-                String midUrl = "&lang=" + loadData("countrycode", "en") + "&countrycodes=" + loadData("countrycode", "en"); //BEFORE: Locale.getDefault().getCountry().toLowerCase(Locale.ROOT);
+                String startUrl = "https://geoapify-platform.p.rapidapi.com/v1/geocode/search?apiKey=" + BuildConfig.GEOAPIFY_GEOCODING_API_KEY + "&text=";
+                String midUrl = "&lang=" + Locale.getDefault().getLanguage(); //BEFORE: Locale.getDefault().getCountry().toLowerCase(Locale.ROOT);
                 String endUrl = "&limit=20&type=city";
                 Log.d("URLWEBSITE", startUrl + s + midUrl + endUrl);
                 Request request = new Request.Builder()
                         .url(startUrl + s + midUrl + endUrl)
                         .get()
-                        .addHeader("X-RapidAPI-Key", "0a2ca5b1a0mshbc853a41b466c39p13f5c9jsn8c6b152135fa")
+                        .addHeader("X-RapidAPI-Key", BuildConfig.RAPID_GEOCODING_API_KEY)
                         .addHeader("X-RapidAPI-Host", "geoapify-platform.p.rapidapi.com")
                         .build();
 
@@ -234,53 +220,24 @@ public class MapsFragment extends DialogFragment implements RecyclerViewInterfac
             }
         });
 
-        spinnerCountry = view.findViewById(R.id.spinnerCountry);
-
-        setData();
-        spinnerCountry.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        MaterialCardView getmylocationButton = view.findViewById(R.id.getmylocationCard);
+        getmylocationButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            public void onClick(View view) {
+                LocationManager locationManager = (LocationManager) requireContext().getSystemService(LOCATION_SERVICE);
 
-                Country country = (Country) parent.getSelectedItem();
-                saveData("countrycode", country.getId().toLowerCase(Locale.ROOT));
-
-                saveData("countryPosition",String.valueOf(position));
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
-
-        // TODO LOCATION FOR MAP
-        /*
-        searchView = view.findViewById(R.id.sv_location);
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String s) {
-                String location = searchView.getQuery().toString();
-                List<Address> addressList = null;
-
-                if(location!=null || !location.equals("")) {
-                    Geocoder geocoder = new Geocoder(requireContext());
-                    try {
-                        addressList = geocoder.getFromLocationName(location,1);
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) && locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+                    if (ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                        // WHEN Permission is granted
+                        getCurrentLocation();
+                    } else {
+                        requestPermissionLauncher.launch(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION});
                     }
-                    Address address = addressList.get(0);
-                    LatLng latLng = new LatLng(address.getLatitude(),address.getLongitude());
-                    googleMap.addMarker(new MarkerOptions().position(latLng).title(location));
-                    googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,10));
+                } else {
+                    Toast.makeText(requireContext(), "Please enable Location and Internet first", Toast.LENGTH_SHORT).show();
                 }
-                return false;
             }
-
-            @Override
-            public boolean onQueryTextChange(String s) {
-                return false;
-            }
-        }); */
+            });
 
 
         return view;
@@ -323,32 +280,119 @@ public class MapsFragment extends DialogFragment implements RecyclerViewInterfac
         dismiss();
     }
 
-    private void setData() {
+    private final ActivityResultLauncher<String[]> requestPermissionLauncher = registerForActivityResult(
+            new ActivityResultContracts.RequestMultiplePermissions(), new ActivityResultCallback<Map<String, Boolean>>() {
+                @Override
+                public void onActivityResult(Map<String, Boolean> result) {
+                    if(Boolean.TRUE.equals(result.get(Manifest.permission.ACCESS_COARSE_LOCATION))) {
+                        if(Boolean.TRUE.equals(result.get(Manifest.permission.ACCESS_FINE_LOCATION))) {
+                            getCurrentLocation();
+                        }
+                        else {
+                            Snackbar.make(requireContext(), requireView(),"Please allow to retrieve your exact location to provide accurate prayer times",Toast.LENGTH_SHORT)
+                                    .show();
+                        }
+                    } else {
+                        Snackbar.make(requireContext(), requireView(),"Please allow to retrieve your location",Toast.LENGTH_SHORT)
+                                .show();
+                    }
+                }
+            });
 
-        ArrayList<Country> countryList = new ArrayList<>();
-        //Add countries
+    @SuppressLint("MissingPermission")
+    private void getCurrentLocation() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ActivityCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 
-        Map<String, String> englishcountries = Arrays.stream(Locale.getISOCountries()).collect(
-                Collectors.toMap((String code) -> new Locale("", code).getDisplayCountry(Locale.getDefault()),
-                        Function.identity(), (o1, o2) -> o1, TreeMap::new));
+                ProgressBar progressBar = mainView.findViewById(R.id.getmylocationProgressbar);
+                TextView progressBarText = mainView.findViewById(R.id.getmylocationText);
+              progressBar.setVisibility(View.VISIBLE);
+                progressBarText.setText("Getting your location...");
+                LocationServices.getFusedLocationProviderClient(requireActivity())
+                        .requestLocationUpdates(locationRequest, new LocationCallback() {
+                            @Override
+                            public void onLocationResult(@NonNull LocationResult locationResult) {
+                                super.onLocationResult(locationResult);
+
+                                LocationServices.getFusedLocationProviderClient(requireActivity())
+                                        .removeLocationUpdates(this);
 
 
-        for (Map.Entry<String, String> entry : englishcountries.entrySet()) {
-            String key = entry.getKey();
-            String value = entry.getValue();
-            countryList.add(new Country(value, key));
+                                if (locationResult != null && locationResult.getLocations().size() > 0) {
+                                    int index = locationResult.getLocations().size() - 1;
+                                    double latitude = locationResult.getLocations().get(index).getLatitude();
+                                    double longitude = locationResult.getLocations().get(index).getLongitude();
+                                 //   currentLocation.setText("Latitude: " + latitude + "\n" + "Longitude: " + longitude);
+                                    saveData("latitude", String.valueOf(latitude));
+                                    saveData("longitude", String.valueOf(longitude));
+
+                                    progressBarText.setText("Getting the exact address...");
+
+                                    Handler handler = new Handler();
+
+                                    Runnable runnable = new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            OkHttpClient client = new OkHttpClient();
+                                            String startUrl = "https://forward-reverse-geocoding.p.rapidapi.com/v1/reverse?";
+                                            String midUrl = "lat="+ loadData("latitude","52.0") +"&lon=" + loadData("longitude","52.0");
+                                            String endUrl = "&accept-language=en&polygon_threshold=0.0";
+                                            Request request = new Request.Builder()
+                                                    .url(startUrl+midUrl+endUrl)
+                                                    .get()
+                                                    .addHeader("X-RapidAPI-Key", BuildConfig.RAPID_GEOCODING_API_KEY)
+                                                    .addHeader("X-RapidAPI-Host", "forward-reverse-geocoding.p.rapidapi.com")
+                                                    .build();
+
+                                            client.newCall(request).enqueue(new Callback() {
+                                                @Override
+                                                public void onFailure(@NonNull Call call, @NonNull IOException e) {
+
+                                                }
+
+                                                @Override
+                                                public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                                                    String myResponse = response.body().string();
+                                                    JSONObject myResponseJson = null;
+                                                    try {
+                                                        myResponseJson = new JSONObject(myResponse);
+                                                        saveData("location",myResponseJson.getString("display_name"));
+                                                    } catch (JSONException e) {
+                                                        e.printStackTrace();
+                                                    }
+
+                                                }
+                                            });
+                                            handler.postDelayed(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    dismiss();
+                                                }
+                                            },1000);
+
+                                            handler.post(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    progressBar.setVisibility(View.GONE);
+                                                    progressBarText.setText("Task Done");
+                                                    Toast.makeText(requireContext(),"Updated your location",Toast.LENGTH_SHORT).show();
+                                                 //   dismiss();
+                                                }
+                                            });
+                                        }
+
+                                    };
+                                    Thread thread = new Thread(runnable);
+                                    thread.start();
+
+
+                                }
+                            }
+                        }, Looper.getMainLooper());
+
+            }
         }
-
-
-
-
-/*
-        List keys = new ArrayList(englishcountries.values());
-        int index = keys.indexOf(Locale.getDefault().getCountry()); */
-
-        //fill data in spinner
-        ArrayAdapter<Country> adapter = new ArrayAdapter<Country>(requireContext(), android.R.layout.simple_spinner_dropdown_item, countryList);
-        spinnerCountry.setAdapter(adapter);
-        spinnerCountry.setSelection(Integer.parseInt(loadData("countryPosition","0")));
     }
+
+
 }
