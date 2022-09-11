@@ -5,7 +5,6 @@ import static android.content.Context.LOCATION_SERVICE;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.LocationManager;
@@ -20,7 +19,6 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.preference.PreferenceManager;
 
 import android.os.Handler;
 import android.os.Looper;
@@ -33,8 +31,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.freeislamicapps.athantime.BuildConfig;
-import com.freeislamicapps.athantime.MainActivity;
 import com.freeislamicapps.athantime.R;
+import com.freeislamicapps.athantime.helper.SharedPreferencesHelper;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
@@ -56,18 +54,15 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 /**
- * A simple {@link Fragment} subclass.
- * Use the {@link LocationFragment#newInstance} factory method to
- * create an instance of this fragment.
+ *
  */
-public class LocationFragment extends Fragment {
+public class IntroLocationFragment extends Fragment {
     private LocationRequest locationRequest;
-    public static final String SHARED_PREFS = "sharedPrefs";
 
     View mainView;
     private Context mContext;
 
-    public LocationFragment() {
+    public IntroLocationFragment() {
         // Required empty public constructor
     }
 
@@ -119,9 +114,9 @@ public class LocationFragment extends Fragment {
         maybeLaterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Fragment newFragment = new LocationFragment();
+                Fragment newFragment = new IntroLocationFragment();
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.fragment_container, new NotificationFragment());
+                transaction.replace(R.id.fragment_container, new IntroNotificationFragment());
                 transaction.commit();
             }
         });
@@ -133,16 +128,15 @@ public class LocationFragment extends Fragment {
             new ActivityResultContracts.RequestMultiplePermissions(), new ActivityResultCallback<Map<String, Boolean>>() {
                 @Override
                 public void onActivityResult(Map<String, Boolean> result) {
-                    if(Boolean.TRUE.equals(result.get(Manifest.permission.ACCESS_COARSE_LOCATION))) {
-                        if(Boolean.TRUE.equals(result.get(Manifest.permission.ACCESS_FINE_LOCATION))) {
+                    if (Boolean.TRUE.equals(result.get(Manifest.permission.ACCESS_COARSE_LOCATION))) {
+                        if (Boolean.TRUE.equals(result.get(Manifest.permission.ACCESS_FINE_LOCATION))) {
                             getCurrentLocation();
-                        }
-                        else {
-                            Snackbar.make(requireContext(), requireView(),"Please allow to retrieve your exact location to provide accurate prayer times",Toast.LENGTH_SHORT)
+                        } else {
+                            Snackbar.make(requireContext(), requireView(), "Please allow to retrieve your exact location to provide accurate prayer times", Toast.LENGTH_SHORT)
                                     .show();
                         }
                     } else {
-                        Snackbar.make(requireContext(), requireView(),"Please allow to retrieve your location",Toast.LENGTH_SHORT)
+                        Snackbar.make(requireContext(), requireView(), "Please allow to retrieve your location", Toast.LENGTH_SHORT)
                                 .show();
                     }
                 }
@@ -174,8 +168,8 @@ public class LocationFragment extends Fragment {
                                     int index = locationResult.getLocations().size() - 1;
                                     double latitude = locationResult.getLocations().get(index).getLatitude();
                                     double longitude = locationResult.getLocations().get(index).getLongitude();
-                                    saveData("latitude", String.valueOf(latitude));
-                                    saveData("longitude", String.valueOf(longitude));
+                                    SharedPreferencesHelper.storeValue(requireContext(), "latitude", latitude);
+                                    SharedPreferencesHelper.storeValue(requireContext(), "longitude", longitude);
                                     progressBar.setVisibility(View.GONE);
                                     progressBarText.setVisibility(View.GONE);
                                     requireActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
@@ -187,10 +181,12 @@ public class LocationFragment extends Fragment {
                                         public void run() {
                                             OkHttpClient client = new OkHttpClient();
                                             String startUrl = "https://forward-reverse-geocoding.p.rapidapi.com/v1/reverse?";
-                                            String midUrl = "lat="+ loadData("latitude","52.0") +"&lon=" + loadData("longitude","52.0");
+                                            String latitude = SharedPreferencesHelper.getValue(mContext, "latitude", "52.0");
+                                            String longitude = SharedPreferencesHelper.getValue(mContext, "longitude", "9.0");
+                                            String midUrl = "lat=" + latitude + "&lon=" + longitude;
                                             String endUrl = "&accept-language=en&polygon_threshold=0.0";
                                             Request request = new Request.Builder()
-                                                    .url(startUrl+midUrl+endUrl)
+                                                    .url(startUrl + midUrl + endUrl)
                                                     .get()
                                                     .addHeader("X-RapidAPI-Key", BuildConfig.RAPID_GEOCODING_API_KEY)
                                                     .addHeader("X-RapidAPI-Host", "forward-reverse-geocoding.p.rapidapi.com")
@@ -208,7 +204,7 @@ public class LocationFragment extends Fragment {
                                                     JSONObject myResponseJson = null;
                                                     try {
                                                         myResponseJson = new JSONObject(myResponse);
-                                                        saveData("location",myResponseJson.getString("display_name"));
+                                                        SharedPreferencesHelper.storeValue(mContext, "location", myResponseJson.getString("display_name"));
                                                     } catch (JSONException e) {
                                                         e.printStackTrace();
                                                     }
@@ -221,7 +217,6 @@ public class LocationFragment extends Fragment {
                                                 public void run() {
                                                     progressBar.setVisibility(View.GONE);
                                                     progressBarText.setText("Task Done");
-                                                    //   dismiss();
                                                 }
                                             });
                                         }
@@ -230,8 +225,8 @@ public class LocationFragment extends Fragment {
                                     Thread thread = new Thread(runnable);
                                     thread.start();
 
-                                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                                    transaction.replace(R.id.fragment_container, new NotificationFragment());
+                                    FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                                    transaction.replace(R.id.fragment_container, new IntroNotificationFragment());
                                     transaction.commit();
                                 }
                             }
@@ -239,17 +234,5 @@ public class LocationFragment extends Fragment {
 
             }
         }
-    }
-
-    public void saveData(String savedKey, String savedValue) {
-        SharedPreferences sharedPreferences = mContext.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(savedKey, savedValue);
-        editor.apply();
-    }
-
-    public String loadData(String savedKey, String defaultValue) {
-        SharedPreferences sharedPreferences = mContext.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
-        return sharedPreferences.getString(savedKey, defaultValue);
     }
 }

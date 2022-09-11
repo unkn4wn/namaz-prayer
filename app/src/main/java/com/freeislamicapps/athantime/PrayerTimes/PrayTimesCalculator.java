@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.freeislamicapps.athantime.R;
+import com.freeislamicapps.athantime.helper.SharedPreferencesHelper;
 import com.freeislamicapps.athantime.ui.settings.SettingsFragment;
 
 import java.sql.Time;
@@ -24,7 +25,7 @@ public class PrayTimesCalculator {
     SharedPreferences sharedPreferences;
     private PrayTimes prayTimes;
     private Context context;
-    private  String fajr, sunrise, dhuhr, asr, maghrib, ishaa, midnight, lastThird;
+    private String fajr, sunrise, dhuhr, asr, maghrib, ishaa, midnight, lastThird;
     Times currentAsr;
     ArrayList<String> prayerTimesList;
 
@@ -32,10 +33,11 @@ public class PrayTimesCalculator {
         prayTimes = new PrayTimes();
         this.context = context;
         sharedPreferences = context.getSharedPreferences(SettingsFragment.SHARED_PREFS, Context.MODE_PRIVATE);
-        String latitudestr = sharedPreferences.getString("latitude", "0.0");
-        String longitudestr = sharedPreferences.getString("longitude", "0.0");
 
-        prayTimes.setCoordinates(Double.parseDouble(latitudestr), Double.parseDouble(longitudestr), 0.0);
+        Double latitude = SharedPreferencesHelper.getValue(context, "latitude", 52.0);
+        Double longitude = SharedPreferencesHelper.getValue(context, "longitude", 9.0);
+
+        prayTimes.setCoordinates(latitude, longitude, 0.0);
         prayTimes.setMethod(getCurrentMethod());
         prayTimes.setHighLatsAdjustment(getCurrentHighlatsadjustment());
 
@@ -50,7 +52,8 @@ public class PrayTimesCalculator {
         fajr = prayTimes.getTime(Times.Fajr);
         sunrise = prayTimes.getTime(Times.Sunrise);
         dhuhr = prayTimes.getTime(Times.Dhuhr);
-        if (sharedPreferences.getString("AsrCalculation", "Shafi").equals("Shafi, Hanbali, Maliki")) {
+        String asrCalculation = SharedPreferencesHelper.getValue(context, "AsrCalculation", "Shafi, Hanbali, Maliki");
+        if (asrCalculation.equals("Shafi, Hanbali, Maliki")) {
             asr = prayTimes.getTime(Times.AsrShafi);
         } else {
             asr = prayTimes.getTime(Times.AsrHanafi);
@@ -69,8 +72,8 @@ public class PrayTimesCalculator {
     }
 
     private HighLatsAdjustment getCurrentHighlatsadjustment() {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(SettingsFragment.SHARED_PREFS, Context.MODE_PRIVATE);
-        switch (sharedPreferences.getString("HighLatsAdjustment", "Angle-Based")) {
+        String highLatadjustment = SharedPreferencesHelper.getValue(context, "HighLatsAdjustment", "Angle-Based");
+        switch (highLatadjustment) {
             case "None":
                 return HighLatsAdjustment.None;
             case "Middle of the night":
@@ -83,8 +86,8 @@ public class PrayTimesCalculator {
     }
 
     public Method getCurrentMethod() {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(SettingsFragment.SHARED_PREFS, Context.MODE_PRIVATE);
-        switch (sharedPreferences.getString("Method", "Islamic Society of North America (ISNA)")) {
+        String method = SharedPreferencesHelper.getValue(context, "Method", "Islamic Society of North America (ISNA)");
+        switch (method) {
             case "Egyptian General Authority of Survey":
                 return Method.Egypt;
             case "Institute of Geophysics, University of Tehran":
@@ -177,14 +180,14 @@ public class PrayTimesCalculator {
         int year = tomorrow.getYear();
         int month = tomorrow.getMonthValue();
         int day = tomorrow.getDayOfMonth();
-        prayTimesTomorrow.setDate(year,month,day);
+        prayTimesTomorrow.setDate(year, month, day);
 
         if (value == null) {
             value = getLocalTimeFromPrayerTime(prayTimesTomorrow.getTime(Times.Fajr));
         }
 
-        Log.d("nextpraer",value.toString());
-      return value.toString();
+        Log.d("nextpraer", value.toString());
+        return value.toString();
     }
 
     public ArrayList<String> getPrayerTimesList() {

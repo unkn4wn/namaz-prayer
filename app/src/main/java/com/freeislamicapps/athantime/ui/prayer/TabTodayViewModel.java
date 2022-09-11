@@ -14,6 +14,7 @@ import com.freeislamicapps.athantime.PrayerTimes.HighLatsAdjustment;
 import com.freeislamicapps.athantime.PrayerTimes.Method;
 import com.freeislamicapps.athantime.PrayerTimes.PrayTimesCalculator;
 import com.freeislamicapps.athantime.PrayerTimes.Times;
+import com.freeislamicapps.athantime.helper.SharedPreferencesHelper;
 import com.freeislamicapps.athantime.ui.settings.SettingsFragment;
 import com.google.android.material.tabs.TabLayout;
 
@@ -45,10 +46,12 @@ public class TabTodayViewModel extends AndroidViewModel {
     ArrayList<String> prayerTimesLocalTimeString;
 
     SharedPreferences sharedPreferences;
+    Context context;
 
 
     public TabTodayViewModel(Application application) {
         super(application);
+        context = getApplication().getApplicationContext();
         fajrTime = new MutableLiveData<>();
         sunriseTime = new MutableLiveData<>();
         dhuhrTime = new MutableLiveData<>();
@@ -69,10 +72,9 @@ public class TabTodayViewModel extends AndroidViewModel {
 
     public void init() {
         sharedPreferences = getApplication().getApplicationContext().getSharedPreferences(SettingsFragment.SHARED_PREFS, Context.MODE_PRIVATE);
-
         //TODO
         // Log.d("prayadj",String.valueOf(MainActivity.prayTimes.getTimeZone()));
-        PrayTimesCalculator prayTimesCalculator = new PrayTimesCalculator(LocalDate.parse(TabTodayFragment.index),getApplication().getApplicationContext());
+        PrayTimesCalculator prayTimesCalculator = new PrayTimesCalculator(LocalDate.parse(TabTodayFragment.index), getApplication().getApplicationContext());
 
 
         fajrTime.setValue(prayTimesCalculator.getFajr());
@@ -86,48 +88,14 @@ public class TabTodayViewModel extends AndroidViewModel {
 
         prayerTimesLocalTime.setValue(stringToLocalTime(prayerTimesLocalTimeString));
 
-        fajrSound.setValue(sharedPreferences.getBoolean("Fajr_Sound",false));
-        sunriseSound.setValue(sharedPreferences.getBoolean("Sunrise_Sound",false));
-        dhuhrSound.setValue(sharedPreferences.getBoolean("Dhuhr_Sound",false));
-        asrSound.setValue(sharedPreferences.getBoolean("Asr_Sound",false));
-        maghribSound.setValue(sharedPreferences.getBoolean("Maghrib_Sound",false));
-        ishaaSound.setValue(sharedPreferences.getBoolean("Ishaa_Sound",false));
+        fajrSound.setValue(SharedPreferencesHelper.getValue(context, "Fajr_Sound", false));
+        sunriseSound.setValue(SharedPreferencesHelper.getValue(context, "Sunrise_Sound", false));
+        dhuhrSound.setValue(SharedPreferencesHelper.getValue(context, "Dhuhr_Sound", false));
+        asrSound.setValue(SharedPreferencesHelper.getValue(context, "Asr_Sound", false));
+        maghribSound.setValue(SharedPreferencesHelper.getValue(context, "Maghrib_Sound", false));
+        ishaaSound.setValue(SharedPreferencesHelper.getValue(context, "Ishaa_Sound", false));
 
 
-    }
-
-    private HighLatsAdjustment getCurrentHighlatsadjustment() {
-        SharedPreferences sharedPreferences = getApplication().getSharedPreferences(SettingsFragment.SHARED_PREFS, Context.MODE_PRIVATE);
-        switch (sharedPreferences.getString("HighLatsAdjustment", "Angle-Based")) {
-            case "None":
-                return HighLatsAdjustment.None;
-            case "Middle of the night":
-                return HighLatsAdjustment.NightMiddle;
-            case "One-Seventh of the Night":
-                return HighLatsAdjustment.OneSeventh;
-            default:
-                return HighLatsAdjustment.AngleBased;
-        }
-    }
-
-    public Method getCurrentMethod() {
-        SharedPreferences sharedPreferences = getApplication().getSharedPreferences(SettingsFragment.SHARED_PREFS, Context.MODE_PRIVATE);
-        switch (sharedPreferences.getString("Method", "Islamic Society of North America (ISNA)")) {
-            case "Egyptian General Authority of Survey":
-                return Method.Egypt;
-            case "Institute of Geophysics, University of Tehran":
-                return Method.Tehran;
-            case "Muslim World League":
-                return Method.MWL;
-            case "Umm Al-Qura University, Makkah":
-                return Method.Makkah;
-            case "Union des organisations islamiques de France":
-                return Method.UOIF;
-            case "University of Islamic Sciences, Karachi":
-                return Method.Karachi;
-            default:
-                return Method.ISNA;
-        }
     }
 
 
@@ -155,18 +123,34 @@ public class TabTodayViewModel extends AndroidViewModel {
         return ishaaTime;
     }
 
-    public LiveData<Boolean> getFajrSound() { return fajrSound;}
-    public LiveData<Boolean> getSunriseSound() { return sunriseSound;}
-    public LiveData<Boolean> getDhuhrSound() { return dhuhrSound;}
-    public LiveData<Boolean> getAsrSound() { return asrSound;}
-    public LiveData<Boolean> getMaghribSound() { return maghribSound;}
-    public LiveData<Boolean> getIshaaSound() { return ishaaSound;}
+    public LiveData<Boolean> getFajrSound() {
+        return fajrSound;
+    }
 
+    public LiveData<Boolean> getSunriseSound() {
+        return sunriseSound;
+    }
+
+    public LiveData<Boolean> getDhuhrSound() {
+        return dhuhrSound;
+    }
+
+    public LiveData<Boolean> getAsrSound() {
+        return asrSound;
+    }
+
+    public LiveData<Boolean> getMaghribSound() {
+        return maghribSound;
+    }
+
+    public LiveData<Boolean> getIshaaSound() {
+        return ishaaSound;
+    }
 
 
     private ArrayList<LocalTime> stringToLocalTime(ArrayList<String> stringArrayList) {
         ArrayList<LocalTime> localTimeArrayList = new ArrayList<>();
-        for (int i = 0;i<stringArrayList.size();i++) {
+        for (int i = 0; i < stringArrayList.size(); i++) {
             DateTimeFormatter parseFormat = new DateTimeFormatterBuilder().appendPattern("HH:mm").toFormatter();
             LocalTime localTime = LocalTime.parse(stringArrayList.get(i), parseFormat);
             localTimeArrayList.add(localTime);

@@ -11,7 +11,6 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,15 +21,16 @@ import android.widget.TextView;
 
 import com.freeislamicapps.athantime.MainActivity;
 import com.freeislamicapps.athantime.R;
+import com.freeislamicapps.athantime.helper.SharedPreferencesHelper;
 import com.freeislamicapps.athantime.ui.settings.SettingsFragment;
 import com.google.android.material.card.MaterialCardView;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link NotificationFragment#newInstance} factory method to
+ * Use the {@link IntroNotificationFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class NotificationFragment extends Fragment {
+public class IntroNotificationFragment extends Fragment {
     public static final String SHARED_PREFS = "sharedPrefs";
     public static final String CHANNEL_1_ID = "prayerChannel";
 
@@ -83,12 +83,12 @@ public class NotificationFragment extends Fragment {
         maghribSound = true;
         ishaaSound = true;
 
-        saveData("Fajr_Sound", fajrSound);
-        saveData("Sunrise_Sound", sunriseSound);
-        saveData("Dhuhr_Sound", dhuhrSound);
-        saveData("Asr_Sound", asrSound);
-        saveData("Maghrib_Sound", maghribSound);
-        saveData("Ishaa_Sound", ishaaSound);
+        SharedPreferencesHelper.storeValue(requireContext(),"Fajr_Sound",fajrSound);
+        SharedPreferencesHelper.storeValue(requireContext(),"Sunrise_Sound",sunriseSound);
+        SharedPreferencesHelper.storeValue(requireContext(),"Dhuhr_Sound",dhuhrSound);
+        SharedPreferencesHelper.storeValue(requireContext(),"Asr_Sound",asrSound);
+        SharedPreferencesHelper.storeValue(requireContext(),"Maghrib_Sound",maghribSound);
+        SharedPreferencesHelper.storeValue(requireContext(),"Ishaa_Sound",ishaaSound);
 
         ImageView fajrSoundIcon = view.findViewById(R.id.fajrSoundIcon);
         ImageView sunriseSoundIcon = view.findViewById(R.id.sunriseSoundIcon);
@@ -171,7 +171,7 @@ public class NotificationFragment extends Fragment {
         calculateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                saveDataBoolean("firstStart",false);
+                SharedPreferencesHelper.storeValue(requireContext(),"firstStart",false);
                 Intent intent = new Intent(getActivity(), MainActivity.class);
                 startActivity(intent);
             }
@@ -180,12 +180,6 @@ public class NotificationFragment extends Fragment {
         return view;
     }
 
-    public void saveData(String savedKey, Boolean savedValue) {
-        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences(SettingsFragment.SHARED_PREFS, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean(savedKey, savedValue);
-        editor.apply();
-    }
 
     private void createNotificationChannel(Context context) {
         // Create the NotificationChannel, but only on API 26+ because
@@ -205,7 +199,7 @@ public class NotificationFragment extends Fragment {
 
     private void notificationClick(String savedKey, Boolean prayerSound, ImageView icon, MaterialCardView cardView, TextView textView) {
         createNotificationChannel(requireContext());
-        saveData(savedKey, !prayerSound);
+        SharedPreferencesHelper.storeValue(requireContext(),savedKey,!prayerSound);
         if (prayerSound) {
             icon.setImageDrawable(soundOffIcon);
             cardView.setCardBackgroundColor(colorBackground);
@@ -215,12 +209,5 @@ public class NotificationFragment extends Fragment {
             cardView.setCardBackgroundColor(colorPrimary);
             textView.setTextColor(getResources().getColor(R.color.white));
         }
-    }
-
-    public void saveDataBoolean(String savedKey, Boolean savedValue) {
-        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences(SettingsFragment.SHARED_PREFS, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean(savedKey, savedValue);
-        editor.apply();
     }
 }

@@ -52,7 +52,7 @@
                 android:id="@+id/scrollViewToday"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/purple_700"
+                android:background="?attr/backgroundColor"
                 app:layout_constraintBottom_toBottomOf="@+id/prayerConstraint"
                 app:layout_constraintTop_toTopOf="@+id/prayerConstraint">
 
@@ -138,8 +138,10 @@
                     </com.google.android.material.card.MaterialCardView>
 
                     <com.google.android.material.divider.MaterialDivider
+                        android:id="@+id/fajrDivider"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
+                        android:layout_height="match_parent"
+                        app:dividerColor="?attr/colorSurface"/>
 
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/sunriseCard"
@@ -218,8 +220,10 @@
                     </com.google.android.material.card.MaterialCardView>
 
                     <com.google.android.material.divider.MaterialDivider
+                        android:id="@+id/sunriseDivider"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
+                        android:layout_height="match_parent"
+                        app:dividerColor="?attr/colorSurface"/>
 
 
                     <com.google.android.material.card.MaterialCardView
@@ -301,7 +305,8 @@
                     <com.google.android.material.divider.MaterialDivider
                         android:id="@+id/dhuhrDivider"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
+                        android:layout_height="match_parent"
+                        app:dividerColor="?attr/colorSurface"/>
 
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/asrCard"
@@ -381,8 +386,10 @@
                     </com.google.android.material.card.MaterialCardView>
 
                     <com.google.android.material.divider.MaterialDivider
+                        android:id="@+id/asrDivider"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
+                        android:layout_height="match_parent"
+                        app:dividerColor="?attr/colorSurface"/>
 
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/maghribCard"
@@ -462,8 +469,10 @@
                     </com.google.android.material.card.MaterialCardView>
 
                     <com.google.android.material.divider.MaterialDivider
+                        android:id="@+id/maghribDivider"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
+                        android:layout_height="match_parent"
+                        app:dividerColor="?attr/colorSurface"/>
 
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/ishaaCard"
@@ -541,9 +550,6 @@
 
                     </com.google.android.material.card.MaterialCardView>
 
-                    <com.google.android.material.divider.MaterialDivider
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
 
                 </LinearLayout>
             </ScrollView>

@@ -20,37 +20,38 @@ import java.util.ArrayList;
 public class AlarmNotifications extends BroadcastReceiver {
     String currentPrayer;
     public static final String CHANNEL_1_ID = "prayerChannel";
+
     @Override
     public void onReceive(Context context, Intent intent) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(SettingsFragment.SHARED_PREFS, Context.MODE_PRIVATE);
-        int requestcode = intent.getIntExtra("PrayerAlarm",2);
+        int requestcode = intent.getIntExtra("PrayerAlarm", 2);
         ArrayList<Boolean> switchPrayer = new ArrayList<>();
-        switchPrayer.add(sharedPreferences.getBoolean("Fajr_Sound",false));
-        switchPrayer.add(sharedPreferences.getBoolean("Sunrise_Sound",false));
-        switchPrayer.add(sharedPreferences.getBoolean("Dhuhr_Sound",false));
-        switchPrayer.add(sharedPreferences.getBoolean("Asr_Sound",false));
-        switchPrayer.add(sharedPreferences.getBoolean("Maghrib_Sound",false));
-        switchPrayer.add(sharedPreferences.getBoolean("Ishaa_Sound",false));
+        switchPrayer.add(sharedPreferences.getBoolean("Fajr_Sound", false));
+        switchPrayer.add(sharedPreferences.getBoolean("Sunrise_Sound", false));
+        switchPrayer.add(sharedPreferences.getBoolean("Dhuhr_Sound", false));
+        switchPrayer.add(sharedPreferences.getBoolean("Asr_Sound", false));
+        switchPrayer.add(sharedPreferences.getBoolean("Maghrib_Sound", false));
+        switchPrayer.add(sharedPreferences.getBoolean("Ishaa_Sound", false));
 
-        Log.d("Received",String.valueOf(requestcode));
+        Log.d("Received", String.valueOf(requestcode));
 
         String hours = (String.valueOf(LocalTime.now().getHour()));
         String minutes = (String.valueOf(LocalTime.now().getMinute()));
 
-        if(hours.length()==1) {
-            hours = 0+hours;
+        if (hours.length() == 1) {
+            hours = 0 + hours;
         }
 
-        if(minutes.length()==1) {
+        if (minutes.length() == 1) {
             minutes = 0 + minutes;
         }
 
         String time = hours + ":" + minutes;
-        PrayTimesCalculator prayTimesCalculator = new PrayTimesCalculator(LocalDate.now(),context);
+        PrayTimesCalculator prayTimesCalculator = new PrayTimesCalculator(LocalDate.now(), context);
 
 
-        if(time.equals(prayTimesCalculator.getPrayerTimesList().get(requestcode))) {
-            if(switchPrayer.get(requestcode)) {
+        if (time.equals(prayTimesCalculator.getPrayerTimesList().get(requestcode))) {
+            if (switchPrayer.get(requestcode)) {
                 currentPrayer = getCurrentPrayer(requestcode);
                 showNotification(context);
             }
@@ -80,7 +81,7 @@ public class AlarmNotifications extends BroadcastReceiver {
         String contentTitle = "Reminder";
         String contentText = "Its Time for " + currentPrayer + "!";
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(context);
-        Notification notification = new NotificationCompat.Builder(context,CHANNEL_1_ID)
+        Notification notification = new NotificationCompat.Builder(context, CHANNEL_1_ID)
                 .setSmallIcon(R.drawable.symbol_arrow_left)
                 .setContentTitle(contentTitle)
                 .setContentText(contentText)
@@ -88,7 +89,7 @@ public class AlarmNotifications extends BroadcastReceiver {
                 .setCategory(NotificationCompat.CATEGORY_ALARM)
                 .build();
 
-        notificationManagerCompat.notify(1,notification);
+        notificationManagerCompat.notify(1, notification);
     }
 
 

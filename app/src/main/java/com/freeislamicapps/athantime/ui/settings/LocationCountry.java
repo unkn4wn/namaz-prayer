@@ -1,11 +1,11 @@
 package com.freeislamicapps.athantime.ui.settings;
 
-public class Country {
+public class LocationCountry {
 
     private String id;
     private String name;
 
-    public Country(String id, String name) {
+    public LocationCountry(String id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -36,8 +36,8 @@ public class Country {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj instanceof Country){
-            Country c = (Country )obj;
+        if(obj instanceof LocationCountry){
+            LocationCountry c = (LocationCountry)obj;
             if(c.getName().equals(name) && c.getId()==id ) return true;
         }
 

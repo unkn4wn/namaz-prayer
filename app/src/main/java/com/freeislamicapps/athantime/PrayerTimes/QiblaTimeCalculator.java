@@ -38,7 +38,7 @@ package com.freeislamicapps.athantime.PrayerTimes;
      * Note: might be a inefficient solution (searching for correct angle in loop), but you are welcome to help me improving it
      * i do not have enough knowledge in this field, so i had to use existing codes for the sun azimuth calculation
      */
-    class QiblaTimeCalculator {
+    public class QiblaTimeCalculator {
     
         //==========================Qibla Calculation Code==========================
     
@@ -53,7 +53,7 @@ package com.freeislamicapps.athantime.PrayerTimes;
          *                  wPI: qibla on front of person, if he turns back from the sun
          * @return time
          */
-        static long findQiblaTime(long mills, double lat, double lng, double direction) {
+        public static long findQiblaTime(long mills, double lat, double lng, double direction) {
             long inputMills = mills;
             double angle = getAngle(lat, lng);
             if (direction != 0)

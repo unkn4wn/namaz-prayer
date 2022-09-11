@@ -23,8 +23,10 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.freeislamicapps.athantime.R;
 import com.freeislamicapps.athantime.databinding.FragmentTodayBinding;
+import com.freeislamicapps.athantime.helper.SharedPreferencesHelper;
 import com.freeislamicapps.athantime.ui.settings.SettingsFragment;
 import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.divider.MaterialDivider;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 
 import java.time.LocalDate;
@@ -43,15 +45,19 @@ public class TabTodayFragment extends Fragment {
     private FragmentTodayBinding binding;
 
     TextView fajrTime, sunriseTime, dhuhrTime, asrTime, maghribTime, ishaaTime;
+    TextView fajrText, sunriseText, dhuhrText, asrText, maghribText, ishaaText;
     MaterialCardView fajrCard, sunriseCard, dhuhrCard, asrCard, maghribCard, ishaaCard;
+    MaterialDivider fajrDivider, sunriseDivider, dhuhrDivider, asrDivider, maghribDivider, ishaaDivider;
     TabTodayViewModel tabTodayViewModel;
     MaterialCardView currentPrayerCard;
     ImageView titleBackgroundImage;
     ArrayList<MaterialCardView> materialCardViewArrayList;
+    ArrayList<MaterialDivider> materialDividerArrayList;
+    ArrayList<TextView> textViewArrayList;
     ArrayList<Drawable> backgroundCardViewArrayList;
     ScrollView scrollView;
     SwitchMaterial fajrSound, sunriseSound, dhuhrSound, asrSound, maghribSound, ishaaSound;
-    SharedPreferences sharedPreferences;
+
 
     public static TabTodayFragment newInstance(String date) {
         TabTodayFragment fragment = new TabTodayFragment();
@@ -91,6 +97,19 @@ public class TabTodayFragment extends Fragment {
         maghribTime = binding.maghribtime;
         ishaaTime = binding.ishaatime;
 
+        fajrText = binding.fajrtext;
+        sunriseText = binding.sunrisetext;
+        dhuhrText = binding.dhuhrtext;
+        asrText = binding.asrtext;
+        maghribText = binding.maghribtext;
+        ishaaText = binding.ishaatext;
+
+        fajrDivider = binding.fajrDivider;
+        sunriseDivider = binding.sunriseDivider;
+        dhuhrDivider = binding.dhuhrDivider;
+        asrDivider = binding.asrDivider;
+        maghribDivider = binding.maghribDivider;
+
         fajrCard = binding.fajrCard;
         sunriseCard = binding.sunriseCard;
         dhuhrCard = binding.dhuhrCard;
@@ -106,8 +125,9 @@ public class TabTodayFragment extends Fragment {
         ishaaSound = binding.ishaasound;
 
 
-
         materialCardViewArrayList = new ArrayList<>(Arrays.asList(fajrCard, sunriseCard, dhuhrCard, asrCard, maghribCard, ishaaCard));
+        materialDividerArrayList = new ArrayList<>(Arrays.asList(fajrDivider,sunriseDivider,dhuhrDivider,asrDivider,maghribDivider));
+        textViewArrayList = new ArrayList<>(Arrays.asList(fajrText,sunriseText,dhuhrText,asrText,maghribText,ishaaText,fajrTime,sunriseTime,dhuhrTime,asrTime,maghribTime,ishaaTime));
         Drawable fajrDrawable = AppCompatResources.getDrawable(requireContext(), R.drawable.background_fajr);
         Drawable dhuhrDrawable = AppCompatResources.getDrawable(requireContext(), R.drawable.background_dhuhr);
         Drawable asrDrawable = AppCompatResources.getDrawable(requireContext(), R.drawable.background_asr);
@@ -119,25 +139,23 @@ public class TabTodayFragment extends Fragment {
         titleBackgroundImage = binding.titleBackgroundImage;
 
 
-        sharedPreferences = requireActivity().getSharedPreferences(SettingsFragment.SHARED_PREFS, Context.MODE_PRIVATE);
-
         fajrSound.setOnCheckedChangeListener((compoundButton, b) -> {
-            saveData("Fajr_Sound", b);
+            SharedPreferencesHelper.storeValue(requireContext(), "Fajr_Sound", b);
         });
         sunriseSound.setOnCheckedChangeListener((compoundButton, b) -> {
-            saveData("Sunrise_Sound", b);
+            SharedPreferencesHelper.storeValue(requireContext(), "Sunrise_Sound", b);
         });
         dhuhrSound.setOnCheckedChangeListener((compoundButton, b) -> {
-            saveData("Dhuhr_Sound", b);
+            SharedPreferencesHelper.storeValue(requireContext(), "Dhuhr_Sound", b);
         });
         asrSound.setOnCheckedChangeListener((compoundButton, b) -> {
-            saveData("Asr_Sound", b);
+            SharedPreferencesHelper.storeValue(requireContext(), "Asr_Sound", b);
         });
         maghribSound.setOnCheckedChangeListener((compoundButton, b) -> {
-            saveData("Maghrib_Sound", b);
+            SharedPreferencesHelper.storeValue(requireContext(), "Maghrib_Sound", b);
         });
         ishaaSound.setOnCheckedChangeListener((compoundButton, b) -> {
-            saveData("Ishaa_Sound", b);
+            SharedPreferencesHelper.storeValue(requireContext(), "Ishaa_Sound", b);
         });
 
 
@@ -221,6 +239,10 @@ public class TabTodayFragment extends Fragment {
         requireActivity().getTheme().resolveAttribute(com.google.android.material.R.attr.colorPrimary, typedValuePrimary, true);
         int colorPrimary = typedValuePrimary.data;
 
+        TypedValue typedValueOnSurface = new TypedValue();
+        requireActivity().getTheme().resolveAttribute(com.google.android.material.R.attr.colorOnSurface, typedValueOnSurface, true);
+        int colorOnSurface = typedValueOnSurface.data;
+
         TypedValue typedValueSurface = new TypedValue();
         requireActivity().getTheme().resolveAttribute(com.google.android.material.R.attr.colorSurface, typedValueSurface, true);
         int colorSurface = typedValueSurface.data;
@@ -228,6 +250,7 @@ public class TabTodayFragment extends Fragment {
 
         for (int i = 0; i < 6; i++) {
             materialCardViewArrayList.get(i).setCardBackgroundColor(colorBackground);
+            textViewArrayList.get(i).setTextColor(colorOnSurface);
         }
 
         for (int i = 0; i < 6; i++) {
@@ -236,12 +259,18 @@ public class TabTodayFragment extends Fragment {
                 // Set background image according to current prayer
                 titleBackgroundImage.setImageDrawable(backgroundCardViewArrayList.get(i));
 
-                if(LocalDate.parse(index).compareTo(LocalDate.now())==0) {
+                if (LocalDate.parse(index).compareTo(LocalDate.now()) == 0) {
                     // highlight current prayer time
                     currentPrayerCard = materialCardViewArrayList.get(i);
-                    currentPrayerCard.setCardBackgroundColor(colorSurface);
-                    currentPrayerCard.setRadius(1f);
-                    currentPrayerCard.setStrokeWidth(2);
+                    //set color white for current prayer time text
+                    textViewArrayList.get(i).setTextColor(getResources().getColor(R.color.white));
+                    textViewArrayList.get(i+6).setTextColor(getResources().getColor(R.color.white));
+                    currentPrayerCard.setCardBackgroundColor(colorPrimary);
+                    currentPrayerCard.setRadius(30f);
+                    if(i==0 || i==5) {
+                    currentPrayerCard.setRadius(0f);
+                    }
+                    currentPrayerCard.setStrokeWidth(0);
 
                     // scroll to current prayer time
                     scrollToViewTop(scrollView, currentPrayerCard);
@@ -255,22 +284,15 @@ public class TabTodayFragment extends Fragment {
         super.onStart();
     }
 
-    public void saveData(String savedKey, Boolean savedValue) {
-        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences(SettingsFragment.SHARED_PREFS, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean(savedKey, savedValue);
-        editor.apply();
-    }
-
     @Override
     public void onResume() {
         super.onResume();
-        fajrSound.setChecked(sharedPreferences.getBoolean("Fajr_Sound",false));
-       sunriseSound.setChecked(sharedPreferences.getBoolean("Sunrise_Sound",false));
-        dhuhrSound.setChecked(sharedPreferences.getBoolean("Dhuhr_Sound",false));
-        asrSound.setChecked(sharedPreferences.getBoolean("Asr_Sound",false));
-        maghribSound.setChecked(sharedPreferences.getBoolean("Maghrib_Sound",false));
-        ishaaSound.setChecked(sharedPreferences.getBoolean("Ishaa_Sound",false));
+        fajrSound.setChecked(SharedPreferencesHelper.getValue(requireContext(), "Fajr_Sound", false));
+        sunriseSound.setChecked(SharedPreferencesHelper.getValue(requireContext(), "Sunrise_Sound", false));
+        dhuhrSound.setChecked(SharedPreferencesHelper.getValue(requireContext(), "Dhuhr_Sound", false));
+        asrSound.setChecked(SharedPreferencesHelper.getValue(requireContext(), "Asr_Sound", false));
+        maghribSound.setChecked(SharedPreferencesHelper.getValue(requireContext(), "Maghrib_Sound", false));
+        ishaaSound.setChecked(SharedPreferencesHelper.getValue(requireContext(), "Ishaa_Sound", false));
     }
 
     @Override

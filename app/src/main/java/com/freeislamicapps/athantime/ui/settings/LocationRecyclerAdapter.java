@@ -12,17 +12,18 @@ import com.freeislamicapps.athantime.R;
 
 import java.util.ArrayList;
 
-public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
-    private final RecyclerViewInterface recyclerViewInterface;
-    private ArrayList<locationModel> arrayList;
+public class LocationRecyclerAdapter extends RecyclerView.Adapter<LocationRecyclerAdapter.ViewHolder> {
+    private final LocationRecyclerInterface locationRecyclerInterface;
+    private ArrayList<LocationModel> arrayList;
 
-    public RecyclerAdapter(ArrayList<locationModel> arrayList,RecyclerViewInterface recyclerViewInterface) {
+    public LocationRecyclerAdapter(ArrayList<LocationModel> arrayList, LocationRecyclerInterface locationRecyclerInterface) {
         this.arrayList = arrayList;
-        this.recyclerViewInterface = recyclerViewInterface;
+        this.locationRecyclerInterface = locationRecyclerInterface;
     }
+
     @NonNull
     @Override
-    public RecyclerAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public LocationRecyclerAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View inflate = layoutInflater.inflate(R.layout.fragment_settings_location_recyclerview, null);
         ViewHolder viewHolder = new ViewHolder(inflate);
@@ -30,7 +31,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull LocationRecyclerAdapter.ViewHolder holder, int position) {
         String data = arrayList.get(position).getLocation();
         holder.title.setText(data);
     }
@@ -42,6 +43,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView title;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.title);
@@ -49,11 +51,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (recyclerViewInterface!=null) {
+                    if (locationRecyclerInterface != null) {
                         int position = getAdapterPosition();
 
-                        if(position!=RecyclerView.NO_POSITION) {
-                            recyclerViewInterface.onItemClick(position);
+                        if (position != RecyclerView.NO_POSITION) {
+                            locationRecyclerInterface.onItemClick(position);
                         }
                     }
                 }

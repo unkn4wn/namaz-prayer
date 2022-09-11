@@ -21,16 +21,16 @@ public class AlarmStart extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
-       setAlarm(context);
+        setAlarm(context);
         schedulenewAlarm(context);
     }
 
     private void setAlarm(Context context) {
         Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY,0);
-        calendar.set(Calendar.MINUTE,1);
-        calendar.set(Calendar.SECOND,0);
-        calendar.add(Calendar.DAY_OF_YEAR,1);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 1);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.add(Calendar.DAY_OF_YEAR, 1);
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
@@ -38,27 +38,27 @@ public class AlarmStart extends BroadcastReceiver {
 
         PendingIntent pendingIntent = null;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            pendingIntent = PendingIntent.getBroadcast(context,10,intent,PendingIntent.FLAG_MUTABLE);
+            pendingIntent = PendingIntent.getBroadcast(context, 10, intent, PendingIntent.FLAG_MUTABLE);
         } else {
-            pendingIntent = PendingIntent.getBroadcast(context,10,intent,0);
+            pendingIntent = PendingIntent.getBroadcast(context, 10, intent, 0);
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),pendingIntent);
+            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
         } else {
-            alarmManager.setExact(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),pendingIntent);
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
         }
 
-        Log.d("Calendar",calendar.getTime().toString());
+        Log.d("Calendar", calendar.getTime().toString());
 
     }
 
     private void schedulenewAlarm(Context context) {
-        prayTimesCalculator = new PrayTimesCalculator(LocalDate.now(),context);
+        prayTimesCalculator = new PrayTimesCalculator(LocalDate.now(), context);
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
-        for (int i = 0; i< prayTimesCalculator.getPrayerTimesList().size(); i++) {
+        for (int i = 0; i < prayTimesCalculator.getPrayerTimesList().size(); i++) {
 
             int requestcode = i;
             Intent intent = new Intent(context, AlarmNotifications.class);
@@ -80,7 +80,7 @@ public class AlarmStart extends BroadcastReceiver {
             } else {
                 alarmManager.setExact(AlarmManager.RTC_WAKEUP, prayTimesCalculator.getCalendarFromPrayerTime(Calendar.getInstance(), prayTimesCalculator.getPrayerTimesList().get(i)).getTimeInMillis(), pendingIntent);
             }
-            Log.d("fajr2",String.valueOf(prayTimesCalculator.getCalendarFromPrayerTime(Calendar.getInstance(), prayTimesCalculator.getPrayerTimesList().get(i)).getTime()));
+            Log.d("fajr2", String.valueOf(prayTimesCalculator.getCalendarFromPrayerTime(Calendar.getInstance(), prayTimesCalculator.getPrayerTimesList().get(i)).getTime()));
         }
     }
 }

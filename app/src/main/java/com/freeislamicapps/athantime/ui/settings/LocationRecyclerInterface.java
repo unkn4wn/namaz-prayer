@@ -1,5 +1,5 @@
 package com.freeislamicapps.athantime.ui.settings;
 
-public interface RecyclerViewInterface {
+public interface LocationRecyclerInterface {
     void onItemClick(int position);
 }

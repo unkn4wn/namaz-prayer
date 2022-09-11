@@ -9,11 +9,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.MenuItem;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.navigation.NavController;
@@ -21,20 +18,13 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.freeislamicapps.athantime.PrayerTimes.HighLatsAdjustment;
-import com.freeislamicapps.athantime.PrayerTimes.Method;
-import com.freeislamicapps.athantime.PrayerTimes.Midnight;
-import com.freeislamicapps.athantime.PrayerTimes.PrayTimes;
-import com.freeislamicapps.athantime.PrayerTimes.Times;
 import com.freeislamicapps.athantime.databinding.ActivityMainBinding;
+import com.freeislamicapps.athantime.helper.SharedPreferencesHelper;
 import com.freeislamicapps.athantime.ui.intro.IntroActivity;
-import com.freeislamicapps.athantime.ui.intro.LocationFragment;
 import com.freeislamicapps.athantime.ui.settings.SettingsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.time.LocalDate;
 import java.util.Calendar;
-import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -53,8 +43,7 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        sharedPreferences = this.getSharedPreferences(SettingsFragment.SHARED_PREFS, Context.MODE_PRIVATE);
-        boolean firstStart = sharedPreferences.getBoolean("firstStart",true);
+        boolean firstStart = SharedPreferencesHelper.getValue(this,"firstStart",true);
 
         if (firstStart) {
             startFirstTime();
@@ -67,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
 
-        navView.setSelectedItemId(R.id.navigation_prayer);
+        navView.setSelectedItemId(R.id.navigation_settings2);
 
 
 
@@ -92,16 +81,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void startFirstTime() {
-        Toast.makeText(this,"FIRSSTTIME",Toast.LENGTH_SHORT).show();
-
 
         //Default values
-        saveDataString("AsrCalculation", "Shafi, Hanbali, Maliki");
-        saveDataString("Method", "Islamic Society of North America (ISNA)");
-        saveDataString("HighLatsAdjustment", "Angle-Based");
-        saveDataString("Style","Automatic (System settings)");
-        saveDataString("latitude","52.0");
-        saveDataString("longitude","9.0");
+        SharedPreferencesHelper.storeValue(this,"AsrCalculation","Shafi, Hanbali, Maliki");
+        SharedPreferencesHelper.storeValue(this,"Method","Islamic Society of North America (ISNA)");
+        SharedPreferencesHelper.storeValue(this,"HighLatsAdjustment","Angle-Based");
+        SharedPreferencesHelper.storeValue(this,"Style","Automatic (System settings)");
+        SharedPreferencesHelper.storeValue(this,"latitude","52.0");
+        SharedPreferencesHelper.storeValue(this,"longitude","9.0");
 
         Intent intent = new Intent(MainActivity.this,IntroActivity.class);
         startActivity(intent);
@@ -136,20 +123,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
-    public void saveDataBoolean(String savedKey, Boolean savedValue) {
-        SharedPreferences sharedPreferences = this.getSharedPreferences(SettingsFragment.SHARED_PREFS, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean(savedKey, savedValue);
-        editor.apply();
-    }
-
-    public void saveDataString(String savedKey, String savedValue) {
-        SharedPreferences sharedPreferences = this.getSharedPreferences(SettingsFragment.SHARED_PREFS, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(savedKey, savedValue);
-        editor.apply();
-    }
 
     private void createNotificationChannel(Context context) {
         // Create the NotificationChannel, but only on API 26+ because

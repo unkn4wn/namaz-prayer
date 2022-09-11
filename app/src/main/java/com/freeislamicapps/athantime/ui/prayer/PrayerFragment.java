@@ -2,47 +2,21 @@ package com.freeislamicapps.athantime.ui.prayer;
 
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.core.widget.TextViewCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager2.widget.ViewPager2;
 
-import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.freeislamicapps.athantime.MainActivity;
-import com.freeislamicapps.athantime.R;
 import com.freeislamicapps.athantime.databinding.FragmentPrayerBinding;
 import com.freeislamicapps.athantime.databinding.FragmentTodayBinding;
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.tabs.TabLayout;
-import com.google.android.material.tabs.TabLayoutMediator;
 
-import org.apache.commons.lang3.time.CalendarUtils;
-import org.w3c.dom.Text;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.Instant;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.Month;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
 import java.time.format.TextStyle;
-import java.util.Calendar;
 import java.util.Locale;
-import java.util.Objects;
-import java.util.TimeZone;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -59,7 +33,7 @@ public class PrayerFragment extends Fragment {
     ImageButton previousDay, nextDay;
     TextView cityText;
 
-    SectionsPagerAdapter sectionsPagerAdapter;
+    TabTodayPagerAdapter tabTodayPagerAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -83,37 +57,22 @@ public class PrayerFragment extends Fragment {
 
         monthDayText.setText(monthAndDay);
 
-        /*
-        FragmentManager fm = getChildFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
 
 
-        for (Fragment fragment : getChildFragmentManager().getFragments()){
-            ft.remove(fragment);
-        }
-        ft.commit();
-*/
+        tabTodayPagerAdapter = new TabTodayPagerAdapter(getChildFragmentManager(), getLifecycle());
 
 
-        sectionsPagerAdapter = new SectionsPagerAdapter(getChildFragmentManager(),getLifecycle());
-
-
-
-
-
-
-         viewPager = binding.viewPager;
-        viewPager.setAdapter(sectionsPagerAdapter);
+        viewPager = binding.viewPager;
+        viewPager.setAdapter(tabTodayPagerAdapter);
 
         viewPager.setCurrentItem(1000, false);
         viewPager.post(new Runnable() {
             public void run() {
                 viewPager.setCurrentItem(1000, false);
-                sectionsPagerAdapter.notifyDataSetChanged();
+                tabTodayPagerAdapter.notifyDataSetChanged();
             }
         });
-        sectionsPagerAdapter.createFragment(1000);
-
+        tabTodayPagerAdapter.createFragment(1000);
 
 
         viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {

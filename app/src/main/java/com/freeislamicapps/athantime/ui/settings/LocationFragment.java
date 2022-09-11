@@ -41,6 +41,7 @@ import android.widget.Toast;
 
 import com.freeislamicapps.athantime.BuildConfig;
 import com.freeislamicapps.athantime.R;
+import com.freeislamicapps.athantime.helper.SharedPreferencesHelper;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
@@ -68,7 +69,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class MapsFragment extends DialogFragment implements RecyclerViewInterface {
+public class LocationFragment extends DialogFragment implements LocationRecyclerInterface {
     SearchView searchView;
     GoogleMap googleMap;
     SupportMapFragment map;
@@ -80,7 +81,7 @@ public class MapsFragment extends DialogFragment implements RecyclerViewInterfac
     public static final String SHARED_PREFS = "sharedPrefs";
     LatLng latLng;
 
-    private ArrayList<locationModel> arrayList;
+    private ArrayList<LocationModel> arrayList;
 
     View mainView;
 
@@ -113,7 +114,9 @@ public class MapsFragment extends DialogFragment implements RecyclerViewInterfac
         locationRequest.setInterval(5000);
         locationRequest.setFastestInterval(2000);
 
-        latLng = new LatLng(Double.parseDouble(loadData("latitude", "")), Double.parseDouble(loadData("longitude", "")));
+        Double latitude = SharedPreferencesHelper.getValue(requireContext(), "latitude", 52.0);
+        Double longitude = SharedPreferencesHelper.getValue(requireContext(), "longitude", 9.0);
+        latLng = new LatLng(latitude, longitude);
 
 
         ImageButton closeButton = view.findViewById(R.id.closeBottomsheetButton);
@@ -140,8 +143,8 @@ public class MapsFragment extends DialogFragment implements RecyclerViewInterfac
             @Override
             public boolean onQueryTextSubmit(String s) {
                 arrayList = new ArrayList<>();
-                RecyclerAdapter recyclerAdapter = new RecyclerAdapter(arrayList, MapsFragment.this);
-                recyclerView.setAdapter(recyclerAdapter);
+                LocationRecyclerAdapter locationRecyclerAdapter = new LocationRecyclerAdapter(arrayList, LocationFragment.this);
+                recyclerView.setAdapter(locationRecyclerAdapter);
                 Handler handler = new Handler(Looper.getMainLooper());
                 OkHttpClient client = new OkHttpClient();
                 String startUrl = "https://geoapify-platform.p.rapidapi.com/v1/geocode/search?apiKey=" + BuildConfig.GEOAPIFY_GEOCODING_API_KEY + "&text=";
@@ -183,7 +186,7 @@ public class MapsFragment extends DialogFragment implements RecyclerViewInterfac
                                 Double latitude = propertiesJson.getDouble("lat");
                                 Double longitude = propertiesJson.getDouble("lon");
 
-                                locationModel locationModel = new locationModel(location, latitude, longitude);
+                                LocationModel locationModel = new LocationModel(location, latitude, longitude);
                                 arrayList.add(locationModel);
                                 System.out.println(location + latitude + longitude);
 
@@ -191,8 +194,8 @@ public class MapsFragment extends DialogFragment implements RecyclerViewInterfac
                             handler.post(new Runnable() {
                                 @Override
                                 public void run() {
-                                    RecyclerAdapter recyclerAdapter = new RecyclerAdapter(arrayList, MapsFragment.this);
-                                    recyclerView.setAdapter(recyclerAdapter);
+                                    LocationRecyclerAdapter locationRecyclerAdapter = new LocationRecyclerAdapter(arrayList, LocationFragment.this);
+                                    recyclerView.setAdapter(locationRecyclerAdapter);
                                     LinearLayoutManager llm = new LinearLayoutManager(requireContext());
                                     llm.setOrientation(LinearLayoutManager.VERTICAL);
                                     recyclerView.setLayoutManager(llm);
@@ -237,7 +240,7 @@ public class MapsFragment extends DialogFragment implements RecyclerViewInterfac
                     Toast.makeText(requireContext(), "Please enable Location and Internet first", Toast.LENGTH_SHORT).show();
                 }
             }
-            });
+        });
 
 
         return view;
@@ -248,19 +251,6 @@ public class MapsFragment extends DialogFragment implements RecyclerViewInterfac
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Log.d("displayed", "onViewCreated");
-    }
-
-
-    public void saveData(String savedKey, String savedValue) {
-        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(savedKey, savedValue);
-        editor.apply();
-    }
-
-    public String loadData(String savedKey, String defaultValue) {
-        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
-        return sharedPreferences.getString(savedKey, defaultValue);
     }
 
     @Override
@@ -274,9 +264,9 @@ public class MapsFragment extends DialogFragment implements RecyclerViewInterfac
 
     @Override
     public void onItemClick(int position) {
-        saveData("location", String.valueOf(arrayList.get(position).getLocation()));
-        saveData("latitude", String.valueOf(arrayList.get(position).getLatitude()));
-        saveData("longitude", String.valueOf(arrayList.get(position).getLongitude()));
+        SharedPreferencesHelper.storeValue(requireContext(), "location", arrayList.get(position).getLocation());
+        SharedPreferencesHelper.storeValue(requireContext(), "latitude", arrayList.get(position).getLatitude());
+        SharedPreferencesHelper.storeValue(requireContext(), "longitude", arrayList.get(position).getLongitude());
         dismiss();
     }
 
@@ -284,16 +274,15 @@ public class MapsFragment extends DialogFragment implements RecyclerViewInterfac
             new ActivityResultContracts.RequestMultiplePermissions(), new ActivityResultCallback<Map<String, Boolean>>() {
                 @Override
                 public void onActivityResult(Map<String, Boolean> result) {
-                    if(Boolean.TRUE.equals(result.get(Manifest.permission.ACCESS_COARSE_LOCATION))) {
-                        if(Boolean.TRUE.equals(result.get(Manifest.permission.ACCESS_FINE_LOCATION))) {
+                    if (Boolean.TRUE.equals(result.get(Manifest.permission.ACCESS_COARSE_LOCATION))) {
+                        if (Boolean.TRUE.equals(result.get(Manifest.permission.ACCESS_FINE_LOCATION))) {
                             getCurrentLocation();
-                        }
-                        else {
-                            Snackbar.make(requireContext(), requireView(),"Please allow to retrieve your exact location to provide accurate prayer times",Toast.LENGTH_SHORT)
+                        } else {
+                            Snackbar.make(requireContext(), requireView(), "Please allow to retrieve your exact location to provide accurate prayer times", Toast.LENGTH_SHORT)
                                     .show();
                         }
                     } else {
-                        Snackbar.make(requireContext(), requireView(),"Please allow to retrieve your location",Toast.LENGTH_SHORT)
+                        Snackbar.make(requireContext(), requireView(), "Please allow to retrieve your location", Toast.LENGTH_SHORT)
                                 .show();
                     }
                 }
@@ -306,7 +295,7 @@ public class MapsFragment extends DialogFragment implements RecyclerViewInterfac
 
                 ProgressBar progressBar = mainView.findViewById(R.id.getmylocationProgressbar);
                 TextView progressBarText = mainView.findViewById(R.id.getmylocationText);
-              progressBar.setVisibility(View.VISIBLE);
+                progressBar.setVisibility(View.VISIBLE);
                 progressBarText.setText("Getting your location...");
                 LocationServices.getFusedLocationProviderClient(requireActivity())
                         .requestLocationUpdates(locationRequest, new LocationCallback() {
@@ -322,9 +311,9 @@ public class MapsFragment extends DialogFragment implements RecyclerViewInterfac
                                     int index = locationResult.getLocations().size() - 1;
                                     double latitude = locationResult.getLocations().get(index).getLatitude();
                                     double longitude = locationResult.getLocations().get(index).getLongitude();
-                                 //   currentLocation.setText("Latitude: " + latitude + "\n" + "Longitude: " + longitude);
-                                    saveData("latitude", String.valueOf(latitude));
-                                    saveData("longitude", String.valueOf(longitude));
+                                    //   currentLocation.setText("Latitude: " + latitude + "\n" + "Longitude: " + longitude);
+                                    SharedPreferencesHelper.storeValue(requireContext(), "latitude", latitude);
+                                    SharedPreferencesHelper.storeValue(requireContext(), "longitude", longitude);
 
                                     progressBarText.setText("Getting the exact address...");
 
@@ -335,10 +324,12 @@ public class MapsFragment extends DialogFragment implements RecyclerViewInterfac
                                         public void run() {
                                             OkHttpClient client = new OkHttpClient();
                                             String startUrl = "https://forward-reverse-geocoding.p.rapidapi.com/v1/reverse?";
-                                            String midUrl = "lat="+ loadData("latitude","52.0") +"&lon=" + loadData("longitude","52.0");
+                                            String latitude = SharedPreferencesHelper.getValue(requireContext(), "latitude", "52.0");
+                                            String longitude = SharedPreferencesHelper.getValue(requireContext(), "longitude", "9.0");
+                                            String midUrl = "lat=" + latitude + "&lon=" + longitude;
                                             String endUrl = "&accept-language=en&polygon_threshold=0.0";
                                             Request request = new Request.Builder()
-                                                    .url(startUrl+midUrl+endUrl)
+                                                    .url(startUrl + midUrl + endUrl)
                                                     .get()
                                                     .addHeader("X-RapidAPI-Key", BuildConfig.RAPID_GEOCODING_API_KEY)
                                                     .addHeader("X-RapidAPI-Host", "forward-reverse-geocoding.p.rapidapi.com")
@@ -356,7 +347,7 @@ public class MapsFragment extends DialogFragment implements RecyclerViewInterfac
                                                     JSONObject myResponseJson = null;
                                                     try {
                                                         myResponseJson = new JSONObject(myResponse);
-                                                        saveData("location",myResponseJson.getString("display_name"));
+                                                        SharedPreferencesHelper.storeValue(requireContext(), "location", myResponseJson.getString("display_name"));
                                                     } catch (JSONException e) {
                                                         e.printStackTrace();
                                                     }
@@ -368,15 +359,15 @@ public class MapsFragment extends DialogFragment implements RecyclerViewInterfac
                                                 public void run() {
                                                     dismiss();
                                                 }
-                                            },1000);
+                                            }, 1000);
 
                                             handler.post(new Runnable() {
                                                 @Override
                                                 public void run() {
                                                     progressBar.setVisibility(View.GONE);
                                                     progressBarText.setText("Task Done");
-                                                    Toast.makeText(requireContext(),"Updated your location",Toast.LENGTH_SHORT).show();
-                                                 //   dismiss();
+                                                    Toast.makeText(requireContext(), "Updated your location", Toast.LENGTH_SHORT).show();
+                                                    //   dismiss();
                                                 }
                                             });
                                         }

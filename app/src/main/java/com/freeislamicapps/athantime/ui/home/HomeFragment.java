@@ -18,6 +18,8 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.freeislamicapps.athantime.PrayerTimes.QiblaTime;
+import com.freeislamicapps.athantime.PrayerTimes.QiblaTimeCalculator;
 import com.freeislamicapps.athantime.databinding.FragmentHomeBinding;
 
 
@@ -93,6 +95,8 @@ public class HomeFragment extends Fragment implements SensorEventListener {
 
             int x = (int) azimuthInDegree;
             textView2.setText(x+"°");
+
+
         }
     }
 
@@ -116,4 +120,14 @@ public class HomeFragment extends Fragment implements SensorEventListener {
         sensorManager.unregisterListener(this,accelerometerSensor);
         sensorManager.unregisterListener(this,magenetometerSensor);
     }
+
+    public double calculateQibla(double latitude, double longitude){
+        double phiK = 21.4 * Math.PI / 180.0;
+        double lambdaK = 39.8 * Math.PI/180.0;
+        double phi = latitude*Math.PI/180.0;
+        double lambda = longitude*Math.PI/180.0;
+        double psi = 180.0/Math.PI * Math.atan2(Math.sin(lambdaK-lambda),Math.cos(phi)*Math.tan(phiK)-Math.sin(phi)*Math.cos(lambdaK-lambda));
+        return Math.round(psi);
+    }
+
 }
