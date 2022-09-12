@@ -97,15 +97,24 @@
         <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/drawable/symbol_fajr.xml" value="0.2" />
         <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/drawable/symbol_maghrib.xml" value="0.128" />
         <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/drawable/symbol_notification.xml" value="0.2685" />
+        <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/drawable/symbol_notification30.xml" value="0.186" />
+        <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/drawable/symbol_notification40.xml" value="0.1345" />
+        <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/drawable/symbol_notification40_off.xml" value="0.209" />
+        <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/drawable/symbol_notification_off.xml" value="0.186" />
+        <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/drawable/symbol_notification_off_selected.xml" value="0.209" />
+        <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/drawable/symbol_notification_selected.xml" value="0.209" />
         <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/drawable/symbol_refresh.xml" value="0.1765" />
         <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/drawable/symbol_remove.xml" value="0.2055" />
         <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/drawable/symbol_volumeoff.xml" value="0.244" />
         <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/layout/activity_intro.xml" value="0.3255208333333333" />
         <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/layout/activity_main.xml" value="0.28440366972477066" />
         <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/layout/bottomsheet_asrcalculation.xml" value="0.24322916666666666" />
+        <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/layout/bottomsheet_highlatadjustment.xml" value="0.34444444444444444" />
         <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/layout/bottomsheet_highlatsadjustment.xml" value="0.3609375" />
-        <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/layout/bottomsheet_manualtunes.xml" value="0.5541666666666667" />
+        <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/layout/bottomsheet_manualtunes.xml" value="0.33" />
+        <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/layout/bottomsheet_method.xml" value="0.24895833333333334" />
         <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/layout/bottomsheet_methods.xml" value="0.3609375" />
+        <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/layout/bottomsheet_notification.xml" value="0.2989583333333333" />
         <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/layout/bottomsheet_style.xml" value="0.359375" />
         <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/layout/fragment_home.xml" value="0.35625" />
         <entry key="..\:/Users/berka/AndroidStudioProjects/athantime/app/src/main/res/layout/fragment_location.xml" value="0.33" />

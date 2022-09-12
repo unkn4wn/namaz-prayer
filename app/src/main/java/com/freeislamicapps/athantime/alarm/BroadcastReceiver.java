@@ -1,9 +1,11 @@
-package com.freeislamicapps.athantime;
+package com.freeislamicapps.athantime.alarm;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+
+import com.freeislamicapps.athantime.alarm.AlarmStart;
 
 import java.util.Calendar;
 

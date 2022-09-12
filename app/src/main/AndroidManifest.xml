@@ -54,18 +54,18 @@
         </activity>
 
         <receiver
-            android:name="com.freeislamicapps.athantime.BroadcastReceiver"
+            android:name="com.freeislamicapps.athantime.alarm.BroadcastReceiver"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
         <receiver
-            android:name=".AlarmStart"
+            android:name=".alarm.AlarmStart"
             android:enabled="true"
             android:exported="true" />
         <receiver
-            android:name=".AlarmNotifications"
+            android:name=".alarm.AlarmNotifications"
             android:enabled="true"
             android:exported="true" />
 

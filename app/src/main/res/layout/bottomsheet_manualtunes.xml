@@ -23,8 +23,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/title_manualtunes"
-                android:textAlignment="center"
                 android:textSize="25sp"
+                android:layout_marginEnd="40dp"
                 android:textStyle="bold" />
 
             <ImageButton
@@ -50,40 +50,148 @@
                 <RelativeLayout
                     android:id="@+id/cardviewFajr"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/bottomsheet_pressed_state"
+                    android:orientation="horizontal"
+                    android:padding="8dp"
+                    app:cardCornerRadius="0dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/poppins_bold"
+                        android:text="@string/fajr"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:id="@+id/cardviewFajrManualTunes"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
                     android:background="@drawable/bottomsheet_pressed_state"
                     android:orientation="horizontal"
                     android:padding="8dp"
                     app:cardCornerRadius="0dp">
 
                     <ImageButton
-                        android:id="@+id/removeFajr"
+                        android:id="@+id/fajrRemove"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_alignParentStart="true"
                         android:background="?attr/colorSurface"
                         android:src="@drawable/symbol_remove" />
 
-
-                    <TextView
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentTop="true"
                         android:layout_centerInParent="true"
-                        android:layout_gravity="center"
-                        android:text="@string/fajr"
-                        android:textSize="16sp" />
+                        android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/fajrmanualtunes"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:layout_centerInParent="true"
-                        android:text="0 Minuten" />
+                        <TextView
+                            android:id="@+id/fajrMinute"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="2dp"
+                            android:textSize="18sp"
+                            android:text="0"/>
+
+                        <TextView
+                            android:id="@+id/fajrMinuteText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="2dp"
+                            android:textSize="18sp"
+                            android:text="@string/minutes" />
+                    </LinearLayout>
+
 
                     <ImageButton
-                        android:id="@+id/addFajr"
+                        android:id="@+id/fajrAdd"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentEnd="true"
+                        android:background="?attr/colorSurface"
+                        android:src="@drawable/symbol_add" />
+
+                </RelativeLayout>
+
+
+                <com.google.android.material.divider.MaterialDivider
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+
+                <RelativeLayout
+                    android:id="@+id/cardviewSunrise"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@drawable/bottomsheet_pressed_state"
+                    android:orientation="horizontal"
+                    android:padding="8dp"
+                    app:cardCornerRadius="0dp">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/poppins_bold"
+                        android:text="@string/sunrise"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:id="@+id/cardviewSunriseManualTunes"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/bottomsheet_pressed_state"
+                    android:orientation="horizontal"
+                    android:padding="8dp"
+                    app:cardCornerRadius="0dp">
+
+                    <ImageButton
+                        android:id="@+id/sunriseRemove"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentStart="true"
+                        android:background="?attr/colorSurface"
+                        android:src="@drawable/symbol_remove" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/sunriseMinute"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="2dp"
+                            android:textSize="18sp"
+                            android:text="0"/>
+
+                        <TextView
+                            android:id="@+id/sunriseMinuteText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="2dp"
+                            android:textSize="18sp"
+                            android:text="@string/minutes" />
+                    </LinearLayout>
+
+
+                    <ImageButton
+                        android:id="@+id/sunriseAdd"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_alignParentEnd="true"
@@ -96,10 +204,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
 
-                <LinearLayout
-                    android:id="@+id/cardViewLightmode"
+                <RelativeLayout
+                    android:id="@+id/cardviewDhuhr"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="40dp"
                     android:background="@drawable/bottomsheet_pressed_state"
                     android:orientation="horizontal"
                     android:padding="8dp"
@@ -109,21 +217,74 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
                         android:layout_gravity="center"
-                        android:text="Always light mode"
-                        android:textSize="16sp" />
+                        android:fontFamily="@font/poppins_bold"
+                        android:text="@string/dhuhr"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
 
-                </LinearLayout>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/cardviewDhuhrManualTunes"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/bottomsheet_pressed_state"
+                    android:orientation="horizontal"
+                    android:padding="8dp"
+                    app:cardCornerRadius="0dp">
+
+                    <ImageButton
+                        android:id="@+id/dhuhrRemove"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentStart="true"
+                        android:background="?attr/colorSurface"
+                        android:src="@drawable/symbol_remove" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/dhuhrMinute"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="2dp"
+                            android:textSize="18sp"
+                            android:text="0"/>
+
+                        <TextView
+                            android:id="@+id/dhuhrMinuteText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="2dp"
+                            android:textSize="18sp"
+                            android:text="@string/minutes" />
+                    </LinearLayout>
+
+
+                    <ImageButton
+                        android:id="@+id/dhuhrAdd"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentEnd="true"
+                        android:background="?attr/colorSurface"
+                        android:src="@drawable/symbol_add" />
+
+                </RelativeLayout>
 
                 <com.google.android.material.divider.MaterialDivider
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
 
-
-                <LinearLayout
-                    android:id="@+id/cardViewDarkmode"
+                <RelativeLayout
+                    android:id="@+id/cardviewAsr"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="40dp"
                     android:background="@drawable/bottomsheet_pressed_state"
                     android:orientation="horizontal"
                     android:padding="8dp"
@@ -133,11 +294,219 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
                         android:layout_gravity="center"
-                        android:text="Always dark mode"
-                        android:textSize="16sp" />
+                        android:fontFamily="@font/poppins_bold"
+                        android:text="@string/asr"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
 
-                </LinearLayout>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/cardviewAsrManualTunes"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/bottomsheet_pressed_state"
+                    android:orientation="horizontal"
+                    android:padding="8dp"
+                    app:cardCornerRadius="0dp">
+
+                    <ImageButton
+                        android:id="@+id/asrRemove"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentStart="true"
+                        android:background="?attr/colorSurface"
+                        android:src="@drawable/symbol_remove" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/asrMinute"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="2dp"
+                            android:textSize="18sp"
+                            android:text="0"/>
+
+                        <TextView
+                            android:id="@+id/asrMinuteText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="2dp"
+                            android:textSize="18sp"
+                            android:text="@string/minutes" />
+                    </LinearLayout>
+
+
+                    <ImageButton
+                        android:id="@+id/asrAdd"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentEnd="true"
+                        android:background="?attr/colorSurface"
+                        android:src="@drawable/symbol_add" />
+
+                </RelativeLayout>
+
+                <com.google.android.material.divider.MaterialDivider
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <RelativeLayout
+                    android:id="@+id/cardviewMaghrib"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@drawable/bottomsheet_pressed_state"
+                    android:orientation="horizontal"
+                    android:padding="8dp"
+                    app:cardCornerRadius="0dp">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/poppins_bold"
+                        android:text="@string/maghrib"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/cardviewMaghribManualTunes"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/bottomsheet_pressed_state"
+                    android:orientation="horizontal"
+                    android:padding="8dp"
+                    app:cardCornerRadius="0dp">
+
+                    <ImageButton
+                        android:id="@+id/maghribRemove"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentStart="true"
+                        android:background="?attr/colorSurface"
+                        android:src="@drawable/symbol_remove" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/maghribMinute"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="2dp"
+                            android:textSize="18sp"
+                            android:text="0"/>
+
+                        <TextView
+                            android:id="@+id/maghribMinuteText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="2dp"
+                            android:textSize="18sp"
+                            android:text="@string/minutes" />
+                    </LinearLayout>
+
+
+                    <ImageButton
+                        android:id="@+id/maghribAdd"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentEnd="true"
+                        android:background="?attr/colorSurface"
+                        android:src="@drawable/symbol_add" />
+
+                </RelativeLayout>
+
+                <com.google.android.material.divider.MaterialDivider
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <RelativeLayout
+                    android:id="@+id/cardviewIshaa"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@drawable/bottomsheet_pressed_state"
+                    android:orientation="horizontal"
+                    android:padding="8dp"
+                    app:cardCornerRadius="0dp">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/poppins_bold"
+                        android:text="@string/ishaa"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/cardviewIshaaManualTunes"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/bottomsheet_pressed_state"
+                    android:orientation="horizontal"
+                    android:padding="8dp"
+                    app:cardCornerRadius="0dp">
+
+                    <ImageButton
+                        android:id="@+id/ishaaRemove"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentStart="true"
+                        android:background="?attr/colorSurface"
+                        android:src="@drawable/symbol_remove" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/ishaaMinute"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="2dp"
+                            android:textSize="18sp"
+                            android:text="0"/>
+
+                        <TextView
+                            android:id="@+id/ishaaMinuteText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="2dp"
+                            android:textSize="18sp"
+                            android:text="@string/minutes" />
+                    </LinearLayout>
+
+
+                    <ImageButton
+                        android:id="@+id/ishaaAdd"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentEnd="true"
+                        android:background="?attr/colorSurface"
+                        android:src="@drawable/symbol_add" />
+
+                </RelativeLayout>
 
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>

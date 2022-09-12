@@ -1,4 +1,4 @@
-package com.freeislamicapps.athantime.ui.settings;
+package com.freeislamicapps.athantime.ui.prayer;
 
 import static android.content.Context.LOCATION_SERVICE;
 
@@ -18,9 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.LocationManager;
 import android.os.Build;
@@ -42,6 +40,9 @@ import android.widget.Toast;
 import com.freeislamicapps.athantime.BuildConfig;
 import com.freeislamicapps.athantime.R;
 import com.freeislamicapps.athantime.helper.SharedPreferencesHelper;
+import com.freeislamicapps.athantime.ui.settings.LocationModel;
+import com.freeislamicapps.athantime.ui.settings.LocationRecyclerAdapter;
+import com.freeislamicapps.athantime.ui.settings.LocationRecyclerInterface;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
@@ -237,7 +238,7 @@ public class LocationFragment extends DialogFragment implements LocationRecycler
                         requestPermissionLauncher.launch(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION});
                     }
                 } else {
-                    Toast.makeText(requireContext(), "Please enable Location and Internet first", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(requireContext(), getResources().getString(R.string.message_enable_location), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -278,11 +279,11 @@ public class LocationFragment extends DialogFragment implements LocationRecycler
                         if (Boolean.TRUE.equals(result.get(Manifest.permission.ACCESS_FINE_LOCATION))) {
                             getCurrentLocation();
                         } else {
-                            Snackbar.make(requireContext(), requireView(), "Please allow to retrieve your exact location to provide accurate prayer times", Toast.LENGTH_SHORT)
+                            Snackbar.make(requireContext(), requireView(),getResources().getString(R.string.message_exact_location), Toast.LENGTH_SHORT)
                                     .show();
                         }
                     } else {
-                        Snackbar.make(requireContext(), requireView(), "Please allow to retrieve your location", Toast.LENGTH_SHORT)
+                        Snackbar.make(requireContext(), requireView(), getResources().getString(R.string.message_location), Toast.LENGTH_SHORT)
                                 .show();
                     }
                 }
@@ -296,7 +297,7 @@ public class LocationFragment extends DialogFragment implements LocationRecycler
                 ProgressBar progressBar = mainView.findViewById(R.id.getmylocationProgressbar);
                 TextView progressBarText = mainView.findViewById(R.id.getmylocationText);
                 progressBar.setVisibility(View.VISIBLE);
-                progressBarText.setText("Getting your location...");
+                progressBarText.setText(getResources().getString(R.string.progress_get_location));
                 LocationServices.getFusedLocationProviderClient(requireActivity())
                         .requestLocationUpdates(locationRequest, new LocationCallback() {
                             @Override
@@ -314,8 +315,7 @@ public class LocationFragment extends DialogFragment implements LocationRecycler
                                     //   currentLocation.setText("Latitude: " + latitude + "\n" + "Longitude: " + longitude);
                                     SharedPreferencesHelper.storeValue(requireContext(), "latitude", latitude);
                                     SharedPreferencesHelper.storeValue(requireContext(), "longitude", longitude);
-
-                                    progressBarText.setText("Getting the exact address...");
+                                    progressBarText.setText(getResources().getString(R.string.progress_get_address));
 
                                     Handler handler = new Handler();
 
@@ -365,8 +365,7 @@ public class LocationFragment extends DialogFragment implements LocationRecycler
                                                 @Override
                                                 public void run() {
                                                     progressBar.setVisibility(View.GONE);
-                                                    progressBarText.setText("Task Done");
-                                                    Toast.makeText(requireContext(), "Updated your location", Toast.LENGTH_SHORT).show();
+                                                    progressBarText.setText(getResources().getString(R.string.progress_task_done));
                                                     //   dismiss();
                                                 }
                                             });

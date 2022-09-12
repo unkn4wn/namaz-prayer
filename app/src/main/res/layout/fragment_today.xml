@@ -67,6 +67,8 @@
                         android:layout_height="60dp"
                         app:cardBackgroundColor="?attr/backgroundColor"
                         app:cardCornerRadius="0dp"
+                        android:layout_marginStart="1dp"
+                        android:layout_marginEnd="1dp"
                         app:strokeWidth="0dp"
                         tools:layout_editor_absoluteX="8dp">
 
@@ -124,10 +126,11 @@
 
                                     />
 
-                                <com.google.android.material.switchmaterial.SwitchMaterial
-                                    android:id="@+id/fajrsound"
+                                <ImageView
+                                    android:id="@+id/fajrSoundIcon"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content" />
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/symbol_notification" />
 
 
                             </LinearLayout>
@@ -141,7 +144,7 @@
                         android:id="@+id/fajrDivider"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        app:dividerColor="?attr/colorSurface"/>
+                        app:dividerColor="?attr/colorSurface" />
 
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/sunriseCard"
@@ -149,6 +152,8 @@
                         android:layout_height="60dp"
                         app:cardBackgroundColor="?attr/backgroundColor"
                         app:cardCornerRadius="0dp"
+                        android:layout_marginStart="1dp"
+                        android:layout_marginEnd="1dp"
                         app:strokeWidth="0dp"
                         tools:layout_editor_absoluteX="8dp">
 
@@ -206,10 +211,11 @@
 
                                     />
 
-                                <com.google.android.material.switchmaterial.SwitchMaterial
-                                    android:id="@+id/sunrisesound"
+                                <ImageView
+                                    android:id="@+id/sunriseSoundIcon"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content" />
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/symbol_notification" />
 
 
                             </LinearLayout>
@@ -223,7 +229,7 @@
                         android:id="@+id/sunriseDivider"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        app:dividerColor="?attr/colorSurface"/>
+                        app:dividerColor="?attr/colorSurface" />
 
 
                     <com.google.android.material.card.MaterialCardView
@@ -232,6 +238,8 @@
                         android:layout_height="60dp"
                         app:cardBackgroundColor="?attr/backgroundColor"
                         app:cardCornerRadius="0dp"
+                        android:layout_marginStart="1dp"
+                        android:layout_marginEnd="1dp"
                         app:strokeWidth="0dp"
                         tools:layout_editor_absoluteX="8dp">
 
@@ -289,11 +297,11 @@
 
                                     />
 
-                                <com.google.android.material.switchmaterial.SwitchMaterial
-                                    android:id="@+id/dhuhrsound"
+                                <ImageView
+                                    android:id="@+id/dhuhrSoundIcon"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content" />
-
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/symbol_notification" />
 
                             </LinearLayout>
 
@@ -306,7 +314,7 @@
                         android:id="@+id/dhuhrDivider"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        app:dividerColor="?attr/colorSurface"/>
+                        app:dividerColor="?attr/colorSurface" />
 
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/asrCard"
@@ -314,6 +322,8 @@
                         android:layout_height="60dp"
                         app:cardBackgroundColor="?attr/backgroundColor"
                         app:cardCornerRadius="0dp"
+                        android:layout_marginStart="1dp"
+                        android:layout_marginEnd="1dp"
                         app:strokeWidth="0dp"
                         tools:layout_editor_absoluteX="8dp">
 
@@ -372,11 +382,11 @@
 
                                     />
 
-                                <com.google.android.material.switchmaterial.SwitchMaterial
-                                    android:id="@+id/asrsound"
+                                <ImageView
+                                    android:id="@+id/asrSoundIcon"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:background="@null" />
+                                    android:src="@drawable/symbol_notification" />
 
 
                             </LinearLayout>
@@ -389,7 +399,7 @@
                         android:id="@+id/asrDivider"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        app:dividerColor="?attr/colorSurface"/>
+                        app:dividerColor="?attr/colorSurface" />
 
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/maghribCard"
@@ -397,6 +407,8 @@
                         android:layout_height="60dp"
                         app:cardBackgroundColor="?attr/backgroundColor"
                         app:cardCornerRadius="0dp"
+                        android:layout_marginStart="1dp"
+                        android:layout_marginEnd="1dp"
                         app:strokeWidth="0dp"
                         tools:layout_editor_absoluteX="8dp">
 
@@ -454,12 +466,11 @@
 
                                     />
 
-                                <com.google.android.material.switchmaterial.SwitchMaterial
-                                    android:id="@+id/maghribsound"
+                                <ImageView
+                                    android:id="@+id/maghribSoundIcon"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:background="@null" />
-
+                                    android:src="@drawable/symbol_notification" />
 
                             </LinearLayout>
 
@@ -472,7 +483,7 @@
                         android:id="@+id/maghribDivider"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        app:dividerColor="?attr/colorSurface"/>
+                        app:dividerColor="?attr/colorSurface" />
 
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/ishaaCard"
@@ -480,6 +491,8 @@
                         android:layout_height="60dp"
                         app:cardBackgroundColor="?attr/backgroundColor"
                         app:cardCornerRadius="0dp"
+                        android:layout_marginStart="1dp"
+                        android:layout_marginEnd="1dp"
                         app:strokeWidth="0dp"
                         tools:layout_editor_absoluteX="8dp">
 
@@ -537,11 +550,11 @@
 
                                     />
 
-                                <com.google.android.material.switchmaterial.SwitchMaterial
-                                    android:id="@+id/ishaasound"
+                                <ImageView
+                                    android:id="@+id/ishaaSoundIcon"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content" />
-
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/symbol_notification" />
 
                             </LinearLayout>
 

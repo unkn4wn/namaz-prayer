@@ -25,5 +25,20 @@
     <string name="title_asrcalculation">Asr calculation</string>
     <string name="title_highlatadjustment">High Lat Adjustment</string>
     <string name="title_manualtunes">Manual tunes</string>
+    <string name="title_notification">Notification</string>
+
+    <!--Manual Tunes minutes-->
+    <string name="minute">minute</string>
+    <string name="minutes">minutes</string>
+
+    <!--Location messages-->
+    <string name="message_exact_location">Please allow to retrieve your exact location to provide accurate prayer times</string>
+    <string name="message_location">Please allow to retrieve your location</string>
+
+    <!--ProgressBar messages-->
+    <string name="progress_get_location">Getting your location…</string>
+    <string name="progress_get_address">Getting the exact address…</string>
+    <string name="progress_task_done">Task done</string>
+    <string name="message_enable_location">Please enable Location and Internet</string>
 
 </resources>

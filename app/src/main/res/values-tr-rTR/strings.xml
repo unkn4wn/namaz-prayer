@@ -25,4 +25,20 @@
     <string name="title_asrcalculation">Ikindi hesaplaması</string>
     <string name="title_highlatadjustment">Yüksek enlemde ayarlama</string>
     <string name="title_manualtunes">Elle düzeltme</string>
+    <string name="title_notification">Bildirim</string>
+
+    <!--Manual Tunes minutes-->
+    <string name="minute">dakika</string>
+    <string name="minutes">dakika</string>
+
+    <!--Location messages-->
+    <string name="message_exact_location">Doğru namaz vakitlerini sağlamak için lütfen doğru konumunuzun alınmasına izin verin</string>
+    <string name="message_location">Lütfen konumunuzun alınmasına izin verin</string>
+
+    <!--ProgressBar messages-->
+    <string name="progress_get_location">Yeriniz tespit ediliyor...</string>
+    <string name="progress_get_address">Adresiniz tespit ediliyor...</string>
+    <string name="progress_task_done">Tamamlandı</string>
+    <string name="message_enable_location">Lütfen Konum ve Interneti etkinleştirin</string>
+
 </resources>

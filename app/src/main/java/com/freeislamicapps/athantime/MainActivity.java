@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -18,10 +17,10 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.freeislamicapps.athantime.alarm.AlarmStart;
 import com.freeislamicapps.athantime.databinding.ActivityMainBinding;
 import com.freeislamicapps.athantime.helper.SharedPreferencesHelper;
 import com.freeislamicapps.athantime.ui.intro.IntroActivity;
-import com.freeislamicapps.athantime.ui.settings.SettingsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.Calendar;

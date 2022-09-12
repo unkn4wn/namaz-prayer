@@ -25,4 +25,20 @@
     <string name="title_asrcalculation">Asr-Berechnung</string>
     <string name="title_highlatadjustment">Anpassung für höhere Breiten</string>
     <string name="title_manualtunes">Manuelle Korrekturen</string>
+    <string name="title_notification">Benachrichtigung</string>
+
+    <!--Manual Tunes minutes-->
+    <string name="minute">Minute</string>
+    <string name="minutes">Minuten</string>
+
+    <!--Location messages-->
+    <string name="message_exact_location">Bitte erlauben Sie uns, Ihren genauen Standort zu ermitteln, damit wir Ihnen genaue Gebetszeiten anzeigen zu können.</string>
+    <string name="message_location">Bitte erlauben Sie den Abruf Ihres Standorts</string>
+
+    <!--ProgressBar messages-->
+    <string name="progress_get_location">Ihr Standort wird ermittelt...</string>
+    <string name="progress_get_address">Ihre Adresse wird ermittelt...</string>
+    <string name="progress_task_done">Abgeschlossen</string>
+    <string name="message_enable_location">Bitte aktivieren Sie ihren Standort und Internet</string>
+
 </resources>

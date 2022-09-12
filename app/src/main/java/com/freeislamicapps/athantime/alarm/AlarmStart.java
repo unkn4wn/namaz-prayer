@@ -1,4 +1,4 @@
-package com.freeislamicapps.athantime;
+package com.freeislamicapps.athantime.alarm;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;

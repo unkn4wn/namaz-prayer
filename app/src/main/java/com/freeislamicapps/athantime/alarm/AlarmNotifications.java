@@ -1,4 +1,4 @@
-package com.freeislamicapps.athantime;
+package com.freeislamicapps.athantime.alarm;
 
 import android.app.Notification;
 import android.content.BroadcastReceiver;
@@ -11,6 +11,7 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 import com.freeislamicapps.athantime.PrayerTimes.PrayTimesCalculator;
+import com.freeislamicapps.athantime.R;
 import com.freeislamicapps.athantime.ui.settings.SettingsFragment;
 
 import java.time.LocalDate;
