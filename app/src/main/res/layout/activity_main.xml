@@ -53,22 +53,18 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <com.google.android.material.divider.MaterialDivider
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_above="@+id/nav_view"
+        app:dividerColor="?attr/colorSurface"/>
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="30dp"
-
-
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="30dp"
-
-        android:layout_marginBottom="15dp"
-
-
         android:background="@drawable/navigation_background"
-        android:elevation="2dp"
         app:itemActiveIndicatorStyle="?attr/colorSurface"
         app:itemIconSize="30dp"
         app:itemIconTint="@color/navigationcolors"

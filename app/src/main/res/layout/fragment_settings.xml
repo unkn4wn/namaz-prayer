@@ -8,16 +8,9 @@
     tools:context=".ui.settings.SettingsFragment">
 
 
-    <TextView
-        android:id="@+id/title"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:gravity="center_horizontal"
-        android:text="@string/title_settings"
-        android:textAppearance="@style/prayer_name"
-        android:textStyle="bold" />
-
+        android:layout_height="match_parent">
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -26,6 +19,14 @@
             android:id="@+id/scrollViewConstraint"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:id="@+id/relativeLayoutTop"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                app:layout_constraintTop_toTopOf="parent"
+                android:background="?attr/colorPrimary"
+                />
 
 
             <TextView
@@ -37,7 +38,7 @@
                 android:textColor="@color/weak_text"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="@+id/cardViewLocation"
-                app:layout_constraintTop_toTopOf="@+id/scrollViewConstraint" />
+                app:layout_constraintTop_toBottomOf="@+id/relativeLayoutTop" />
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardViewLocation"
@@ -394,6 +395,7 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
+    </LinearLayout>
 
 
 </LinearLayout>

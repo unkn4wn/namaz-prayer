@@ -6,18 +6,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.prayer.TabTodayFragment">
+    tools:context=".ui.prayer.TabTodayFragment"
+    android:background="?attr/backgroundColor">
 
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/backgroundCard"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="30dp"
+        android:layout_height="250dp"
+        app:cardCornerRadius="0dp"
         app:cardBackgroundColor="?attr/colorSurface"
-        app:strokeWidth="0dp">
+        app:strokeWidth="0dp"
+        android:visibility="gone">
 
         <ImageView
             android:id="@+id/titleBackgroundImage"
@@ -33,17 +33,13 @@
         android:id="@+id/prayerConstraint"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="30dp"
-
         app:strokeWidth="1dp"
-
         >
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:strokeWidth="0dp"
             app:layout_constraintBottom_toBottomOf="@id/prayerConstraint"
             app:layout_constraintTop_toTopOf="@id/prayerConstraint">
 
@@ -65,10 +61,10 @@
                         android:id="@+id/fajrCard"
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
-                        app:cardBackgroundColor="?attr/backgroundColor"
-                        app:cardCornerRadius="0dp"
                         android:layout_marginStart="1dp"
                         android:layout_marginEnd="1dp"
+                        app:cardBackgroundColor="?attr/backgroundColor"
+                        app:cardCornerRadius="0dp"
                         app:strokeWidth="0dp"
                         tools:layout_editor_absoluteX="8dp">
 
@@ -150,10 +146,10 @@
                         android:id="@+id/sunriseCard"
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
-                        app:cardBackgroundColor="?attr/backgroundColor"
-                        app:cardCornerRadius="0dp"
                         android:layout_marginStart="1dp"
                         android:layout_marginEnd="1dp"
+                        app:cardBackgroundColor="?attr/backgroundColor"
+                        app:cardCornerRadius="0dp"
                         app:strokeWidth="0dp"
                         tools:layout_editor_absoluteX="8dp">
 
@@ -236,10 +232,10 @@
                         android:id="@+id/dhuhrCard"
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
-                        app:cardBackgroundColor="?attr/backgroundColor"
-                        app:cardCornerRadius="0dp"
                         android:layout_marginStart="1dp"
                         android:layout_marginEnd="1dp"
+                        app:cardBackgroundColor="?attr/backgroundColor"
+                        app:cardCornerRadius="0dp"
                         app:strokeWidth="0dp"
                         tools:layout_editor_absoluteX="8dp">
 
@@ -320,10 +316,10 @@
                         android:id="@+id/asrCard"
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
-                        app:cardBackgroundColor="?attr/backgroundColor"
-                        app:cardCornerRadius="0dp"
                         android:layout_marginStart="1dp"
                         android:layout_marginEnd="1dp"
+                        app:cardBackgroundColor="?attr/backgroundColor"
+                        app:cardCornerRadius="0dp"
                         app:strokeWidth="0dp"
                         tools:layout_editor_absoluteX="8dp">
 
@@ -405,10 +401,10 @@
                         android:id="@+id/maghribCard"
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
-                        app:cardBackgroundColor="?attr/backgroundColor"
-                        app:cardCornerRadius="0dp"
                         android:layout_marginStart="1dp"
                         android:layout_marginEnd="1dp"
+                        app:cardBackgroundColor="?attr/backgroundColor"
+                        app:cardCornerRadius="0dp"
                         app:strokeWidth="0dp"
                         tools:layout_editor_absoluteX="8dp">
 
@@ -489,10 +485,10 @@
                         android:id="@+id/ishaaCard"
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
-                        app:cardBackgroundColor="?attr/backgroundColor"
-                        app:cardCornerRadius="0dp"
                         android:layout_marginStart="1dp"
                         android:layout_marginEnd="1dp"
+                        app:cardBackgroundColor="?attr/backgroundColor"
+                        app:cardCornerRadius="0dp"
                         app:strokeWidth="0dp"
                         tools:layout_editor_absoluteX="8dp">
 

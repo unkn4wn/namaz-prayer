@@ -2,7 +2,7 @@
     <!-- Base application theme. -->
     <style name="Theme.Newestprayer" parent="Theme.Material3.Light.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">#ED8CB3</item>
+        <item name="colorPrimary">#327039</item>
         <item name="colorPrimaryVariant">@color/black</item>
         <item name="colorOnPrimary">@color/black</item>
         <!-- Secondary brand color. -->
@@ -19,7 +19,7 @@
         <item name="colorSurface">#E9E9E9</item>
         <item name="colorOnSurface">#151D2C</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" >?attr/backgroundColor</item>
+        <item name="android:statusBarColor" >?attr/colorPrimary</item>
 
         <!-- Customize your theme here. -->
         use this code for icon change color
