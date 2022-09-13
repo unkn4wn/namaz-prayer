@@ -17,7 +17,7 @@
     <string name="ishaa">Ishaa</string>
 
     <!--Settings title-->
-    <string name="title_location">Dein Standort</string>
+    <string name="title_location">Ihr Standort</string>
     <string name="title_prayercalculation">Gebetszeitenberechnung</string>
 
     <!--Subsettings prayercalculation-->
