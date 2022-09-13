@@ -83,7 +83,7 @@ public class AlarmNotifications extends BroadcastReceiver {
         String contentText = "Its Time for " + currentPrayer + "!";
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(context);
         Notification notification = new NotificationCompat.Builder(context, CHANNEL_1_ID)
-                .setSmallIcon(R.drawable.symbol_arrow_left)
+                .setSmallIcon(R.drawable.ic_launcher_foreground2)
                 .setContentTitle(contentTitle)
                 .setContentText(contentText)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
