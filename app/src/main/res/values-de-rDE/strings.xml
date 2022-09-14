@@ -39,6 +39,6 @@
     <string name="progress_get_location">Ihr Standort wird ermittelt...</string>
     <string name="progress_get_address">Ihre Adresse wird ermittelt...</string>
     <string name="progress_task_done">Abgeschlossen</string>
-    <string name="message_enable_location">Bitte aktivieren Sie ihren Standort und Internet</string>
+    <string name="message_enable_location_internet">Bitte aktivieren Sie ihren Standort und Internet</string>
 
 </resources>

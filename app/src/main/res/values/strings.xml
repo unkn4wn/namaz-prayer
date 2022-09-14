@@ -39,6 +39,6 @@
     <string name="progress_get_location">Getting your location…</string>
     <string name="progress_get_address">Getting the exact address…</string>
     <string name="progress_task_done">Task done</string>
-    <string name="message_enable_location">Please enable Location and Internet</string>
+    <string name="message_enable_location_internet">Please enable Location and Internet</string>
 
 </resources>

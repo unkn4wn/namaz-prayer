@@ -39,6 +39,6 @@
     <string name="progress_get_location">Yeriniz tespit ediliyor...</string>
     <string name="progress_get_address">Adresiniz tespit ediliyor...</string>
     <string name="progress_task_done">Tamamlandı</string>
-    <string name="message_enable_location">Lütfen Konum ve Interneti etkinleştirin</string>
+    <string name="message_enable_location_internet">Lütfen Konum ve Interneti etkinleştirin</string>
 
 </resources>

@@ -238,7 +238,7 @@ public class LocationFragment extends DialogFragment implements LocationRecycler
                         requestPermissionLauncher.launch(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION});
                     }
                 } else {
-                    Toast.makeText(requireContext(), getResources().getString(R.string.message_enable_location), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(requireContext(), getResources().getString(R.string.message_enable_location_internet), Toast.LENGTH_SHORT).show();
                 }
             }
         });
