@@ -2,6 +2,7 @@
 
 <p align="center">
  <img  src="Screenshots/lightmode.png" height="600px" >
+ <img  src="Screenshots/darkmode.png" height="600px" >
 
 ## Current Features:
 * Accurate prayer times
