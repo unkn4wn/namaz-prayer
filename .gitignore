@@ -13,3 +13,7 @@
 .externalNativeBuild
 .cxx
 local.properties
+
+# Manually added
+/.idea/misc.xml
+/.idea/deploymentTargetDropDown.xml
