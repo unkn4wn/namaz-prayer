@@ -285,10 +285,12 @@ public class QiblahFragment extends Fragment implements SensorEventListener {
             int x = (int) azimuthInDegree;
             textView2.setText(x+"°");
 
-            Double latitude = SharedPreferencesHelper.getValue(requireContext(), "latitude", 52.0);
-            Double longitude = SharedPreferencesHelper.getValue(requireContext(), "longitude", 9.0);
+            double latitude = SharedPreferencesHelper.getValue(requireContext(), "latitude", 52.0);
+            double longitude = SharedPreferencesHelper.getValue(requireContext(), "longitude", 9.0);
 
-            qiblahArrow.setRotation(calculateQibla2(latitude,longitude));
+            qiblahArrow.setRotation(calculateQibla2(latitude,longitude)-azimuthInDegree);
+
+
 
         }
     }
