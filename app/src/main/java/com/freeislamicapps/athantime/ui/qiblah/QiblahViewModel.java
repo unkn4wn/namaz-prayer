@@ -1,14 +1,14 @@
-package com.freeislamicapps.athantime.ui.home;
+package com.freeislamicapps.athantime.ui.qiblah;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class HomeViewModel extends ViewModel {
+public class QiblahViewModel extends ViewModel {
 
     private final MutableLiveData<String> mText;
 
-    public HomeViewModel() {
+    public QiblahViewModel() {
         mText = new MutableLiveData<>();
         mText.setValue("Coming Soon");
     }
