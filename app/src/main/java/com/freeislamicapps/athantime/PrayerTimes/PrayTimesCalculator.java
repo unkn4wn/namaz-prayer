@@ -2,31 +2,23 @@ package com.freeislamicapps.athantime.PrayerTimes;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 
-import com.freeislamicapps.athantime.R;
 import com.freeislamicapps.athantime.helper.SharedPreferencesHelper;
 import com.freeislamicapps.athantime.ui.settings.SettingsFragment;
 
-import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Collections;
-import java.util.Objects;
-import java.util.TimeZone;
 import java.util.TreeSet;
 
 public class PrayTimesCalculator {
     SharedPreferences sharedPreferences;
-    private PrayTimes prayTimes;
-    private Context context;
-    private String fajr, sunrise, dhuhr, asr, maghrib, ishaa, midnight, lastThird;
-    Times currentAsr;
+    private final PrayTimes prayTimes;
+    private final Context context;
+    private final String fajr, sunrise, dhuhr, asr, maghrib, ishaa;
     ArrayList<String> prayerTimesList;
 
     public PrayTimesCalculator(LocalDate date, Context context) {
@@ -34,8 +26,8 @@ public class PrayTimesCalculator {
         this.context = context;
         sharedPreferences = context.getSharedPreferences(SettingsFragment.SHARED_PREFS, Context.MODE_PRIVATE);
 
-        Double latitude = SharedPreferencesHelper.getValue(context, "latitude", 52.0);
-        Double longitude = SharedPreferencesHelper.getValue(context, "longitude", 9.0);
+        double latitude = SharedPreferencesHelper.getValue(context, "latitude", 52.0);
+        double longitude = SharedPreferencesHelper.getValue(context, "longitude", 9.0);
 
         prayTimes.setCoordinates(latitude, longitude, 0.0);
         prayTimes.setMethod(getCurrentMethod());
@@ -161,7 +153,7 @@ public class PrayTimesCalculator {
 
     public String getNextPrayer(LocalTime localTime) {
         // create tree set object
-        TreeSet<LocalTime> treeadd = new TreeSet<LocalTime>();
+        TreeSet<LocalTime> treeadd = new TreeSet<>();
 
         treeadd.add(getLocalTimeFromPrayerTime(getFajr()));
         treeadd.add(getLocalTimeFromPrayerTime(getSunrise()));
@@ -201,7 +193,6 @@ public class PrayTimesCalculator {
             value = getLocalTimeFromPrayerTime(prayTimesTomorrow.getTime(Times.Fajr));
         }
 
-        Log.d("nextpraer", value.toString());
         return value.toString();
     }
 

@@ -1,5 +1,6 @@
 package com.freeislamicapps.athantime.alarm;
 
+import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -25,6 +26,7 @@ public class AlarmStart extends BroadcastReceiver {
         schedulenewAlarm(context);
     }
 
+    @SuppressLint("MissingPermission") //false warning
     private void setAlarm(Context context) {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, 0);
@@ -36,7 +38,7 @@ public class AlarmStart extends BroadcastReceiver {
 
         Intent intent = new Intent(context, AlarmStart.class);
 
-        PendingIntent pendingIntent = null;
+        PendingIntent pendingIntent;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             pendingIntent = PendingIntent.getBroadcast(context, 10, intent, PendingIntent.FLAG_MUTABLE);
         } else {
@@ -53,6 +55,7 @@ public class AlarmStart extends BroadcastReceiver {
 
     }
 
+    @SuppressLint("MissingPermission") //false warning
     private void schedulenewAlarm(Context context) {
         prayTimesCalculator = new PrayTimesCalculator(LocalDate.now(), context);
 
@@ -60,11 +63,10 @@ public class AlarmStart extends BroadcastReceiver {
 
         for (int i = 0; i < prayTimesCalculator.getPrayerTimesList().size(); i++) {
 
-            int requestcode = i;
             Intent intent = new Intent(context, AlarmNotifications.class);
-            intent.putExtra("PrayerAlarm", requestcode);
+            intent.putExtra("PrayerAlarm", i);
 
-            PendingIntent pendingIntent = null;
+            PendingIntent pendingIntent;
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
                 pendingIntent = PendingIntent.getBroadcast(context, i, intent, PendingIntent.FLAG_MUTABLE);

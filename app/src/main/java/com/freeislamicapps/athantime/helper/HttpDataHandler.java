@@ -19,7 +19,7 @@ public class HttpDataHandler {
     public String getHTTPData(String requestURL)
     {
         URL url;
-        String response = "";
+        StringBuilder response = new StringBuilder();
         try{
             url = new URL(requestURL);
             HttpURLConnection conn = (HttpURLConnection)url.openConnection();
@@ -36,18 +36,14 @@ public class HttpDataHandler {
                 String line;
                 BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                 while((line = br.readLine()) != null)
-                    response+=line;
+                    response.append(line);
             }
             else
-                response = "";
+                response = new StringBuilder();
 
-        } catch (ProtocolException e) {
-            e.printStackTrace();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return response;
+        return response.toString();
     }
 }

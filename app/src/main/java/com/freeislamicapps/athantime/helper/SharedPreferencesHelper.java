@@ -5,8 +5,6 @@ import android.content.SharedPreferences;
 
 import androidx.preference.PreferenceManager;
 
-import com.freeislamicapps.athantime.PrayerTimes.PrayTimesCalculator;
-
 /**
  * SharedPreferencesHelper to store and get values
  */

@@ -1,11 +1,11 @@
 package com.freeislamicapps.athantime.alarm;
+
+import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-
-import com.freeislamicapps.athantime.alarm.AlarmStart;
 
 import java.util.Calendar;
 
@@ -18,6 +18,7 @@ public class BroadcastReceiver extends android.content.BroadcastReceiver {
         }
     }
 
+    @SuppressLint("MissingPermission")
     private void setAlarm(Context context) {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY,0);
@@ -28,7 +29,7 @@ public class BroadcastReceiver extends android.content.BroadcastReceiver {
 
         Intent intent = new Intent(context, AlarmStart.class);
 
-        PendingIntent pendingIntent = null;
+        PendingIntent pendingIntent;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             pendingIntent = PendingIntent.getBroadcast(context,20,intent,PendingIntent.FLAG_MUTABLE);
         } else {

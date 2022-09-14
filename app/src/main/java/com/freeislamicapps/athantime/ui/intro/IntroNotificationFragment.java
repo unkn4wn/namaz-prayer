@@ -9,6 +9,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.fragment.app.Fragment;
 
 import android.util.TypedValue;
@@ -26,12 +27,11 @@ import com.freeislamicapps.athantime.ui.settings.SettingsFragment;
 import com.google.android.material.card.MaterialCardView;
 
 /**
- * A simple {@link Fragment} subclass.
- * Use the {@link IntroNotificationFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * Intro Fragment
+ * The class IntroNotificationFragment will be shown during first start of the app
+ * enable and disable notifications for specific prayers
  */
 public class IntroNotificationFragment extends Fragment {
-    public static final String SHARED_PREFS = "sharedPrefs";
     public static final String CHANNEL_1_ID = "prayerChannel";
 
     TextView fajrSoundText;
@@ -97,8 +97,8 @@ public class IntroNotificationFragment extends Fragment {
         ImageView maghribSoundIcon = view.findViewById(R.id.maghribSoundIcon);
         ImageView ishaaSoundIcon = view.findViewById(R.id.ishaaSoundIcon);
 
-        soundOnIcon = requireContext().getDrawable(R.drawable.symbol_notification);
-        soundOffIcon = requireContext().getDrawable(R.drawable.symbol_volumeoff);
+        soundOnIcon = AppCompatResources.getDrawable(requireContext(),R.drawable.symbol_notification);
+        soundOffIcon = AppCompatResources.getDrawable(requireContext(),R.drawable.symbol_volumeoff);
 
         TypedValue typedValueBackground = new TypedValue();
         requireActivity().getTheme().resolveAttribute(com.google.android.material.R.attr.backgroundColor, typedValueBackground, true);
@@ -114,67 +114,46 @@ public class IntroNotificationFragment extends Fragment {
 
 
         MaterialCardView fajrSoundCard = view.findViewById(R.id.fajrSoundCard);
-        fajrSoundCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                notificationClick("Fajr_Sound", fajrSound, fajrSoundIcon, fajrSoundCard, fajrSoundText);
-                fajrSound = !fajrSound;
-            }
+        fajrSoundCard.setOnClickListener(view1 -> {
+            notificationClick("Fajr_Sound", fajrSound, fajrSoundIcon, fajrSoundCard, fajrSoundText);
+            fajrSound = !fajrSound;
         });
 
         MaterialCardView sunriseSoundCard = view.findViewById(R.id.sunriseSoundCard);
-        sunriseSoundCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                notificationClick("Sunrise_Sound", sunriseSound, sunriseSoundIcon, sunriseSoundCard, sunriseSoundText);
-                sunriseSound = !sunriseSound;
-            }
+        sunriseSoundCard.setOnClickListener(view12 -> {
+            notificationClick("Sunrise_Sound", sunriseSound, sunriseSoundIcon, sunriseSoundCard, sunriseSoundText);
+            sunriseSound = !sunriseSound;
         });
 
         MaterialCardView dhuhrSoundCard = view.findViewById(R.id.dhuhrSoundCard);
-        dhuhrSoundCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                notificationClick("Dhuhr_Sound", dhuhrSound, dhuhrSoundIcon, dhuhrSoundCard, dhuhrSoundText);
-                dhuhrSound = !dhuhrSound;
-            }
+        dhuhrSoundCard.setOnClickListener(view13 -> {
+            notificationClick("Dhuhr_Sound", dhuhrSound, dhuhrSoundIcon, dhuhrSoundCard, dhuhrSoundText);
+            dhuhrSound = !dhuhrSound;
         });
 
         MaterialCardView asrSoundCard = view.findViewById(R.id.asrSoundCard);
-        asrSoundCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                notificationClick("Asr_Sound", asrSound, asrSoundIcon, asrSoundCard, asrSoundText);
-                asrSound = !asrSound;
-            }
+        asrSoundCard.setOnClickListener(view14 -> {
+            notificationClick("Asr_Sound", asrSound, asrSoundIcon, asrSoundCard, asrSoundText);
+            asrSound = !asrSound;
         });
 
         MaterialCardView maghribSoundCard = view.findViewById(R.id.maghribSoundCard);
-        maghribSoundCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                notificationClick("Maghrib_Sound", maghribSound, maghribSoundIcon, maghribSoundCard, maghribSoundText);
-                maghribSound = !maghribSound;
-            }
+        maghribSoundCard.setOnClickListener(view15 -> {
+            notificationClick("Maghrib_Sound", maghribSound, maghribSoundIcon, maghribSoundCard, maghribSoundText);
+            maghribSound = !maghribSound;
         });
 
         MaterialCardView ishaaSoundCard = view.findViewById(R.id.ishaaSoundCard);
-        ishaaSoundCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                notificationClick("Ishaa_Sound", ishaaSound, ishaaSoundIcon, ishaaSoundCard, ishaaSoundText);
-                ishaaSound = !ishaaSound;
-            }
+        ishaaSoundCard.setOnClickListener(view16 -> {
+            notificationClick("Ishaa_Sound", ishaaSound, ishaaSoundIcon, ishaaSoundCard, ishaaSoundText);
+            ishaaSound = !ishaaSound;
         });
 
         Button calculateButton = view.findViewById(R.id.calculateButton);
-        calculateButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                SharedPreferencesHelper.storeValue(requireContext(),"firstStart",false);
-                Intent intent = new Intent(getActivity(), MainActivity.class);
-                startActivity(intent);
-            }
+        calculateButton.setOnClickListener(view17 -> {
+            SharedPreferencesHelper.storeValue(requireContext(),"firstStart",false);
+            Intent intent = new Intent(getActivity(), MainActivity.class);
+            startActivity(intent);
         });
 
         return view;

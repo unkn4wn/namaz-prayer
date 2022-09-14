@@ -5,21 +5,10 @@ import static android.content.Context.LOCATION_SERVICE;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
-
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.os.Handler;
 import android.os.Looper;
 import android.view.LayoutInflater;
@@ -29,6 +18,14 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.freeislamicapps.athantime.BuildConfig;
 import com.freeislamicapps.athantime.R;
@@ -45,7 +42,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.Map;
+import java.util.Objects;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -92,53 +89,43 @@ public class IntroLocationFragment extends Fragment {
         mainView = view;
 
         Button enableLocationButton = view.findViewById(R.id.enableLocationButton);
-        enableLocationButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                LocationManager locationManager = (LocationManager) requireContext().getSystemService(LOCATION_SERVICE);
+        enableLocationButton.setOnClickListener(view1 -> {
+            LocationManager locationManager = (LocationManager) requireContext().getSystemService(LOCATION_SERVICE);
 
-                if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) && locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-                    if (ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                        // WHEN Permission is granted
-                        getCurrentLocation();
-                    } else {
-                        requestPermissionLauncher.launch(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION});
-                    }
+            if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) && locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+                if (ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                    // WHEN Permission is granted
+                    getCurrentLocation();
                 } else {
-                    Toast.makeText(requireContext(), "Please enable Location and Internet first", Toast.LENGTH_SHORT).show();
+                    requestPermissionLauncher.launch(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION});
                 }
+            } else {
+                Toast.makeText(requireContext(), "Please enable Location and Internet first", Toast.LENGTH_SHORT).show();
             }
         });
 
         Button maybeLaterButton = view.findViewById(R.id.maybeLaterButton);
-        maybeLaterButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Fragment newFragment = new IntroLocationFragment();
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.fragment_container, new IntroNotificationFragment());
-                transaction.commit();
-            }
+        maybeLaterButton.setOnClickListener(view12 -> {
+            FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+            transaction.replace(R.id.fragment_container, new IntroNotificationFragment());
+            transaction.commit();
         });
 
         return view;
     }
 
-    private ActivityResultLauncher<String[]> requestPermissionLauncher = registerForActivityResult(
-            new ActivityResultContracts.RequestMultiplePermissions(), new ActivityResultCallback<Map<String, Boolean>>() {
-                @Override
-                public void onActivityResult(Map<String, Boolean> result) {
-                    if (Boolean.TRUE.equals(result.get(Manifest.permission.ACCESS_COARSE_LOCATION))) {
-                        if (Boolean.TRUE.equals(result.get(Manifest.permission.ACCESS_FINE_LOCATION))) {
-                            getCurrentLocation();
-                        } else {
-                            Snackbar.make(requireContext(), requireView(), "Please allow to retrieve your exact location to provide accurate prayer times", Toast.LENGTH_SHORT)
-                                    .show();
-                        }
+    private final ActivityResultLauncher<String[]> requestPermissionLauncher = registerForActivityResult(
+            new ActivityResultContracts.RequestMultiplePermissions(), result -> {
+                if (Boolean.TRUE.equals(result.get(Manifest.permission.ACCESS_COARSE_LOCATION))) {
+                    if (Boolean.TRUE.equals(result.get(Manifest.permission.ACCESS_FINE_LOCATION))) {
+                        getCurrentLocation();
                     } else {
-                        Snackbar.make(requireContext(), requireView(), "Please allow to retrieve your location", Toast.LENGTH_SHORT)
+                        Snackbar.make(requireContext(), requireView(), "Please allow to retrieve your exact location to provide accurate prayer times", Toast.LENGTH_SHORT)
                                 .show();
                     }
+                } else {
+                    Snackbar.make(requireContext(), requireView(), "Please allow to retrieve your location", Toast.LENGTH_SHORT)
+                            .show();
                 }
             });
 
@@ -164,7 +151,7 @@ public class IntroLocationFragment extends Fragment {
                                         .removeLocationUpdates(this);
 
 
-                                if (locationResult != null && locationResult.getLocations().size() > 0) {
+                                if (locationResult.getLocations().size() > 0) {
                                     int index = locationResult.getLocations().size() - 1;
                                     double latitude = locationResult.getLocations().get(index).getLatitude();
                                     double longitude = locationResult.getLocations().get(index).getLongitude();
@@ -176,51 +163,44 @@ public class IntroLocationFragment extends Fragment {
 
                                     Handler handler = new Handler();
 
-                                    Runnable runnable = new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            OkHttpClient client = new OkHttpClient();
-                                            String startUrl = "https://forward-reverse-geocoding.p.rapidapi.com/v1/reverse?";
-                                            String latitude = SharedPreferencesHelper.getValue(mContext, "latitude", "52.0");
-                                            String longitude = SharedPreferencesHelper.getValue(mContext, "longitude", "9.0");
-                                            String midUrl = "lat=" + latitude + "&lon=" + longitude;
-                                            String endUrl = "&accept-language=en&polygon_threshold=0.0";
-                                            Request request = new Request.Builder()
-                                                    .url(startUrl + midUrl + endUrl)
-                                                    .get()
-                                                    .addHeader("X-RapidAPI-Key", BuildConfig.RAPID_GEOCODING_API_KEY)
-                                                    .addHeader("X-RapidAPI-Host", "forward-reverse-geocoding.p.rapidapi.com")
-                                                    .build();
+                                    Runnable runnable = () -> {
+                                        OkHttpClient client = new OkHttpClient();
+                                        String startUrl = "https://forward-reverse-geocoding.p.rapidapi.com/v1/reverse?";
+                                        String latitude1 = SharedPreferencesHelper.getValue(mContext, "latitude", "52.0");
+                                        String longitude1 = SharedPreferencesHelper.getValue(mContext, "longitude", "9.0");
+                                        String midUrl = "lat=" + latitude1 + "&lon=" + longitude1;
+                                        String endUrl = "&accept-language=en&polygon_threshold=0.0";
+                                        Request request = new Request.Builder()
+                                                .url(startUrl + midUrl + endUrl)
+                                                .get()
+                                                .addHeader("X-RapidAPI-Key", BuildConfig.RAPID_GEOCODING_API_KEY)
+                                                .addHeader("X-RapidAPI-Host", "forward-reverse-geocoding.p.rapidapi.com")
+                                                .build();
 
-                                            client.newCall(request).enqueue(new Callback() {
-                                                @Override
-                                                public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                                        client.newCall(request).enqueue(new Callback() {
+                                            @Override
+                                            public void onFailure(@NonNull Call call, @NonNull IOException e) {
 
+                                            }
+
+                                            @Override
+                                            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                                                String myResponse = Objects.requireNonNull(response.body()).string();
+                                                JSONObject myResponseJson;
+                                                try {
+                                                    myResponseJson = new JSONObject(myResponse);
+                                                    SharedPreferencesHelper.storeValue(mContext, "location", myResponseJson.getString("display_name"));
+                                                } catch (JSONException e) {
+                                                    e.printStackTrace();
                                                 }
 
-                                                @Override
-                                                public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                                                    String myResponse = response.body().string();
-                                                    JSONObject myResponseJson = null;
-                                                    try {
-                                                        myResponseJson = new JSONObject(myResponse);
-                                                        SharedPreferencesHelper.storeValue(mContext, "location", myResponseJson.getString("display_name"));
-                                                    } catch (JSONException e) {
-                                                        e.printStackTrace();
-                                                    }
+                                            }
+                                        });
 
-                                                }
-                                            });
-
-                                            handler.post(new Runnable() {
-                                                @Override
-                                                public void run() {
-                                                    progressBar.setVisibility(View.GONE);
-                                                    progressBarText.setText("Task Done");
-                                                }
-                                            });
-                                        }
-
+                                        handler.post(() -> {
+                                            progressBar.setVisibility(View.GONE);
+                                            progressBarText.setText(mainView.getResources().getString(R.string.progress_task_done));
+                                        });
                                     };
                                     Thread thread = new Thread(runnable);
                                     thread.start();
