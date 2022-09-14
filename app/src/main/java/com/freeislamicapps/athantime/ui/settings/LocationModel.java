@@ -1,9 +1,9 @@
 package com.freeislamicapps.athantime.ui.settings;
 
 public class LocationModel {
-    private String location;
-    private Double latitude;
-    private Double longitude;
+    private final String location;
+    private final Double latitude;
+    private final Double longitude;
 
 
     public LocationModel(String location, Double latitude, Double longitude) {

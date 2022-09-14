@@ -2,20 +2,6 @@ package com.freeislamicapps.athantime.ui.prayer;
 
 import static android.content.Context.LOCATION_SERVICE;
 
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.content.res.AppCompatResources;
-import androidx.cardview.widget.CardView;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
@@ -33,9 +19,20 @@ import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.freeislamicapps.athantime.BuildConfig;
 import com.freeislamicapps.athantime.R;
@@ -48,12 +45,9 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.Priority;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.snackbar.Snackbar;
-
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -62,7 +56,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Locale;
-import java.util.Map;
+import java.util.Objects;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -71,28 +65,19 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class LocationFragment extends DialogFragment implements LocationRecyclerInterface {
-    SearchView searchView;
-    GoogleMap googleMap;
-    SupportMapFragment map;
 
-    CardView enableLocationCard;
-    ProgressBar enableLocationProgressbar;
-    TextView enableLocationText;
     private LocationRequest locationRequest;
-    public static final String SHARED_PREFS = "sharedPrefs";
     LatLng latLng;
 
     private ArrayList<LocationModel> arrayList;
 
     View mainView;
 
-    Spinner spinnerCountry;
-
 
     @Override
     public void onResume() {
         super.onResume();
-        WindowManager.LayoutParams params = getDialog().getWindow().getAttributes();
+        WindowManager.LayoutParams params = Objects.requireNonNull(getDialog()).getWindow().getAttributes();
         params.width = ViewGroup.LayoutParams.MATCH_PARENT;
         params.height = ViewGroup.LayoutParams.MATCH_PARENT;
         getDialog().getWindow().setAttributes(params);
@@ -105,7 +90,7 @@ public class LocationFragment extends DialogFragment implements LocationRecycler
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        getDialog().getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+        Objects.requireNonNull(getDialog()).getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
         Log.d("displayed", "onCreateView");
         View view = inflater.inflate(R.layout.fragment_settings_location, container, false);
         mainView = view;
@@ -115,29 +100,21 @@ public class LocationFragment extends DialogFragment implements LocationRecycler
         locationRequest.setInterval(5000);
         locationRequest.setFastestInterval(2000);
 
-        Double latitude = SharedPreferencesHelper.getValue(requireContext(), "latitude", 52.0);
-        Double longitude = SharedPreferencesHelper.getValue(requireContext(), "longitude", 9.0);
+        double latitude = SharedPreferencesHelper.getValue(requireContext(), "latitude", 52.0);
+        double longitude = SharedPreferencesHelper.getValue(requireContext(), "longitude", 9.0);
         latLng = new LatLng(latitude, longitude);
 
 
         ImageButton closeButton = view.findViewById(R.id.closeBottomsheetButton);
-        closeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dismiss();
-            }
-        });
+        closeButton.setOnClickListener(view1 -> dismiss());
 
         RecyclerView recyclerView = view.findViewById(R.id.recycler_view_location);
 
 
         SearchView searchView = view.findViewById(R.id.sv_location);
 
-        searchView.setOnSearchClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        searchView.setOnSearchClickListener(view12 -> {
 
-            }
         });
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -167,10 +144,10 @@ public class LocationFragment extends DialogFragment implements LocationRecycler
                     }
 
                     @Override
-                    public void onResponse(Call call, Response response) throws IOException {
+                    public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
 
 
-                        String myResponse = response.body().string();
+                        String myResponse = Objects.requireNonNull(response.body()).string();
                         JSONObject myResponseJson = null;
                         try {
                             myResponseJson = new JSONObject(myResponse);
@@ -178,7 +155,7 @@ public class LocationFragment extends DialogFragment implements LocationRecycler
                             e.printStackTrace();
                         }
                         try {
-                            JSONArray jsonArray = myResponseJson.getJSONArray("features");
+                            JSONArray jsonArray = Objects.requireNonNull(myResponseJson).getJSONArray("features");
                             System.out.println(jsonArray.length());
                             for (int i = 0; i < jsonArray.length(); i++) {
                                 JSONObject jsonObject = new JSONObject(jsonArray.get(i).toString());
@@ -192,16 +169,13 @@ public class LocationFragment extends DialogFragment implements LocationRecycler
                                 System.out.println(location + latitude + longitude);
 
                             }
-                            handler.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    LocationRecyclerAdapter locationRecyclerAdapter = new LocationRecyclerAdapter(arrayList, LocationFragment.this);
-                                    recyclerView.setAdapter(locationRecyclerAdapter);
-                                    LinearLayoutManager llm = new LinearLayoutManager(requireContext());
-                                    llm.setOrientation(LinearLayoutManager.VERTICAL);
-                                    recyclerView.setLayoutManager(llm);
-                                    searchView.clearFocus();
-                                }
+                            handler.post(() -> {
+                                LocationRecyclerAdapter locationRecyclerAdapter1 = new LocationRecyclerAdapter(arrayList, LocationFragment.this);
+                                recyclerView.setAdapter(locationRecyclerAdapter1);
+                                LinearLayoutManager llm = new LinearLayoutManager(requireContext());
+                                llm.setOrientation(LinearLayoutManager.VERTICAL);
+                                recyclerView.setLayoutManager(llm);
+                                searchView.clearFocus();
                             });
 
                             client.dispatcher().executorService().shutdown();
@@ -225,21 +199,18 @@ public class LocationFragment extends DialogFragment implements LocationRecycler
         });
 
         MaterialCardView getmylocationButton = view.findViewById(R.id.getmylocationCard);
-        getmylocationButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                LocationManager locationManager = (LocationManager) requireContext().getSystemService(LOCATION_SERVICE);
+        getmylocationButton.setOnClickListener(view13 -> {
+            LocationManager locationManager = (LocationManager) requireContext().getSystemService(LOCATION_SERVICE);
 
-                if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) && locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-                    if (ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                        // WHEN Permission is granted
-                        getCurrentLocation();
-                    } else {
-                        requestPermissionLauncher.launch(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION});
-                    }
+            if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) && locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+                if (ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                    // WHEN Permission is granted
+                    getCurrentLocation();
                 } else {
-                    Toast.makeText(requireContext(), getResources().getString(R.string.message_enable_location_internet), Toast.LENGTH_SHORT).show();
+                    requestPermissionLauncher.launch(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION});
                 }
+            } else {
+                Toast.makeText(requireContext(), getResources().getString(R.string.message_enable_location_internet), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -272,20 +243,17 @@ public class LocationFragment extends DialogFragment implements LocationRecycler
     }
 
     private final ActivityResultLauncher<String[]> requestPermissionLauncher = registerForActivityResult(
-            new ActivityResultContracts.RequestMultiplePermissions(), new ActivityResultCallback<Map<String, Boolean>>() {
-                @Override
-                public void onActivityResult(Map<String, Boolean> result) {
-                    if (Boolean.TRUE.equals(result.get(Manifest.permission.ACCESS_COARSE_LOCATION))) {
-                        if (Boolean.TRUE.equals(result.get(Manifest.permission.ACCESS_FINE_LOCATION))) {
-                            getCurrentLocation();
-                        } else {
-                            Snackbar.make(requireContext(), requireView(),getResources().getString(R.string.message_exact_location), Toast.LENGTH_SHORT)
-                                    .show();
-                        }
+            new ActivityResultContracts.RequestMultiplePermissions(), result -> {
+                if (Boolean.TRUE.equals(result.get(Manifest.permission.ACCESS_COARSE_LOCATION))) {
+                    if (Boolean.TRUE.equals(result.get(Manifest.permission.ACCESS_FINE_LOCATION))) {
+                        getCurrentLocation();
                     } else {
-                        Snackbar.make(requireContext(), requireView(), getResources().getString(R.string.message_location), Toast.LENGTH_SHORT)
+                        Snackbar.make(requireContext(), requireView(), getResources().getString(R.string.message_exact_location), Toast.LENGTH_SHORT)
                                 .show();
                     }
+                } else {
+                    Snackbar.make(requireContext(), requireView(), getResources().getString(R.string.message_location), Toast.LENGTH_SHORT)
+                            .show();
                 }
             });
 
@@ -308,7 +276,7 @@ public class LocationFragment extends DialogFragment implements LocationRecycler
                                         .removeLocationUpdates(this);
 
 
-                                if (locationResult != null && locationResult.getLocations().size() > 0) {
+                                if (locationResult.getLocations().size() > 0) {
                                     int index = locationResult.getLocations().size() - 1;
                                     double latitude = locationResult.getLocations().get(index).getLatitude();
                                     double longitude = locationResult.getLocations().get(index).getLongitude();
@@ -319,58 +287,46 @@ public class LocationFragment extends DialogFragment implements LocationRecycler
 
                                     Handler handler = new Handler();
 
-                                    Runnable runnable = new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            OkHttpClient client = new OkHttpClient();
-                                            String startUrl = "https://forward-reverse-geocoding.p.rapidapi.com/v1/reverse?";
-                                            String latitude = SharedPreferencesHelper.getValue(requireContext(), "latitude", "52.0");
-                                            String longitude = SharedPreferencesHelper.getValue(requireContext(), "longitude", "9.0");
-                                            String midUrl = "lat=" + latitude + "&lon=" + longitude;
-                                            String endUrl = "&accept-language=en&polygon_threshold=0.0";
-                                            Request request = new Request.Builder()
-                                                    .url(startUrl + midUrl + endUrl)
-                                                    .get()
-                                                    .addHeader("X-RapidAPI-Key", BuildConfig.RAPID_GEOCODING_API_KEY)
-                                                    .addHeader("X-RapidAPI-Host", "forward-reverse-geocoding.p.rapidapi.com")
-                                                    .build();
+                                    Runnable runnable = () -> {
+                                        OkHttpClient client = new OkHttpClient();
+                                        String startUrl = "https://forward-reverse-geocoding.p.rapidapi.com/v1/reverse?";
+                                        String latitude1 = SharedPreferencesHelper.getValue(requireContext(), "latitude", "52.0");
+                                        String longitude1 = SharedPreferencesHelper.getValue(requireContext(), "longitude", "9.0");
+                                        String midUrl = "lat=" + latitude1 + "&lon=" + longitude1;
+                                        String endUrl = "&accept-language=en&polygon_threshold=0.0";
+                                        Request request = new Request.Builder()
+                                                .url(startUrl + midUrl + endUrl)
+                                                .get()
+                                                .addHeader("X-RapidAPI-Key", BuildConfig.RAPID_GEOCODING_API_KEY)
+                                                .addHeader("X-RapidAPI-Host", "forward-reverse-geocoding.p.rapidapi.com")
+                                                .build();
 
-                                            client.newCall(request).enqueue(new Callback() {
-                                                @Override
-                                                public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                                        client.newCall(request).enqueue(new Callback() {
+                                            @Override
+                                            public void onFailure(@NonNull Call call, @NonNull IOException e) {
 
+                                            }
+
+                                            @Override
+                                            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                                                String myResponse = Objects.requireNonNull(response.body()).string();
+                                                JSONObject myResponseJson;
+                                                try {
+                                                    myResponseJson = new JSONObject(myResponse);
+                                                    SharedPreferencesHelper.storeValue(requireContext(), "location", myResponseJson.getString("display_name"));
+                                                } catch (JSONException e) {
+                                                    e.printStackTrace();
                                                 }
 
-                                                @Override
-                                                public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                                                    String myResponse = response.body().string();
-                                                    JSONObject myResponseJson = null;
-                                                    try {
-                                                        myResponseJson = new JSONObject(myResponse);
-                                                        SharedPreferencesHelper.storeValue(requireContext(), "location", myResponseJson.getString("display_name"));
-                                                    } catch (JSONException e) {
-                                                        e.printStackTrace();
-                                                    }
+                                            }
+                                        });
+                                        handler.postDelayed(() -> dismiss(), 1000);
 
-                                                }
-                                            });
-                                            handler.postDelayed(new Runnable() {
-                                                @Override
-                                                public void run() {
-                                                    dismiss();
-                                                }
-                                            }, 1000);
-
-                                            handler.post(new Runnable() {
-                                                @Override
-                                                public void run() {
-                                                    progressBar.setVisibility(View.GONE);
-                                                    progressBarText.setText(getResources().getString(R.string.progress_task_done));
-                                                    //   dismiss();
-                                                }
-                                            });
-                                        }
-
+                                        handler.post(() -> {
+                                            progressBar.setVisibility(View.GONE);
+                                            progressBarText.setText(getResources().getString(R.string.progress_task_done));
+                                            //   dismiss();
+                                        });
                                     };
                                     Thread thread = new Thread(runnable);
                                     thread.start();

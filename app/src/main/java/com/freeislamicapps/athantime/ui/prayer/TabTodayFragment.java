@@ -1,6 +1,5 @@
 package com.freeislamicapps.athantime.ui.prayer;
 
-import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.TypedValue;
@@ -13,9 +12,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
-import androidx.core.content.ContextCompat;
-import androidx.core.graphics.drawable.DrawableCompat;
-import androidx.core.widget.ImageViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -24,7 +20,6 @@ import com.freeislamicapps.athantime.databinding.FragmentTodayBinding;
 import com.freeislamicapps.athantime.helper.SharedPreferencesHelper;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.divider.MaterialDivider;
-import com.google.android.material.switchmaterial.SwitchMaterial;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -44,7 +39,11 @@ public class TabTodayFragment extends Fragment {
     TextView fajrTime, sunriseTime, dhuhrTime, asrTime, maghribTime, ishaaTime;
     TextView fajrText, sunriseText, dhuhrText, asrText, maghribText, ishaaText;
     MaterialCardView fajrCard, sunriseCard, dhuhrCard, asrCard, maghribCard, ishaaCard;
-    MaterialDivider fajrDivider, sunriseDivider, dhuhrDivider, asrDivider, maghribDivider, ishaaDivider;
+    MaterialDivider fajrDivider;
+    MaterialDivider sunriseDivider;
+    MaterialDivider dhuhrDivider;
+    MaterialDivider asrDivider;
+    MaterialDivider maghribDivider;
     TabTodayViewModel tabTodayViewModel;
     MaterialCardView currentPrayerCard;
     ImageView titleBackgroundImage;
@@ -137,8 +136,8 @@ public class TabTodayFragment extends Fragment {
 
         titleBackgroundImage = binding.titleBackgroundImage;
 
-        soundOnIcon = requireContext().getDrawable(R.drawable.symbol_notification);
-        soundOffIcon = requireContext().getDrawable(R.drawable.symbol_notification_off);
+        soundOnIcon = AppCompatResources.getDrawable(requireContext(), R.drawable.symbol_notification);
+        soundOffIcon = AppCompatResources.getDrawable(requireContext(), R.drawable.symbol_notification_off);
 
 
         tabTodayViewModel.init();
@@ -156,7 +155,7 @@ public class TabTodayFragment extends Fragment {
         maghribSound = SharedPreferencesHelper.getValue(requireContext(), "Maghrib_Sound", true);
         ishaaSound = SharedPreferencesHelper.getValue(requireContext(), "Ishaa_Sound", true);
 
-        booleanArrayList = new ArrayList<>(Arrays.asList(fajrSound,sunriseSound,dhuhrSound,asrSound,maghribSound,ishaaSound));
+        booleanArrayList = new ArrayList<>(Arrays.asList(fajrSound, sunriseSound, dhuhrSound, asrSound, maghribSound, ishaaSound));
 
 
         initNotificationIcon(fajrSound, fajrSoundIcon);
@@ -179,17 +178,13 @@ public class TabTodayFragment extends Fragment {
 
     public void scrollToViewTop(ScrollView scrollView, View childView) {
         long delay = 100; //delay to let finish with possible modifications to ScrollView
-        scrollView.postDelayed(new Runnable() {
-            public void run() {
-                scrollView.smoothScrollTo(0, childView.getTop());
-            }
-        }, delay);
+        scrollView.postDelayed(() -> scrollView.smoothScrollTo(0, childView.getTop()), delay);
     }
 
 
     public void getCurrentPrayer() {
         // create tree set object
-        TreeSet<LocalTime> treeadd = new TreeSet<LocalTime>();
+        TreeSet<LocalTime> treeadd = new TreeSet<>();
 
         for (int i = 0; i < 6; i++) {
             treeadd.add(Objects.requireNonNull(tabTodayViewModel.getPrayerTimesList().getValue()).get(i));
@@ -258,10 +253,10 @@ public class TabTodayFragment extends Fragment {
                     textViewArrayList.get(i).setTextColor(getResources().getColor(R.color.white));
                     textViewArrayList.get(i + 6).setTextColor(getResources().getColor(R.color.white));
 
-                    if(booleanArrayList.get(i)) {
-                        imageViewArrayList.get(i).setImageDrawable(getResources().getDrawable(R.drawable.symbol_notification_selected));
+                    if (booleanArrayList.get(i)) {
+                        imageViewArrayList.get(i).setImageDrawable(AppCompatResources.getDrawable(requireContext(), R.drawable.symbol_notification_selected));
                     } else {
-                        imageViewArrayList.get(i).setImageDrawable(getResources().getDrawable(R.drawable.symbol_notification_off_selected));
+                        imageViewArrayList.get(i).setImageDrawable(AppCompatResources.getDrawable(requireContext(), R.drawable.symbol_notification_off_selected));
                     }
                     currentPrayerCard.setCardBackgroundColor(colorPrimary);
                     currentPrayerCard.setRadius(30f);

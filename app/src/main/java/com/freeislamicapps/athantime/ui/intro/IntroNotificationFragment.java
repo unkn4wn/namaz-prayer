@@ -83,12 +83,12 @@ public class IntroNotificationFragment extends Fragment {
         maghribSound = true;
         ishaaSound = true;
 
-        SharedPreferencesHelper.storeValue(requireContext(),"Fajr_Sound",fajrSound);
-        SharedPreferencesHelper.storeValue(requireContext(),"Sunrise_Sound",sunriseSound);
-        SharedPreferencesHelper.storeValue(requireContext(),"Dhuhr_Sound",dhuhrSound);
-        SharedPreferencesHelper.storeValue(requireContext(),"Asr_Sound",asrSound);
-        SharedPreferencesHelper.storeValue(requireContext(),"Maghrib_Sound",maghribSound);
-        SharedPreferencesHelper.storeValue(requireContext(),"Ishaa_Sound",ishaaSound);
+        SharedPreferencesHelper.storeValue(requireContext(), "Fajr_Sound", fajrSound);
+        SharedPreferencesHelper.storeValue(requireContext(), "Sunrise_Sound", sunriseSound);
+        SharedPreferencesHelper.storeValue(requireContext(), "Dhuhr_Sound", dhuhrSound);
+        SharedPreferencesHelper.storeValue(requireContext(), "Asr_Sound", asrSound);
+        SharedPreferencesHelper.storeValue(requireContext(), "Maghrib_Sound", maghribSound);
+        SharedPreferencesHelper.storeValue(requireContext(), "Ishaa_Sound", ishaaSound);
 
         ImageView fajrSoundIcon = view.findViewById(R.id.fajrSoundIcon);
         ImageView sunriseSoundIcon = view.findViewById(R.id.sunriseSoundIcon);
@@ -97,8 +97,8 @@ public class IntroNotificationFragment extends Fragment {
         ImageView maghribSoundIcon = view.findViewById(R.id.maghribSoundIcon);
         ImageView ishaaSoundIcon = view.findViewById(R.id.ishaaSoundIcon);
 
-        soundOnIcon = AppCompatResources.getDrawable(requireContext(),R.drawable.symbol_notification);
-        soundOffIcon = AppCompatResources.getDrawable(requireContext(),R.drawable.symbol_volumeoff);
+        soundOnIcon = AppCompatResources.getDrawable(requireContext(), R.drawable.symbol_notification);
+        soundOffIcon = AppCompatResources.getDrawable(requireContext(), R.drawable.symbol_volumeoff);
 
         TypedValue typedValueBackground = new TypedValue();
         requireActivity().getTheme().resolveAttribute(com.google.android.material.R.attr.backgroundColor, typedValueBackground, true);
@@ -151,7 +151,7 @@ public class IntroNotificationFragment extends Fragment {
 
         Button calculateButton = view.findViewById(R.id.calculateButton);
         calculateButton.setOnClickListener(view17 -> {
-            SharedPreferencesHelper.storeValue(requireContext(),"firstStart",false);
+            SharedPreferencesHelper.storeValue(requireContext(), "firstStart", false);
             Intent intent = new Intent(getActivity(), MainActivity.class);
             startActivity(intent);
         });
@@ -178,7 +178,7 @@ public class IntroNotificationFragment extends Fragment {
 
     private void notificationClick(String savedKey, Boolean prayerSound, ImageView icon, MaterialCardView cardView, TextView textView) {
         createNotificationChannel(requireContext());
-        SharedPreferencesHelper.storeValue(requireContext(),savedKey,!prayerSound);
+        SharedPreferencesHelper.storeValue(requireContext(), savedKey, !prayerSound);
         if (prayerSound) {
             icon.setImageDrawable(soundOffIcon);
             cardView.setCardBackgroundColor(colorBackground);

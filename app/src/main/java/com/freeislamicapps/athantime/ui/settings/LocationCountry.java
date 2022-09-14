@@ -36,9 +36,9 @@ public class LocationCountry {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj instanceof LocationCountry){
-            LocationCountry c = (LocationCountry)obj;
-            if(c.getName().equals(name) && c.getId()==id ) return true;
+        if (obj instanceof LocationCountry) {
+            LocationCountry c = (LocationCountry) obj;
+            return c.getName().equals(name) && c.getId().equals(id);
         }
 
         return false;

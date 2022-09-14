@@ -15,11 +15,10 @@ public class IntroActivity extends AppCompatActivity {
         setContentView(R.layout.activity_intro);
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.add(R.id.fragment_container,new IntroPrivacyFragment());
+        fragmentTransaction.add(R.id.fragment_container, new IntroPrivacyFragment());
         fragmentTransaction.commit();
 
     }
-
 
 
 }

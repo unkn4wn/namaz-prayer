@@ -25,7 +25,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
@@ -51,7 +50,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.Map;
+import java.util.Objects;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -81,8 +80,6 @@ public class QiblahFragment extends Fragment implements SensorEventListener {
     MaterialCardView getMyLocationCard;
     TextView currentLocationText;
     View mainView;
-    Double latitude,longitude;
-
 
     private FragmentQiblahBinding binding;
 
@@ -114,43 +111,37 @@ public class QiblahFragment extends Fragment implements SensorEventListener {
         locationRequest.setInterval(5000);
         locationRequest.setFastestInterval(2000);
 
-        currentLocationText.setText(SharedPreferencesHelper.getValue(requireContext(),"location",""));
+        currentLocationText.setText(SharedPreferencesHelper.getValue(requireContext(), "location", ""));
 
-        getMyLocationCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                LocationManager locationManager = (LocationManager) requireContext().getSystemService(LOCATION_SERVICE);
+        getMyLocationCard.setOnClickListener(view -> {
+            LocationManager locationManager = (LocationManager) requireContext().getSystemService(LOCATION_SERVICE);
 
-                if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) && locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-                    if (ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                        // WHEN Permission is granted
-                        getCurrentLocation();
-                    } else {
-                        requestPermissionLauncher.launch(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION});
-                    }
+            if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) && locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+                if (ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                    // WHEN Permission is granted
+                    getCurrentLocation();
                 } else {
-                    Toast.makeText(requireContext(), getResources().getString(R.string.message_enable_location_internet), Toast.LENGTH_SHORT).show();
+                    requestPermissionLauncher.launch(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION});
                 }
+            } else {
+                Toast.makeText(requireContext(), getResources().getString(R.string.message_enable_location_internet), Toast.LENGTH_SHORT).show();
             }
         });
         return root;
     }
 
-    private ActivityResultLauncher<String[]> requestPermissionLauncher = registerForActivityResult(
-            new ActivityResultContracts.RequestMultiplePermissions(), new ActivityResultCallback<Map<String, Boolean>>() {
-                @Override
-                public void onActivityResult(Map<String, Boolean> result) {
-                    if (Boolean.TRUE.equals(result.get(Manifest.permission.ACCESS_COARSE_LOCATION))) {
-                        if (Boolean.TRUE.equals(result.get(Manifest.permission.ACCESS_FINE_LOCATION))) {
-                            getCurrentLocation();
-                        } else {
-                            Snackbar.make(requireContext(), requireView(), getResources().getString(R.string.message_exact_location), Toast.LENGTH_SHORT)
-                                    .show();
-                        }
+    private final ActivityResultLauncher<String[]> requestPermissionLauncher = registerForActivityResult(
+            new ActivityResultContracts.RequestMultiplePermissions(), result -> {
+                if (Boolean.TRUE.equals(result.get(Manifest.permission.ACCESS_COARSE_LOCATION))) {
+                    if (Boolean.TRUE.equals(result.get(Manifest.permission.ACCESS_FINE_LOCATION))) {
+                        getCurrentLocation();
                     } else {
-                        Snackbar.make(requireContext(), requireView(), getResources().getString(R.string.message_location), Toast.LENGTH_SHORT)
+                        Snackbar.make(requireContext(), requireView(), getResources().getString(R.string.message_exact_location), Toast.LENGTH_SHORT)
                                 .show();
                     }
+                } else {
+                    Snackbar.make(requireContext(), requireView(), getResources().getString(R.string.message_location), Toast.LENGTH_SHORT)
+                            .show();
                 }
             });
 
@@ -173,7 +164,7 @@ public class QiblahFragment extends Fragment implements SensorEventListener {
                                         .removeLocationUpdates(this);
 
 
-                                if (locationResult != null && locationResult.getLocations().size() > 0) {
+                                if (locationResult.getLocations().size() > 0) {
                                     int index = locationResult.getLocations().size() - 1;
                                     double latitude = locationResult.getLocations().get(index).getLatitude();
                                     double longitude = locationResult.getLocations().get(index).getLongitude();
@@ -184,61 +175,54 @@ public class QiblahFragment extends Fragment implements SensorEventListener {
 
                                     Handler handler = new Handler();
 
-                                    Runnable runnable = new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            OkHttpClient client = new OkHttpClient();
-                                            String startUrl = "https://maps.googleapis.com/maps/api/geocode/json?";
-                                            String latitude = SharedPreferencesHelper.getValue(requireContext(), "latitude", "52.0");
-                                            String longitude = SharedPreferencesHelper.getValue(requireContext(), "longitude", "9.0");
-                                            String midUrl = "latlng=" + latitude + "," + longitude;
-                                            String endUrl = "&key=" + BuildConfig.MAPS_API_KEY ;
-                                            System.out.println(startUrl+midUrl+endUrl);
-                                            Request request = new Request.Builder()
-                                                    .url(startUrl + midUrl + endUrl)
-                                                    .get()
-                                                    .build();
+                                    Runnable runnable = () -> {
+                                        OkHttpClient client = new OkHttpClient();
+                                        String startUrl = "https://maps.googleapis.com/maps/api/geocode/json?";
+                                        String latitude1 = SharedPreferencesHelper.getValue(requireContext(), "latitude", "52.0");
+                                        String longitude1 = SharedPreferencesHelper.getValue(requireContext(), "longitude", "9.0");
+                                        String midUrl = "latlng=" + latitude1 + "," + longitude1;
+                                        String endUrl = "&key=" + BuildConfig.MAPS_API_KEY;
+                                        System.out.println(startUrl + midUrl + endUrl);
+                                        Request request = new Request.Builder()
+                                                .url(startUrl + midUrl + endUrl)
+                                                .get()
+                                                .build();
 
-                                            client.newCall(request).enqueue(new Callback() {
-                                                @Override
-                                                public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                                        client.newCall(request).enqueue(new Callback() {
+                                            @Override
+                                            public void onFailure(@NonNull Call call, @NonNull IOException e) {
 
-                                                }
+                                            }
 
-                                                @Override
-                                                public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                                                    String myResponse = response.body().string();
-                                                    JSONObject myResponseJson = null;
-                                                    try {
-                                                        System.out.println(latitude + " " +longitude);
-                                                        myResponseJson = new JSONObject(myResponse);
-                                                        JSONArray results = myResponseJson.getJSONArray("results");
-                                                        JSONObject firstResult = results.getJSONObject(0);
-                                                        System.out.println(firstResult.get("formatted_address"));
-                                                        //  SharedPreferencesHelper.storeValue(requireContext(), "location", myResponseJson.getString("display_name"));
-                                                    handler.post(new Runnable() {
-                                                        @Override
-                                                        public void run() {
-                                                            progressBar.setVisibility(View.GONE);
-                                                            progressBarText.setText(getResources().getString(R.string.progress_task_done));
+                                            @Override
+                                            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                                                String myResponse = Objects.requireNonNull(response.body()).string();
+                                                JSONObject myResponseJson;
+                                                try {
+                                                    System.out.println(latitude1 + " " + longitude1);
+                                                    myResponseJson = new JSONObject(myResponse);
+                                                    JSONArray results = myResponseJson.getJSONArray("results");
+                                                    JSONObject firstResult = results.getJSONObject(0);
+                                                    System.out.println(firstResult.get("formatted_address"));
+                                                    //  SharedPreferencesHelper.storeValue(requireContext(), "location", myResponseJson.getString("display_name"));
+                                                    handler.post(() -> {
+                                                        progressBar.setVisibility(View.GONE);
+                                                        progressBarText.setText(getResources().getString(R.string.progress_task_done));
 
-                                                            try {
-                                                                SharedPreferencesHelper.storeValue(mainView.getContext(), "location", firstResult.getString("formatted_address"));
-                                                                currentLocationText.setText(firstResult.getString("formatted_address"));
-                                                            } catch (JSONException e) {
-                                                                e.printStackTrace();
-                                                            }
+                                                        try {
+                                                            SharedPreferencesHelper.storeValue(mainView.getContext(), "location", firstResult.getString("formatted_address"));
+                                                            currentLocationText.setText(firstResult.getString("formatted_address"));
+                                                        } catch (JSONException e) {
+                                                            e.printStackTrace();
                                                         }
                                                     });
 
-                                                    } catch (JSONException e) {
-                                                        e.printStackTrace();
-                                                    }
-
+                                                } catch (JSONException e) {
+                                                    e.printStackTrace();
                                                 }
-                                            });
-                                        }
 
+                                            }
+                                        });
                                     };
                                     Thread thread = new Thread(runnable);
                                     thread.start();
@@ -260,21 +244,21 @@ public class QiblahFragment extends Fragment implements SensorEventListener {
 
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
-        if(sensorEvent.sensor == accelerometerSensor) {
-            System.arraycopy(sensorEvent.values,0,lastAccelerometer,0,sensorEvent.values.length);
+        if (sensorEvent.sensor == accelerometerSensor) {
+            System.arraycopy(sensorEvent.values, 0, lastAccelerometer, 0, sensorEvent.values.length);
             isLastAccelerometerArrayCopied = true;
-        } else if(sensorEvent.sensor == magenetometerSensor) {
-            System.arraycopy(sensorEvent.values,0,lastMagnetometer,0,sensorEvent.values.length);
+        } else if (sensorEvent.sensor == magenetometerSensor) {
+            System.arraycopy(sensorEvent.values, 0, lastMagnetometer, 0, sensorEvent.values.length);
             isLastMagnetometerArrayCopied = true;
         }
-        if(isLastAccelerometerArrayCopied && isLastMagnetometerArrayCopied && System.currentTimeMillis() - lastUpdatedTime>250) {
-            SensorManager.getRotationMatrix(rotationMatrix,null,lastAccelerometer,lastMagnetometer);
-            SensorManager.getOrientation(rotationMatrix,orientation);
+        if (isLastAccelerometerArrayCopied && isLastMagnetometerArrayCopied && System.currentTimeMillis() - lastUpdatedTime > 250) {
+            SensorManager.getRotationMatrix(rotationMatrix, null, lastAccelerometer, lastMagnetometer);
+            SensorManager.getOrientation(rotationMatrix, orientation);
 
             float azimuthInRadians = orientation[0];
             float azimuthInDegree = (float) Math.toDegrees(azimuthInRadians);
 
-            RotateAnimation rotateAnimation = new RotateAnimation(currentDegree,-azimuthInDegree, Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,0.5f);
+            RotateAnimation rotateAnimation = new RotateAnimation(currentDegree, -azimuthInDegree, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
             rotateAnimation.setDuration(250);
             rotateAnimation.setFillAfter(true);
             imageView.startAnimation(rotateAnimation);
@@ -283,13 +267,12 @@ public class QiblahFragment extends Fragment implements SensorEventListener {
             lastUpdatedTime = System.currentTimeMillis();
 
             int x = (int) azimuthInDegree;
-            textView2.setText(x+"°");
+            textView2.setText(x + "°");
 
             double latitude = SharedPreferencesHelper.getValue(requireContext(), "latitude", 52.0);
             double longitude = SharedPreferencesHelper.getValue(requireContext(), "longitude", 9.0);
 
-            qiblahArrow.setRotation(calculateQibla2(latitude,longitude)-azimuthInDegree);
-
+            qiblahArrow.setRotation(calculateQibla2(latitude, longitude) - azimuthInDegree);
 
 
         }
@@ -304,16 +287,16 @@ public class QiblahFragment extends Fragment implements SensorEventListener {
     public void onResume() {
         super.onResume();
 
-        sensorManager.registerListener(this,accelerometerSensor,SensorManager.SENSOR_DELAY_NORMAL);
-        sensorManager.registerListener(this,magenetometerSensor,SensorManager.SENSOR_DELAY_NORMAL);
+        sensorManager.registerListener(this, accelerometerSensor, SensorManager.SENSOR_DELAY_NORMAL);
+        sensorManager.registerListener(this, magenetometerSensor, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     @Override
     public void onPause() {
         super.onPause();
 
-        sensorManager.unregisterListener(this,accelerometerSensor);
-        sensorManager.unregisterListener(this,magenetometerSensor);
+        sensorManager.unregisterListener(this, accelerometerSensor);
+        sensorManager.unregisterListener(this, magenetometerSensor);
     }
 
     @Override
@@ -321,24 +304,24 @@ public class QiblahFragment extends Fragment implements SensorEventListener {
         super.onAttach(context);
     }
 
-    public double calculateQibla(double latitude, double longitude){
+    public double calculateQibla(double latitude, double longitude) {
         double phiK = 21.4 * Math.PI / 180.0;
-        double lambdaK = 39.8 * Math.PI/180.0;
-        double phi = latitude*Math.PI/180.0;
-        double lambda = longitude*Math.PI/180.0;
-        double psi = 180.0/Math.PI * Math.atan2(Math.sin(lambdaK-lambda),Math.cos(phi)*Math.tan(phiK)-Math.sin(phi)*Math.cos(lambdaK-lambda));
+        double lambdaK = 39.8 * Math.PI / 180.0;
+        double phi = latitude * Math.PI / 180.0;
+        double lambda = longitude * Math.PI / 180.0;
+        double psi = 180.0 / Math.PI * Math.atan2(Math.sin(lambdaK - lambda), Math.cos(phi) * Math.tan(phiK) - Math.sin(phi) * Math.cos(lambdaK - lambda));
         return Math.round(psi);
     }
 
     private float calculateQibla2(double latitude, double longitude) {
-        if (Math.abs(latitude-21.4)<Math.abs(0.0-0.01) && Math.abs(longitude-39.8)<Math.abs(0.0-0.01))  {
+        if (Math.abs(latitude - 21.4) < Math.abs(0.0 - 0.01) && Math.abs(longitude - 39.8) < Math.abs(0.0 - 0.01)) {
             System.out.println("KEIN PLAM MEKKA?");//Mecca
         }
-        double phiK = 21.4*Math.PI/180.0;
-        double lambdaK = 39.8*Math.PI/180.0;
-        double phi = latitude*Math.PI/180.0;
-        double lambda = longitude*Math.PI/180.0;
-        double psi = 180.0/Math.PI*Math.atan2(Math.sin(lambdaK-lambda), Math.cos(phi)*Math.tan(phiK)-Math.sin(phi)*Math.cos(lambdaK-lambda));
+        double phiK = 21.4 * Math.PI / 180.0;
+        double lambdaK = 39.8 * Math.PI / 180.0;
+        double phi = latitude * Math.PI / 180.0;
+        double lambda = longitude * Math.PI / 180.0;
+        double psi = 180.0 / Math.PI * Math.atan2(Math.sin(lambdaK - lambda), Math.cos(phi) * Math.tan(phiK) - Math.sin(phi) * Math.cos(lambdaK - lambda));
         return Math.round(psi);
     }
 

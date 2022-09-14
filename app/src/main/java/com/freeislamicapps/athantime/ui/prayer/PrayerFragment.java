@@ -1,18 +1,17 @@
 package com.freeislamicapps.athantime.ui.prayer;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.viewpager2.widget.ViewPager2;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.viewpager2.widget.ViewPager2;
+
 import com.freeislamicapps.athantime.databinding.FragmentPrayerBinding;
-import com.freeislamicapps.athantime.databinding.FragmentTodayBinding;
 
 import java.time.LocalDate;
 import java.time.format.TextStyle;
@@ -36,7 +35,7 @@ public class PrayerFragment extends Fragment {
     TabTodayPagerAdapter tabTodayPagerAdapter;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentPrayerBinding.inflate(inflater, container, false);
@@ -60,7 +59,6 @@ public class PrayerFragment extends Fragment {
         monthDayText.setText(monthAndDay);
 
 
-
         tabTodayPagerAdapter = new TabTodayPagerAdapter(getChildFragmentManager(), getLifecycle());
 
 
@@ -68,11 +66,9 @@ public class PrayerFragment extends Fragment {
         viewPager.setAdapter(tabTodayPagerAdapter);
 
         viewPager.setCurrentItem(1000, false);
-        viewPager.post(new Runnable() {
-            public void run() {
-                viewPager.setCurrentItem(1000, false);
-                tabTodayPagerAdapter.notifyDataSetChanged();
-            }
+        viewPager.post(() -> {
+            viewPager.setCurrentItem(1000, false);
+            tabTodayPagerAdapter.notifyDataSetChanged();
         });
         tabTodayPagerAdapter.createFragment(1000);
 

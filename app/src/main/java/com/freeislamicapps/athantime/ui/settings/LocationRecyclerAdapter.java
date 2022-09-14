@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 public class LocationRecyclerAdapter extends RecyclerView.Adapter<LocationRecyclerAdapter.ViewHolder> {
     private final LocationRecyclerInterface locationRecyclerInterface;
-    private ArrayList<LocationModel> arrayList;
+    private final ArrayList<LocationModel> arrayList;
 
     public LocationRecyclerAdapter(ArrayList<LocationModel> arrayList, LocationRecyclerInterface locationRecyclerInterface) {
         this.arrayList = arrayList;
@@ -26,8 +26,7 @@ public class LocationRecyclerAdapter extends RecyclerView.Adapter<LocationRecycl
     public LocationRecyclerAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View inflate = layoutInflater.inflate(R.layout.fragment_settings_location_recyclerview, null);
-        ViewHolder viewHolder = new ViewHolder(inflate);
-        return viewHolder;
+        return new ViewHolder(inflate);
     }
 
     @Override
@@ -48,15 +47,12 @@ public class LocationRecyclerAdapter extends RecyclerView.Adapter<LocationRecycl
             super(itemView);
             title = itemView.findViewById(R.id.title);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (locationRecyclerInterface != null) {
-                        int position = getAdapterPosition();
+            itemView.setOnClickListener(view -> {
+                if (locationRecyclerInterface != null) {
+                    int position = getAdapterPosition();
 
-                        if (position != RecyclerView.NO_POSITION) {
-                            locationRecyclerInterface.onItemClick(position);
-                        }
+                    if (position != RecyclerView.NO_POSITION) {
+                        locationRecyclerInterface.onItemClick(position);
                     }
                 }
             });

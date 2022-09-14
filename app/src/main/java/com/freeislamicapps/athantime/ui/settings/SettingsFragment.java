@@ -8,10 +8,8 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.TypedValue;
-import android.view.GestureDetector;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -21,20 +19,18 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.fragment.app.Fragment;
 
 import com.freeislamicapps.athantime.R;
 import com.freeislamicapps.athantime.helper.SharedPreferencesHelper;
 import com.freeislamicapps.athantime.ui.prayer.LocationFragment;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.Priority;
-import com.google.android.material.behavior.SwipeDismissBehavior;
 import com.google.android.material.card.MaterialCardView;
 
 
 public class SettingsFragment extends Fragment implements DialogInterface.OnDismissListener {
     TextView currentLocation;
-    TextView methodText, asrCalculationText, highLatsAdjustmentText, styleText;
+    TextView methodText, asrCalculationText, highLatsAdjustmentText;
     public static final String SHARED_PREFS = "sharedPrefs";
 
     Drawable soundOnIcon;
@@ -74,44 +70,19 @@ public class SettingsFragment extends Fragment implements DialogInterface.OnDism
 
 
         MaterialCardView cardViewMethod = view.findViewById(R.id.cardViewMethod);
-        cardViewMethod.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showDialogMethod();
-            }
-        });
+        cardViewMethod.setOnClickListener(view1 -> showDialogMethod());
 
         MaterialCardView cardViewAsrcalculations = view.findViewById(R.id.cardViewAsrcalculation);
-        cardViewAsrcalculations.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showDialogAsrcalculations();
-            }
-        });
+        cardViewAsrcalculations.setOnClickListener(view12 -> showDialogAsrcalculations());
 
         MaterialCardView cardViewHighLatsAdjustment = view.findViewById(R.id.cardViewHighlatsadjustment);
-        cardViewHighLatsAdjustment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showDialogHighlatsadjustment();
-            }
-        });
+        cardViewHighLatsAdjustment.setOnClickListener(view13 -> showDialogHighlatsadjustment());
 
         MaterialCardView cardViewManualtunes = view.findViewById(R.id.cardviewManualtunes);
-        cardViewManualtunes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showDialogManualtunes();
-            }
-        });
+        cardViewManualtunes.setOnClickListener(view14 -> showDialogManualtunes());
 
         MaterialCardView cardViewNotification = view.findViewById(R.id.cardViewNotification);
-        cardViewNotification.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showDialogNotification();
-            }
-        });
+        cardViewNotification.setOnClickListener(view15 -> showDialogNotification());
 
         currentLocation.setText(SharedPreferencesHelper.getValue(requireContext(), "location", ""));
         methodText.setText(SharedPreferencesHelper.getValue(requireContext(), "Method", "Islamic Society of North America (ISNA)"));
@@ -119,15 +90,9 @@ public class SettingsFragment extends Fragment implements DialogInterface.OnDism
         highLatsAdjustmentText.setText(SharedPreferencesHelper.getValue(requireContext(), "HighLatsAdjustment", "Angle-Based"));
 
 
-        cardViewLocation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-              /*  FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.nav_host_fragment_activity_main, new LocationFragment());
-                transaction.commit(); */
-                LocationFragment locationFragment = new LocationFragment();
-                locationFragment.show(getChildFragmentManager(), "MyFragment");
-            }
+        cardViewLocation.setOnClickListener(v -> {
+            LocationFragment locationFragment = new LocationFragment();
+            locationFragment.show(getChildFragmentManager(), "MyFragment");
         });
 
 
@@ -171,12 +136,7 @@ public class SettingsFragment extends Fragment implements DialogInterface.OnDism
             SharedPreferencesHelper.storeValue(requireContext(), "HighLatsAdjustment", "One-Seventh of the Night");
         });
 
-        closeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-            }
-        });
+        closeButton.setOnClickListener(view -> dialog.dismiss());
 
         dialog.show();
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -208,12 +168,7 @@ public class SettingsFragment extends Fragment implements DialogInterface.OnDism
             SharedPreferencesHelper.storeValue(requireContext(), "AsrCalculation", "Hanafi");
         });
 
-        closeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-            }
-        });
+        closeButton.setOnClickListener(view -> dialog.dismiss());
 
         dialog.show();
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -280,12 +235,7 @@ public class SettingsFragment extends Fragment implements DialogInterface.OnDism
             SharedPreferencesHelper.storeValue(requireContext(), "Method", "University of Islamic Sciences, Karachi");
         });
 
-        closeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-            }
-        });
+        closeButton.setOnClickListener(view -> dialog.dismiss());
 
         dialog.show();
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -326,36 +276,30 @@ public class SettingsFragment extends Fragment implements DialogInterface.OnDism
         ImageButton ishaaRemove = dialog.findViewById(R.id.ishaaRemove);
 
 
-        displayManualTunes("FajrManualTunes",fajrMinuteText,fajrMinute);
-        displayManualTunes("SunriseManualTunes",sunriseMinuteText,sunriseMinute);
-        displayManualTunes("DhuhrManualTunes",dhuhrMinuteText,dhuhrMinute);
-        displayManualTunes("AsrManualTunes",asrMinuteText,asrMinute);
-        displayManualTunes("MaghribManualTunes",maghribMinuteText,maghribMinute);
-        displayManualTunes("IshaaManualTunes",ishaaMinuteText,ishaaMinute);
+        displayManualTunes("FajrManualTunes", fajrMinuteText, fajrMinute);
+        displayManualTunes("SunriseManualTunes", sunriseMinuteText, sunriseMinute);
+        displayManualTunes("DhuhrManualTunes", dhuhrMinuteText, dhuhrMinute);
+        displayManualTunes("AsrManualTunes", asrMinuteText, asrMinute);
+        displayManualTunes("MaghribManualTunes", maghribMinuteText, maghribMinute);
+        displayManualTunes("IshaaManualTunes", ishaaMinuteText, ishaaMinute);
 
 
-
-        fajrAdd.setOnClickListener(view -> changeManualTunes("FajrManualTunes",fajrMinuteText,fajrMinute, +1));
-        fajrRemove.setOnClickListener(view -> changeManualTunes("FajrManualTunes",fajrMinuteText,fajrMinute,-1));
-        sunriseAdd.setOnClickListener(view -> changeManualTunes("SunriseManualTunes",sunriseMinuteText,sunriseMinute, +1));
-        sunriseRemove.setOnClickListener(view -> changeManualTunes("SunriseManualTunes",sunriseMinuteText,sunriseMinute,-1));
-        dhuhrAdd.setOnClickListener(view -> changeManualTunes("DhuhrManualTunes",dhuhrMinuteText,dhuhrMinute, +1));
-        dhuhrRemove.setOnClickListener(view -> changeManualTunes("DhuhrManualTunes",dhuhrMinuteText,dhuhrMinute,-1));
-        asrAdd.setOnClickListener(view -> changeManualTunes("AsrManualTunes",asrMinuteText,asrMinute, +1));
-        asrRemove.setOnClickListener(view -> changeManualTunes("AsrManualTunes",asrMinuteText,asrMinute,-1));
-        maghribAdd.setOnClickListener(view -> changeManualTunes("MaghribManualTunes",maghribMinuteText,maghribMinute, +1));
-        maghribRemove.setOnClickListener(view -> changeManualTunes("MaghribManualTunes",maghribMinuteText,maghribMinute,-1));
-        ishaaAdd.setOnClickListener(view -> changeManualTunes("IshaaManualTunes",ishaaMinuteText,ishaaMinute, +1));
-        ishaaRemove.setOnClickListener(view -> changeManualTunes("IshaaManualTunes",ishaaMinuteText,ishaaMinute,-1));
+        fajrAdd.setOnClickListener(view -> changeManualTunes("FajrManualTunes", fajrMinuteText, fajrMinute, +1));
+        fajrRemove.setOnClickListener(view -> changeManualTunes("FajrManualTunes", fajrMinuteText, fajrMinute, -1));
+        sunriseAdd.setOnClickListener(view -> changeManualTunes("SunriseManualTunes", sunriseMinuteText, sunriseMinute, +1));
+        sunriseRemove.setOnClickListener(view -> changeManualTunes("SunriseManualTunes", sunriseMinuteText, sunriseMinute, -1));
+        dhuhrAdd.setOnClickListener(view -> changeManualTunes("DhuhrManualTunes", dhuhrMinuteText, dhuhrMinute, +1));
+        dhuhrRemove.setOnClickListener(view -> changeManualTunes("DhuhrManualTunes", dhuhrMinuteText, dhuhrMinute, -1));
+        asrAdd.setOnClickListener(view -> changeManualTunes("AsrManualTunes", asrMinuteText, asrMinute, +1));
+        asrRemove.setOnClickListener(view -> changeManualTunes("AsrManualTunes", asrMinuteText, asrMinute, -1));
+        maghribAdd.setOnClickListener(view -> changeManualTunes("MaghribManualTunes", maghribMinuteText, maghribMinute, +1));
+        maghribRemove.setOnClickListener(view -> changeManualTunes("MaghribManualTunes", maghribMinuteText, maghribMinute, -1));
+        ishaaAdd.setOnClickListener(view -> changeManualTunes("IshaaManualTunes", ishaaMinuteText, ishaaMinute, +1));
+        ishaaRemove.setOnClickListener(view -> changeManualTunes("IshaaManualTunes", ishaaMinuteText, ishaaMinute, -1));
 
         ImageButton closeButton = dialog.findViewById(R.id.closeBottomsheetButton);
 
-        closeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-            }
-        });
+        closeButton.setOnClickListener(view -> dialog.dismiss());
 
         dialog.show();
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -372,11 +316,11 @@ public class SettingsFragment extends Fragment implements DialogInterface.OnDism
         }
     }
 
-    private void changeManualTunes(String savedKey,TextView prayerMinuteText,TextView prayerMinute,int count) {
+    private void changeManualTunes(String savedKey, TextView prayerMinuteText, TextView prayerMinute, int count) {
         int oldPrayerManualTunes = SharedPreferencesHelper.getValue(requireContext(), savedKey, 0);
 
-        SharedPreferencesHelper.storeValue(requireContext(), savedKey, oldPrayerManualTunes+count);
-        int newPrayerManualTunes = oldPrayerManualTunes +count;
+        SharedPreferencesHelper.storeValue(requireContext(), savedKey, oldPrayerManualTunes + count);
+        int newPrayerManualTunes = oldPrayerManualTunes + count;
 
         prayerMinuteText.setText(R.string.minutes);
         if (newPrayerManualTunes == 1 || newPrayerManualTunes == -1) {
@@ -413,18 +357,13 @@ public class SettingsFragment extends Fragment implements DialogInterface.OnDism
 
         fajrSound = SharedPreferencesHelper.getValue(requireContext(), "Fajr_Sound", true);
         sunriseSound = SharedPreferencesHelper.getValue(requireContext(), "Sunrise_Sound", false);
-        ;
         dhuhrSound = SharedPreferencesHelper.getValue(requireContext(), "Dhuhr_Sound", true);
-        ;
         asrSound = SharedPreferencesHelper.getValue(requireContext(), "Asr_Sound", true);
-        ;
         maghribSound = SharedPreferencesHelper.getValue(requireContext(), "Maghrib_Sound", true);
-        ;
         ishaaSound = SharedPreferencesHelper.getValue(requireContext(), "Ishaa_Sound", true);
-        ;
 
-        soundOnIcon = requireContext().getDrawable(R.drawable.symbol_notification_selected);
-        soundOffIcon = requireContext().getDrawable(R.drawable.symbol_volumeoff);
+        soundOnIcon = AppCompatResources.getDrawable(requireContext(), R.drawable.symbol_notification_selected);
+        soundOffIcon = AppCompatResources.getDrawable(requireContext(), R.drawable.symbol_volumeoff);
         TypedValue typedValueBackground = new TypedValue();
         requireActivity().getTheme().resolveAttribute(com.google.android.material.R.attr.backgroundColor, typedValueBackground, true);
         colorBackground = typedValueBackground.data;

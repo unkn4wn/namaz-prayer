@@ -3,28 +3,20 @@ package com.freeislamicapps.athantime.ui.prayer;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.freeislamicapps.athantime.MainActivity;
-import com.freeislamicapps.athantime.PrayerTimes.HighLatsAdjustment;
-import com.freeislamicapps.athantime.PrayerTimes.Method;
 import com.freeislamicapps.athantime.PrayerTimes.PrayTimesCalculator;
-import com.freeislamicapps.athantime.PrayerTimes.Times;
 import com.freeislamicapps.athantime.helper.SharedPreferencesHelper;
 import com.freeislamicapps.athantime.ui.settings.SettingsFragment;
-import com.google.android.material.tabs.TabLayout;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Locale;
 
 public class TabTodayViewModel extends AndroidViewModel {
 
@@ -121,30 +113,6 @@ public class TabTodayViewModel extends AndroidViewModel {
 
     public LiveData<String> getIshaaTime() {
         return ishaaTime;
-    }
-
-    public LiveData<Boolean> getFajrSound() {
-        return fajrSound;
-    }
-
-    public LiveData<Boolean> getSunriseSound() {
-        return sunriseSound;
-    }
-
-    public LiveData<Boolean> getDhuhrSound() {
-        return dhuhrSound;
-    }
-
-    public LiveData<Boolean> getAsrSound() {
-        return asrSound;
-    }
-
-    public LiveData<Boolean> getMaghribSound() {
-        return maghribSound;
-    }
-
-    public LiveData<Boolean> getIshaaSound() {
-        return ishaaSound;
     }
 
 

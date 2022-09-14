@@ -36,7 +36,6 @@ public class IntroPrivacyFragment extends Fragment {
         Button button = view.findViewById(R.id.getStartedButton);
 
         button.setOnClickListener(view1 -> {
-            Fragment newFragment = new IntroLocationFragment();
             FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
             transaction.replace(R.id.fragment_container, new IntroLocationFragment());
             transaction.commit();
