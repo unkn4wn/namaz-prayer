@@ -88,9 +88,6 @@ public class TabTodayFragment extends Fragment {
 
         binding = FragmentTodayBinding.inflate(inflater, container, false);
 
-
-        binding = FragmentTodayBinding.inflate(inflater, container, false);
-
         fajrTime = binding.fajrtime;
         sunriseTime = binding.sunrisetime;
         dhuhrTime = binding.dhuhrtime;

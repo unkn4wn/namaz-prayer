@@ -35,15 +35,13 @@
         android:layout_height="match_parent"
         android:layout_marginStart="30dp"
         android:layout_marginTop="15dp"
-        android:layout_marginEnd="30dp"
-
-        app:strokeWidth="1dp"
-
-        >
+        android:layout_marginEnd="30dp">
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:strokeColor="?attr/colorSurface"
+            app:strokeWidth="2dp"
             app:layout_constraintBottom_toBottomOf="@id/prayerConstraint"
             app:layout_constraintTop_toTopOf="@id/prayerConstraint">
 
@@ -64,7 +62,7 @@
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/fajrCard"
                         android:layout_width="match_parent"
-                        android:layout_height="60dp"
+                        android:layout_height="55dp"
                         app:cardBackgroundColor="?attr/backgroundColor"
                         app:cardCornerRadius="0dp"
                         android:layout_marginStart="1dp"
@@ -149,7 +147,7 @@
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/sunriseCard"
                         android:layout_width="match_parent"
-                        android:layout_height="60dp"
+                        android:layout_height="55dp"
                         app:cardBackgroundColor="?attr/backgroundColor"
                         app:cardCornerRadius="0dp"
                         android:layout_marginStart="1dp"
@@ -235,7 +233,7 @@
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/dhuhrCard"
                         android:layout_width="match_parent"
-                        android:layout_height="60dp"
+                        android:layout_height="55dp"
                         app:cardBackgroundColor="?attr/backgroundColor"
                         app:cardCornerRadius="0dp"
                         android:layout_marginStart="1dp"
@@ -319,7 +317,7 @@
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/asrCard"
                         android:layout_width="match_parent"
-                        android:layout_height="60dp"
+                        android:layout_height="55dp"
                         app:cardBackgroundColor="?attr/backgroundColor"
                         app:cardCornerRadius="0dp"
                         android:layout_marginStart="1dp"
@@ -404,7 +402,7 @@
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/maghribCard"
                         android:layout_width="match_parent"
-                        android:layout_height="60dp"
+                        android:layout_height="55dp"
                         app:cardBackgroundColor="?attr/backgroundColor"
                         app:cardCornerRadius="0dp"
                         android:layout_marginStart="1dp"
@@ -488,7 +486,7 @@
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/ishaaCard"
                         android:layout_width="match_parent"
-                        android:layout_height="60dp"
+                        android:layout_height="55dp"
                         app:cardBackgroundColor="?attr/backgroundColor"
                         app:cardCornerRadius="0dp"
                         android:layout_marginStart="1dp"

@@ -48,6 +48,8 @@ public class PrayerFragment extends Fragment {
 
         cityText = binding.cityText;
 
+        System.out.println("JIDJASIJDISA");
+
 
         LocalDate today = LocalDate.now();
         selectedDate = today;

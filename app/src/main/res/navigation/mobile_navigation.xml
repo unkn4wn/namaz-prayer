@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/navigation_qiblah"
-        android:name="com.freeislamicapps.athantime.ui.home.HomeFragment"
+        android:name="com.freeislamicapps.athantime.ui.qiblah.QiblahFragment"
         android:label="@string/title_qiblah"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_qiblah" />
 
     <fragment
         android:id="@+id/navigation_prayer"

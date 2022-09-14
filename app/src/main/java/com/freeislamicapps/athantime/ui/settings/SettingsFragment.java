@@ -507,7 +507,6 @@ public class SettingsFragment extends Fragment implements DialogInterface.OnDism
     @Override
     public void onResume() {
         super.onResume();
-        Log.d("displayed", "SETTINGS FRAGMENT RSUMED");
     }
 
     @Override
