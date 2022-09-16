@@ -4,6 +4,7 @@ import static android.content.Context.LOCATION_SERVICE;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.location.LocationManager;
@@ -72,7 +73,14 @@ public class LocationFragment extends DialogFragment implements LocationRecycler
     private ArrayList<LocationModel> arrayList;
 
     View mainView;
+    Context mContext;
 
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        mContext = context;
+    }
 
     @Override
     public void onResume() {
@@ -81,7 +89,7 @@ public class LocationFragment extends DialogFragment implements LocationRecycler
         params.width = ViewGroup.LayoutParams.MATCH_PARENT;
         params.height = ViewGroup.LayoutParams.MATCH_PARENT;
         getDialog().getWindow().setAttributes(params);
-        getDialog().getWindow().setBackgroundDrawable(AppCompatResources.getDrawable(requireContext(), R.drawable.bottomsheet_background_maps));
+        getDialog().getWindow().setBackgroundDrawable(AppCompatResources.getDrawable(mContext, R.drawable.bottomsheet_background_maps));
 
     }
 
@@ -100,8 +108,8 @@ public class LocationFragment extends DialogFragment implements LocationRecycler
         locationRequest.setInterval(5000);
         locationRequest.setFastestInterval(2000);
 
-        double latitude = SharedPreferencesHelper.getValue(requireContext(), "latitude", 52.0);
-        double longitude = SharedPreferencesHelper.getValue(requireContext(), "longitude", 9.0);
+        double latitude = SharedPreferencesHelper.getValue(mContext, "latitude", 52.0);
+        double longitude = SharedPreferencesHelper.getValue(mContext, "longitude", 9.0);
         latLng = new LatLng(latitude, longitude);
 
 
@@ -172,7 +180,7 @@ public class LocationFragment extends DialogFragment implements LocationRecycler
                             handler.post(() -> {
                                 LocationRecyclerAdapter locationRecyclerAdapter1 = new LocationRecyclerAdapter(arrayList, LocationFragment.this);
                                 recyclerView.setAdapter(locationRecyclerAdapter1);
-                                LinearLayoutManager llm = new LinearLayoutManager(requireContext());
+                                LinearLayoutManager llm = new LinearLayoutManager(mContext);
                                 llm.setOrientation(LinearLayoutManager.VERTICAL);
                                 recyclerView.setLayoutManager(llm);
                                 searchView.clearFocus();
@@ -200,17 +208,17 @@ public class LocationFragment extends DialogFragment implements LocationRecycler
 
         MaterialCardView getmylocationButton = view.findViewById(R.id.getmylocationCard);
         getmylocationButton.setOnClickListener(view13 -> {
-            LocationManager locationManager = (LocationManager) requireContext().getSystemService(LOCATION_SERVICE);
+            LocationManager locationManager = (LocationManager) mContext.getSystemService(LOCATION_SERVICE);
 
             if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) && locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-                if (ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                if (ContextCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                     // WHEN Permission is granted
                     getCurrentLocation();
                 } else {
                     requestPermissionLauncher.launch(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION});
                 }
             } else {
-                Toast.makeText(requireContext(), getResources().getString(R.string.message_enable_location_internet), Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, mContext.getResources().getString(R.string.message_enable_location_internet), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -236,9 +244,9 @@ public class LocationFragment extends DialogFragment implements LocationRecycler
 
     @Override
     public void onItemClick(int position) {
-        SharedPreferencesHelper.storeValue(requireContext(), "location", arrayList.get(position).getLocation());
-        SharedPreferencesHelper.storeValue(requireContext(), "latitude", arrayList.get(position).getLatitude());
-        SharedPreferencesHelper.storeValue(requireContext(), "longitude", arrayList.get(position).getLongitude());
+        SharedPreferencesHelper.storeValue(mContext, "location", arrayList.get(position).getLocation());
+        SharedPreferencesHelper.storeValue(mContext, "latitude", arrayList.get(position).getLatitude());
+        SharedPreferencesHelper.storeValue(mContext, "longitude", arrayList.get(position).getLongitude());
         dismiss();
     }
 
@@ -248,11 +256,11 @@ public class LocationFragment extends DialogFragment implements LocationRecycler
                     if (Boolean.TRUE.equals(result.get(Manifest.permission.ACCESS_FINE_LOCATION))) {
                         getCurrentLocation();
                     } else {
-                        Snackbar.make(requireContext(), requireView(), getResources().getString(R.string.message_exact_location), Toast.LENGTH_SHORT)
+                        Snackbar.make(mContext, requireView(), mContext.getResources().getString(R.string.message_exact_location), Toast.LENGTH_SHORT)
                                 .show();
                     }
                 } else {
-                    Snackbar.make(requireContext(), requireView(), getResources().getString(R.string.message_location), Toast.LENGTH_SHORT)
+                    Snackbar.make(mContext, requireView(), mContext.getResources().getString(R.string.message_location), Toast.LENGTH_SHORT)
                             .show();
                 }
             });
@@ -260,19 +268,19 @@ public class LocationFragment extends DialogFragment implements LocationRecycler
     @SuppressLint("MissingPermission")
     private void getCurrentLocation() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (ActivityCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 
                 ProgressBar progressBar = mainView.findViewById(R.id.getmylocationProgressbar);
                 TextView progressBarText = mainView.findViewById(R.id.getmylocationText);
                 progressBar.setVisibility(View.VISIBLE);
-                progressBarText.setText(getResources().getString(R.string.progress_get_location));
-                LocationServices.getFusedLocationProviderClient(requireActivity())
+                progressBarText.setText(mContext.getResources().getString(R.string.progress_get_location));
+                LocationServices.getFusedLocationProviderClient(mContext)
                         .requestLocationUpdates(locationRequest, new LocationCallback() {
                             @Override
                             public void onLocationResult(@NonNull LocationResult locationResult) {
                                 super.onLocationResult(locationResult);
 
-                                LocationServices.getFusedLocationProviderClient(requireActivity())
+                                LocationServices.getFusedLocationProviderClient(mContext)
                                         .removeLocationUpdates(this);
 
 
@@ -281,17 +289,17 @@ public class LocationFragment extends DialogFragment implements LocationRecycler
                                     double latitude = locationResult.getLocations().get(index).getLatitude();
                                     double longitude = locationResult.getLocations().get(index).getLongitude();
                                     //   currentLocation.setText("Latitude: " + latitude + "\n" + "Longitude: " + longitude);
-                                    SharedPreferencesHelper.storeValue(requireContext(), "latitude", latitude);
-                                    SharedPreferencesHelper.storeValue(requireContext(), "longitude", longitude);
-                                    progressBarText.setText(getResources().getString(R.string.progress_get_address));
+                                    SharedPreferencesHelper.storeValue(mContext, "latitude", latitude);
+                                    SharedPreferencesHelper.storeValue(mContext, "longitude", longitude);
+                                    progressBarText.setText(mContext.getResources().getString(R.string.progress_get_address));
 
                                     Handler handler = new Handler();
 
                                     Runnable runnable = () -> {
                                         OkHttpClient client = new OkHttpClient();
                                         String startUrl = "https://forward-reverse-geocoding.p.rapidapi.com/v1/reverse?";
-                                        String latitude1 = SharedPreferencesHelper.getValue(requireContext(), "latitude", "52.0");
-                                        String longitude1 = SharedPreferencesHelper.getValue(requireContext(), "longitude", "9.0");
+                                        String latitude1 = SharedPreferencesHelper.getValue(mContext, "latitude", "52.0");
+                                        String longitude1 = SharedPreferencesHelper.getValue(mContext, "longitude", "9.0");
                                         String midUrl = "lat=" + latitude1 + "&lon=" + longitude1;
                                         String endUrl = "&accept-language=en&polygon_threshold=0.0";
                                         Request request = new Request.Builder()
@@ -313,7 +321,7 @@ public class LocationFragment extends DialogFragment implements LocationRecycler
                                                 JSONObject myResponseJson;
                                                 try {
                                                     myResponseJson = new JSONObject(myResponse);
-                                                    SharedPreferencesHelper.storeValue(requireContext(), "location", myResponseJson.getString("display_name"));
+                                                    SharedPreferencesHelper.storeValue(mContext, "location", myResponseJson.getString("display_name"));
                                                 } catch (JSONException e) {
                                                     e.printStackTrace();
                                                 }
@@ -324,7 +332,7 @@ public class LocationFragment extends DialogFragment implements LocationRecycler
 
                                         handler.post(() -> {
                                             progressBar.setVisibility(View.GONE);
-                                            progressBarText.setText(getResources().getString(R.string.progress_task_done));
+                                            progressBarText.setText(mContext.getResources().getString(R.string.progress_task_done));
                                             //   dismiss();
                                         });
                                     };

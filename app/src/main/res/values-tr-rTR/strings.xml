@@ -36,9 +36,33 @@
     <string name="message_location">Lütfen konumunuzun alınmasına izin verin</string>
 
     <!--ProgressBar messages-->
-    <string name="progress_get_location">Yeriniz tespit ediliyor...</string>
-    <string name="progress_get_address">Adresiniz tespit ediliyor...</string>
+    <string name="progress_get_location">Yeriniz tespit ediliyor…</string>
+    <string name="progress_get_address">Adresiniz tespit ediliyor…</string>
     <string name="progress_task_done">Tamamlandı</string>
     <string name="message_enable_location_internet">Lütfen Konum ve Interneti etkinleştirin</string>
+
+    <!-- Notification messages-->
+    <string name="reminder">Hatırlatma</string>
+    <string name="time">Vakti</string>
+
+    <!-- Qiblah Direction messages-->
+    <string name="message_qiblah">Kıblenin Yönü kuzeye bakarsan</string>
+    <string name="message_qiblah_east">doğusundadır</string>
+    <string name="message_qiblah_west">batısındadır</string>
+
+    <!-- Methods-->
+    <string name="method_egypt">Egyptian General Authority of Survey</string>
+    <string name="method_tehran">Institute of Geophysics, University of Tehran</string>
+    <string name="method_isna">Islamic Society of North America (ISNA)</string>
+    <string name="method_mwl">\"Muslim World League (MWL)</string>
+    <string name="method_makkah">Umm Al-Qura University, Makkah</string>
+    <string name="method_uoif">Union des organisations islamiques de France</string>
+    <string name="method_karachi">University of Islamic Sciences, Karachi</string>
+
+    <!-- High Lat Adjustment-->
+    <string name="highlatadjustment_none">None</string>
+    <string name="highlatadjustment_angle">Angle-Based</string>
+    <string name="highlatadjustment_middle">Middle of the night</string>
+    <string name="highlatadjustment_seventh">One-Seventh of the Night</string>
 
 </resources>

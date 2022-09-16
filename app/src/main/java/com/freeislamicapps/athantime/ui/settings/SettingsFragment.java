@@ -87,7 +87,7 @@ public class SettingsFragment extends Fragment implements DialogInterface.OnDism
         currentLocation.setText(SharedPreferencesHelper.getValue(requireContext(), "location", ""));
         methodText.setText(SharedPreferencesHelper.getValue(requireContext(), "Method", "Islamic Society of North America (ISNA)"));
         asrCalculationText.setText(SharedPreferencesHelper.getValue(requireContext(), "AsrCalculation", "Shafi, Hanbali, Maliki"));
-        highLatsAdjustmentText.setText(SharedPreferencesHelper.getValue(requireContext(), "HighLatsAdjustment", "Angle-Based"));
+        highLatsAdjustmentText.setText(SharedPreferencesHelper.getValue(requireContext(), "HighLatsAdjustmentText", getResources().getString(R.string.highlatadjustment_angle)));
 
 
         cardViewLocation.setOnClickListener(v -> {
@@ -114,26 +114,30 @@ public class SettingsFragment extends Fragment implements DialogInterface.OnDism
 
         cardViewHighLatsNone.setOnClickListener(v -> {
             dialog.dismiss();
-            highLatsAdjustmentText.setText("None");
+            highLatsAdjustmentText.setText(getResources().getString(R.string.highlatadjustment_none));
             SharedPreferencesHelper.storeValue(requireContext(), "HighLatsAdjustment", "None");
+            SharedPreferencesHelper.storeValue(requireContext(), "HighLatsAdjustmentText", getResources().getString(R.string.highlatadjustment_none));
         });
 
         cardViewHighLatsAngle.setOnClickListener(v -> {
             dialog.dismiss();
-            highLatsAdjustmentText.setText("Angle-Based");
+            highLatsAdjustmentText.setText(getResources().getString(R.string.highlatadjustment_angle));
             SharedPreferencesHelper.storeValue(requireContext(), "HighLatsAdjustment", "Angle-Based");
+            SharedPreferencesHelper.storeValue(requireContext(), "HighLatsAdjustmentText", getResources().getString(R.string.highlatadjustment_angle));
         });
 
         cardViewHighLatsMiddle.setOnClickListener(v -> {
             dialog.dismiss();
-            highLatsAdjustmentText.setText("Middle of the night");
+            highLatsAdjustmentText.setText(getResources().getString(R.string.highlatadjustment_middle));
             SharedPreferencesHelper.storeValue(requireContext(), "HighLatsAdjustment", "Middle of the night");
+            SharedPreferencesHelper.storeValue(requireContext(), "HighLatsAdjustmentText", getResources().getString(R.string.highlatadjustment_middle));
         });
 
         cardViewHighLatsSeventh.setOnClickListener(v -> {
             dialog.dismiss();
-            highLatsAdjustmentText.setText("One-Seventh of the Night");
+            highLatsAdjustmentText.setText(getResources().getString(R.string.highlatadjustment_seventh));
             SharedPreferencesHelper.storeValue(requireContext(), "HighLatsAdjustment", "One-Seventh of the Night");
+            SharedPreferencesHelper.storeValue(requireContext(), "HighLatsAdjustmentText", getResources().getString(R.string.highlatadjustment_seventh));
         });
 
         closeButton.setOnClickListener(view -> dialog.dismiss());
@@ -195,43 +199,43 @@ public class SettingsFragment extends Fragment implements DialogInterface.OnDism
 
         cardviewEgypt.setOnClickListener(v -> {
             dialog.dismiss();
-            methodText.setText("Egyptian General Authority of Survey");
+            methodText.setText(getResources().getString(R.string.method_egypt));
             SharedPreferencesHelper.storeValue(requireContext(), "Method", "Egyptian General Authority of Survey");
         });
 
         cardviewTehran.setOnClickListener(v -> {
             dialog.dismiss();
-            methodText.setText("Institute of Geophysics, University of Tehran");
+            methodText.setText(getResources().getString(R.string.method_tehran));
             SharedPreferencesHelper.storeValue(requireContext(), "Method", "Institute of Geophysics, University of Tehran");
         });
 
         cardViewIsna.setOnClickListener(v -> {
             dialog.dismiss();
-            methodText.setText("Islamic Society of North America (ISNA)");
+            methodText.setText(getResources().getString(R.string.method_isna));
             SharedPreferencesHelper.storeValue(requireContext(), "Method", "Islamic Society of North America (ISNA)");
         });
 
         cardViewMwl.setOnClickListener(v -> {
             dialog.dismiss();
-            methodText.setText("Muslim World League (MWL)");
+            methodText.setText(getResources().getString(R.string.method_mwl));
             SharedPreferencesHelper.storeValue(requireContext(), "Method", "Muslim World League (MWL)");
         });
 
         cardViewMakkah.setOnClickListener(v -> {
             dialog.dismiss();
-            methodText.setText("Umm Al-Qura University, Makkah");
+            methodText.setText(getResources().getString(R.string.method_makkah));
             SharedPreferencesHelper.storeValue(requireContext(), "Method", "Umm Al-Qura University, Makkah");
         });
 
         cardviewUoif.setOnClickListener(v -> {
             dialog.dismiss();
-            methodText.setText("Union des organisations islamiques de France");
+            methodText.setText(getResources().getString(R.string.method_uoif));
             SharedPreferencesHelper.storeValue(requireContext(), "Method", "Union des organisations islamiques de France");
         });
 
         cardViewKarachi.setOnClickListener(v -> {
             dialog.dismiss();
-            methodText.setText("University of Islamic Sciences, Karachi");
+            methodText.setText(getResources().getString(R.string.method_karachi));
             SharedPreferencesHelper.storeValue(requireContext(), "Method", "University of Islamic Sciences, Karachi");
         });
 

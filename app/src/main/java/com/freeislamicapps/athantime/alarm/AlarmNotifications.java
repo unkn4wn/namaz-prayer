@@ -4,7 +4,6 @@ import android.app.Notification;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
@@ -12,7 +11,7 @@ import androidx.core.app.NotificationManagerCompat;
 
 import com.freeislamicapps.athantime.PrayerTimes.PrayTimesCalculator;
 import com.freeislamicapps.athantime.R;
-import com.freeislamicapps.athantime.ui.settings.SettingsFragment;
+import com.freeislamicapps.athantime.helper.SharedPreferencesHelper;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -24,17 +23,16 @@ public class AlarmNotifications extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(SettingsFragment.SHARED_PREFS, Context.MODE_PRIVATE);
-        int requestcode = intent.getIntExtra("PrayerAlarm", 2);
+        int requestCode = intent.getIntExtra("PrayerAlarm", 2);
         ArrayList<Boolean> switchPrayer = new ArrayList<>();
-        switchPrayer.add(sharedPreferences.getBoolean("Fajr_Sound", false));
-        switchPrayer.add(sharedPreferences.getBoolean("Sunrise_Sound", false));
-        switchPrayer.add(sharedPreferences.getBoolean("Dhuhr_Sound", false));
-        switchPrayer.add(sharedPreferences.getBoolean("Asr_Sound", false));
-        switchPrayer.add(sharedPreferences.getBoolean("Maghrib_Sound", false));
-        switchPrayer.add(sharedPreferences.getBoolean("Ishaa_Sound", false));
+        switchPrayer.add(SharedPreferencesHelper.getValue(context,"Fajr_Sound", false));
+        switchPrayer.add(SharedPreferencesHelper.getValue(context,"Sunrise_Sound", false));
+        switchPrayer.add(SharedPreferencesHelper.getValue(context,"Dhuhr_Sound", false));
+        switchPrayer.add(SharedPreferencesHelper.getValue(context,"Asr_Sound", false));
+        switchPrayer.add(SharedPreferencesHelper.getValue(context,"Maghrib_Sound", false));
+        switchPrayer.add(SharedPreferencesHelper.getValue(context,"Ishaa_Sound", false));
 
-        Log.d("Received", String.valueOf(requestcode));
+        Log.d("Received", String.valueOf(requestCode));
 
         String hours = (String.valueOf(LocalTime.now().getHour()));
         String minutes = (String.valueOf(LocalTime.now().getMinute()));
@@ -50,37 +48,40 @@ public class AlarmNotifications extends BroadcastReceiver {
         String time = hours + ":" + minutes;
         PrayTimesCalculator prayTimesCalculator = new PrayTimesCalculator(LocalDate.now(), context);
 
+        if (time.equals(prayTimesCalculator.getPrayerTimesList().get(requestCode))) {
+            System.out.println("AFTER FIRST IF");
+            if (switchPrayer.get(requestCode)) {
+                System.out.println("AFTER SECOND IF");
+                currentPrayer = getCurrentPrayer(context,requestCode);
 
-        if (time.equals(prayTimesCalculator.getPrayerTimesList().get(requestcode))) {
-            if (switchPrayer.get(requestcode)) {
-                currentPrayer = getCurrentPrayer(requestcode);
                 showNotification(context);
             }
         }
+        System.out.println("NOTIFICAITO AFTER SHOWED");
 
 
     }
 
-    private String getCurrentPrayer(int requestcode) {
-        switch (requestcode) {
+    private String getCurrentPrayer(Context context,int requestCode) {
+        switch (requestCode) {
             case 0:
-                return "Fajr";
+                return context.getResources().getString(R.string.fajr);
             case 1:
-                return "Sunrise";
+                return context.getResources().getString(R.string.sunrise);
             case 2:
-                return "Dhuhr";
+                return context.getResources().getString(R.string.dhuhr);
             case 3:
-                return "Asr";
+                return context.getResources().getString(R.string.asr);
             case 4:
-                return "Maghrib";
+                return context.getResources().getString(R.string.maghrib);
             default:
-                return "Ishaa";
+                return context.getResources().getString(R.string.ishaa);
         }
     }
 
     private void showNotification(Context context) {
-        String contentTitle = "Reminder";
-        String contentText = "Its Time for " + currentPrayer + "!";
+        String contentTitle = context.getResources().getString(R.string.reminder);
+        String contentText = currentPrayer + " "+  context.getResources().getString(R.string.time)+"!";
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(context);
         Notification notification = new NotificationCompat.Builder(context, CHANNEL_1_ID)
                 .setSmallIcon(R.drawable.ic_launcher_foreground2)

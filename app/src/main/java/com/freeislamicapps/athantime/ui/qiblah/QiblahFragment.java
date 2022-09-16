@@ -61,7 +61,7 @@ import okhttp3.Response;
 
 public class QiblahFragment extends Fragment implements SensorEventListener {
     private ImageView imageView;
-    private TextView textView2;
+    private TextView qiblahDirectionTextview;
     private SensorManager sensorManager;
     private Sensor accelerometerSensor, magenetometerSensor;
     private final float[] lastAccelerometer = new float[3];
@@ -81,7 +81,10 @@ public class QiblahFragment extends Fragment implements SensorEventListener {
     TextView currentLocationText;
     View mainView;
 
+    Float qiblahDirection;
+
     private FragmentQiblahBinding binding;
+    Context mContext;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -96,14 +99,14 @@ public class QiblahFragment extends Fragment implements SensorEventListener {
 
         mainView = binding.getRoot();
 
-        imageView = binding.imageView;
-        textView2 = binding.textView2;
+        imageView = binding.mainImageDial;
+        qiblahDirectionTextview = binding.textView2;
 
         sensorManager = (SensorManager) requireActivity().getSystemService(Context.SENSOR_SERVICE);
         accelerometerSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         magenetometerSensor = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
 
-        qiblahArrow = binding.qiblahArrow;
+        qiblahArrow = binding.mainImageQibla;
         getMyLocationCard = binding.getmylocationCard;
         currentLocationText = binding.currentLocationText;
         locationRequest = LocationRequest.create();
@@ -111,10 +114,12 @@ public class QiblahFragment extends Fragment implements SensorEventListener {
         locationRequest.setInterval(5000);
         locationRequest.setFastestInterval(2000);
 
-        currentLocationText.setText(SharedPreferencesHelper.getValue(requireContext(), "location", ""));
+        displayQiblahDegree(qiblahDirectionTextview);
+
+        currentLocationText.setText(SharedPreferencesHelper.getValue(mContext, "location", ""));
 
         getMyLocationCard.setOnClickListener(view -> {
-            LocationManager locationManager = (LocationManager) requireContext().getSystemService(LOCATION_SERVICE);
+            LocationManager locationManager = (LocationManager) mContext.getSystemService(LOCATION_SERVICE);
 
             if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) && locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
                 if (ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
@@ -124,7 +129,7 @@ public class QiblahFragment extends Fragment implements SensorEventListener {
                     requestPermissionLauncher.launch(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION});
                 }
             } else {
-                Toast.makeText(requireContext(), getResources().getString(R.string.message_enable_location_internet), Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, mContext.getResources().getString(R.string.message_enable_location_internet), Toast.LENGTH_SHORT).show();
             }
         });
         return root;
@@ -136,11 +141,11 @@ public class QiblahFragment extends Fragment implements SensorEventListener {
                     if (Boolean.TRUE.equals(result.get(Manifest.permission.ACCESS_FINE_LOCATION))) {
                         getCurrentLocation();
                     } else {
-                        Snackbar.make(requireContext(), requireView(), getResources().getString(R.string.message_exact_location), Toast.LENGTH_SHORT)
+                        Snackbar.make(mContext, requireView(), mContext.getResources().getString(R.string.message_exact_location), Toast.LENGTH_SHORT)
                                 .show();
                     }
                 } else {
-                    Snackbar.make(requireContext(), requireView(), getResources().getString(R.string.message_location), Toast.LENGTH_SHORT)
+                    Snackbar.make(mContext, requireView(), mContext.getResources().getString(R.string.message_location), Toast.LENGTH_SHORT)
                             .show();
                 }
             });
@@ -153,14 +158,14 @@ public class QiblahFragment extends Fragment implements SensorEventListener {
                 ProgressBar progressBar = mainView.findViewById(R.id.getmylocationProgressbar);
                 TextView progressBarText = mainView.findViewById(R.id.getmylocationText);
                 progressBar.setVisibility(View.VISIBLE);
-                progressBarText.setText(getResources().getString(R.string.progress_get_location));
+                progressBarText.setText(mContext.getResources().getString(R.string.progress_get_location));
                 LocationServices.getFusedLocationProviderClient(requireActivity())
                         .requestLocationUpdates(locationRequest, new LocationCallback() {
                             @Override
                             public void onLocationResult(@NonNull LocationResult locationResult) {
                                 super.onLocationResult(locationResult);
 
-                                LocationServices.getFusedLocationProviderClient(requireActivity())
+                                LocationServices.getFusedLocationProviderClient(mContext)
                                         .removeLocationUpdates(this);
 
 
@@ -169,17 +174,18 @@ public class QiblahFragment extends Fragment implements SensorEventListener {
                                     double latitude = locationResult.getLocations().get(index).getLatitude();
                                     double longitude = locationResult.getLocations().get(index).getLongitude();
                                     //   currentLocation.setText("Latitude: " + latitude + "\n" + "Longitude: " + longitude);
-                                    SharedPreferencesHelper.storeValue(requireContext(), "latitude", latitude);
-                                    SharedPreferencesHelper.storeValue(requireContext(), "longitude", longitude);
-                                    progressBarText.setText(getResources().getString(R.string.progress_get_address));
+                                    SharedPreferencesHelper.storeValue(mContext, "latitude", latitude);
+                                    SharedPreferencesHelper.storeValue(mContext, "longitude", longitude);
+                                    displayQiblahDegree(qiblahDirectionTextview);
+                                    progressBarText.setText(mContext.getResources().getString(R.string.progress_get_address));
 
                                     Handler handler = new Handler();
 
                                     Runnable runnable = () -> {
                                         OkHttpClient client = new OkHttpClient();
                                         String startUrl = "https://maps.googleapis.com/maps/api/geocode/json?";
-                                        String latitude1 = SharedPreferencesHelper.getValue(requireContext(), "latitude", "52.0");
-                                        String longitude1 = SharedPreferencesHelper.getValue(requireContext(), "longitude", "9.0");
+                                        String latitude1 = SharedPreferencesHelper.getValue(mContext, "latitude", "52.0");
+                                        String longitude1 = SharedPreferencesHelper.getValue(mContext, "longitude", "9.0");
                                         String midUrl = "latlng=" + latitude1 + "," + longitude1;
                                         String endUrl = "&key=" + BuildConfig.MAPS_API_KEY;
                                         System.out.println(startUrl + midUrl + endUrl);
@@ -207,10 +213,10 @@ public class QiblahFragment extends Fragment implements SensorEventListener {
                                                     //  SharedPreferencesHelper.storeValue(requireContext(), "location", myResponseJson.getString("display_name"));
                                                     handler.post(() -> {
                                                         progressBar.setVisibility(View.GONE);
-                                                        progressBarText.setText(getResources().getString(R.string.progress_task_done));
+                                                        progressBarText.setText(mContext.getResources().getString(R.string.progress_task_done));
 
                                                         try {
-                                                            SharedPreferencesHelper.storeValue(mainView.getContext(), "location", firstResult.getString("formatted_address"));
+                                                            SharedPreferencesHelper.storeValue(mContext, "location", firstResult.getString("formatted_address"));
                                                             currentLocationText.setText(firstResult.getString("formatted_address"));
                                                         } catch (JSONException e) {
                                                             e.printStackTrace();
@@ -267,12 +273,13 @@ public class QiblahFragment extends Fragment implements SensorEventListener {
             lastUpdatedTime = System.currentTimeMillis();
 
             int x = (int) azimuthInDegree;
-            textView2.setText(x + "°");
 
-            double latitude = SharedPreferencesHelper.getValue(requireContext(), "latitude", 52.0);
-            double longitude = SharedPreferencesHelper.getValue(requireContext(), "longitude", 9.0);
 
-            qiblahArrow.setRotation(calculateQibla2(latitude, longitude) - azimuthInDegree);
+            double latitude = SharedPreferencesHelper.getValue(mContext, "latitude", 52.0);
+            double longitude = SharedPreferencesHelper.getValue(mContext, "longitude", 9.0);
+
+
+            qiblahArrow.setRotation(calculateQibla(latitude, longitude) - azimuthInDegree);
 
 
         }
@@ -302,9 +309,10 @@ public class QiblahFragment extends Fragment implements SensorEventListener {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
+        mContext = context;
     }
 
-    public double calculateQibla(double latitude, double longitude) {
+    private float calculateQibla(double latitude, double longitude) {
         double phiK = 21.4 * Math.PI / 180.0;
         double lambdaK = 39.8 * Math.PI / 180.0;
         double phi = latitude * Math.PI / 180.0;
@@ -313,16 +321,15 @@ public class QiblahFragment extends Fragment implements SensorEventListener {
         return Math.round(psi);
     }
 
-    private float calculateQibla2(double latitude, double longitude) {
-        if (Math.abs(latitude - 21.4) < Math.abs(0.0 - 0.01) && Math.abs(longitude - 39.8) < Math.abs(0.0 - 0.01)) {
-            System.out.println("KEIN PLAM MEKKA?");//Mecca
+    private void displayQiblahDegree(TextView textView) {
+        double latitude = SharedPreferencesHelper.getValue(mContext, "latitude", 52.0);
+        double longitude = SharedPreferencesHelper.getValue(mContext, "longitude", 9.0);
+        qiblahDirection = calculateQibla(latitude, longitude);
+        if (qiblahDirection >= 0) {
+            textView.setText(mContext.getResources().getString(R.string.message_qiblah) + " " + qiblahDirection + "° " + mContext.getResources().getString(R.string.message_qiblah_east));
+        } else {
+            textView.setText(mContext.getResources().getString(R.string.message_qiblah) + " " + -qiblahDirection + "° " + mContext.getResources().getString(R.string.message_qiblah_west));
         }
-        double phiK = 21.4 * Math.PI / 180.0;
-        double lambdaK = 39.8 * Math.PI / 180.0;
-        double phi = latitude * Math.PI / 180.0;
-        double lambda = longitude * Math.PI / 180.0;
-        double psi = 180.0 / Math.PI * Math.atan2(Math.sin(lambdaK - lambda), Math.cos(phi) * Math.tan(phiK) - Math.sin(phi) * Math.cos(lambdaK - lambda));
-        return Math.round(psi);
     }
 
 }

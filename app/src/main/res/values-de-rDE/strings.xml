@@ -36,9 +36,33 @@
     <string name="message_location">Bitte erlauben Sie den Abruf Ihres Standorts</string>
 
     <!--ProgressBar messages-->
-    <string name="progress_get_location">Ihr Standort wird ermittelt...</string>
-    <string name="progress_get_address">Ihre Adresse wird ermittelt...</string>
+    <string name="progress_get_location">Ihr Standort wird ermittelt…</string>
+    <string name="progress_get_address">Ihre Adresse wird ermittelt…</string>
     <string name="progress_task_done">Abgeschlossen</string>
     <string name="message_enable_location_internet">Bitte aktivieren Sie ihren Standort und Internet</string>
+
+    <!-- Notification messages-->
+    <string name="reminder">Erinnerung</string>
+    <string name="time">Zeit</string>
+
+    <!-- Qiblah Direction messages-->
+    <string name="message_qiblah">Die Richtung von Qiblah ist</string>
+    <string name="message_qiblah_east">im Osten von Norden</string>
+    <string name="message_qiblah_west">im Westen von Norden</string>
+
+    <!-- Methods-->
+    <string name="method_egypt">Egyptian General Authority of Survey</string>
+    <string name="method_tehran">Institute of Geophysics, University of Tehran</string>
+    <string name="method_isna">Islamic Society of North America (ISNA)</string>
+    <string name="method_mwl">\"Muslim World League (MWL)</string>
+    <string name="method_makkah">Umm Al-Qura University, Makkah</string>
+    <string name="method_uoif">Union des organisations islamiques de France</string>
+    <string name="method_karachi">University of Islamic Sciences, Karachi</string>
+
+    <!-- High Lat Adjustment-->
+    <string name="highlatadjustment_none">None</string>
+    <string name="highlatadjustment_angle">Angle-Based</string>
+    <string name="highlatadjustment_middle">Middle of the night</string>
+    <string name="highlatadjustment_seventh">One-Seventh of the Night</string>
 
 </resources>

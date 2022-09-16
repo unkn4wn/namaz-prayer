@@ -21,6 +21,7 @@ import com.freeislamicapps.athantime.helper.SharedPreferencesHelper;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.divider.MaterialDivider;
 
+import java.sql.SQLOutput;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -166,7 +167,6 @@ public class TabTodayFragment extends Fragment {
         initNotificationIcon(ishaaSound, ishaaSoundIcon);
         getCurrentPrayer();
 
-
         return binding.getRoot();
     }
 
@@ -278,9 +278,13 @@ public class TabTodayFragment extends Fragment {
     }
 
     @Override
+    public void onStop() {
+        super.onStop();
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
-
     }
 
     @Override

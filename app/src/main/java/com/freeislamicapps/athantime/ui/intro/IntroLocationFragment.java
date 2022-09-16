@@ -90,17 +90,17 @@ public class IntroLocationFragment extends Fragment {
 
         Button enableLocationButton = view.findViewById(R.id.enableLocationButton);
         enableLocationButton.setOnClickListener(view1 -> {
-            LocationManager locationManager = (LocationManager) requireContext().getSystemService(LOCATION_SERVICE);
+            LocationManager locationManager = (LocationManager) mContext.getSystemService(LOCATION_SERVICE);
 
             if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) && locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-                if (ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                if (ContextCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                     // WHEN Permission is granted
                     getCurrentLocation();
                 } else {
                     requestPermissionLauncher.launch(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION});
                 }
             } else {
-                Toast.makeText(requireContext(), "Please enable Location and Internet first", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "Please enable Location and Internet first", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -120,11 +120,11 @@ public class IntroLocationFragment extends Fragment {
                     if (Boolean.TRUE.equals(result.get(Manifest.permission.ACCESS_FINE_LOCATION))) {
                         getCurrentLocation();
                     } else {
-                        Snackbar.make(requireContext(), requireView(), "Please allow to retrieve your exact location to provide accurate prayer times", Toast.LENGTH_SHORT)
+                        Snackbar.make(mContext, requireView(), "Please allow to retrieve your exact location to provide accurate prayer times", Toast.LENGTH_SHORT)
                                 .show();
                     }
                 } else {
-                    Snackbar.make(requireContext(), requireView(), "Please allow to retrieve your location", Toast.LENGTH_SHORT)
+                    Snackbar.make(mContext, requireView(), "Please allow to retrieve your location", Toast.LENGTH_SHORT)
                             .show();
                 }
             });
@@ -133,21 +133,19 @@ public class IntroLocationFragment extends Fragment {
     @SuppressLint("MissingPermission")
     private void getCurrentLocation() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (ActivityCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 
-                CircularProgressIndicator progressBar = requireActivity().findViewById(R.id.progressbarLocation);
-                TextView progressBarText = requireActivity().findViewById(R.id.progressbarTextLocation);
+                CircularProgressIndicator progressBar = mainView.findViewById(R.id.progressbarLocation);
+                TextView progressBarText = mainView.findViewById(R.id.progressbarTextLocation);
                 progressBar.setVisibility(View.VISIBLE);
                 progressBarText.setVisibility(View.VISIBLE);
-                requireActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                LocationServices.getFusedLocationProviderClient(requireActivity())
+                LocationServices.getFusedLocationProviderClient(mContext)
                         .requestLocationUpdates(locationRequest, new LocationCallback() {
                             @Override
                             public void onLocationResult(@NonNull LocationResult locationResult) {
                                 super.onLocationResult(locationResult);
 
-                                LocationServices.getFusedLocationProviderClient(requireActivity())
+                                LocationServices.getFusedLocationProviderClient(mContext)
                                         .removeLocationUpdates(this);
 
 
@@ -155,11 +153,10 @@ public class IntroLocationFragment extends Fragment {
                                     int index = locationResult.getLocations().size() - 1;
                                     double latitude = locationResult.getLocations().get(index).getLatitude();
                                     double longitude = locationResult.getLocations().get(index).getLongitude();
-                                    SharedPreferencesHelper.storeValue(requireContext(), "latitude", latitude);
-                                    SharedPreferencesHelper.storeValue(requireContext(), "longitude", longitude);
+                                    SharedPreferencesHelper.storeValue(mContext, "latitude", latitude);
+                                    SharedPreferencesHelper.storeValue(mContext, "longitude", longitude);
                                     progressBar.setVisibility(View.GONE);
                                     progressBarText.setVisibility(View.GONE);
-                                    requireActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
                                     Handler handler = new Handler();
 

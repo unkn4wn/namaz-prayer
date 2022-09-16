@@ -21,6 +21,7 @@ public class PrayTimesCalculator {
     private final String fajr, sunrise, dhuhr, asr, maghrib, ishaa;
     ArrayList<String> prayerTimesList;
 
+
     public PrayTimesCalculator(LocalDate date, Context context) {
         prayTimes = new PrayTimes();
         this.context = context;
