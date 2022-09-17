@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -11,21 +11,23 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_marginTop="48dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
+        android:layout_alignParentTop="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/title_notification"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="Enable your Notification"
+            android:text="@string/intro_title_notification"
             android:textSize="32sp"
+            android:maxLines="1"
+            android:autoSizeTextType="uniform"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -36,11 +38,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:gravity="center_horizontal"
-            android:text="To show you the prayer times on time"
+            android:text="@string/intro_desc_notification"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            app:layout_constraintTop_toBottomOf="@+id/title_notification" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -49,6 +50,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
+        android:layout_marginVertical="5dp"
+        android:foregroundGravity="center"
+        android:layout_above="@id/calculateButton"
+        android:layout_below="@id/constraintLayout"
         app:cardBackgroundColor="?attr/backgroundColor"
         app:layout_constraintBottom_toTopOf="@+id/calculateButton"
         app:layout_constraintEnd_toEndOf="parent"
@@ -56,9 +61,18 @@
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
         app:strokeWidth="0dp">
 
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:foregroundGravity="center">
+
+
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_gravity="center"
             android:orientation="vertical">
 
             <com.google.android.material.card.MaterialCardView
@@ -78,7 +92,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginStart="16dp"
                         android:gravity="center_vertical"
-                        android:text="Fajr"
+                        android:text="@string/fajr"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         android:textColor="@color/white"
@@ -115,7 +129,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginStart="16dp"
                         android:gravity="center_vertical"
-                        android:text="Sunrise"
+                        android:text="@string/sunrise"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -151,7 +165,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginStart="16dp"
                         android:gravity="center_vertical"
-                        android:text="Dhuhr"
+                        android:text="@string/dhuhr"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         android:textColor="@color/white"
@@ -188,7 +202,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginStart="16dp"
                         android:gravity="center_vertical"
-                        android:text="Asr"
+                        android:text="@string/asr"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         android:textColor="@color/white"
@@ -225,7 +239,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginStart="16dp"
                         android:gravity="center_vertical"
-                        android:text="Maghrib"
+                        android:text="@string/maghrib"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         android:textColor="@color/white"
@@ -261,7 +275,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginStart="16dp"
                         android:gravity="center_vertical"
-                        android:text="Ishaa"
+                        android:text="@string/ishaa"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         android:textColor="@color/white"
@@ -282,6 +296,7 @@
             </com.google.android.material.card.MaterialCardView>
 
         </LinearLayout>
+        </ScrollView>
 
     </com.google.android.material.card.MaterialCardView>
 
@@ -289,11 +304,12 @@
         android:id="@+id/calculateButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
         android:layout_marginBottom="58dp"
         android:background="@drawable/button_round_corner"
-        android:text="Calculate"
+        android:text="@string/intro_button_notification"
         android:textColor="@color/white"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -304,4 +320,4 @@
 
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

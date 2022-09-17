@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +25,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.widget.TextViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -35,6 +37,7 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.Priority;
+import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -88,7 +91,11 @@ public class IntroLocationFragment extends Fragment {
 
         mainView = view;
 
-        Button enableLocationButton = view.findViewById(R.id.enableLocationButton);
+        //Autosize below Api 26
+        TextView titleLocation = view.findViewById(R.id.title_location);
+        TextViewCompat.setAutoSizeTextTypeWithDefaults(titleLocation,TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM);
+
+        MaterialCardView enableLocationButton = view.findViewById(R.id.getmylocationCard);
         enableLocationButton.setOnClickListener(view1 -> {
             LocationManager locationManager = (LocationManager) mContext.getSystemService(LOCATION_SERVICE);
 
@@ -135,8 +142,8 @@ public class IntroLocationFragment extends Fragment {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 
-                CircularProgressIndicator progressBar = mainView.findViewById(R.id.progressbarLocation);
-                TextView progressBarText = mainView.findViewById(R.id.progressbarTextLocation);
+                ProgressBar progressBar = mainView.findViewById(R.id.getmylocationProgressbar);
+                TextView progressBarText = mainView.findViewById(R.id.getmylocationText);
                 progressBar.setVisibility(View.VISIBLE);
                 progressBarText.setVisibility(View.VISIBLE);
                 LocationServices.getFusedLocationProviderClient(mContext)

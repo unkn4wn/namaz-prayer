@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 
 import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.widget.TextViewCompat;
 import androidx.fragment.app.Fragment;
 
 import android.util.TypedValue;
@@ -68,6 +69,10 @@ public class IntroNotificationFragment extends Fragment {
         View view = inflater.inflate(R.layout.intro_fragment_notification, container, false);
 
         createNotificationChannel(requireContext());
+
+        //Autosize below Api 26
+        TextView titleLocation = view.findViewById(R.id.title_notification);
+        TextViewCompat.setAutoSizeTextTypeWithDefaults(titleLocation,TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM);
 
         fajrSoundText = view.findViewById(R.id.fajrSoundText);
         sunriseSoundText = view.findViewById(R.id.sunriseSoundText);
@@ -164,9 +169,9 @@ public class IntroNotificationFragment extends Fragment {
         // Create the NotificationChannel, but only on API 26+ because
         // the NotificationChannel class is new and not in the support library
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = CHANNEL_1_ID;
-            String description = CHANNEL_1_ID;
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            CharSequence name = "Prayer Times";
+            String description = "This notification channel is necessary to provide accurate prayer times for you";
+            int importance = NotificationManager.IMPORTANCE_HIGH;
             NotificationChannel channel = new NotificationChannel(CHANNEL_1_ID, name, importance);
             channel.setDescription(description);
             // Register the channel with the system; you can't change the importance
