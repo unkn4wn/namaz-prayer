@@ -127,7 +127,7 @@ public class TabTodayFragment extends Fragment {
         materialDividerArrayList = new ArrayList<>(Arrays.asList(fajrDivider, sunriseDivider, dhuhrDivider, asrDivider, maghribDivider));
         textViewArrayList = new ArrayList<>(Arrays.asList(fajrText, sunriseText, dhuhrText, asrText, maghribText, ishaaText, fajrTime, sunriseTime, dhuhrTime, asrTime, maghribTime, ishaaTime));
         imageViewArrayList = new ArrayList<>(Arrays.asList(fajrSoundIcon, sunriseSoundIcon, dhuhrSoundIcon, asrSoundIcon, maghribSoundIcon, ishaaSoundIcon));
-        Drawable fajrDrawable = AppCompatResources.getDrawable(requireContext(), R.drawable.background_fajr);
+        Drawable fajrDrawable = AppCompatResources.getDrawable(requireContext(), R.drawable.background_fajr2);
         Drawable dhuhrDrawable = AppCompatResources.getDrawable(requireContext(), R.drawable.background_dhuhr);
         Drawable asrDrawable = AppCompatResources.getDrawable(requireContext(), R.drawable.background_asr);
         Drawable maghribDrawable = AppCompatResources.getDrawable(requireContext(), R.drawable.background_maghrib);
