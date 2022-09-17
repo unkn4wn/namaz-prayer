@@ -59,10 +59,14 @@
     <string name="method_uoif">Union des organisations islamiques de France</string>
     <string name="method_karachi">University of Islamic Sciences, Karachi</string>
 
+    <!-- Asr Calculation-->
+    <string name="asrcalculation_shafi">Şafii, Hanbeli, Maliki</string>
+    <string name="asrcalculation_hanafi">Hanefi</string>
+
     <!-- High Lat Adjustment-->
-    <string name="highlatadjustment_none">None</string>
-    <string name="highlatadjustment_angle">Angle-Based</string>
-    <string name="highlatadjustment_middle">Middle of the night</string>
-    <string name="highlatadjustment_seventh">One-Seventh of the Night</string>
+    <string name="highlatadjustment_none">Hiçbiri</string>
+    <string name="highlatadjustment_angle">Açıya dayalı</string>
+    <string name="highlatadjustment_middle">Gece yarısı</string>
+    <string name="highlatadjustment_seventh">Gecenin yedide biri</string>
 
 </resources>

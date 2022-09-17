@@ -59,6 +59,10 @@
     <string name="method_uoif">Union des organisations islamiques de France</string>
     <string name="method_karachi">University of Islamic Sciences, Karachi</string>
 
+    <!-- Asr Calculation-->
+    <string name="asrcalculation_shafi">Shafi, Hanbali, Maliki</string>
+    <string name="asrcalculation_hanafi">Hanafi</string>
+
     <!-- High Lat Adjustment-->
     <string name="highlatadjustment_none">None</string>
     <string name="highlatadjustment_angle">Angle-Based</string>
