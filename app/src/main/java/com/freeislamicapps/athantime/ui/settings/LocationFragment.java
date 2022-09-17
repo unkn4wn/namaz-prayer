@@ -1,4 +1,4 @@
-package com.freeislamicapps.athantime.ui.prayer;
+package com.freeislamicapps.athantime.ui.settings;
 
 import static android.content.Context.LOCATION_SERVICE;
 
@@ -38,9 +38,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.freeislamicapps.athantime.BuildConfig;
 import com.freeislamicapps.athantime.R;
 import com.freeislamicapps.athantime.helper.SharedPreferencesHelper;
-import com.freeislamicapps.athantime.ui.settings.LocationModel;
-import com.freeislamicapps.athantime.ui.settings.LocationRecyclerAdapter;
-import com.freeislamicapps.athantime.ui.settings.LocationRecyclerInterface;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;

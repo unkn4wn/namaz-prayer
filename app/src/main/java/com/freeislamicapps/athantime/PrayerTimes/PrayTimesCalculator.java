@@ -15,7 +15,6 @@ import java.util.Calendar;
 import java.util.TreeSet;
 
 public class PrayTimesCalculator {
-    SharedPreferences sharedPreferences;
     private final PrayTimes prayTimes;
     private final Context context;
     private final String fajr, sunrise, dhuhr, asr, maghrib, ishaa;
@@ -25,7 +24,6 @@ public class PrayTimesCalculator {
     public PrayTimesCalculator(LocalDate date, Context context) {
         prayTimes = new PrayTimes();
         this.context = context;
-        sharedPreferences = context.getSharedPreferences(SettingsFragment.SHARED_PREFS, Context.MODE_PRIVATE);
 
         double latitude = SharedPreferencesHelper.getValue(context, "latitude", 52.0);
         double longitude = SharedPreferencesHelper.getValue(context, "longitude", 9.0);

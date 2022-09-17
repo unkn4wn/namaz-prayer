@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -24,14 +23,12 @@ import androidx.fragment.app.Fragment;
 
 import com.freeislamicapps.athantime.R;
 import com.freeislamicapps.athantime.helper.SharedPreferencesHelper;
-import com.freeislamicapps.athantime.ui.prayer.LocationFragment;
 import com.google.android.material.card.MaterialCardView;
 
 
 public class SettingsFragment extends Fragment implements DialogInterface.OnDismissListener {
     TextView currentLocation;
-    TextView methodText, asrCalculationText, highLatsAdjustmentText;
-    public static final String SHARED_PREFS = "sharedPrefs";
+    TextView methodText, asrCalculationText, highLatsAdjustmentText, manualTunesText;
 
     Drawable soundOnIcon;
     Drawable soundOffIcon;
@@ -50,7 +47,6 @@ public class SettingsFragment extends Fragment implements DialogInterface.OnDism
     @Override
     public void setMenuVisibility(boolean menuVisible) {
         super.setMenuVisibility(menuVisible);
-        Log.d("display2", "VISIBLE");
     }
 
     @Override
@@ -67,6 +63,7 @@ public class SettingsFragment extends Fragment implements DialogInterface.OnDism
         methodText = view.findViewById(R.id.methodText);
         asrCalculationText = view.findViewById(R.id.asrcalculationText);
         highLatsAdjustmentText = view.findViewById(R.id.highlatadjustmentText);
+        manualTunesText = view.findViewById(R.id.manualtunesText);
 
 
         MaterialCardView cardViewMethod = view.findViewById(R.id.cardViewMethod);
@@ -85,10 +82,11 @@ public class SettingsFragment extends Fragment implements DialogInterface.OnDism
         cardViewNotification.setOnClickListener(view15 -> showDialogNotification());
 
         currentLocation.setText(SharedPreferencesHelper.getValue(requireContext(), "location", ""));
-        methodText.setText(SharedPreferencesHelper.getValue(requireContext(), "Method", "Islamic Society of North America (ISNA)"));
-        asrCalculationText.setText(SharedPreferencesHelper.getValue(requireContext(), "AsrCalculation", "Shafi, Hanbali, Maliki"));
+        methodText.setText(SharedPreferencesHelper.getValue(requireContext(), "MethodText", getResources().getString(R.string.method_isna)));
+        asrCalculationText.setText(SharedPreferencesHelper.getValue(requireContext(), "AsrCalculationText", getResources().getString(R.string.asrcalculation_shafi)));
         highLatsAdjustmentText.setText(SharedPreferencesHelper.getValue(requireContext(), "HighLatsAdjustmentText", getResources().getString(R.string.highlatadjustment_angle)));
 
+        manualTunesText.setText(SharedPreferencesHelper.getValue(requireContext(), "ManualTunesText", "0,0,0,0,0,0"));
 
         cardViewLocation.setOnClickListener(v -> {
             LocationFragment locationFragment = new LocationFragment();
@@ -162,14 +160,16 @@ public class SettingsFragment extends Fragment implements DialogInterface.OnDism
 
         cardViewShafi.setOnClickListener(v -> {
             dialog.dismiss();
-            asrCalculationText.setText("Shafi, Hanbali, Maliki");
+            asrCalculationText.setText(getResources().getString(R.string.asrcalculation_shafi));
             SharedPreferencesHelper.storeValue(requireContext(), "AsrCalculation", "Shafi, Hanbali, Maliki");
+            SharedPreferencesHelper.storeValue(requireContext(), "AsrCalculationText", getResources().getString(R.string.asrcalculation_shafi));
         });
 
         cardViewHanafi.setOnClickListener(v -> {
             dialog.dismiss();
-            asrCalculationText.setText("Hanafi");
+            asrCalculationText.setText(getResources().getString(R.string.asrcalculation_hanafi));
             SharedPreferencesHelper.storeValue(requireContext(), "AsrCalculation", "Hanafi");
+            SharedPreferencesHelper.storeValue(requireContext(), "AsrCalculationText", getResources().getString(R.string.asrcalculation_hanafi));
         });
 
         closeButton.setOnClickListener(view -> dialog.dismiss());
@@ -201,42 +201,49 @@ public class SettingsFragment extends Fragment implements DialogInterface.OnDism
             dialog.dismiss();
             methodText.setText(getResources().getString(R.string.method_egypt));
             SharedPreferencesHelper.storeValue(requireContext(), "Method", "Egyptian General Authority of Survey");
+            SharedPreferencesHelper.storeValue(requireContext(), "MethodText", getResources().getString(R.string.method_egypt));
         });
 
         cardviewTehran.setOnClickListener(v -> {
             dialog.dismiss();
             methodText.setText(getResources().getString(R.string.method_tehran));
             SharedPreferencesHelper.storeValue(requireContext(), "Method", "Institute of Geophysics, University of Tehran");
+            SharedPreferencesHelper.storeValue(requireContext(), "MethodText", getResources().getString(R.string.method_tehran));
         });
 
         cardViewIsna.setOnClickListener(v -> {
             dialog.dismiss();
             methodText.setText(getResources().getString(R.string.method_isna));
             SharedPreferencesHelper.storeValue(requireContext(), "Method", "Islamic Society of North America (ISNA)");
+            SharedPreferencesHelper.storeValue(requireContext(), "MethodText", getResources().getString(R.string.method_isna));
         });
 
         cardViewMwl.setOnClickListener(v -> {
             dialog.dismiss();
             methodText.setText(getResources().getString(R.string.method_mwl));
             SharedPreferencesHelper.storeValue(requireContext(), "Method", "Muslim World League (MWL)");
+            SharedPreferencesHelper.storeValue(requireContext(), "MethodText", getResources().getString(R.string.method_mwl));
         });
 
         cardViewMakkah.setOnClickListener(v -> {
             dialog.dismiss();
             methodText.setText(getResources().getString(R.string.method_makkah));
             SharedPreferencesHelper.storeValue(requireContext(), "Method", "Umm Al-Qura University, Makkah");
+            SharedPreferencesHelper.storeValue(requireContext(), "MethodText", getResources().getString(R.string.method_makkah));
         });
 
         cardviewUoif.setOnClickListener(v -> {
             dialog.dismiss();
             methodText.setText(getResources().getString(R.string.method_uoif));
             SharedPreferencesHelper.storeValue(requireContext(), "Method", "Union des organisations islamiques de France");
+            SharedPreferencesHelper.storeValue(requireContext(), "MethodText", getResources().getString(R.string.method_uoif));
         });
 
         cardViewKarachi.setOnClickListener(v -> {
             dialog.dismiss();
             methodText.setText(getResources().getString(R.string.method_karachi));
             SharedPreferencesHelper.storeValue(requireContext(), "Method", "University of Islamic Sciences, Karachi");
+            SharedPreferencesHelper.storeValue(requireContext(), "MethodText", getResources().getString(R.string.method_karachi));
         });
 
         closeButton.setOnClickListener(view -> dialog.dismiss());
@@ -287,7 +294,6 @@ public class SettingsFragment extends Fragment implements DialogInterface.OnDism
         displayManualTunes("MaghribManualTunes", maghribMinuteText, maghribMinute);
         displayManualTunes("IshaaManualTunes", ishaaMinuteText, ishaaMinute);
 
-
         fajrAdd.setOnClickListener(view -> changeManualTunes("FajrManualTunes", fajrMinuteText, fajrMinute, +1));
         fajrRemove.setOnClickListener(view -> changeManualTunes("FajrManualTunes", fajrMinuteText, fajrMinute, -1));
         sunriseAdd.setOnClickListener(view -> changeManualTunes("SunriseManualTunes", sunriseMinuteText, sunriseMinute, +1));
@@ -300,6 +306,14 @@ public class SettingsFragment extends Fragment implements DialogInterface.OnDism
         maghribRemove.setOnClickListener(view -> changeManualTunes("MaghribManualTunes", maghribMinuteText, maghribMinute, -1));
         ishaaAdd.setOnClickListener(view -> changeManualTunes("IshaaManualTunes", ishaaMinuteText, ishaaMinute, +1));
         ishaaRemove.setOnClickListener(view -> changeManualTunes("IshaaManualTunes", ishaaMinuteText, ishaaMinute, -1));
+
+
+        String manualTunesTextString = SharedPreferencesHelper.getValue(requireContext(), "ManualTunesText", "0,0,0,0,0,0");
+
+        dialog.setOnDismissListener(dialogInterface -> {
+            System.out.println(manualTunesTextString);
+            manualTunesText.setText(SharedPreferencesHelper.getValue(requireContext(), "ManualTunesText", "0,0,0,0,0,0"));
+        });
 
         ImageButton closeButton = dialog.findViewById(R.id.closeBottomsheetButton);
 
@@ -331,6 +345,16 @@ public class SettingsFragment extends Fragment implements DialogInterface.OnDism
             prayerMinuteText.setText(R.string.minute);
         }
         prayerMinute.setText(String.valueOf(newPrayerManualTunes));
+
+        String fajrManualTunes = SharedPreferencesHelper.getValue(requireContext(), "FajrManualTunes", "0");
+        String sunriseManualTunes = SharedPreferencesHelper.getValue(requireContext(), "SunriseManualTunes", "0");
+        String dhuhrManualTunes = SharedPreferencesHelper.getValue(requireContext(), "DhuhrManualTunes", "0");
+        String asrManualTunes = SharedPreferencesHelper.getValue(requireContext(), "AsrManualTunes", "0");
+        String maghribManualTunes = SharedPreferencesHelper.getValue(requireContext(), "MaghribManualTunes", "0");
+        String ishaaManualTunes = SharedPreferencesHelper.getValue(requireContext(), "IshaaManualTunes", "0");
+        SharedPreferencesHelper.storeValue(requireContext(), "ManualTunesText",
+                fajrManualTunes + "," + sunriseManualTunes + "," + dhuhrManualTunes + ","
+                        + asrManualTunes + "," + maghribManualTunes + "," + ishaaManualTunes);
     }
 
     private void showDialogNotification() {
@@ -454,7 +478,6 @@ public class SettingsFragment extends Fragment implements DialogInterface.OnDism
 
     @Override
     public void onDismiss(DialogInterface dialogInterface) {
-        Log.d("DISPLAY3", "DISPLAY DISMISSED FINALLY");
         currentLocation.setText(SharedPreferencesHelper.getValue(requireContext(), "location", ""));
 
     }

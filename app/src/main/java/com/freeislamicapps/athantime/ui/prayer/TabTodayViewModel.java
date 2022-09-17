@@ -2,7 +2,6 @@ package com.freeislamicapps.athantime.ui.prayer;
 
 import android.app.Application;
 import android.content.Context;
-import android.content.SharedPreferences;
 
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
@@ -10,7 +9,6 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.freeislamicapps.athantime.PrayerTimes.PrayTimesCalculator;
 import com.freeislamicapps.athantime.helper.SharedPreferencesHelper;
-import com.freeislamicapps.athantime.ui.settings.SettingsFragment;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -37,13 +35,12 @@ public class TabTodayViewModel extends AndroidViewModel {
     private final MutableLiveData<ArrayList<LocalTime>> prayerTimesLocalTime;
     ArrayList<String> prayerTimesLocalTimeString;
 
-    SharedPreferences sharedPreferences;
-    Context context;
+    Context mContext;
 
 
     public TabTodayViewModel(Application application) {
         super(application);
-        context = getApplication().getApplicationContext();
+        mContext = getApplication().getApplicationContext();
         fajrTime = new MutableLiveData<>();
         sunriseTime = new MutableLiveData<>();
         dhuhrTime = new MutableLiveData<>();
@@ -63,7 +60,6 @@ public class TabTodayViewModel extends AndroidViewModel {
     }
 
     public void init() {
-        sharedPreferences = getApplication().getApplicationContext().getSharedPreferences(SettingsFragment.SHARED_PREFS, Context.MODE_PRIVATE);
         //TODO
         // Log.d("prayadj",String.valueOf(MainActivity.prayTimes.getTimeZone()));
         PrayTimesCalculator prayTimesCalculator = new PrayTimesCalculator(LocalDate.parse(TabTodayFragment.index), getApplication().getApplicationContext());
@@ -80,12 +76,12 @@ public class TabTodayViewModel extends AndroidViewModel {
 
         prayerTimesLocalTime.setValue(stringToLocalTime(prayerTimesLocalTimeString));
 
-        fajrSound.setValue(SharedPreferencesHelper.getValue(context, "Fajr_Sound", false));
-        sunriseSound.setValue(SharedPreferencesHelper.getValue(context, "Sunrise_Sound", false));
-        dhuhrSound.setValue(SharedPreferencesHelper.getValue(context, "Dhuhr_Sound", false));
-        asrSound.setValue(SharedPreferencesHelper.getValue(context, "Asr_Sound", false));
-        maghribSound.setValue(SharedPreferencesHelper.getValue(context, "Maghrib_Sound", false));
-        ishaaSound.setValue(SharedPreferencesHelper.getValue(context, "Ishaa_Sound", false));
+        fajrSound.setValue(SharedPreferencesHelper.getValue(mContext, "Fajr_Sound", false));
+        sunriseSound.setValue(SharedPreferencesHelper.getValue(mContext, "Sunrise_Sound", false));
+        dhuhrSound.setValue(SharedPreferencesHelper.getValue(mContext, "Dhuhr_Sound", false));
+        asrSound.setValue(SharedPreferencesHelper.getValue(mContext, "Asr_Sound", false));
+        maghribSound.setValue(SharedPreferencesHelper.getValue(mContext, "Maghrib_Sound", false));
+        ishaaSound.setValue(SharedPreferencesHelper.getValue(mContext, "Ishaa_Sound", false));
 
 
     }
