@@ -73,4 +73,21 @@
     <!-- Button-->
     <string name="button_getmylocation">Ermittle meinen Standort</string>
 
+    <!-- Intro-->
+    <!-- Privacy-->
+    <string name="intro_title_privacy">Datenschutz ist wichtig</string>
+    <string name="intro_desc_privacy">Wir werden Ihre Daten niemals an Dritte verkaufen</string>
+    <string name="intro_button_privacy">Loslegen</string>
+
+    <!-- Location-->
+    <string name="intro_title_location">Geben Sie Ihren Standort frei</string>
+    <string name="intro_desc_location">Um ihnen die Gebetszeiten für Ihren Standort anzuzeigen</string>
+    <string name="intro_button_location">Standort freigeben</string>
+    <string name="intro_button2_location">Später manuell eingeben</string>
+
+    <!-- Notification-->
+    <string name="intro_title_notification">Aktivieren Sie Ihre Benachrichtigung</string>
+    <string name="intro_desc_notification">Um Ihnen die Gebetszeiten pünktlich anzuzeigen</string>
+    <string name="intro_button_notification">Berechnen</string>
+
 </resources>

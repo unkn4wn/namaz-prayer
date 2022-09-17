@@ -73,4 +73,21 @@
     <!-- Button-->
     <string name="button_getmylocation">Konumumu bul</string>
 
+    <!-- Intro-->
+    <!-- Privacy-->
+    <string name="intro_title_privacy">Gizlilik önemlidir</string>
+    <string name="intro_desc_privacy">Verilerinizi asla üçüncü taraflara satmayacağız</string>
+    <string name="intro_button_privacy">Başlayın</string>
+
+    <!-- Location-->
+    <string name="intro_title_location">Konumunuzu etkinleştirin</string>
+    <string name="intro_desc_location">Bulunduğunuz yerdeki namaz vakitlerini göstermek için</string>
+    <string name="intro_button_location">Konumu etkinleştir</string>
+    <string name="intro_button2_location">Daha sonra manuel olarak girin</string>
+
+    <!-- Notification-->
+    <string name="intro_title_notification">Bildiriminizi Etkinleştirin</string>
+    <string name="intro_desc_notification">Namaz vakitlerini zamanında göstermek için</string>
+    <string name="intro_button_notification">Hesapla</string>
+
 </resources>

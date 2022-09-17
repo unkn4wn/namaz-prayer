@@ -73,4 +73,22 @@
     <!-- Button-->
     <string name="button_getmylocation">Get my location</string>
 
+    <!-- Intro-->
+    <!-- Privacy-->
+    <string name="intro_title_privacy">Privacy is important</string>
+    <string name="intro_desc_privacy">We will never sell your data to third parties</string>
+    <string name="intro_button_privacy">Get Started</string>
+
+    <!-- Location-->
+    <string name="intro_title_location">Enable your location</string>
+    <string name="intro_desc_location">To show you the prayer times for your location</string>
+
+    <!-- Notification-->
+    <string name="intro_title_notification">Enable your Notification</string>
+    <string name="intro_desc_notification">To show you the prayer times on time</string>
+
+    <string name="intro_button_location">Enable location</string>
+    <string name="intro_button2_location">Enter manually later</string>
+    <string name="intro_button_notification">Calculate</string>
+
 </resources>
