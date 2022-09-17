@@ -21,6 +21,7 @@
     <string name="title_prayercalculation">Gebetszeitenberechnung</string>
 
     <!--Subsettings prayercalculation-->
+    <string name="title_sublocation">Standort</string>
     <string name="title_method">Methode</string>
     <string name="title_asrcalculation">Asr-Berechnung</string>
     <string name="title_highlatadjustment">Anpassung für höhere Breiten</string>
@@ -68,5 +69,8 @@
     <string name="highlatadjustment_angle">Winkelbasiert</string>
     <string name="highlatadjustment_middle">Mitten in der Nacht</string>
     <string name="highlatadjustment_seventh">Ein Siebtel der Nacht</string>
+
+    <!-- Button-->
+    <string name="button_getmylocation">Ermittle meinen Standort</string>
 
 </resources>

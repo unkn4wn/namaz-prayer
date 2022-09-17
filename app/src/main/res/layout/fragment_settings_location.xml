@@ -20,7 +20,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Location"
+            android:text="@string/title_sublocation"
             android:textSize="25sp"
             android:textStyle="bold" />
 
@@ -41,7 +41,6 @@
         android:layout_marginStart="18dp"
         android:layout_marginEnd="18dp"
         android:layout_marginBottom="10dp"
-        android:text="Get my location"
         android:textColor="@color/white"
         android:textStyle="bold"
         app:cornerRadius="8dp"
@@ -66,7 +65,7 @@
                 android:id="@+id/getmylocationText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Get my location"
+                android:text="@string/button_getmylocation"
                 android:textColor="@color/white"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"

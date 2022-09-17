@@ -17,10 +17,11 @@
     <string name="ishaa">Ishaa</string>
 
     <!--Settings title-->
-    <string name="title_location">Your location</string>
+    <string name="title_location">Your Location</string>
     <string name="title_prayercalculation">Prayer Calculation</string>
 
     <!--Subsettings prayercalculation-->
+    <string name="title_sublocation">Location</string>
     <string name="title_method">Method</string>
     <string name="title_asrcalculation">Asr calculation</string>
     <string name="title_highlatadjustment">High Lat Adjustment</string>
@@ -68,5 +69,8 @@
     <string name="highlatadjustment_angle">Angle-Based</string>
     <string name="highlatadjustment_middle">Middle of the night</string>
     <string name="highlatadjustment_seventh">One-Seventh of the Night</string>
+
+    <!-- Button-->
+    <string name="button_getmylocation">Get my location</string>
 
 </resources>

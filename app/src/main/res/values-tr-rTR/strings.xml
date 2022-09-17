@@ -21,6 +21,7 @@
     <string name="title_prayercalculation">Hesaplama yöntemi</string>
 
     <!--Subsettings prayercalculation-->
+    <string name="title_sublocation">Konum</string>
     <string name="title_method">Yöntem</string>
     <string name="title_asrcalculation">Ikindi hesaplaması</string>
     <string name="title_highlatadjustment">Yüksek enlemde ayarlama</string>
@@ -68,5 +69,8 @@
     <string name="highlatadjustment_angle">Açıya dayalı</string>
     <string name="highlatadjustment_middle">Gece yarısı</string>
     <string name="highlatadjustment_seventh">Gecenin yedide biri</string>
+
+    <!-- Button-->
+    <string name="button_getmylocation">Konumumu bul</string>
 
 </resources>
