@@ -42,6 +42,11 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            getWindow().setStatusBarColor(getResources().getColor(R.color.black));
+            getWindow().setNavigationBarColor(getResources().getColor(R.color.black));
+        }
+
         boolean firstStart = SharedPreferencesHelper.getValue(this, "firstStart", true);
 
         if (firstStart) {
