@@ -44,13 +44,13 @@ public class PrayTimesCalculator {
         int maghribManualTunes = SharedPreferencesHelper.getValue(context,"MaghribManualTunes",0);
         int ishaaManualTunes = SharedPreferencesHelper.getValue(context,"IshaaManualTunes",0);
 
-        prayTimes.tuneFajr(prayTimes.getFajrAngle(),fajrManualTunes);
-        prayTimes.tuneSunrise(sunriseManualTunes);
-        prayTimes.tuneDhuhr(dhuhrManualTunes);
-        prayTimes.tuneAsrHanafi(asrManualTunes);
-        prayTimes.tuneAsrShafi(asrManualTunes);
-        prayTimes.tuneMaghrib(prayTimes.getMaghribAngle(),maghribManualTunes);
-        prayTimes.tuneIshaa(prayTimes.getIshaaAngle(),ishaaManualTunes);
+        prayTimes.tuneFajr(prayTimes.getFajrAngle(),prayTimes.getFajrMinuteAdjust()+fajrManualTunes);
+        prayTimes.tuneSunrise(prayTimes.getSunriseMinuteAdjust()+sunriseManualTunes);
+        prayTimes.tuneDhuhr(prayTimes.getDhuhrMinuteAdjust()+dhuhrManualTunes);
+        prayTimes.tuneAsrHanafi(prayTimes.getAsrHanafiMinuteAdjust()+asrManualTunes);
+        prayTimes.tuneAsrShafi(prayTimes.getAsrShafiMinuteAdjust()+asrManualTunes);
+        prayTimes.tuneMaghrib(prayTimes.getMaghribAngle(),prayTimes.getMaghribMinuteAdjust()+maghribManualTunes);
+        prayTimes.tuneIshaa(prayTimes.getIshaaAngle(),prayTimes.getIshaaMinuteAdjust()+ishaaManualTunes);
 
         //TODO
         // Log.d("prayadj",String.valueOf(prayTimes.getTimeZone()));
