@@ -4,19 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.intro.IntroActivity"
+    android:background="?attr/backgroundColor"
     android:orientation="vertical"
-    android:background="?attr/backgroundColor">
+    tools:context=".ui.intro.IntroActivity">
 
 
     <LinearLayout
         android:id="@+id/linearTitleImage"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@id/linearLayout"
+        android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
         android:layout_marginTop="16dp"
-        android:layout_marginHorizontal="30dp"
-        android:gravity="center"
-        android:layout_above="@id/linearLayout">
+        android:gravity="center">
 
 
         <ImageView
@@ -33,11 +33,10 @@
         android:id="@+id/linearLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
+        android:layout_above="@+id/getStartedButton"
+        android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
         android:layout_marginBottom="20dp"
         android:orientation="vertical"
-        android:layout_above="@+id/getStartedButton"
         app:layout_constraintBottom_toTopOf="@+id/getStartedButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -75,9 +74,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_gravity="bottom"
+        android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
         android:layout_marginBottom="58dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
         android:background="@drawable/button_round_corner"
         android:text="@string/intro_button_privacy"
         android:textColor="@color/white"
