@@ -20,9 +20,12 @@
 
 
             <TextView
+                android:id="@+id/title_manualtunes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/title_manualtunes"
+                android:autoSizeTextType="uniform"
+                android:maxLines="1"
                 android:textSize="25sp"
                 android:layout_marginEnd="40dp"
                 android:textStyle="bold" />
@@ -89,7 +92,10 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
+                        android:layout_centerVertical="true"
+                        android:layout_toStartOf="@+id/fajrAdd"
+                        android:layout_toEndOf="@+id/fajrRemove"
+                        android:gravity="center"
                         android:orientation="horizontal">
 
                         <TextView
@@ -97,16 +103,16 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="2dp"
-                            android:textSize="18sp"
-                            android:text="0"/>
+                            android:text="0"
+                            android:textSize="18sp" />
 
                         <TextView
                             android:id="@+id/fajrMinuteText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="2dp"
-                            android:textSize="18sp"
-                            android:text="@string/minutes" />
+                            android:text="@string/minutes"
+                            android:textSize="18sp" />
                     </LinearLayout>
 
 
@@ -169,7 +175,10 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
+                        android:layout_centerVertical="true"
+                        android:layout_toStartOf="@+id/sunriseAdd"
+                        android:layout_toEndOf="@+id/sunriseRemove"
+                        android:gravity="center"
                         android:orientation="horizontal">
 
                         <TextView
@@ -177,16 +186,16 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="2dp"
-                            android:textSize="18sp"
-                            android:text="0"/>
+                            android:text="0"
+                            android:textSize="18sp" />
 
                         <TextView
                             android:id="@+id/sunriseMinuteText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="2dp"
-                            android:textSize="18sp"
-                            android:text="@string/minutes" />
+                            android:text="@string/minutes"
+                            android:textSize="18sp" />
                     </LinearLayout>
 
 
@@ -246,7 +255,10 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
+                        android:layout_centerVertical="true"
+                        android:gravity="center"
+                        android:layout_toStartOf="@+id/dhuhrAdd"
+                        android:layout_toEndOf="@+id/dhuhrRemove"
                         android:orientation="horizontal">
 
                         <TextView
@@ -254,16 +266,16 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="2dp"
-                            android:textSize="18sp"
-                            android:text="0"/>
+                            android:text="0"
+                            android:textSize="18sp" />
 
                         <TextView
                             android:id="@+id/dhuhrMinuteText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="2dp"
-                            android:textSize="18sp"
-                            android:text="@string/minutes" />
+                            android:text="@string/minutes"
+                            android:textSize="18sp" />
                     </LinearLayout>
 
 
@@ -323,7 +335,10 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
+                        android:layout_centerVertical="true"
+                        android:gravity="center"
+                        android:layout_toStartOf="@+id/asrAdd"
+                        android:layout_toEndOf="@+id/asrRemove"
                         android:orientation="horizontal">
 
                         <TextView
@@ -331,16 +346,16 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="2dp"
-                            android:textSize="18sp"
-                            android:text="0"/>
+                            android:text="0"
+                            android:textSize="18sp" />
 
                         <TextView
                             android:id="@+id/asrMinuteText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="2dp"
-                            android:textSize="18sp"
-                            android:text="@string/minutes" />
+                            android:text="@string/minutes"
+                            android:textSize="18sp" />
                     </LinearLayout>
 
 
@@ -400,7 +415,10 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
+                        android:layout_centerVertical="true"
+                        android:gravity="center"
+                        android:layout_toStartOf="@+id/maghribAdd"
+                        android:layout_toEndOf="@+id/maghribRemove"
                         android:orientation="horizontal">
 
                         <TextView
@@ -408,16 +426,16 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="2dp"
-                            android:textSize="18sp"
-                            android:text="0"/>
+                            android:text="0"
+                            android:textSize="18sp" />
 
                         <TextView
                             android:id="@+id/maghribMinuteText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="2dp"
-                            android:textSize="18sp"
-                            android:text="@string/minutes" />
+                            android:text="@string/minutes"
+                            android:textSize="18sp" />
                     </LinearLayout>
 
 
@@ -477,7 +495,10 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
+                        android:layout_centerVertical="true"
+                        android:layout_toStartOf="@+id/ishaaAdd"
+                        android:layout_toEndOf="@+id/ishaaRemove"
+                        android:gravity="center"
                         android:orientation="horizontal">
 
                         <TextView
@@ -485,16 +506,16 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="2dp"
-                            android:textSize="18sp"
-                            android:text="0"/>
+                            android:text="0"
+                            android:textSize="18sp" />
 
                         <TextView
                             android:id="@+id/ishaaMinuteText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="2dp"
-                            android:textSize="18sp"
-                            android:text="@string/minutes" />
+                            android:text="@string/minutes"
+                            android:textSize="18sp" />
                     </LinearLayout>
 
 

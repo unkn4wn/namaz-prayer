@@ -25,6 +25,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.widget.TextViewCompat;
 import androidx.fragment.app.Fragment;
 
 import com.freeislamicapps.athantime.R;
@@ -126,6 +127,9 @@ public class SettingsFragment extends Fragment implements DialogInterface.OnDism
 
         ImageButton closeButton = dialog.findViewById(R.id.closeBottomsheetButton);
 
+        TextView titleHighLats = dialog.findViewById(R.id.title_highlatadjustment);
+        TextViewCompat.setAutoSizeTextTypeWithDefaults(titleHighLats,TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM);
+
         cardViewHighLatsNone.setOnClickListener(v -> {
             dialog.dismiss();
             highLatsAdjustmentText.setText(getResources().getString(R.string.highlatadjustment_none));
@@ -154,12 +158,7 @@ public class SettingsFragment extends Fragment implements DialogInterface.OnDism
             SharedPreferencesHelper.storeValue(requireContext(), "HighLatsAdjustmentText", getResources().getString(R.string.highlatadjustment_seventh));
         });
 
-        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-            @Override
-            public void onDismiss(DialogInterface dialogInterface) {
-                setAlarm();
-            }
-        });
+        dialog.setOnDismissListener(dialogInterface -> setAlarm());
 
         closeButton.setOnClickListener(view -> dialog.dismiss());
 
@@ -180,6 +179,8 @@ public class SettingsFragment extends Fragment implements DialogInterface.OnDism
 
         ImageButton closeButton = dialog.findViewById(R.id.closeBottomsheetButton);
 
+        TextView titleAsrCalculation = dialog.findViewById(R.id.title_asrcalculation);
+        TextViewCompat.setAutoSizeTextTypeWithDefaults(titleAsrCalculation,TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM);
 
         cardViewShafi.setOnClickListener(v -> {
             dialog.dismiss();
@@ -195,12 +196,7 @@ public class SettingsFragment extends Fragment implements DialogInterface.OnDism
             SharedPreferencesHelper.storeValue(requireContext(), "AsrCalculationText", getResources().getString(R.string.asrcalculation_hanafi));
         });
 
-        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-            @Override
-            public void onDismiss(DialogInterface dialogInterface) {
-                setAlarm();
-            }
-        });
+        dialog.setOnDismissListener(dialogInterface -> setAlarm());
 
         closeButton.setOnClickListener(view -> dialog.dismiss());
 
@@ -225,6 +221,9 @@ public class SettingsFragment extends Fragment implements DialogInterface.OnDism
         LinearLayout cardViewKarachi = dialog.findViewById(R.id.cardViewKarachi);
 
         ImageButton closeButton = dialog.findViewById(R.id.closeBottomsheetButton);
+
+        TextView titleMethod = dialog.findViewById(R.id.title_method);
+        TextViewCompat.setAutoSizeTextTypeWithDefaults(titleMethod,TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM);
 
 
         cardviewEgypt.setOnClickListener(v -> {
@@ -276,12 +275,7 @@ public class SettingsFragment extends Fragment implements DialogInterface.OnDism
             SharedPreferencesHelper.storeValue(requireContext(), "MethodText", getResources().getString(R.string.method_karachi));
         });
 
-        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-            @Override
-            public void onDismiss(DialogInterface dialogInterface) {
-                setAlarm();
-            }
-        });
+        dialog.setOnDismissListener(dialogInterface -> setAlarm());
 
         closeButton.setOnClickListener(view -> dialog.dismiss());
 
@@ -323,6 +317,9 @@ public class SettingsFragment extends Fragment implements DialogInterface.OnDism
         ImageButton ishaaAdd = dialog.findViewById(R.id.ishaaAdd);
         ImageButton ishaaRemove = dialog.findViewById(R.id.ishaaRemove);
 
+        TextView titleManualTunes = dialog.findViewById(R.id.title_manualtunes);
+        TextViewCompat.setAutoSizeTextTypeWithDefaults(titleManualTunes,TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM);
+
 
         displayManualTunes("FajrManualTunes", fajrMinuteText, fajrMinute);
         displayManualTunes("SunriseManualTunes", sunriseMinuteText, sunriseMinute);
@@ -344,8 +341,6 @@ public class SettingsFragment extends Fragment implements DialogInterface.OnDism
         ishaaAdd.setOnClickListener(view -> changeManualTunes("IshaaManualTunes", ishaaMinuteText, ishaaMinute, +1));
         ishaaRemove.setOnClickListener(view -> changeManualTunes("IshaaManualTunes", ishaaMinuteText, ishaaMinute, -1));
 
-
-        String manualTunesTextString = SharedPreferencesHelper.getValue(requireContext(), "ManualTunesText", "0,0,0,0,0,0");
 
         dialog.setOnDismissListener(dialogInterface -> {
             manualTunesText.setText(SharedPreferencesHelper.getValue(requireContext(), "ManualTunesText", "0,0,0,0,0,0"));
@@ -420,6 +415,9 @@ public class SettingsFragment extends Fragment implements DialogInterface.OnDism
         TextView maghribSoundText = dialog.findViewById(R.id.maghribSoundText);
         TextView ishaaSoundText = dialog.findViewById(R.id.ishaaSoundText);
 
+        TextView titleNotification = dialog.findViewById(R.id.title_notification);
+        TextViewCompat.setAutoSizeTextTypeWithDefaults(titleNotification,TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM);
+
         fajrSound = SharedPreferencesHelper.getValue(requireContext(), "Fajr_Sound", true);
         sunriseSound = SharedPreferencesHelper.getValue(requireContext(), "Sunrise_Sound", false);
         dhuhrSound = SharedPreferencesHelper.getValue(requireContext(), "Dhuhr_Sound", true);
@@ -474,12 +472,7 @@ public class SettingsFragment extends Fragment implements DialogInterface.OnDism
             ishaaSound = !ishaaSound;
         });
 
-        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-            @Override
-            public void onDismiss(DialogInterface dialogInterface) {
-                setAlarm();
-            }
-        });
+        dialog.setOnDismissListener(dialogInterface -> setAlarm());
 
         ImageButton closeButton = dialog.findViewById(R.id.closeBottomsheetButton);
         closeButton.setOnClickListener(view -> dialog.dismiss());

@@ -19,9 +19,12 @@
 
 
             <TextView
+                android:id="@+id/title_highlatadjustment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/title_highlatadjustment"
+                android:autoSizeTextType="uniform"
+                android:maxLines="1"
                 android:textSize="25sp"
                 android:layout_marginEnd="40dp"
                 android:textStyle="bold" />
@@ -59,7 +62,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:text="None"
+                        android:text="@string/highlatadjustment_none"
                         android:textSize="16sp" />
 
                 </LinearLayout>
@@ -81,7 +84,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:text="Angle-Based"
+                        android:text="@string/highlatadjustment_angle"
                         android:textSize="16sp" />
 
                 </LinearLayout>
@@ -103,7 +106,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:text="Middle of the night"
+                        android:text="@string/highlatadjustment_middle"
                         android:textSize="16sp" />
 
                 </LinearLayout>
@@ -125,7 +128,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:text="One-Seventh of the night"
+                        android:text="@string/highlatadjustment_seventh"
                         android:textSize="16sp" />
 
                 </LinearLayout>

@@ -20,9 +20,12 @@
 
 
         <TextView
+            android:id="@+id/title_method"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/title_method"
+            android:autoSizeTextType="uniform"
+            android:maxLines="1"
             android:textSize="25sp"
             android:layout_marginEnd="40dp"
             android:textStyle="bold" />
@@ -52,6 +55,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:orientation="horizontal"
+                    android:gravity="center"
                     android:padding="8dp"
                     app:cardCornerRadius="0dp"
                     android:background="@drawable/bottomsheet_pressed_state">
@@ -60,7 +64,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="Egyptian General Authority of Survey"
+                        android:text="@string/method_egypt"
                         android:textSize="16sp" />
 
                 </LinearLayout>
@@ -74,6 +78,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:orientation="horizontal"
+                    android:gravity="center"
                     android:padding="8dp"
                     app:cardCornerRadius="0dp"
                     android:background="@drawable/bottomsheet_pressed_state">
@@ -83,7 +88,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="Institute of Geophysics, University of Tehran"
+                        android:text="@string/method_tehran"
                         android:textSize="16sp" />
 
                 </LinearLayout>
@@ -98,6 +103,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:orientation="horizontal"
+                    android:gravity="center"
                     android:padding="8dp"
                     app:cardCornerRadius="0dp"
                     android:background="@drawable/bottomsheet_pressed_state">
@@ -107,7 +113,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="Islamic Society of North America (ISNA)"
+                        android:text="@string/method_isna"
                         android:textSize="16sp" />
 
                 </LinearLayout>
@@ -122,6 +128,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:orientation="horizontal"
+                    android:gravity="center"
                     android:padding="8dp"
                     app:cardCornerRadius="0dp"
                     android:background="@drawable/bottomsheet_pressed_state">
@@ -131,7 +138,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="Muslim World League (MWL)"
+                        android:text="@string/method_mwl"
                         android:textSize="16sp" />
 
 
@@ -147,6 +154,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:orientation="horizontal"
+                    android:gravity="center"
                     android:padding="8dp"
                     app:cardCornerRadius="0dp"
                     android:background="@drawable/bottomsheet_pressed_state">
@@ -156,7 +164,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="Umm Al-Qura University, Makkah"
+                        android:text="@string/method_makkah"
                         android:textSize="16sp" />
 
 
@@ -172,6 +180,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:orientation="horizontal"
+                    android:gravity="center"
                     android:padding="8dp"
                     app:cardCornerRadius="0dp"
                     android:background="@drawable/bottomsheet_pressed_state">
@@ -181,7 +190,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="Union des organisations islamiques de France"
+                        android:text="@string/method_uoif"
                         android:textSize="16sp" />
 
 
@@ -197,6 +206,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:orientation="horizontal"
+                    android:gravity="center"
                     android:padding="8dp"
                     app:cardCornerRadius="0dp"
                     android:background="@drawable/bottomsheet_pressed_state">
@@ -206,7 +216,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="University of Islamic Sciences, Karachi"
+                        android:text="@string/method_karachi"
                         android:textSize="16sp" />
 
 

@@ -19,9 +19,12 @@
 
 
     <TextView
+        android:id="@+id/title_asrcalculation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/title_asrcalculation"
+        android:autoSizeTextType="uniform"
+        android:maxLines="1"
         android:textSize="25sp"
         android:layout_marginEnd="40dp"
         android:textStyle="bold" />
@@ -60,7 +63,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:text="Shafi, Maliki, Hanbali (Standard)"
+                        android:text="@string/asrcalculation_shafi"
                         android:textSize="16sp" />
 
                 </LinearLayout>
@@ -83,7 +86,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:text="Hanafi"
+                        android:text="@string/asrcalculation_hanafi"
                         android:textSize="16sp" />
 
                 </LinearLayout>

@@ -19,9 +19,12 @@
 
 
             <TextView
+                android:id="@+id/title_notification"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/title_notification"
+                android:autoSizeTextType="uniform"
+                android:maxLines="1"
                 android:textSize="25sp"
                 android:layout_marginEnd="40dp"
                 android:textStyle="bold" />
