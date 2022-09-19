@@ -1,18 +1,14 @@
 package com.freeislamicapps.athantime.ui.intro;
 
+import android.app.AlarmManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
-
-import androidx.appcompat.content.res.AppCompatResources;
-import androidx.core.widget.TextViewCompat;
-import androidx.fragment.app.Fragment;
-
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,11 +17,18 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.widget.TextViewCompat;
+import androidx.fragment.app.Fragment;
+
 import com.freeislamicapps.athantime.MainActivity;
 import com.freeislamicapps.athantime.R;
+import com.freeislamicapps.athantime.alarm.AlarmStart;
 import com.freeislamicapps.athantime.helper.SharedPreferencesHelper;
-import com.freeislamicapps.athantime.ui.settings.SettingsFragment;
 import com.google.android.material.card.MaterialCardView;
+
+import java.util.Calendar;
 
 /**
  * Intro Fragment
@@ -56,6 +59,13 @@ public class IntroNotificationFragment extends Fragment {
     int colorBackground;
     int colorPrimary;
     int colorOnSurface;
+
+    private Context mContext;
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -156,6 +166,7 @@ public class IntroNotificationFragment extends Fragment {
 
         Button calculateButton = view.findViewById(R.id.calculateButton);
         calculateButton.setOnClickListener(view17 -> {
+            setAlarm();
             SharedPreferencesHelper.storeValue(requireContext(), "firstStart", false);
             Intent intent = new Intent(getActivity(), MainActivity.class);
             startActivity(intent);
@@ -193,5 +204,29 @@ public class IntroNotificationFragment extends Fragment {
             cardView.setCardBackgroundColor(colorPrimary);
             textView.setTextColor(getResources().getColor(R.color.white));
         }
+    }
+    private void setAlarm() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 1);
+        calendar.set(Calendar.SECOND, 0);
+
+        AlarmManager alarmManager = (AlarmManager) requireActivity().getSystemService(Context.ALARM_SERVICE);
+
+        Intent intent = new Intent(requireActivity(), AlarmStart.class);
+
+        PendingIntent pendingIntent;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            pendingIntent = PendingIntent.getBroadcast(requireActivity(), 20, intent, PendingIntent.FLAG_MUTABLE);
+        } else {
+            pendingIntent = PendingIntent.getBroadcast(requireActivity(), 20, intent, 0);
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+        } else {
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+        }
+
     }
 }

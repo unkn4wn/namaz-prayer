@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private ActivityMainBinding binding;
-    private String filename,filepath,fileContent;
+    private String filename, filepath, fileContent;
 
     public static SharedPreferences sharedPreferences;
     public static final String CHANNEL_1_ID = "prayerChannel";
@@ -42,23 +42,19 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        boolean firstStart = SharedPreferencesHelper.getValue(this,"firstStart",true);
+        boolean firstStart = SharedPreferencesHelper.getValue(this, "firstStart", true);
 
         if (firstStart) {
             startFirstTime();
         }
 
         //Create notification channel and ask for permission first time
-       // createNotificationChannel(this);
+        // createNotificationChannel(this);
 
-        setAlarm();
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
 
         navView.setSelectedItemId(R.id.navigation_settings);
-
-
-
 
 
         // Passing each menu ID as a set of Ids because each
@@ -71,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(binding.navView, navController);
 
 
-       // DynamicColors.applyToActivitiesIfAvailable(this.getApplication());
+        // DynamicColors.applyToActivitiesIfAvailable(this.getApplication());
         if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
 
         } else {
@@ -82,45 +78,20 @@ public class MainActivity extends AppCompatActivity {
     private void startFirstTime() {
 
         //Default values
-        SharedPreferencesHelper.storeValue(this,"AsrCalculation","Shafi, Hanbali, Maliki");
-        SharedPreferencesHelper.storeValue(this,"Method","Islamic Society of North America (ISNA)");
-        SharedPreferencesHelper.storeValue(this,"HighLatsAdjustment","Angle-Based");
-        SharedPreferencesHelper.storeValue(this,"Style","Automatic (System settings)");
-        SharedPreferencesHelper.storeValue(this,"latitude","52.0");
-        SharedPreferencesHelper.storeValue(this,"longitude","9.0");
+        SharedPreferencesHelper.storeValue(this, "AsrCalculation", "Shafi, Hanbali, Maliki");
+        SharedPreferencesHelper.storeValue(this, "Method", "Islamic Society of North America (ISNA)");
+        SharedPreferencesHelper.storeValue(this, "HighLatsAdjustment", "Angle-Based");
+        SharedPreferencesHelper.storeValue(this, "Style", "Automatic (System settings)");
+        SharedPreferencesHelper.storeValue(this, "latitude", "52.0");
+        SharedPreferencesHelper.storeValue(this, "longitude", "9.0");
 
-        Intent intent = new Intent(MainActivity.this,IntroActivity.class);
+        Intent intent = new Intent(MainActivity.this, IntroActivity.class);
         startActivity(intent);
 
-
-        setAlarm();
     }
 
 
-    private void setAlarm() {
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY,0);
-        calendar.set(Calendar.MINUTE,1);
-        calendar.set(Calendar.SECOND,0);
 
-        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-
-        Intent intent = new Intent(this, AlarmStart.class);
-
-        PendingIntent pendingIntent = null;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            pendingIntent = PendingIntent.getBroadcast(this,20,intent,PendingIntent.FLAG_MUTABLE);
-        } else {
-            pendingIntent = PendingIntent.getBroadcast(this,20,intent,0);
-        }
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),pendingIntent);
-        } else {
-            alarmManager.setExact(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),pendingIntent);
-        }
-
-    }
 
 
     private void createNotificationChannel(Context context) {
@@ -143,6 +114,5 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-       setAlarm();
     }
 }

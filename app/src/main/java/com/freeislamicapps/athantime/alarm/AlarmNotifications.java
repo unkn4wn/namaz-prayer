@@ -1,14 +1,18 @@
 package com.freeislamicapps.athantime.alarm;
 
 import android.app.Notification;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.util.Log;
+import android.view.View;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+import com.freeislamicapps.athantime.MainActivity;
 import com.freeislamicapps.athantime.PrayerTimes.PrayTimesCalculator;
 import com.freeislamicapps.athantime.R;
 import com.freeislamicapps.athantime.helper.SharedPreferencesHelper;
@@ -80,19 +84,26 @@ public class AlarmNotifications extends BroadcastReceiver {
     }
 
     private void showNotification(Context context) {
+        Intent resultIntent = new Intent(context, MainActivity.class);
+        final int flag =  Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ? PendingIntent.FLAG_IMMUTABLE : PendingIntent.FLAG_UPDATE_CURRENT;
+        PendingIntent resultPendingIntent = PendingIntent.getActivity(context,31,resultIntent,flag);
         String contentTitle = context.getResources().getString(R.string.reminder);
         String contentText = currentPrayer + " "+  context.getResources().getString(R.string.time)+"!";
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(context);
         Notification notification = new NotificationCompat.Builder(context, CHANNEL_1_ID)
-                .setSmallIcon(R.drawable.ic_launcher_foreground2)
+                .setSmallIcon(R.drawable.symbol_mosque24)
                 .setContentTitle(contentTitle)
                 .setContentText(contentText)
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setDefaults(Notification.DEFAULT_ALL)
+                .setAutoCancel(true)
+                .setContentIntent(resultPendingIntent)
                 .setCategory(NotificationCompat.CATEGORY_ALARM)
                 .build();
 
         notificationManagerCompat.notify(1, notification);
     }
+
 
 
 }

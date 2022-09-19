@@ -1,10 +1,15 @@
 package com.freeislamicapps.athantime.ui.settings;
 
+import android.app.AlarmManager;
 import android.app.Dialog;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -18,12 +23,16 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.fragment.app.Fragment;
 
 import com.freeislamicapps.athantime.R;
+import com.freeislamicapps.athantime.alarm.AlarmStart;
 import com.freeislamicapps.athantime.helper.SharedPreferencesHelper;
 import com.google.android.material.card.MaterialCardView;
+
+import java.util.Calendar;
 
 
 public class SettingsFragment extends Fragment implements DialogInterface.OnDismissListener {
@@ -43,6 +52,13 @@ public class SettingsFragment extends Fragment implements DialogInterface.OnDism
     boolean maghribSound;
     boolean ishaaSound;
 
+    private Context mContext;
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        mContext = context;
+    }
 
     @Override
     public void setMenuVisibility(boolean menuVisible) {
@@ -138,6 +154,13 @@ public class SettingsFragment extends Fragment implements DialogInterface.OnDism
             SharedPreferencesHelper.storeValue(requireContext(), "HighLatsAdjustmentText", getResources().getString(R.string.highlatadjustment_seventh));
         });
 
+        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                setAlarm();
+            }
+        });
+
         closeButton.setOnClickListener(view -> dialog.dismiss());
 
         dialog.show();
@@ -170,6 +193,13 @@ public class SettingsFragment extends Fragment implements DialogInterface.OnDism
             asrCalculationText.setText(getResources().getString(R.string.asrcalculation_hanafi));
             SharedPreferencesHelper.storeValue(requireContext(), "AsrCalculation", "Hanafi");
             SharedPreferencesHelper.storeValue(requireContext(), "AsrCalculationText", getResources().getString(R.string.asrcalculation_hanafi));
+        });
+
+        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                setAlarm();
+            }
         });
 
         closeButton.setOnClickListener(view -> dialog.dismiss());
@@ -246,6 +276,13 @@ public class SettingsFragment extends Fragment implements DialogInterface.OnDism
             SharedPreferencesHelper.storeValue(requireContext(), "MethodText", getResources().getString(R.string.method_karachi));
         });
 
+        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                setAlarm();
+            }
+        });
+
         closeButton.setOnClickListener(view -> dialog.dismiss());
 
         dialog.show();
@@ -311,8 +348,8 @@ public class SettingsFragment extends Fragment implements DialogInterface.OnDism
         String manualTunesTextString = SharedPreferencesHelper.getValue(requireContext(), "ManualTunesText", "0,0,0,0,0,0");
 
         dialog.setOnDismissListener(dialogInterface -> {
-            System.out.println(manualTunesTextString);
             manualTunesText.setText(SharedPreferencesHelper.getValue(requireContext(), "ManualTunesText", "0,0,0,0,0,0"));
+            setAlarm();
         });
 
         ImageButton closeButton = dialog.findViewById(R.id.closeBottomsheetButton);
@@ -437,6 +474,13 @@ public class SettingsFragment extends Fragment implements DialogInterface.OnDism
             ishaaSound = !ishaaSound;
         });
 
+        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                setAlarm();
+            }
+        });
+
         ImageButton closeButton = dialog.findViewById(R.id.closeBottomsheetButton);
         closeButton.setOnClickListener(view -> dialog.dismiss());
         dialog.show();
@@ -479,6 +523,36 @@ public class SettingsFragment extends Fragment implements DialogInterface.OnDism
     @Override
     public void onDismiss(DialogInterface dialogInterface) {
         currentLocation.setText(SharedPreferencesHelper.getValue(requireContext(), "location", ""));
+        setAlarm();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+    }
+
+    private void setAlarm() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 1);
+        calendar.set(Calendar.SECOND, 0);
+
+        AlarmManager alarmManager = (AlarmManager) mContext.getSystemService(Context.ALARM_SERVICE);
+
+        Intent intent = new Intent(mContext, AlarmStart.class);
+
+        PendingIntent pendingIntent;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            pendingIntent = PendingIntent.getBroadcast(mContext, 20, intent, PendingIntent.FLAG_MUTABLE);
+        } else {
+            pendingIntent = PendingIntent.getBroadcast(mContext, 20, intent, 0);
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+        } else {
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+        }
 
     }
 
