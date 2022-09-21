@@ -11,29 +11,57 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.widget.TextViewCompat;
 import androidx.fragment.app.Fragment;
 
+import com.freeislamicapps.athantime.BuildConfig;
 import com.freeislamicapps.athantime.R;
 import com.freeislamicapps.athantime.alarm.AlarmStart;
+import com.freeislamicapps.athantime.helper.HttpDataHandler;
 import com.freeislamicapps.athantime.helper.SharedPreferencesHelper;
 import com.google.android.material.card.MaterialCardView;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Locale;
+import java.util.Objects;
+import java.util.TreeMap;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 
 public class SettingsFragment extends Fragment implements DialogInterface.OnDismissListener {
@@ -95,6 +123,9 @@ public class SettingsFragment extends Fragment implements DialogInterface.OnDism
         MaterialCardView cardViewManualtunes = view.findViewById(R.id.cardviewManualtunes);
         cardViewManualtunes.setOnClickListener(view14 -> showDialogManualtunes());
 
+        MaterialCardView cardViewDiyanetMethod = view.findViewById(R.id.cardViewDiyanetMethod);
+        cardViewDiyanetMethod.setOnClickListener(view16 -> showDialogDiyanetMethod());
+
         MaterialCardView cardViewNotification = view.findViewById(R.id.cardViewNotification);
         cardViewNotification.setOnClickListener(view15 -> showDialogNotification());
 
@@ -128,7 +159,7 @@ public class SettingsFragment extends Fragment implements DialogInterface.OnDism
         ImageButton closeButton = dialog.findViewById(R.id.closeBottomsheetButton);
 
         TextView titleHighLats = dialog.findViewById(R.id.title_highlatadjustment);
-        TextViewCompat.setAutoSizeTextTypeWithDefaults(titleHighLats,TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM);
+        TextViewCompat.setAutoSizeTextTypeWithDefaults(titleHighLats, TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM);
 
         cardViewHighLatsNone.setOnClickListener(v -> {
             dialog.dismiss();
@@ -180,7 +211,7 @@ public class SettingsFragment extends Fragment implements DialogInterface.OnDism
         ImageButton closeButton = dialog.findViewById(R.id.closeBottomsheetButton);
 
         TextView titleAsrCalculation = dialog.findViewById(R.id.title_asrcalculation);
-        TextViewCompat.setAutoSizeTextTypeWithDefaults(titleAsrCalculation,TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM);
+        TextViewCompat.setAutoSizeTextTypeWithDefaults(titleAsrCalculation, TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM);
 
         cardViewShafi.setOnClickListener(v -> {
             dialog.dismiss();
@@ -223,7 +254,7 @@ public class SettingsFragment extends Fragment implements DialogInterface.OnDism
         ImageButton closeButton = dialog.findViewById(R.id.closeBottomsheetButton);
 
         TextView titleMethod = dialog.findViewById(R.id.title_method);
-        TextViewCompat.setAutoSizeTextTypeWithDefaults(titleMethod,TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM);
+        TextViewCompat.setAutoSizeTextTypeWithDefaults(titleMethod, TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM);
 
 
         cardviewEgypt.setOnClickListener(v -> {
@@ -318,7 +349,7 @@ public class SettingsFragment extends Fragment implements DialogInterface.OnDism
         ImageButton ishaaRemove = dialog.findViewById(R.id.ishaaRemove);
 
         TextView titleManualTunes = dialog.findViewById(R.id.title_manualtunes);
-        TextViewCompat.setAutoSizeTextTypeWithDefaults(titleManualTunes,TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM);
+        TextViewCompat.setAutoSizeTextTypeWithDefaults(titleManualTunes, TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM);
 
 
         displayManualTunes("FajrManualTunes", fajrMinuteText, fajrMinute);
@@ -387,6 +418,269 @@ public class SettingsFragment extends Fragment implements DialogInterface.OnDism
         SharedPreferencesHelper.storeValue(requireContext(), "ManualTunesText",
                 fajrManualTunes + "," + sunriseManualTunes + "," + dhuhrManualTunes + ","
                         + asrManualTunes + "," + maghribManualTunes + "," + ishaaManualTunes);
+    }
+
+    private void showDialogDiyanetMethod() {
+        final Dialog dialog = new Dialog(requireActivity());
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.bottomsheet_method_diyanet);
+
+        Spinner spinnerCountry = dialog.findViewById(R.id.spinnerCountry);
+        ArrayList<LocationCountry> countryListNew = new ArrayList<>();
+
+        try {
+            String str = "";
+            InputStream inputStream = requireActivity().getAssets().open("countries.json");
+            int size = inputStream.available();
+            byte [] buffer = new byte[size];
+            inputStream.read(buffer);
+            str = new String(buffer);
+
+            JSONArray jsonArray = new JSONArray(str);
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject countryObject = jsonArray.getJSONObject(i);
+                countryListNew.add(new LocationCountry(countryObject.getInt("UlkeID"),countryObject.getString("UlkeAdi")));
+            }
+            ArrayAdapter<LocationCountry> locationCountryArrayAdapter = new ArrayAdapter<LocationCountry>(requireContext(),
+                    android.R.layout.simple_spinner_dropdown_item, countryListNew);
+            spinnerCountry.setAdapter(locationCountryArrayAdapter);
+
+            spinnerCountry.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                LocationCountry locationCountry = (LocationCountry) parent.getItemAtPosition(position);
+                    Toast.makeText(requireContext(), String.valueOf(locationCountry.getId()),Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+
+
+
+        dialog.setOnDismissListener(dialogInterface -> setAlarm());
+
+        ImageButton closeButton = dialog.findViewById(R.id.closeBottomsheetButton);
+        closeButton.setOnClickListener(view -> dialog.dismiss());
+        dialog.show();
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+        dialog.getWindow().setGravity(Gravity.BOTTOM);
+    }
+
+    private void initDiyanetCountries(ArrayList<String> countryList) {
+        countryList.add("ABD");
+        countryList.add("AFGANISTAN");
+        countryList.add("ALMANYA");
+        countryList.add("ANDORRA");
+        countryList.add("ANGOLA");
+        countryList.add("ANGUILLA");
+        countryList.add("ANTIGUA VE BARBUDA");
+        countryList.add("ARJANTIN");
+        countryList.add("ARNAVUTLUK");
+        countryList.add("ARUBA");
+        countryList.add("AVUSTRALYA");
+        countryList.add("AVUSTURYA");
+        countryList.add("AZERBAYCAN");
+        countryList.add("BAHAMALAR");
+        countryList.add("BAHREYN");
+        countryList.add("BANGLADES");
+        countryList.add("BARBADOS");
+        countryList.add("BELARUS");
+        countryList.add("BELCIKA");
+        countryList.add("BELIZE");
+        countryList.add("BENIN");
+        countryList.add("BERMUDA");
+        countryList.add("BIRLESIK ARAP EMIRLIGI");
+        countryList.add("BOLIVYA");
+        countryList.add("BOSNA HERSEK");
+        countryList.add("BOTSVANA");
+        countryList.add("BREZILYA");
+        countryList.add("BRUNEI");
+        countryList.add("BULGARISTAN");
+        countryList.add("BURKINA FASO");
+        countryList.add("BURMA (MYANMAR)");
+        countryList.add("BURUNDI");
+        countryList.add("BUTAN");
+        countryList.add("CAD");
+        countryList.add("CECENISTAN");
+        countryList.add("CEK CUMHURIYETI");
+        countryList.add("CEZAYIR");
+        countryList.add("CIBUTI");
+        countryList.add("CIN");
+        countryList.add("DANIMARKA");
+        countryList.add("DEMOKRATIK KONGO CUMHURIYETI");
+        countryList.add("DOGU TIMOR");
+        countryList.add("DOMINIK");
+        countryList.add("DOMINIK CUMHURIYETI");
+        countryList.add("EKVATOR");
+        countryList.add("EKVATOR GINESI");
+        countryList.add("EL SALVADOR");
+        countryList.add("ENDONEZYA");
+        countryList.add("ERITRE");
+        countryList.add("ERMENISTAN");
+        countryList.add("ESTONYA");
+        countryList.add("ETYOPYA");
+        countryList.add("FAS");
+        countryList.add("FIJI");
+        countryList.add("FILDISI SAHILI");
+        countryList.add("FILIPINLER");
+        countryList.add("FILISTIN");
+        countryList.add("FINLANDIYA");
+        countryList.add("FRANSA");
+        countryList.add("GABON");
+        countryList.add("GAMBIYA");
+        countryList.add("GANA");
+        countryList.add("GINE");
+        countryList.add("GRENADA");
+        countryList.add("GRONLAND");
+        countryList.add("GUADELOPE");
+        countryList.add("GUAM ADASI");
+        countryList.add("GUATEMALA");
+        countryList.add("GUNEY AFRIKA");
+        countryList.add("GUNEY KORE");
+        countryList.add("GURCISTAN");
+        countryList.add("GUYANA");
+        countryList.add("HAITI");
+        countryList.add("HINDISTAN");
+        countryList.add("HIRVATISTAN");
+        countryList.add("HOLLANDA");
+        countryList.add("HOLLANDA ANTILLERI");
+        countryList.add("HONDURAS");
+        countryList.add("HONG KONG");
+        countryList.add("INGILTERE");
+        countryList.add("IRAK");
+        countryList.add("IRAN");
+        countryList.add("IRLANDA");
+        countryList.add("ISPANYA");
+        countryList.add("ISRAIL");
+        countryList.add("ISVEC");
+        countryList.add("ISVICRE");
+        countryList.add("ITALYA");
+        countryList.add("IZLANDA");
+        countryList.add("JAMAIKA");
+        countryList.add("JAPONYA");
+        countryList.add("KAMBOCYA");
+        countryList.add("KAMERUN");
+        countryList.add("KANADA");
+        countryList.add("KARADAG");
+        countryList.add("KATAR");
+        countryList.add("KAZAKISTAN");
+        countryList.add("KENYA");
+        countryList.add("KIRGIZISTAN");
+        countryList.add("KOLOMBIYA");
+        countryList.add("KOMORLAR");
+        countryList.add("KOSOVA");
+        countryList.add("KOSTARIKA");
+        countryList.add("KUBA");
+        countryList.add("KUDUS");
+        countryList.add("KUVEYT");
+        countryList.add("KUZEY KIBRIS");
+        countryList.add("KUZEY KORE");
+        countryList.add("LAOS");
+        countryList.add("LESOTO");
+        countryList.add("LETONYA");
+        countryList.add("LIBERYA");
+        countryList.add("LIBYA");
+        countryList.add("LIECHTENSTEIN");
+        countryList.add("LITVANYA");
+        countryList.add("LUBNAN");
+        countryList.add("LUKSEMBURG");
+        countryList.add("MACARISTAN");
+        countryList.add("MADAGASKAR");
+        countryList.add("MAKAO");
+        countryList.add("MAKEDONYA");
+        countryList.add("MALAVI");
+        countryList.add("MALDIVLER");
+        countryList.add("MALEZYA");
+        countryList.add("MALI");
+        countryList.add("MALTA");
+        countryList.add("MARTINIK");
+        countryList.add("MAURITIUS ADASI");
+        countryList.add("MAYOTTE");
+        countryList.add("MEKSIKA");
+        countryList.add("MIKRONEZYA");
+        countryList.add("MISIR");
+        countryList.add("MOGOLISTAN");
+        countryList.add("MOLDAVYA");
+        countryList.add("MONAKO");
+        countryList.add("MONTSERRAT (U.K.)");
+        countryList.add("MORITANYA");
+        countryList.add("MOZAMBIK");
+        countryList.add("NAMIBYA");
+        countryList.add("NEPAL");
+        countryList.add("NIJER");
+        countryList.add("NIJERYA");
+        countryList.add("NIKARAGUA");
+        countryList.add("NIUE");
+        countryList.add("NORVEC");
+        countryList.add("ORTA AFRIKA CUMHURIYETI");
+        countryList.add("OZBEKISTAN");
+        countryList.add("PAKISTAN");
+        countryList.add("PALAU");
+        countryList.add("PANAMA");
+        countryList.add("PAPUA YENI GINE");
+        countryList.add("PARAGUAY");
+        countryList.add("PERU");
+        countryList.add("PITCAIRN ADASI");
+        countryList.add("POLONYA");
+        countryList.add("PORTEKIZ");
+        countryList.add("PORTO RIKO");
+        countryList.add("REUNION");
+        countryList.add("ROMANYA");
+        countryList.add("RUANDA");
+        countryList.add("RUSYA");
+        countryList.add("S. ARABISTAN");
+        countryList.add("SAMOA");
+        countryList.add("SENEGAL");
+        countryList.add("SEYSEL ADALARI");
+        countryList.add("SILI");
+        countryList.add("SINGAPUR");
+        countryList.add("SIRBISTAN");
+        countryList.add("SLOVAKYA");
+        countryList.add("SLOVENYA");
+        countryList.add("SOMALI");
+        countryList.add("SRI LANKA");
+        countryList.add("SUDAN");
+        countryList.add("SURINAM");
+        countryList.add("SURIYE");
+        countryList.add("SVALBARD");
+        countryList.add("SVAZILAND");
+        countryList.add("TACIKISTAN");
+        countryList.add("TANZANYA");
+        countryList.add("TAYLAND");
+        countryList.add("TAYVAN");
+        countryList.add("TOGO");
+        countryList.add("TONGA");
+        countryList.add("TRINIDAT VE TOBAGO");
+        countryList.add("TUNUS");
+        countryList.add("TURKMENISTAN");
+        countryList.add("TÜRKİYE");
+        countryList.add("UGANDA");
+        countryList.add("UKRAYNA");
+        countryList.add("UKRAYNA-KIRIM");
+        countryList.add("UMMAN");
+        countryList.add("URDUN");
+        countryList.add("URUGUAY");
+        countryList.add("VANUATU");
+        countryList.add("VATIKAN");
+        countryList.add("VENEZUELA");
+        countryList.add("VIETNAM");
+        countryList.add("YEMEN");
+        countryList.add("YENI KALEDONYA");
+        countryList.add("YENI ZELLANDA");
+        countryList.add("YESIL BURUN");
+        countryList.add("YUNANISTAN");
+        countryList.add("ZAMBIYA");
+        countryList.add("ZIMBABVE");
     }
 
     private void showDialogNotification() {

@@ -337,6 +337,89 @@
             </com.google.android.material.card.MaterialCardView>
 
             <TextView
+                android:id="@+id/categoryOnlinePrayerCalculation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:text="Online Prayer Calculation"
+                android:textColor="@color/weak_text"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/cardViewOnlinePrayerCalculation"
+                app:layout_constraintTop_toBottomOf="@+id/cardViewPrayerCalculation" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardViewOnlinePrayerCalculation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="5dp"
+                android:backgroundTint="@color/selected_prayercard"
+                app:cardElevation="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/categoryOnlinePrayerCalculation"
+                app:strokeWidth="0dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cardViewDiyanetMethod"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:cardCornerRadius="0dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:strokeWidth="0dp">
+
+                        <RelativeLayout
+                            android:id="@+id/relativeLayoutDiyanetMethod"
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp">
+
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:gravity="center_vertical">
+
+                                <TextView
+                                    android:id="@+id/diyanetMethodTitle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="16dp"
+                                    android:text="Diyanet" />
+
+                                <TextView
+                                    android:id="@+id/onlineMethodText"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/diyanetMethodTitle"
+                                    android:layout_alignStart="@+id/diyanetMethodTitle"
+                                    android:text="Diyanet"
+                                    android:textColor="@color/weak_text" />
+                            </RelativeLayout>
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:layout_centerVertical="true"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginEnd="8dp"
+                                android:background="@drawable/symbol_arrow_right" />
+
+                        </RelativeLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
                 android:id="@+id/categoryNotification"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -345,7 +428,7 @@
                 android:textColor="@color/weak_text"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="@+id/cardViewNotification"
-                app:layout_constraintTop_toBottomOf="@+id/cardViewPrayerCalculation" />
+                app:layout_constraintTop_toBottomOf="@+id/cardViewOnlinePrayerCalculation" />
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardViewNotification"
