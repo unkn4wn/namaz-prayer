@@ -66,7 +66,7 @@
                     android:layout_height="match_parent"/>
 
                 <androidx.appcompat.widget.AppCompatSpinner
-                    android:id="@+id/spinnerCity"
+                    android:id="@+id/spinnerState"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:orientation="horizontal"
@@ -80,25 +80,15 @@
                     android:layout_height="match_parent"/>
 
 
-                <LinearLayout
-                    android:id="@+id/cardViewIsna"
+                <androidx.appcompat.widget.AppCompatSpinner
+                    android:id="@+id/spinnerCity"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:orientation="horizontal"
                     android:gravity="center"
                     android:padding="8dp"
-                    app:cardCornerRadius="0dp"
-                    android:background="@drawable/bottomsheet_pressed_state">
-
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="@string/method_isna"
-                        android:textSize="16sp" />
-
-                </LinearLayout>
+                    app:cardCornerRadius="0dp">
+                </androidx.appcompat.widget.AppCompatSpinner>
 
                 <com.google.android.material.divider.MaterialDivider
                     android:layout_width="match_parent"

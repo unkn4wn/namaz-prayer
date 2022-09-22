@@ -11,7 +11,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -37,25 +36,18 @@ import androidx.fragment.app.Fragment;
 import com.freeislamicapps.athantime.BuildConfig;
 import com.freeislamicapps.athantime.R;
 import com.freeislamicapps.athantime.alarm.AlarmStart;
-import com.freeislamicapps.athantime.helper.HttpDataHandler;
 import com.freeislamicapps.athantime.helper.SharedPreferencesHelper;
 import com.google.android.material.card.MaterialCardView;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Locale;
-import java.util.Objects;
-import java.util.TreeMap;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -137,8 +129,12 @@ public class SettingsFragment extends Fragment implements DialogInterface.OnDism
         manualTunesText.setText(SharedPreferencesHelper.getValue(requireContext(), "ManualTunesText", "0,0,0,0,0,0"));
 
         cardViewLocation.setOnClickListener(v -> {
-            LocationFragment locationFragment = new LocationFragment();
-            locationFragment.show(getChildFragmentManager(), "MyFragment");
+            if (SharedPreferencesHelper.getValue(requireContext(),"MethodText",getResources().getString(R.string.method_isna)).equals("Diyanet")) {
+                showDialogDiyanetLocation();
+            } else {
+                LocationFragment locationFragment = new LocationFragment();
+                locationFragment.show(getChildFragmentManager(), "MyFragment");
+            }
         });
 
 
@@ -250,6 +246,7 @@ public class SettingsFragment extends Fragment implements DialogInterface.OnDism
         LinearLayout cardViewMakkah = dialog.findViewById(R.id.cardViewMakkah);
         LinearLayout cardviewUoif = dialog.findViewById(R.id.cardViewUOIF);
         LinearLayout cardViewKarachi = dialog.findViewById(R.id.cardViewKarachi);
+        LinearLayout cardViewDiyanet = dialog.findViewById(R.id.cardViewDiyanet);
 
         ImageButton closeButton = dialog.findViewById(R.id.closeBottomsheetButton);
 
@@ -304,6 +301,13 @@ public class SettingsFragment extends Fragment implements DialogInterface.OnDism
             methodText.setText(getResources().getString(R.string.method_karachi));
             SharedPreferencesHelper.storeValue(requireContext(), "Method", "University of Islamic Sciences, Karachi");
             SharedPreferencesHelper.storeValue(requireContext(), "MethodText", getResources().getString(R.string.method_karachi));
+        });
+
+        cardViewDiyanet.setOnClickListener(v -> {
+            dialog.dismiss();
+            methodText.setText("Diyanet");
+            SharedPreferencesHelper.storeValue(requireContext(), "Method", "Diyanet");
+            SharedPreferencesHelper.storeValue(requireContext(), "MethodText", "Diyanet");
         });
 
         dialog.setOnDismissListener(dialogInterface -> setAlarm());
@@ -420,7 +424,7 @@ public class SettingsFragment extends Fragment implements DialogInterface.OnDism
                         + asrManualTunes + "," + maghribManualTunes + "," + ishaaManualTunes);
     }
 
-    private void showDialogDiyanetMethod() {
+    private void showDialogDiyanetLocation() {
         final Dialog dialog = new Dialog(requireActivity());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.bottomsheet_method_diyanet);
@@ -428,18 +432,22 @@ public class SettingsFragment extends Fragment implements DialogInterface.OnDism
         Spinner spinnerCountry = dialog.findViewById(R.id.spinnerCountry);
         ArrayList<LocationCountry> countryListNew = new ArrayList<>();
 
+        Spinner spinnerState = dialog.findViewById(R.id.spinnerState);
+
+        Spinner spinnerCity = dialog.findViewById(R.id.spinnerCity);
+
         try {
             String str = "";
-            InputStream inputStream = requireActivity().getAssets().open("countries.json");
+            InputStream inputStream = requireActivity().getAssets().open("diyanetcountrycity.json");
             int size = inputStream.available();
-            byte [] buffer = new byte[size];
+            byte[] buffer = new byte[size];
             inputStream.read(buffer);
             str = new String(buffer);
 
             JSONArray jsonArray = new JSONArray(str);
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject countryObject = jsonArray.getJSONObject(i);
-                countryListNew.add(new LocationCountry(countryObject.getInt("UlkeID"),countryObject.getString("UlkeAdi")));
+                countryListNew.add(new LocationCountry(countryObject.getInt("UlkeID"), countryObject.getString("UlkeAdi")));
             }
             ArrayAdapter<LocationCountry> locationCountryArrayAdapter = new ArrayAdapter<LocationCountry>(requireContext(),
                     android.R.layout.simple_spinner_dropdown_item, countryListNew);
@@ -448,8 +456,23 @@ public class SettingsFragment extends Fragment implements DialogInterface.OnDism
             spinnerCountry.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                LocationCountry locationCountry = (LocationCountry) parent.getItemAtPosition(position);
-                    Toast.makeText(requireContext(), String.valueOf(locationCountry.getId()),Toast.LENGTH_SHORT).show();
+                    LocationCountry locationCountry = (LocationCountry) parent.getItemAtPosition(position);
+                    Toast.makeText(requireContext(), String.valueOf(locationCountry.getId()), Toast.LENGTH_SHORT).show();
+                    ArrayList<LocationCountry> stateListNew = new ArrayList<>();
+                    try {
+                        JSONObject specificCountry = jsonArray.getJSONObject(position);
+                        JSONArray specificState = specificCountry.getJSONArray("state");
+                        for (int i = 0; i < specificState.length(); i++) {
+                            JSONObject countryObject = specificState.getJSONObject(i);
+                            System.out.println(countryObject);
+                            stateListNew.add(new LocationCountry(countryObject.getInt("SehirID"), countryObject.getString("SehirAdiEn")));
+                        }
+                        ArrayAdapter<LocationCountry> locationCountryArrayAdapter = new ArrayAdapter<LocationCountry>(requireContext(),
+                                android.R.layout.simple_spinner_dropdown_item, stateListNew);
+                        spinnerState.setAdapter(locationCountryArrayAdapter);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
 
                 @Override
@@ -457,12 +480,152 @@ public class SettingsFragment extends Fragment implements DialogInterface.OnDism
 
                 }
             });
+
+            spinnerState.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    LocationCountry locationCountry = (LocationCountry) parent.getItemAtPosition(position);
+                    Toast.makeText(requireContext(), String.valueOf(locationCountry.getId()), Toast.LENGTH_SHORT).show();
+
+                    ArrayList<LocationCountry> cityListNew = new ArrayList<>();
+                    OkHttpClient client = new OkHttpClient();
+                    Request request = new Request.Builder()
+                            .url("https://namaz-vakti-api.herokuapp.com/regions?country=2&city=503")
+                            .get()
+                            .build();
+                    client.newCall(request).enqueue(new Callback() {
+                        @Override
+                        public void onFailure(@NonNull Call call, @NonNull IOException e) {
+
+                        }
+
+                        @Override
+                        public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                            try {
+                                JSONArray cities = new JSONArray(response.body().string());
+                                for (int i=0;i<cities.length();i++) {
+                                    JSONObject specificCity = cities.getJSONObject(i);
+                                    System.out.println(specificCity);
+                                    cityListNew.add(new LocationCountry(specificCity.getInt("IlceID"),specificCity.getString("IlceAdiEn")));
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+
+                    ArrayAdapter<LocationCountry> locationCountryArrayAdapter = new ArrayAdapter<LocationCountry>(requireContext(),
+                            android.R.layout.simple_spinner_dropdown_item, cityListNew);
+                    spinnerCity.setAdapter(locationCountryArrayAdapter);
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+
+                }
+            });
+
+            spinnerCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    LocationCountry locationCountry = (LocationCountry) parent.getItemAtPosition(position);
+                    Toast.makeText(requireContext(), String.valueOf(locationCountry.getId()), Toast.LENGTH_SHORT).show();
+
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+
+                }
+            });
+
         } catch (Exception e) {
             e.printStackTrace();
         }
 
 
+        dialog.setOnDismissListener(dialogInterface -> setAlarm());
 
+        ImageButton closeButton = dialog.findViewById(R.id.closeBottomsheetButton);
+        closeButton.setOnClickListener(view -> dialog.dismiss());
+        dialog.show();
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+        dialog.getWindow().setGravity(Gravity.BOTTOM);
+    }
+
+    private void showDialogDiyanetMethod() {
+        final Dialog dialog = new Dialog(requireActivity());
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.bottomsheet_method_diyanet);
+
+        Spinner spinnerCountry = dialog.findViewById(R.id.spinnerCountry);
+        ArrayList<LocationCountry> countryListNew = new ArrayList<>();
+
+        Spinner spinnerCity = dialog.findViewById(R.id.spinnerState);
+
+        try {
+            String str = "";
+            InputStream inputStream = requireActivity().getAssets().open("diyanetcountrycity.json");
+            int size = inputStream.available();
+            byte[] buffer = new byte[size];
+            inputStream.read(buffer);
+            str = new String(buffer);
+
+            JSONArray jsonArray = new JSONArray(str);
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject countryObject = jsonArray.getJSONObject(i);
+                countryListNew.add(new LocationCountry(countryObject.getInt("UlkeID"), countryObject.getString("UlkeAdi")));
+            }
+            ArrayAdapter<LocationCountry> locationCountryArrayAdapter = new ArrayAdapter<LocationCountry>(requireContext(),
+                    android.R.layout.simple_spinner_dropdown_item, countryListNew);
+            spinnerCountry.setAdapter(locationCountryArrayAdapter);
+
+            spinnerCountry.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    LocationCountry locationCountry = (LocationCountry) parent.getItemAtPosition(position);
+                    Toast.makeText(requireContext(), String.valueOf(locationCountry.getId()), Toast.LENGTH_SHORT).show();
+                    ArrayList<LocationCountry> cityListNew = new ArrayList<>();
+                    try {
+                        JSONObject specificCountry = jsonArray.getJSONObject(position);
+                        JSONArray specificState = specificCountry.getJSONArray("state");
+                        for (int i = 0; i < specificState.length(); i++) {
+                            JSONObject countryObject = specificState.getJSONObject(i);
+                            System.out.println(countryObject);
+                            cityListNew.add(new LocationCountry(countryObject.getInt("SehirID"), countryObject.getString("SehirAdiEn")));
+                        }
+                        ArrayAdapter<LocationCountry> locationCountryArrayAdapter = new ArrayAdapter<LocationCountry>(requireContext(),
+                                android.R.layout.simple_spinner_dropdown_item, cityListNew);
+                        spinnerCity.setAdapter(locationCountryArrayAdapter);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+
+                }
+            });
+
+            spinnerCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    LocationCountry locationCountry = (LocationCountry) parent.getItemAtPosition(position);
+                    Toast.makeText(requireContext(), String.valueOf(locationCountry.getId()), Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+
+                }
+            });
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
 
         dialog.setOnDismissListener(dialogInterface -> setAlarm());
@@ -710,7 +873,7 @@ public class SettingsFragment extends Fragment implements DialogInterface.OnDism
         TextView ishaaSoundText = dialog.findViewById(R.id.ishaaSoundText);
 
         TextView titleNotification = dialog.findViewById(R.id.title_notification);
-        TextViewCompat.setAutoSizeTextTypeWithDefaults(titleNotification,TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM);
+        TextViewCompat.setAutoSizeTextTypeWithDefaults(titleNotification, TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM);
 
         fajrSound = SharedPreferencesHelper.getValue(requireContext(), "Fajr_Sound", true);
         sunriseSound = SharedPreferencesHelper.getValue(requireContext(), "Sunrise_Sound", false);

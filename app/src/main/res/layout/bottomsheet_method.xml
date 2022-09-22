@@ -222,6 +222,32 @@
 
                 </LinearLayout>
 
+                <com.google.android.material.divider.MaterialDivider
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+
+                <LinearLayout
+                    android:id="@+id/cardViewDiyanet"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    app:cardCornerRadius="0dp"
+                    android:background="@drawable/bottomsheet_pressed_state">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Diyanet"
+                        android:textSize="16sp" />
+
+
+                </LinearLayout>
+
 
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>

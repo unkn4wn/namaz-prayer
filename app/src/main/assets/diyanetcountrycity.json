@@ -1,0 +1,3212 @@
+[
+  {
+    "UlkeAdiEn": "TURKIYE",
+    "UlkeID": "2",
+    "UlkeAdi": "TURKIYE",
+    "state": [
+      { "SehirAdiEn": "ADANA", "SehirAdi": "ADANA", "SehirID": "500" },
+      { "SehirAdiEn": "ADIYAMAN", "SehirAdi": "ADIYAMAN", "SehirID": "501" },
+      {
+        "SehirAdiEn": "AFYONKARAHISAR",
+        "SehirAdi": "AFYONKARAHÄ°SAR",
+        "SehirID": "502"
+      },
+      { "SehirAdiEn": "AGRI", "SehirAdi": "AÄžRI", "SehirID": "503" },
+      { "SehirAdiEn": "AKSARAY", "SehirAdi": "AKSARAY", "SehirID": "504" },
+      { "SehirAdiEn": "AMASYA", "SehirAdi": "AMASYA", "SehirID": "505" },
+      { "SehirAdiEn": "ANKARA", "SehirAdi": "ANKARA", "SehirID": "506" },
+      { "SehirAdiEn": "ANTALYA", "SehirAdi": "ANTALYA", "SehirID": "507" },
+      { "SehirAdiEn": "ARDAHAN", "SehirAdi": "ARDAHAN", "SehirID": "508" },
+      { "SehirAdiEn": "ARTVIN", "SehirAdi": "ARTVÄ°N", "SehirID": "509" },
+      { "SehirAdiEn": "AYDIN", "SehirAdi": "AYDIN", "SehirID": "510" },
+      { "SehirAdiEn": "BALIKESIR", "SehirAdi": "BALIKESÄ°R", "SehirID": "511" },
+      { "SehirAdiEn": "BARTIN", "SehirAdi": "BARTIN", "SehirID": "512" },
+      { "SehirAdiEn": "BATMAN", "SehirAdi": "BATMAN", "SehirID": "513" },
+      { "SehirAdiEn": "BAYBURT", "SehirAdi": "BAYBURT", "SehirID": "514" },
+      { "SehirAdiEn": "BILECIK", "SehirAdi": "BÄ°LECÄ°K", "SehirID": "515" },
+      { "SehirAdiEn": "BINGOL", "SehirAdi": "BÄ°NGÃ\u2013L", "SehirID": "516" },
+      { "SehirAdiEn": "BITLIS", "SehirAdi": "BÄ°TLÄ°S", "SehirID": "517" },
+      { "SehirAdiEn": "BOLU", "SehirAdi": "BOLU", "SehirID": "518" },
+      { "SehirAdiEn": "BURDUR", "SehirAdi": "BURDUR", "SehirID": "519" },
+      { "SehirAdiEn": "BURSA", "SehirAdi": "BURSA", "SehirID": "520" },
+      {
+        "SehirAdiEn": "CANAKKALE",
+        "SehirAdi": "Ã\u2021ANAKKALE",
+        "SehirID": "521"
+      },
+      {
+        "SehirAdiEn": "CANKIRI",
+        "SehirAdi": "Ã\u2021ANKIRI",
+        "SehirID": "522"
+      },
+      { "SehirAdiEn": "CORUM", "SehirAdi": "Ã\u2021ORUM", "SehirID": "523" },
+      { "SehirAdiEn": "DENIZLI", "SehirAdi": "DENÄ°ZLÄ°", "SehirID": "524" },
+      {
+        "SehirAdiEn": "DIYARBAKIR",
+        "SehirAdi": "DÄ°YARBAKIR",
+        "SehirID": "525"
+      },
+      { "SehirAdiEn": "DUZCE", "SehirAdi": "DÃœZCE", "SehirID": "526" },
+      { "SehirAdiEn": "EDIRNE", "SehirAdi": "EDÄ°RNE", "SehirID": "527" },
+      { "SehirAdiEn": "ELAZIG", "SehirAdi": "ELAZIÄž", "SehirID": "528" },
+      { "SehirAdiEn": "ERZINCAN", "SehirAdi": "ERZÄ°NCAN", "SehirID": "529" },
+      { "SehirAdiEn": "ERZURUM", "SehirAdi": "ERZURUM", "SehirID": "530" },
+      {
+        "SehirAdiEn": "ESKISEHIR",
+        "SehirAdi": "ESKÄ°ÅžEHÄ°R",
+        "SehirID": "531"
+      },
+      { "SehirAdiEn": "GAZIANTEP", "SehirAdi": "GAZÄ°ANTEP", "SehirID": "532" },
+      { "SehirAdiEn": "GIRESUN", "SehirAdi": "GÄ°RESUN", "SehirID": "533" },
+      {
+        "SehirAdiEn": "GUMUSHANE",
+        "SehirAdi": "GÃœMÃœÅžHANE",
+        "SehirID": "534"
+      },
+      { "SehirAdiEn": "HAKKARI", "SehirAdi": "HAKKARÄ°", "SehirID": "535" },
+      { "SehirAdiEn": "HATAY", "SehirAdi": "HATAY", "SehirID": "536" },
+      { "SehirAdiEn": "IGDIR", "SehirAdi": "IÄžDIR", "SehirID": "537" },
+      { "SehirAdiEn": "ISPARTA", "SehirAdi": "ISPARTA", "SehirID": "538" },
+      { "SehirAdiEn": "ISTANBUL", "SehirAdi": "Ä°STANBUL", "SehirID": "539" },
+      { "SehirAdiEn": "IZMIR", "SehirAdi": "Ä°ZMÄ°R", "SehirID": "540" },
+      {
+        "SehirAdiEn": "KAHRAMANMARAS",
+        "SehirAdi": "KAHRAMANMARAÅž",
+        "SehirID": "541"
+      },
+      { "SehirAdiEn": "KARABUK", "SehirAdi": "KARABÃœK", "SehirID": "542" },
+      { "SehirAdiEn": "KARAMAN", "SehirAdi": "KARAMAN", "SehirID": "543" },
+      { "SehirAdiEn": "KARS", "SehirAdi": "KARS", "SehirID": "544" },
+      { "SehirAdiEn": "KASTAMONU", "SehirAdi": "KASTAMONU", "SehirID": "545" },
+      { "SehirAdiEn": "KAYSERI", "SehirAdi": "KAYSERÄ°", "SehirID": "546" },
+      { "SehirAdiEn": "KILIS", "SehirAdi": "KÄ°LÄ°S", "SehirID": "547" },
+      { "SehirAdiEn": "KIRIKKALE", "SehirAdi": "KIRIKKALE", "SehirID": "548" },
+      {
+        "SehirAdiEn": "KIRKLARELI",
+        "SehirAdi": "KIRKLARELÄ°",
+        "SehirID": "549"
+      },
+      { "SehirAdiEn": "KIRSEHIR", "SehirAdi": "KIRÅžEHÄ°R", "SehirID": "550" },
+      { "SehirAdiEn": "KOCAELI", "SehirAdi": "KOCAELÄ°", "SehirID": "551" },
+      { "SehirAdiEn": "KONYA", "SehirAdi": "KONYA", "SehirID": "552" },
+      { "SehirAdiEn": "KUTAHYA", "SehirAdi": "KÃœTAHYA", "SehirID": "553" },
+      { "SehirAdiEn": "MALATYA", "SehirAdi": "MALATYA", "SehirID": "554" },
+      { "SehirAdiEn": "MANISA", "SehirAdi": "MANÄ°SA", "SehirID": "555" },
+      { "SehirAdiEn": "MARDIN", "SehirAdi": "MARDÄ°N", "SehirID": "556" },
+      { "SehirAdiEn": "MERSIN", "SehirAdi": "MERSÄ°N", "SehirID": "557" },
+      { "SehirAdiEn": "MUGLA", "SehirAdi": "MUÄžLA", "SehirID": "558" },
+      { "SehirAdiEn": "MUS", "SehirAdi": "MUÅž", "SehirID": "559" },
+      { "SehirAdiEn": "NEVSEHIR", "SehirAdi": "NEVÅžEHÄ°R", "SehirID": "560" },
+      { "SehirAdiEn": "NIGDE", "SehirAdi": "NÄ°ÄžDE", "SehirID": "561" },
+      { "SehirAdiEn": "ORDU", "SehirAdi": "ORDU", "SehirID": "562" },
+      { "SehirAdiEn": "OSMANIYE", "SehirAdi": "OSMANÄ°YE", "SehirID": "563" },
+      { "SehirAdiEn": "RIZE", "SehirAdi": "RÄ°ZE", "SehirID": "564" },
+      { "SehirAdiEn": "SAKARYA", "SehirAdi": "SAKARYA", "SehirID": "565" },
+      { "SehirAdiEn": "SAMSUN", "SehirAdi": "SAMSUN", "SehirID": "566" },
+      { "SehirAdiEn": "SANLIURFA", "SehirAdi": "ÅžANLIURFA", "SehirID": "567" },
+      { "SehirAdiEn": "SIIRT", "SehirAdi": "SÄ°Ä°RT", "SehirID": "568" },
+      { "SehirAdiEn": "SINOP", "SehirAdi": "SÄ°NOP", "SehirID": "569" },
+      { "SehirAdiEn": "SIRNAK", "SehirAdi": "ÅžIRNAK", "SehirID": "570" },
+      { "SehirAdiEn": "SIVAS", "SehirAdi": "SÄ°VAS", "SehirID": "571" },
+      { "SehirAdiEn": "TEKIRDAG", "SehirAdi": "TEKÄ°RDAÄž", "SehirID": "572" },
+      { "SehirAdiEn": "TOKAT", "SehirAdi": "TOKAT", "SehirID": "573" },
+      { "SehirAdiEn": "TRABZON", "SehirAdi": "TRABZON", "SehirID": "574" },
+      { "SehirAdiEn": "TUNCELI", "SehirAdi": "TUNCELÄ°", "SehirID": "575" },
+      { "SehirAdiEn": "USAK", "SehirAdi": "UÅžAK", "SehirID": "576" },
+      { "SehirAdiEn": "VAN", "SehirAdi": "VAN", "SehirID": "577" },
+      { "SehirAdiEn": "YALOVA", "SehirAdi": "YALOVA", "SehirID": "578" },
+      { "SehirAdiEn": "YOZGAT", "SehirAdi": "YOZGAT", "SehirID": "579" },
+      { "SehirAdiEn": "ZONGULDAK", "SehirAdi": "ZONGULDAK", "SehirID": "580" }
+    ]
+  },
+  {
+    "UlkeAdiEn": "ABD",
+    "UlkeID": "33",
+    "UlkeAdi": "ABD",
+    "state": [
+      {
+        "SehirAdiEn": "ALABAMA",
+        "SehirID": "581",
+        "SehirAdi": "ALABAMA",
+        "ExtensionData": {}
+      },
+      {
+        "SehirAdiEn": "ALASKA",
+        "SehirID": "582",
+        "SehirAdi": "ALASKA",
+        "ExtensionData": {}
+      },
+      {
+        "SehirAdiEn": "ARIZONA",
+        "SehirID": "583",
+        "SehirAdi": "ARIZONA",
+        "ExtensionData": {}
+      },
+      {
+        "SehirAdiEn": "ARKANSAS",
+        "SehirID": "584",
+        "SehirAdi": "ARKANSAS",
+        "ExtensionData": {}
+      },
+      {
+        "SehirAdiEn": "CALIFORNIA",
+        "SehirID": "585",
+        "SehirAdi": "CALIFORNIA",
+        "ExtensionData": {}
+      },
+      {
+        "SehirAdiEn": "COLORADO",
+        "SehirID": "587",
+        "SehirAdi": "COLORADO",
+        "ExtensionData": {}
+      },
+      {
+        "SehirAdiEn": "CONNECTICUT",
+        "SehirID": "588",
+        "SehirAdi": "CONNECTICUT",
+        "ExtensionData": {}
+      },
+      {
+        "SehirAdiEn": "D.C",
+        "SehirID": "589",
+        "SehirAdi": "D.C",
+        "ExtensionData": {}
+      },
+      {
+        "SehirAdiEn": "DELAWARE",
+        "SehirID": "590",
+        "SehirAdi": "DELAWARE",
+        "ExtensionData": {}
+      },
+      {
+        "SehirAdiEn": "FLORIDA",
+        "SehirID": "591",
+        "SehirAdi": "FLORIDA",
+        "ExtensionData": {}
+      },
+      {
+        "SehirAdiEn": "GEORGIA",
+        "SehirID": "592",
+        "SehirAdi": "GEORGIA",
+        "ExtensionData": {}
+      },
+      {
+        "SehirAdiEn": "HAVAI ADALARI",
+        "SehirID": "593",
+        "SehirAdi": "HAVAI ADALARI",
+        "ExtensionData": {}
+      },
+      {
+        "SehirAdiEn": "IDAHO",
+        "SehirID": "594",
+        "SehirAdi": "IDAHO",
+        "ExtensionData": {}
+      },
+      {
+        "SehirAdiEn": "ILLINOIS",
+        "SehirID": "595",
+        "SehirAdi": "ILLINOIS",
+        "ExtensionData": {}
+      },
+      {
+        "SehirAdiEn": "INDIANA",
+        "SehirID": "596",
+        "SehirAdi": "INDIANA",
+        "ExtensionData": {}
+      },
+      {
+        "SehirAdiEn": "IOWA",
+        "SehirID": "597",
+        "SehirAdi": "IOWA",
+        "ExtensionData": {}
+      },
+      {
+        "SehirAdiEn": "KANSAS",
+        "SehirID": "598",
+        "SehirAdi": "KANSAS",
+        "ExtensionData": {}
+      },
+      {
+        "SehirAdiEn": "KENTUCKY",
+        "SehirID": "599",
+        "SehirAdi": "KENTUCKY",
+        "ExtensionData": {}
+      },
+      {
+        "SehirAdiEn": "LOUISIANA",
+        "SehirID": "600",
+        "SehirAdi": "LOUISIANA",
+        "ExtensionData": {}
+      },
+      {
+        "SehirAdiEn": "MAINE",
+        "SehirID": "601",
+        "SehirAdi": "MAINE",
+        "ExtensionData": {}
+      },
+      {
+        "SehirAdiEn": "MARYLAND",
+        "SehirID": "602",
+        "SehirAdi": "MARYLAND",
+        "ExtensionData": {}
+      },
+      {
+        "SehirAdiEn": "MASSACHUSETTS",
+        "SehirID": "603",
+        "SehirAdi": "MASSACHUSETTS",
+        "ExtensionData": {}
+      },
+      {
+        "SehirAdiEn": "MICHIGAN",
+        "SehirID": "604",
+        "SehirAdi": "MICHIGAN",
+        "ExtensionData": {}
+      },
+      {
+        "SehirAdiEn": "MINNESOTA",
+        "SehirID": "605",
+        "SehirAdi": "MINNESOTA",
+        "ExtensionData": {}
+      },
+      {
+        "SehirAdiEn": "MISSISSIPPI",
+        "SehirID": "606",
+        "SehirAdi": "MISSISSIPPI",
+        "ExtensionData": {}
+      },
+      {
+        "SehirAdiEn": "MISSOURI",
+        "SehirID": "607",
+        "SehirAdi": "MISSOURI",
+        "ExtensionData": {}
+      },
+      {
+        "SehirAdiEn": "MONTANA",
+        "SehirID": "608",
+        "SehirAdi": "MONTANA",
+        "ExtensionData": {}
+      },
+      {
+        "SehirAdiEn": "NEBRASKA",
+        "SehirID": "609",
+        "SehirAdi": "NEBRASKA",
+        "ExtensionData": {}
+      },
+      {
+        "SehirAdiEn": "NEVADA",
+        "SehirID": "610",
+        "SehirAdi": "NEVADA",
+        "ExtensionData": {}
+      },
+      {
+        "SehirAdiEn": "NEW HAMPSHIRE",
+        "SehirID": "611",
+        "SehirAdi": "NEW HAMPSHIRE",
+        "ExtensionData": {}
+      },
+      {
+        "SehirAdiEn": "NEW JERSEY",
+        "SehirID": "612",
+        "SehirAdi": "NEW JERSEY",
+        "ExtensionData": {}
+      },
+      {
+        "SehirAdiEn": "NEW MEXICO",
+        "SehirID": "613",
+        "SehirAdi": "NEW MEXICO",
+        "ExtensionData": {}
+      },
+      {
+        "SehirAdiEn": "NEW YORK",
+        "SehirID": "614",
+        "SehirAdi": "NEW YORK",
+        "ExtensionData": {}
+      },
+      {
+        "SehirAdiEn": "NORTH CAROLINA",
+        "SehirID": "615",
+        "SehirAdi": "NORTH CAROLINA",
+        "ExtensionData": {}
+      },
+      {
+        "SehirAdiEn": "NORTH DAKOTA",
+        "SehirID": "616",
+        "SehirAdi": "NORTH DAKOTA",
+        "ExtensionData": {}
+      },
+      {
+        "SehirAdiEn": "OHIO",
+        "SehirID": "617",
+        "SehirAdi": "OHIO",
+        "ExtensionData": {}
+      },
+      {
+        "SehirAdiEn": "OKLAHOMA",
+        "SehirID": "618",
+        "SehirAdi": "OKLAHOMA",
+        "ExtensionData": {}
+      },
+      {
+        "SehirAdiEn": "OREGON",
+        "SehirID": "619",
+        "SehirAdi": "OREGON",
+        "ExtensionData": {}
+      },
+      {
+        "SehirAdiEn": "PENNSYLVANIA",
+        "SehirID": "620",
+        "SehirAdi": "PENNSYLVANIA",
+        "ExtensionData": {}
+      },
+      {
+        "SehirAdiEn": "RHODE ISLAND",
+        "SehirID": "621",
+        "SehirAdi": "RHODE ISLAND",
+        "ExtensionData": {}
+      },
+      {
+        "SehirAdiEn": "SOUTH CAROLINA",
+        "SehirID": "622",
+        "SehirAdi": "SOUTH CAROLINA",
+        "ExtensionData": {}
+      },
+      {
+        "SehirAdiEn": "SOUTH DAKOTA",
+        "SehirID": "623",
+        "SehirAdi": "SOUTH DAKOTA",
+        "ExtensionData": {}
+      },
+      {
+        "SehirAdiEn": "TENNESSEE",
+        "SehirID": "624",
+        "SehirAdi": "TENNESSEE",
+        "ExtensionData": {}
+      },
+      {
+        "SehirAdiEn": "TEXAS",
+        "SehirID": "625",
+        "SehirAdi": "TEXAS",
+        "ExtensionData": {}
+      },
+      {
+        "SehirAdiEn": "UTAH",
+        "SehirID": "626",
+        "SehirAdi": "UTAH",
+        "ExtensionData": {}
+      },
+      {
+        "SehirAdiEn": "VERMONT",
+        "SehirID": "627",
+        "SehirAdi": "VERMONT",
+        "ExtensionData": {}
+      },
+      {
+        "SehirAdiEn": "VIRGINIA",
+        "SehirID": "628",
+        "SehirAdi": "VIRGINIA",
+        "ExtensionData": {}
+      },
+      {
+        "SehirAdiEn": "WASHINGTON",
+        "SehirID": "629",
+        "SehirAdi": "WASHINGTON",
+        "ExtensionData": {}
+      },
+      {
+        "SehirAdiEn": "WEST VIRGINIA",
+        "SehirID": "630",
+        "SehirAdi": "WEST VIRGINIA",
+        "ExtensionData": {}
+      },
+      {
+        "SehirAdiEn": "WISCONSIN",
+        "SehirID": "631",
+        "SehirAdi": "WISCONSIN",
+        "ExtensionData": {}
+      },
+      {
+        "SehirAdiEn": "WYOMING",
+        "SehirID": "632",
+        "SehirAdi": "WYOMING",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "AFGANISTAN",
+    "UlkeID": "166",
+    "UlkeAdi": "AFGANISTAN",
+    "state": [
+      {
+        "SehirAdiEn": "AFGHANISTAN",
+        "SehirID": "647",
+        "SehirAdi": "AFGANISTAN",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "ALMANYA",
+    "UlkeID": "13",
+    "UlkeAdi": "ALMANYA",
+    "state": [
+      {
+        "SehirAdiEn": "BADEN WURTTEMBERG",
+        "SehirID": "850",
+        "SehirAdi": "BADEN WURTTEMBERG",
+        "ExtensionData": {}
+      },
+      {
+        "SehirAdiEn": "BAVARIA",
+        "SehirID": "851",
+        "SehirAdi": "BAYERN",
+        "ExtensionData": {}
+      },
+      {
+        "SehirAdiEn": "BERLIN",
+        "SehirID": "852",
+        "SehirAdi": "BERLIN",
+        "ExtensionData": {}
+      },
+      {
+        "SehirAdiEn": "BRANDENBURG",
+        "SehirID": "853",
+        "SehirAdi": "BRANDENBURG",
+        "ExtensionData": {}
+      },
+      {
+        "SehirAdiEn": "BREMEN",
+        "SehirID": "854",
+        "SehirAdi": "BREMEN",
+        "ExtensionData": {}
+      },
+      {
+        "SehirAdiEn": "HAMBURG",
+        "SehirID": "855",
+        "SehirAdi": "HAMBURG",
+        "ExtensionData": {}
+      },
+      {
+        "SehirAdiEn": "HESSEN",
+        "SehirID": "856",
+        "SehirAdi": "HESSEN",
+        "ExtensionData": {}
+      },
+      {
+        "SehirAdiEn": "MECKLENBURG-VORPOMMERN",
+        "SehirID": "858",
+        "SehirAdi": "MECKLENBURG-VORPOMMERN",
+        "ExtensionData": {}
+      },
+      {
+        "SehirAdiEn": "LOWER SAXONY",
+        "SehirID": "857",
+        "SehirAdi": "NIEDERSACHSEN",
+        "ExtensionData": {}
+      },
+      {
+        "SehirAdiEn": "NORTH RHEIN WESTPHALIA",
+        "SehirID": "859",
+        "SehirAdi": "NORDRHEIN-WESTFALEN",
+        "ExtensionData": {}
+      },
+      {
+        "SehirAdiEn": "RHINELAND-PALATINATE",
+        "SehirID": "860",
+        "SehirAdi": "RHEINLAND-PFALZ",
+        "ExtensionData": {}
+      },
+      {
+        "SehirAdiEn": "SAARLAND",
+        "SehirID": "861",
+        "SehirAdi": "SAARLAND",
+        "ExtensionData": {}
+      },
+      {
+        "SehirAdiEn": "SAXONY",
+        "SehirID": "863",
+        "SehirAdi": "SACHSEN",
+        "ExtensionData": {}
+      },
+      {
+        "SehirAdiEn": "SACHSEN ANHALT",
+        "SehirID": "864",
+        "SehirAdi": "SACHSEN ANHALT",
+        "ExtensionData": {}
+      },
+      {
+        "SehirAdiEn": "SCHLESWIG HOLSTEIN",
+        "SehirID": "865",
+        "SehirAdi": "SCHLESWIG HOLSTEIN",
+        "ExtensionData": {}
+      },
+      {
+        "SehirAdiEn": "THURINGEN",
+        "SehirID": "862",
+        "SehirAdi": "THURINGEN",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "ANDORRA",
+    "UlkeID": "17",
+    "UlkeAdi": "ANDORRA",
+    "state": [
+      {
+        "SehirAdiEn": "ANDORRA",
+        "SehirID": "649",
+        "SehirAdi": "ANDORRA",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "ANGOLA",
+    "UlkeID": "140",
+    "UlkeAdi": "ANGOLA",
+    "state": [
+      {
+        "SehirAdiEn": "ANGOLA",
+        "SehirID": "650",
+        "SehirAdi": "ANGOLA",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "ANGUILLA",
+    "UlkeID": "125",
+    "UlkeAdi": "ANGUILLA",
+    "state": [
+      {
+        "SehirAdiEn": "ANGUILLA",
+        "SehirID": "651",
+        "SehirAdi": "ANGUILLA",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "ANTIGUA-VE-BARBUDA",
+    "UlkeID": "90",
+    "UlkeAdi": "ANTIGUA VE BARBUDA",
+    "state": [
+      {
+        "SehirAdiEn": "ANTIGUA VE BARBUDA",
+        "SehirID": "652",
+        "SehirAdi": "ANTIGUA VE BARBUDA",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "ARJANTIN",
+    "UlkeID": "199",
+    "UlkeAdi": "ARJANTIN",
+    "state": [
+      {
+        "SehirAdiEn": "ARGENTINA",
+        "SehirID": "653",
+        "SehirAdi": "ARJANTIN",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "ARNAVUTLUK",
+    "UlkeID": "25",
+    "UlkeAdi": "ARNAVUTLUK",
+    "state": [
+      {
+        "SehirAdiEn": "ALBANIA",
+        "SehirID": "654",
+        "SehirAdi": "ARNAVUTLUK",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "ARUBA",
+    "UlkeID": "153",
+    "UlkeAdi": "ARUBA",
+    "state": [
+      {
+        "SehirAdiEn": "ARUBA",
+        "SehirID": "655",
+        "SehirAdi": "ARUBA",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "AVUSTRALYA",
+    "UlkeID": "59",
+    "UlkeAdi": "AVUSTRALYA",
+    "state": [
+      {
+        "SehirAdiEn": "AUSTRALIA",
+        "SehirID": "656",
+        "SehirAdi": "AVUSTRALYA",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "AVUSTURYA",
+    "UlkeID": "35",
+    "UlkeAdi": "AVUSTURYA",
+    "state": [
+      {
+        "SehirAdiEn": "AUSTRIA",
+        "SehirID": "657",
+        "SehirAdi": "AVUSTURYA",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "AZERBAYCAN",
+    "UlkeID": "5",
+    "UlkeAdi": "AZERBAYCAN",
+    "state": [
+      {
+        "SehirAdiEn": "AZERBAIJAN",
+        "SehirID": "658",
+        "SehirAdi": "AZERBAYCAN",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "BAHAMALAR",
+    "UlkeID": "54",
+    "UlkeAdi": "BAHAMALAR",
+    "state": [
+      {
+        "SehirAdiEn": "BAHAMAS",
+        "SehirID": "659",
+        "SehirAdi": "BAHAMALAR",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "BAHREYN",
+    "UlkeID": "132",
+    "UlkeAdi": "BAHREYN",
+    "state": [
+      {
+        "SehirAdiEn": "BAHRAIN",
+        "SehirID": "660",
+        "SehirAdi": "BAHREYN",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "BANGLADES",
+    "UlkeID": "177",
+    "UlkeAdi": "BANGLADES",
+    "state": [
+      {
+        "SehirAdiEn": "BANGLADESH",
+        "SehirID": "661",
+        "SehirAdi": "BANGLADES",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "BARBADOS",
+    "UlkeID": "188",
+    "UlkeAdi": "BARBADOS",
+    "state": [
+      {
+        "SehirAdiEn": "BARBADOS",
+        "SehirID": "662",
+        "SehirAdi": "BARBADOS",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "BELARUS",
+    "UlkeID": "208",
+    "UlkeAdi": "BELARUS",
+    "state": [
+      {
+        "SehirAdiEn": "BELARUS",
+        "SehirID": "663",
+        "SehirAdi": "BELARUS",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "BELCIKA",
+    "UlkeID": "11",
+    "UlkeAdi": "BELCIKA",
+    "state": [
+      {
+        "SehirAdiEn": "BELGIUM",
+        "SehirID": "664",
+        "SehirAdi": "BELCIKA",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "BELIZE",
+    "UlkeID": "182",
+    "UlkeAdi": "BELIZE",
+    "state": [
+      {
+        "SehirAdiEn": "BELIZE",
+        "SehirID": "665",
+        "SehirAdi": "BELIZE",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "BENIN",
+    "UlkeID": "181",
+    "UlkeAdi": "BENIN",
+    "state": [
+      {
+        "SehirAdiEn": "BENIN",
+        "SehirID": "666",
+        "SehirAdi": "BENIN",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "BERMUDA",
+    "UlkeID": "51",
+    "UlkeAdi": "BERMUDA",
+    "state": [
+      {
+        "SehirAdiEn": "BERMUDA",
+        "SehirID": "667",
+        "SehirAdi": "BERMUDA",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "BIRLESIK-ARAP-EMIRLIGI",
+    "UlkeID": "93",
+    "UlkeAdi": "BIRLESIK ARAP EMIRLIGI",
+    "state": [
+      {
+        "SehirAdiEn": "UNITED ARAB EMIRATES",
+        "SehirID": "668",
+        "SehirAdi": "BIRLESIK ARAP EMIRLIGI",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "BOLIVYA",
+    "UlkeID": "83",
+    "UlkeAdi": "BOLIVYA",
+    "state": [
+      {
+        "SehirAdiEn": "BOLIVYA",
+        "SehirID": "669",
+        "SehirAdi": "BOLIVYA",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "BOSNA-HERSEK",
+    "UlkeID": "9",
+    "UlkeAdi": "BOSNA HERSEK",
+    "state": [
+      {
+        "SehirAdiEn": "BOSNIA-HERZEGOVINA",
+        "SehirID": "670",
+        "SehirAdi": "BOSNA HERSEK",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "BOTSVANA",
+    "UlkeID": "167",
+    "UlkeAdi": "BOTSVANA",
+    "state": [
+      {
+        "SehirAdiEn": "BOTSWANA",
+        "SehirID": "671",
+        "SehirAdi": "BOTSVANA",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "BREZILYA",
+    "UlkeID": "146",
+    "UlkeAdi": "BREZILYA",
+    "state": [
+      {
+        "SehirAdiEn": "BRAZIL",
+        "SehirID": "672",
+        "SehirAdi": "BREZILYA",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "BRUNEI",
+    "UlkeID": "97",
+    "UlkeAdi": "BRUNEI",
+    "state": [
+      {
+        "SehirAdiEn": "BRUNEI",
+        "SehirID": "673",
+        "SehirAdi": "BRUNEI",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "BULGARISTAN",
+    "UlkeID": "44",
+    "UlkeAdi": "BULGARISTAN",
+    "state": [
+      {
+        "SehirAdiEn": "BULGARIA",
+        "SehirID": "674",
+        "SehirAdi": "BULGARISTAN",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "BURKINA-FASO",
+    "UlkeID": "91",
+    "UlkeAdi": "BURKINA FASO",
+    "state": [
+      {
+        "SehirAdiEn": "BURKINA FASO",
+        "SehirID": "675",
+        "SehirAdi": "BURKINA FASO",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "BURMA-(MYANMAR)",
+    "UlkeID": "154",
+    "UlkeAdi": "BURMA (MYANMAR)",
+    "state": [
+      {
+        "SehirAdiEn": "MYANMAR",
+        "SehirID": "676",
+        "SehirAdi": "MYANMAR",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "BURUNDI",
+    "UlkeID": "65",
+    "UlkeAdi": "BURUNDI",
+    "state": [
+      {
+        "SehirAdiEn": "BURUNDI",
+        "SehirID": "677",
+        "SehirAdi": "BURUNDI",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "BUTAN",
+    "UlkeID": "155",
+    "UlkeAdi": "BUTAN",
+    "state": [
+      {
+        "SehirAdiEn": "BUTAN",
+        "SehirID": "678",
+        "SehirAdi": "BUTAN",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "CAD",
+    "UlkeID": "156",
+    "UlkeAdi": "CAD",
+    "state": [
+      {
+        "SehirAdiEn": "CAD",
+        "SehirID": "679",
+        "SehirAdi": "CAD",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "CECENISTAN",
+    "UlkeID": "43",
+    "UlkeAdi": "CECENISTAN",
+    "state": [
+      {
+        "SehirAdiEn": "CHECHENIA",
+        "SehirID": "680",
+        "SehirAdi": "CECENISTAN",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "CEK-CUMHURIYETI",
+    "UlkeID": "16",
+    "UlkeAdi": "CEK CUMHURIYETI",
+    "state": [
+      {
+        "SehirAdiEn": "CZECH REPUBLIC",
+        "SehirID": "681",
+        "SehirAdi": "CEK CUMHURIYETI",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "CEZAYIR",
+    "UlkeID": "86",
+    "UlkeAdi": "CEZAYIR",
+    "state": [
+      {
+        "SehirAdiEn": "ALGERIA",
+        "SehirID": "682",
+        "SehirAdi": "CEZAYIR",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "CIBUTI",
+    "UlkeID": "160",
+    "UlkeAdi": "CIBUTI",
+    "state": [
+      {
+        "SehirAdiEn": "CIBUTI",
+        "SehirID": "683",
+        "SehirAdi": "CIBUTI",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "CIN",
+    "UlkeID": "61",
+    "UlkeAdi": "CIN",
+    "state": [
+      {
+        "SehirAdiEn": "CHINA",
+        "SehirID": "684",
+        "SehirAdi": "CIN",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "DANIMARKA",
+    "UlkeID": "26",
+    "UlkeAdi": "DANIMARKA",
+    "state": [
+      {
+        "SehirAdiEn": "DENMARK",
+        "SehirID": "685",
+        "SehirAdi": "DANIMARKA",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "DEMOKRATIK-KONGO-CUMHURIYETI",
+    "UlkeID": "180",
+    "UlkeAdi": "DEMOKRATIK KONGO CUMHURIYETI",
+    "state": [
+      {
+        "SehirAdiEn": "DEMOKRATIC REPUBLIC OF THE CONGO",
+        "SehirID": "686",
+        "SehirAdi": "DEMOKRATIK KONGO CUMHURIYETI",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "DOGU-TIMOR",
+    "UlkeID": "176",
+    "UlkeAdi": "DOGU TIMOR",
+    "state": [
+      {
+        "SehirAdiEn": "DOGU TIMOR",
+        "SehirID": "687",
+        "SehirAdi": "DOGU TIMOR",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "DOMINIK",
+    "UlkeID": "123",
+    "UlkeAdi": "DOMINIK",
+    "state": [
+      {
+        "SehirAdiEn": "DOMINIK",
+        "SehirID": "688",
+        "SehirAdi": "DOMINIK",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "DOMINIK-CUMHURIYETI",
+    "UlkeID": "72",
+    "UlkeAdi": "DOMINIK CUMHURIYETI",
+    "state": [
+      {
+        "SehirAdiEn": "DOMINIK CUMHURIYETI",
+        "SehirID": "689",
+        "SehirAdi": "DOMINIK CUMHURIYETI",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "EKVATOR",
+    "UlkeID": "139",
+    "UlkeAdi": "EKVATOR",
+    "state": [
+      {
+        "SehirAdiEn": "EKVATOR",
+        "SehirID": "690",
+        "SehirAdi": "EKVATOR",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "EKVATOR-GINESI",
+    "UlkeID": "63",
+    "UlkeAdi": "EKVATOR GINESI",
+    "state": [
+      {
+        "SehirAdiEn": "EKVATOR GINESI",
+        "SehirID": "691",
+        "SehirAdi": "EKVATOR GINESI",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "EL-SALVADOR",
+    "UlkeID": "165",
+    "UlkeAdi": "EL SALVADOR",
+    "state": [
+      {
+        "SehirAdiEn": "EL SALVADOR",
+        "SehirID": "692",
+        "SehirAdi": "EL SALVADOR",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "ENDONEZYA",
+    "UlkeID": "117",
+    "UlkeAdi": "ENDONEZYA",
+    "state": [
+      {
+        "SehirAdiEn": "INDONESIA",
+        "SehirID": "693",
+        "SehirAdi": "ENDONEZYA",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "ERITRE",
+    "UlkeID": "175",
+    "UlkeAdi": "ERITRE",
+    "state": [
+      {
+        "SehirAdiEn": "ERITRE",
+        "SehirID": "694",
+        "SehirAdi": "ERITRE",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "ERMENISTAN",
+    "UlkeID": "104",
+    "UlkeAdi": "ERMENISTAN",
+    "state": [
+      {
+        "SehirAdiEn": "ARMENIA",
+        "SehirID": "695",
+        "SehirAdi": "ERMENISTAN",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "ESTONYA",
+    "UlkeID": "6",
+    "UlkeAdi": "ESTONYA",
+    "state": [
+      {
+        "SehirAdiEn": "ESTONYA",
+        "SehirID": "696",
+        "SehirAdi": "ESTONYA",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "ETYOPYA",
+    "UlkeID": "95",
+    "UlkeAdi": "ETYOPYA",
+    "state": [
+      {
+        "SehirAdiEn": "ETHIOPIA",
+        "SehirID": "697",
+        "SehirAdi": "ETYOPYA",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "FAS",
+    "UlkeID": "145",
+    "UlkeAdi": "FAS",
+    "state": [
+      {
+        "SehirAdiEn": "MOROCCO",
+        "SehirID": "698",
+        "SehirAdi": "FAS",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "FIJI",
+    "UlkeID": "197",
+    "UlkeAdi": "FIJI",
+    "state": [
+      {
+        "SehirAdiEn": "FIJI",
+        "SehirID": "699",
+        "SehirAdi": "FIJI",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "FILDISI-SAHILI",
+    "UlkeID": "120",
+    "UlkeAdi": "FILDISI SAHILI",
+    "state": [
+      {
+        "SehirAdiEn": "FILDISI SAHILI",
+        "SehirID": "700",
+        "SehirAdi": "FILDISI SAHILI",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "FILIPINLER",
+    "UlkeID": "126",
+    "UlkeAdi": "FILIPINLER",
+    "state": [
+      {
+        "SehirAdiEn": "PHILIPPINES",
+        "SehirID": "701",
+        "SehirAdi": "FILIPINLER",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "FILISTIN",
+    "UlkeID": "204",
+    "UlkeAdi": "FILISTIN",
+    "state": [
+      {
+        "SehirAdiEn": "FILISTIN",
+        "SehirID": "702",
+        "SehirAdi": "FILISTIN",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "FINLANDIYA",
+    "UlkeID": "41",
+    "UlkeAdi": "FINLANDIYA",
+    "state": [
+      {
+        "SehirAdiEn": "FINLAND",
+        "SehirID": "703",
+        "SehirAdi": "FINLANDIYA",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "FRANSA",
+    "UlkeID": "21",
+    "UlkeAdi": "FRANSA",
+    "state": [
+      {
+        "SehirAdiEn": "FRANCE",
+        "SehirID": "704",
+        "SehirAdi": "FRANSA",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "GABON",
+    "UlkeID": "79",
+    "UlkeAdi": "GABON",
+    "state": [
+      {
+        "SehirAdiEn": "GABON",
+        "SehirID": "705",
+        "SehirAdi": "GABON",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "GAMBIYA",
+    "UlkeID": "109",
+    "UlkeAdi": "GAMBIYA",
+    "state": [
+      {
+        "SehirAdiEn": "GAMBIYA",
+        "SehirID": "706",
+        "SehirAdi": "GAMBIYA",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "GANA",
+    "UlkeID": "143",
+    "UlkeAdi": "GANA",
+    "state": [
+      {
+        "SehirAdiEn": "GHANA",
+        "SehirID": "707",
+        "SehirAdi": "GANA",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "GINE",
+    "UlkeID": "111",
+    "UlkeAdi": "GINE",
+    "state": [
+      {
+        "SehirAdiEn": "GUINEA",
+        "SehirID": "708",
+        "SehirAdi": "GINE",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "GRENADA",
+    "UlkeID": "58",
+    "UlkeAdi": "GRENADA",
+    "state": [
+      {
+        "SehirAdiEn": "GRENADA",
+        "SehirID": "709",
+        "SehirAdi": "GRENADA",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "GRONLAND",
+    "UlkeID": "48",
+    "UlkeAdi": "GRONLAND",
+    "state": [
+      {
+        "SehirAdiEn": "GRONLAND",
+        "SehirID": "710",
+        "SehirAdi": "GRONLAND",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "GUADELOPE",
+    "UlkeID": "171",
+    "UlkeAdi": "GUADELOPE",
+    "state": [
+      {
+        "SehirAdiEn": "GUADELOPE",
+        "SehirID": "711",
+        "SehirAdi": "GUADELOPE",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "GUAM-ADASI",
+    "UlkeID": "169",
+    "UlkeAdi": "GUAM ADASI",
+    "state": [
+      {
+        "SehirAdiEn": "GUAM ISLAND",
+        "SehirID": "712",
+        "SehirAdi": "GUAM ADASI",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "GUATEMALA",
+    "UlkeID": "99",
+    "UlkeAdi": "GUATEMALA",
+    "state": [
+      {
+        "SehirAdiEn": "GUATEMALA",
+        "SehirID": "713",
+        "SehirAdi": "GUATEMALA",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "GUNEY-AFRIKA",
+    "UlkeID": "67",
+    "UlkeAdi": "GUNEY AFRIKA",
+    "state": [
+      {
+        "SehirAdiEn": "SOUTH AFRICA",
+        "SehirID": "714",
+        "SehirAdi": "GUNEY AFRIKA",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "GUNEY-KORE",
+    "UlkeID": "128",
+    "UlkeAdi": "GUNEY KORE",
+    "state": [
+      {
+        "SehirAdiEn": "SOUTH KOREA",
+        "SehirID": "715",
+        "SehirAdi": "GUNEY KORE",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "GURCISTAN",
+    "UlkeID": "62",
+    "UlkeAdi": "GURCISTAN",
+    "state": [
+      {
+        "SehirAdiEn": "GEORGIA",
+        "SehirID": "716",
+        "SehirAdi": "GURCISTAN",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "GUYANA",
+    "UlkeID": "82",
+    "UlkeAdi": "GUYANA",
+    "state": [
+      {
+        "SehirAdiEn": "GUYANA",
+        "SehirID": "717",
+        "SehirAdi": "GUYANA",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "HAITI",
+    "UlkeID": "70",
+    "UlkeAdi": "HAITI",
+    "state": [
+      {
+        "SehirAdiEn": "HAITI",
+        "SehirID": "718",
+        "SehirAdi": "HAITI",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "HINDISTAN",
+    "UlkeID": "187",
+    "UlkeAdi": "HINDISTAN",
+    "state": [
+      {
+        "SehirAdiEn": "INDIA",
+        "SehirID": "719",
+        "SehirAdi": "HINDISTAN",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "HIRVATISTAN",
+    "UlkeID": "30",
+    "UlkeAdi": "HIRVATISTAN",
+    "state": [
+      {
+        "SehirAdiEn": "HIRVATISTAN",
+        "SehirID": "720",
+        "SehirAdi": "HIRVATISTAN",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "HOLLANDA",
+    "UlkeID": "4",
+    "UlkeAdi": "HOLLANDA",
+    "state": [
+      {
+        "SehirAdiEn": "NETHERLANDS",
+        "SehirID": "721",
+        "SehirAdi": "HOLLANDA",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "HOLLANDA-ANTILLERI",
+    "UlkeID": "66",
+    "UlkeAdi": "HOLLANDA ANTILLERI",
+    "state": [
+      {
+        "SehirAdiEn": "HOLLANDA ANTILLERI",
+        "SehirID": "722",
+        "SehirAdi": "HOLLANDA ANTILLERI",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "HONDURAS",
+    "UlkeID": "105",
+    "UlkeAdi": "HONDURAS",
+    "state": [
+      {
+        "SehirAdiEn": "HONDURAS",
+        "SehirID": "723",
+        "SehirAdi": "HONDURAS",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "HONG-KONG",
+    "UlkeID": "113",
+    "UlkeAdi": "HONG KONG",
+    "state": [
+      {
+        "SehirAdiEn": "HONG KONG",
+        "SehirID": "724",
+        "SehirAdi": "HONG KONG",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "INGILTERE",
+    "UlkeID": "15",
+    "UlkeAdi": "INGILTERE",
+    "state": [
+      {
+        "SehirAdiEn": "UNITED KINGDOM",
+        "SehirID": "725",
+        "SehirAdi": "INGILTERE",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "IRAK",
+    "UlkeID": "124",
+    "UlkeAdi": "IRAK",
+    "state": [
+      {
+        "SehirAdiEn": "IRAQ",
+        "SehirID": "726",
+        "SehirAdi": "IRAK",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "IRAN",
+    "UlkeID": "202",
+    "UlkeAdi": "IRAN",
+    "state": [
+      {
+        "SehirAdiEn": "IRAN",
+        "SehirID": "727",
+        "SehirAdi": "IRAN",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "IRLANDA",
+    "UlkeID": "32",
+    "UlkeAdi": "IRLANDA",
+    "state": [
+      {
+        "SehirAdiEn": "IRELAND",
+        "SehirID": "728",
+        "SehirAdi": "IRLANDA",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "ISPANYA",
+    "UlkeID": "23",
+    "UlkeAdi": "ISPANYA",
+    "state": [
+      {
+        "SehirAdiEn": "SPAIN",
+        "SehirID": "729",
+        "SehirAdi": "ISPANYA",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "ISRAIL",
+    "UlkeID": "205",
+    "UlkeAdi": "ISRAIL",
+    "state": [
+      {
+        "SehirAdiEn": "ISRAEL",
+        "SehirID": "730",
+        "SehirAdi": "ISRAIL",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "ISVEC",
+    "UlkeID": "12",
+    "UlkeAdi": "ISVEC",
+    "state": [
+      {
+        "SehirAdiEn": "SWEDEN",
+        "SehirID": "731",
+        "SehirAdi": "ISVEC",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "ISVICRE",
+    "UlkeID": "49",
+    "UlkeAdi": "ISVICRE",
+    "state": [
+      {
+        "SehirAdiEn": "SWITZERLAND",
+        "SehirID": "732",
+        "SehirAdi": "ISVICRE",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "ITALYA",
+    "UlkeID": "8",
+    "UlkeAdi": "ITALYA",
+    "state": [
+      {
+        "SehirAdiEn": "ITALY",
+        "SehirID": "733",
+        "SehirAdi": "ITALYA",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "IZLANDA",
+    "UlkeID": "122",
+    "UlkeAdi": "IZLANDA",
+    "state": [
+      {
+        "SehirAdiEn": "IZLANDA",
+        "SehirID": "734",
+        "SehirAdi": "IZLANDA",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "JAMAIKA",
+    "UlkeID": "119",
+    "UlkeAdi": "JAMAIKA",
+    "state": [
+      {
+        "SehirAdiEn": "JAMAIKA",
+        "SehirID": "735",
+        "SehirAdi": "JAMAIKA",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "JAPONYA",
+    "UlkeID": "116",
+    "UlkeAdi": "JAPONYA",
+    "state": [
+      {
+        "SehirAdiEn": "JAPAN",
+        "SehirID": "736",
+        "SehirAdi": "JAPONYA",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "KAMBOCYA",
+    "UlkeID": "161",
+    "UlkeAdi": "KAMBOCYA",
+    "state": [
+      {
+        "SehirAdiEn": "KAMBOCYA",
+        "SehirID": "737",
+        "SehirAdi": "KAMBOCYA",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "KAMERUN",
+    "UlkeID": "184",
+    "UlkeAdi": "KAMERUN",
+    "state": [
+      {
+        "SehirAdiEn": "CAMEROON",
+        "SehirID": "738",
+        "SehirAdi": "KAMERUN",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "KANADA",
+    "UlkeID": "52",
+    "UlkeAdi": "KANADA",
+    "state": [
+      {
+        "SehirAdiEn": "ALBERTA",
+        "SehirID": "633",
+        "SehirAdi": "ALBERTA",
+        "ExtensionData": {}
+      },
+      {
+        "SehirAdiEn": "BRITISH COLOMBIA",
+        "SehirID": "634",
+        "SehirAdi": "BRITISH COLOMBIA",
+        "ExtensionData": {}
+      },
+      {
+        "SehirAdiEn": "MANITOBA",
+        "SehirID": "635",
+        "SehirAdi": "MANITOBA",
+        "ExtensionData": {}
+      },
+      {
+        "SehirAdiEn": "N.A.L.",
+        "SehirID": "636",
+        "SehirAdi": "N.A.L.",
+        "ExtensionData": {}
+      },
+      {
+        "SehirAdiEn": "NEW BRUNSWICK",
+        "SehirID": "637",
+        "SehirAdi": "NEW BRUNSWICK",
+        "ExtensionData": {}
+      },
+      {
+        "SehirAdiEn": "NOVA SCOTIA",
+        "SehirID": "638",
+        "SehirAdi": "NOVA SCOTIA",
+        "ExtensionData": {}
+      },
+      {
+        "SehirAdiEn": "NUNAVUT",
+        "SehirID": "639",
+        "SehirAdi": "NUNAVUT",
+        "ExtensionData": {}
+      },
+      {
+        "SehirAdiEn": "ONTORIO",
+        "SehirID": "640",
+        "SehirAdi": "ONTORIO",
+        "ExtensionData": {}
+      },
+      {
+        "SehirAdiEn": "P.E.I.",
+        "SehirID": "641",
+        "SehirAdi": "P.E.I.",
+        "ExtensionData": {}
+      },
+      {
+        "SehirAdiEn": "QUEBEC",
+        "SehirID": "642",
+        "SehirAdi": "QUEBEC",
+        "ExtensionData": {}
+      },
+      {
+        "SehirAdiEn": "SASKATCHEWAN",
+        "SehirID": "643",
+        "SehirAdi": "SASKATCHEWAN",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "KARADAG",
+    "UlkeID": "34",
+    "UlkeAdi": "KARADAG",
+    "state": [
+      {
+        "SehirAdiEn": "KARADAG",
+        "SehirID": "739",
+        "SehirAdi": "KARADAG",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "KATAR",
+    "UlkeID": "94",
+    "UlkeAdi": "KATAR",
+    "state": [
+      {
+        "SehirAdiEn": "KATAR",
+        "SehirID": "740",
+        "SehirAdi": "KATAR",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "KAZAKISTAN",
+    "UlkeID": "92",
+    "UlkeAdi": "KAZAKISTAN",
+    "state": [
+      {
+        "SehirAdiEn": "KAZAKHSTAN",
+        "SehirID": "741",
+        "SehirAdi": "KAZAKISTAN",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "KENYA",
+    "UlkeID": "114",
+    "UlkeAdi": "KENYA",
+    "state": [
+      {
+        "SehirAdiEn": "KENYA",
+        "SehirID": "742",
+        "SehirAdi": "KENYA",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "KIRGIZISTAN",
+    "UlkeID": "168",
+    "UlkeAdi": "KIRGIZISTAN",
+    "state": [
+      {
+        "SehirAdiEn": "KIRGIZHSTAN",
+        "SehirID": "743",
+        "SehirAdi": "KIRGIZISTAN",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "KOLOMBIYA",
+    "UlkeID": "57",
+    "UlkeAdi": "KOLOMBIYA",
+    "state": [
+      {
+        "SehirAdiEn": "KOLOMBIYA",
+        "SehirID": "744",
+        "SehirAdi": "KOLOMBIYA",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "KOMORLAR",
+    "UlkeID": "88",
+    "UlkeAdi": "KOMORLAR",
+    "state": [
+      {
+        "SehirAdiEn": "KOMORLAR",
+        "SehirID": "745",
+        "SehirAdi": "KOMORLAR",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "KOSOVA",
+    "UlkeID": "18",
+    "UlkeAdi": "KOSOVA",
+    "state": [
+      {
+        "SehirAdiEn": "KOSOVA",
+        "SehirID": "746",
+        "SehirAdi": "KOSOVA",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "KOSTARIKA",
+    "UlkeID": "162",
+    "UlkeAdi": "KOSTARIKA",
+    "state": [
+      {
+        "SehirAdiEn": "KOSTARIKA",
+        "SehirID": "747",
+        "SehirAdi": "KOSTARIKA",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "KUBA",
+    "UlkeID": "209",
+    "UlkeAdi": "KUBA",
+    "state": [
+      {
+        "SehirAdiEn": "CUBA",
+        "SehirID": "748",
+        "SehirAdi": "KUBA",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "KUDUS",
+    "UlkeID": "206",
+    "UlkeAdi": "KUDUS",
+    "state": [
+      {
+        "SehirAdiEn": "KUDUS",
+        "SehirID": "749",
+        "SehirAdi": "KUDUS",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "KUVEYT",
+    "UlkeID": "133",
+    "UlkeAdi": "KUVEYT",
+    "state": [
+      {
+        "SehirAdiEn": "KUWAIT",
+        "SehirID": "750",
+        "SehirAdi": "KUVEYT",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "KUZEY-KIBRIS",
+    "UlkeID": "1",
+    "UlkeAdi": "KUZEY KIBRIS",
+    "state": [
+      {
+        "SehirAdiEn": "NORTH CYPRUS",
+        "SehirID": "751",
+        "SehirAdi": "KUZEY KIBRIS",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "KUZEY-KORE",
+    "UlkeID": "142",
+    "UlkeAdi": "KUZEY KORE",
+    "state": [
+      {
+        "SehirAdiEn": "NORTH KOREA",
+        "SehirID": "752",
+        "SehirAdi": "KUZEY KORE",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "LAOS",
+    "UlkeID": "134",
+    "UlkeAdi": "LAOS",
+    "state": [
+      {
+        "SehirAdiEn": "LAOS",
+        "SehirID": "753",
+        "SehirAdi": "LAOS",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "LESOTO",
+    "UlkeID": "174",
+    "UlkeAdi": "LESOTO",
+    "state": [
+      {
+        "SehirAdiEn": "LESOTO",
+        "SehirID": "754",
+        "SehirAdi": "LESOTO",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "LETONYA",
+    "UlkeID": "20",
+    "UlkeAdi": "LETONYA",
+    "state": [
+      {
+        "SehirAdiEn": "LATVIA",
+        "SehirID": "755",
+        "SehirAdi": "LETONYA",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "LIBERYA",
+    "UlkeID": "73",
+    "UlkeAdi": "LIBERYA",
+    "state": [
+      {
+        "SehirAdiEn": "LIBERYA",
+        "SehirID": "756",
+        "SehirAdi": "LIBERYA",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "LIBYA",
+    "UlkeID": "203",
+    "UlkeAdi": "LIBYA",
+    "state": [
+      {
+        "SehirAdiEn": "LIBYA",
+        "SehirID": "757",
+        "SehirAdi": "LIBYA",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "LIECHTENSTEIN",
+    "UlkeID": "38",
+    "UlkeAdi": "LIECHTENSTEIN",
+    "state": [
+      {
+        "SehirAdiEn": "LIECHTENSTEIN",
+        "SehirID": "758",
+        "SehirAdi": "LIECHTENSTEIN",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "LITVANYA",
+    "UlkeID": "47",
+    "UlkeAdi": "LITVANYA",
+    "state": [
+      {
+        "SehirAdiEn": "LEBANON",
+        "SehirID": "759",
+        "SehirAdi": "LITVANYA",
+        "ExtensionData": {}
+      }
+    ]
+  },
+
+  {
+    "UlkeAdiEn": "LUBNAN",
+    "UlkeID": "42",
+    "UlkeAdi": "LUBNAN",
+    "state": [
+      {
+        "SehirAdiEn": "LUBNAN",
+        "SehirID": "760",
+        "SehirAdi": "LUBNAN",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "LUKSEMBURG",
+    "UlkeID": "31",
+    "UlkeAdi": "LUKSEMBURG",
+    "state": [
+      {
+        "SehirAdiEn": "LUXEMBOURG",
+        "SehirID": "761",
+        "SehirAdi": "LUKSEMBURG",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "MACARISTAN",
+    "UlkeID": "7",
+    "UlkeAdi": "MACARISTAN",
+    "state": [
+      {
+        "SehirAdiEn": "HUNGARY",
+        "SehirID": "762",
+        "SehirAdi": "MACARISTAN",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "MADAGASKAR",
+    "UlkeID": "98",
+    "UlkeAdi": "MADAGASKAR",
+    "state": [
+      {
+        "SehirAdiEn": "MADAGASKAR",
+        "SehirID": "763",
+        "SehirAdi": "MADAGASKAR",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "MAKAO",
+    "UlkeID": "100",
+    "UlkeAdi": "MAKAO",
+    "state": [
+      {
+        "SehirAdiEn": "MAKAO",
+        "SehirID": "764",
+        "SehirAdi": "MAKAO",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "MAKEDONYA",
+    "UlkeID": "28",
+    "UlkeAdi": "MAKEDONYA",
+    "state": [
+      {
+        "SehirAdiEn": "MACEDONIA",
+        "SehirID": "765",
+        "SehirAdi": "MAKEDONYA",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "MALAVI",
+    "UlkeID": "55",
+    "UlkeAdi": "MALAVI",
+    "state": [
+      {
+        "SehirAdiEn": "MALAVI",
+        "SehirID": "766",
+        "SehirAdi": "MALAVI",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "MALDIVLER",
+    "UlkeID": "103",
+    "UlkeAdi": "MALDIVLER",
+    "state": [
+      {
+        "SehirAdiEn": "MALDIVLER",
+        "SehirID": "767",
+        "SehirAdi": "MALDIVLER",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "MALEZYA",
+    "UlkeID": "107",
+    "UlkeAdi": "MALEZYA",
+    "state": [
+      {
+        "SehirAdiEn": "MALAYSIA",
+        "SehirID": "768",
+        "SehirAdi": "MALEZYA",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "MALI",
+    "UlkeID": "152",
+    "UlkeAdi": "MALI",
+    "state": [
+      {
+        "SehirAdiEn": "MALI",
+        "SehirID": "769",
+        "SehirAdi": "MALI",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "MALTA",
+    "UlkeID": "24",
+    "UlkeAdi": "MALTA",
+    "state": [
+      {
+        "SehirAdiEn": "MALTA",
+        "SehirID": "770",
+        "SehirAdi": "MALTA",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "MARTINIK",
+    "UlkeID": "87",
+    "UlkeAdi": "MARTINIK",
+    "state": [
+      {
+        "SehirAdiEn": "MARTINIK",
+        "SehirID": "771",
+        "SehirAdi": "MARTINIK",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "MAURITIUS-ADASI",
+    "UlkeID": "164",
+    "UlkeAdi": "MAURITIUS ADASI",
+    "state": [
+      {
+        "SehirAdiEn": "MAURITIUS ADASI",
+        "SehirID": "772",
+        "SehirAdi": "MAURITIUS ADASI",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "MAYOTTE",
+    "UlkeID": "157",
+    "UlkeAdi": "MAYOTTE",
+    "state": [
+      {
+        "SehirAdiEn": "MAYOTTE",
+        "SehirID": "773",
+        "SehirAdi": "MAYOTTE",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "MEKSIKA",
+    "UlkeID": "53",
+    "UlkeAdi": "MEKSIKA",
+    "state": [
+      {
+        "SehirAdiEn": "MEXICO",
+        "SehirID": "774",
+        "SehirAdi": "MEKSIKA",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "MIKRONEZYA",
+    "UlkeID": "85",
+    "UlkeAdi": "MIKRONEZYA",
+    "state": [
+      {
+        "SehirAdiEn": "MIKRONEZYA",
+        "SehirID": "775",
+        "SehirAdi": "MIKRONEZYA",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "MISIR",
+    "UlkeID": "189",
+    "UlkeAdi": "MISIR",
+    "state": [
+      {
+        "SehirAdiEn": "EGYPT",
+        "SehirID": "776",
+        "SehirAdi": "MISIR",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "MOGOLISTAN",
+    "UlkeID": "60",
+    "UlkeAdi": "MOGOLISTAN",
+    "state": [
+      {
+        "SehirAdiEn": "MONGOLIA",
+        "SehirID": "777",
+        "SehirAdi": "MOGOLISTAN",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "MOLDAVYA",
+    "UlkeID": "46",
+    "UlkeAdi": "MOLDAVYA",
+    "state": [
+      {
+        "SehirAdiEn": "MOLDAVYA",
+        "SehirID": "778",
+        "SehirAdi": "MOLDAVYA",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "MONAKO",
+    "UlkeID": "3",
+    "UlkeAdi": "MONAKO",
+    "state": [
+      {
+        "SehirAdiEn": "MONACO",
+        "SehirID": "779",
+        "SehirAdi": "MONAKO",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "MONTSERRAT-(U.K.)",
+    "UlkeID": "147",
+    "UlkeAdi": "MONTSERRAT (U.K.)",
+    "state": [
+      {
+        "SehirAdiEn": "MONTSERRAT (U.K.)",
+        "SehirID": "780",
+        "SehirAdi": "MONTSERRAT (U.K.)",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "MORITANYA",
+    "UlkeID": "106",
+    "UlkeAdi": "MORITANYA",
+    "state": [
+      {
+        "SehirAdiEn": "MORITANYA",
+        "SehirID": "781",
+        "SehirAdi": "MORITANYA",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "MOZAMBIK",
+    "UlkeID": "151",
+    "UlkeAdi": "MOZAMBIK",
+    "state": [
+      {
+        "SehirAdiEn": "MOZAMBIK",
+        "SehirID": "782",
+        "SehirAdi": "MOZAMBIK",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "NAMIBYA",
+    "UlkeID": "196",
+    "UlkeAdi": "NAMIBYA",
+    "state": [
+      {
+        "SehirAdiEn": "NAMIBYA",
+        "SehirID": "783",
+        "SehirAdi": "NAMIBYA",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "NEPAL",
+    "UlkeID": "76",
+    "UlkeAdi": "NEPAL",
+    "state": [
+      {
+        "SehirAdiEn": "NEPAL",
+        "SehirID": "784",
+        "SehirAdi": "NEPAL",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "NIJER",
+    "UlkeID": "84",
+    "UlkeAdi": "NIJER",
+    "state": [
+      {
+        "SehirAdiEn": "NIJER",
+        "SehirID": "785",
+        "SehirAdi": "NIJER",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "NIJERYA",
+    "UlkeID": "127",
+    "UlkeAdi": "NIJERYA",
+    "state": [
+      {
+        "SehirAdiEn": "NIGERIA",
+        "SehirID": "786",
+        "SehirAdi": "NIJERYA",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "NIKARAGUA",
+    "UlkeID": "141",
+    "UlkeAdi": "NIKARAGUA",
+    "state": [
+      {
+        "SehirAdiEn": "NIKARAGUA",
+        "SehirID": "787",
+        "SehirAdi": "NIKARAGUA",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "NIUE",
+    "UlkeID": "178",
+    "UlkeAdi": "NIUE",
+    "state": [
+      {
+        "SehirAdiEn": "NIUE",
+        "SehirID": "788",
+        "SehirAdi": "NIUE",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "NORVEC",
+    "UlkeID": "36",
+    "UlkeAdi": "NORVEC",
+    "state": [
+      {
+        "SehirAdiEn": "NORWAY",
+        "SehirID": "789",
+        "SehirAdi": "NORVEC",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "ORTA-AFRIKA-CUMHURIYETI",
+    "UlkeID": "80",
+    "UlkeAdi": "ORTA AFRIKA CUMHURIYETI",
+    "state": [
+      {
+        "SehirAdiEn": "ORTA AFRIKA CUMHURIYETI",
+        "SehirID": "790",
+        "SehirAdi": "ORTA AFRIKA CUMHURIYETI",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "OZBEKISTAN",
+    "UlkeID": "131",
+    "UlkeAdi": "OZBEKISTAN",
+    "state": [
+      {
+        "SehirAdiEn": "UZBEKISTAN",
+        "SehirID": "791",
+        "SehirAdi": "OZBEKISTAN",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "PAKISTAN",
+    "UlkeID": "77",
+    "UlkeAdi": "PAKISTAN",
+    "state": [
+      {
+        "SehirAdiEn": "PAKISTAN",
+        "SehirID": "792",
+        "SehirAdi": "PAKISTAN",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "PALAU",
+    "UlkeID": "149",
+    "UlkeAdi": "PALAU",
+    "state": [
+      {
+        "SehirAdiEn": "PALAU",
+        "SehirID": "793",
+        "SehirAdi": "PALAU",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "PANAMA",
+    "UlkeID": "89",
+    "UlkeAdi": "PANAMA",
+    "state": [
+      {
+        "SehirAdiEn": "PANAMA",
+        "SehirID": "794",
+        "SehirAdi": "PANAMA",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "PAPUA-YENI-GINE",
+    "UlkeID": "185",
+    "UlkeAdi": "PAPUA YENI GINE",
+    "state": [
+      {
+        "SehirAdiEn": "PAPUA YENI GINE",
+        "SehirID": "795",
+        "SehirAdi": "PAPUA YENI GINE",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "PARAGUAY",
+    "UlkeID": "194",
+    "UlkeAdi": "PARAGUAY",
+    "state": [
+      {
+        "SehirAdiEn": "PARAGUAY",
+        "SehirID": "796",
+        "SehirAdi": "PARAGUAY",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "PERU",
+    "UlkeID": "69",
+    "UlkeAdi": "PERU",
+    "state": [
+      {
+        "SehirAdiEn": "PERU",
+        "SehirID": "797",
+        "SehirAdi": "PERU",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "PITCAIRN-ADASI",
+    "UlkeID": "183",
+    "UlkeAdi": "PITCAIRN ADASI",
+    "state": [
+      {
+        "SehirAdiEn": "PITCAIRN ADASI",
+        "SehirID": "798",
+        "SehirAdi": "PITCAIRN ADASI",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "POLONYA",
+    "UlkeID": "39",
+    "UlkeAdi": "POLONYA",
+    "state": [
+      {
+        "SehirAdiEn": "POLAND",
+        "SehirID": "799",
+        "SehirAdi": "POLONYA",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "PORTEKIZ",
+    "UlkeID": "45",
+    "UlkeAdi": "PORTEKIZ",
+    "state": [
+      {
+        "SehirAdiEn": "PORTUGAL",
+        "SehirID": "800",
+        "SehirAdi": "PORTEKIZ",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "PORTO-RIKO",
+    "UlkeID": "68",
+    "UlkeAdi": "PORTO RIKO",
+    "state": [
+      {
+        "SehirAdiEn": "PUERTO RICO",
+        "SehirID": "801",
+        "SehirAdi": "PORTO RIKO",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "REUNION",
+    "UlkeID": "112",
+    "UlkeAdi": "REUNION",
+    "state": [
+      {
+        "SehirAdiEn": "REUNION",
+        "SehirID": "802",
+        "SehirAdi": "REUNION",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "ROMANYA",
+    "UlkeID": "37",
+    "UlkeAdi": "ROMANYA",
+    "state": [
+      {
+        "SehirAdiEn": "ROMANIA",
+        "SehirID": "803",
+        "SehirAdi": "ROMANYA",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "RUANDA",
+    "UlkeID": "81",
+    "UlkeAdi": "RUANDA",
+    "state": [
+      {
+        "SehirAdiEn": "RUANDA",
+        "SehirID": "804",
+        "SehirAdi": "RUANDA",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "RUSYA",
+    "UlkeID": "207",
+    "UlkeAdi": "RUSYA",
+    "state": [
+      {
+        "SehirAdiEn": "RUSSIA",
+        "SehirID": "805",
+        "SehirAdi": "RUSYA",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "SAUDI-ARABISTAN",
+    "UlkeID": "64",
+    "UlkeAdi": "SAUDI ARABISTAN",
+    "state": [
+      {
+        "SehirAdiEn": "S. ARABISTAN",
+        "SehirID": "819",
+        "SehirAdi": "S. ARABISTAN",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "SAMOA",
+    "UlkeID": "198",
+    "UlkeAdi": "SAMOA",
+    "state": [
+      {
+        "SehirAdiEn": "SAMOA",
+        "SehirID": "806",
+        "SehirAdi": "SAMOA",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "SENEGAL",
+    "UlkeID": "102",
+    "UlkeAdi": "SENEGAL",
+    "state": [
+      {
+        "SehirAdiEn": "SENEGAL",
+        "SehirID": "807",
+        "SehirAdi": "SENEGAL",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "SEYSEL-ADALARI",
+    "UlkeID": "138",
+    "UlkeAdi": "SEYSEL ADALARI",
+    "state": [
+      {
+        "SehirAdiEn": "SEYSEL ADALARI",
+        "SehirID": "808",
+        "SehirAdi": "SEYSEL ADALARI",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "SILI",
+    "UlkeID": "200",
+    "UlkeAdi": "SILI",
+    "state": [
+      {
+        "SehirAdiEn": "CHILE",
+        "SehirID": "809",
+        "SehirAdi": "SILI",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "SINGAPUR",
+    "UlkeID": "179",
+    "UlkeAdi": "SINGAPUR",
+    "state": [
+      {
+        "SehirAdiEn": "SINGAPORE",
+        "SehirID": "810",
+        "SehirAdi": "SINGAPUR",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "SIRBISTAN",
+    "UlkeID": "27",
+    "UlkeAdi": "SIRBISTAN",
+    "state": [
+      {
+        "SehirAdiEn": "SIRBISTAN",
+        "SehirID": "811",
+        "SehirAdi": "SIRBISTAN",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "SLOVAKYA",
+    "UlkeID": "14",
+    "UlkeAdi": "SLOVAKYA",
+    "state": [
+      {
+        "SehirAdiEn": "SLOVAKIA",
+        "SehirID": "812",
+        "SehirAdi": "SLOVAKYA",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "SLOVENYA",
+    "UlkeID": "19",
+    "UlkeAdi": "SLOVENYA",
+    "state": [
+      {
+        "SehirAdiEn": "SLOVENIA",
+        "SehirID": "813",
+        "SehirAdi": "SLOVENYA",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "SOMALI",
+    "UlkeID": "150",
+    "UlkeAdi": "SOMALI",
+    "state": [
+      {
+        "SehirAdiEn": "SOMALIA",
+        "SehirID": "814",
+        "SehirAdi": "SOMALI",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "SRI-LANKA",
+    "UlkeID": "74",
+    "UlkeAdi": "SRI LANKA",
+    "state": [
+      {
+        "SehirAdiEn": "SRI LANKA",
+        "SehirID": "815",
+        "SehirAdi": "SRI LANKA",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "SUDAN",
+    "UlkeID": "129",
+    "UlkeAdi": "SUDAN",
+    "state": [
+      {
+        "SehirAdiEn": "SUDAN",
+        "SehirID": "816",
+        "SehirAdi": "SUDAN",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "SURINAM",
+    "UlkeID": "172",
+    "UlkeAdi": "SURINAM",
+    "state": [
+      {
+        "SehirAdiEn": "SURINAM",
+        "SehirID": "817",
+        "SehirAdi": "SURINAM",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "SURIYE",
+    "UlkeID": "191",
+    "UlkeAdi": "SURIYE",
+    "state": [
+      {
+        "SehirAdiEn": "SYRIA",
+        "SehirID": "818",
+        "SehirAdi": "SURIYE",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "SVALBARD",
+    "UlkeID": "163",
+    "UlkeAdi": "SVALBARD",
+    "state": [
+      {
+        "SehirAdiEn": "SVALBARD",
+        "SehirID": "820",
+        "SehirAdi": "SVALBARD",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "SVAZILAND",
+    "UlkeID": "170",
+    "UlkeAdi": "SVAZILAND",
+    "state": [
+      {
+        "SehirAdiEn": "SVAZILAND",
+        "SehirID": "821",
+        "SehirAdi": "SVAZILAND",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "TACIKISTAN",
+    "UlkeID": "101",
+    "UlkeAdi": "TACIKISTAN",
+    "state": [
+      {
+        "SehirAdiEn": "TAJIKISTAN",
+        "SehirID": "822",
+        "SehirAdi": "TACIKISTAN",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "TANZANYA",
+    "UlkeID": "110",
+    "UlkeAdi": "TANZANYA",
+    "state": [
+      {
+        "SehirAdiEn": "TANZANYA",
+        "SehirID": "823",
+        "SehirAdi": "TANZANYA",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "TAYLAND",
+    "UlkeID": "137",
+    "UlkeAdi": "TAYLAND",
+    "state": [
+      {
+        "SehirAdiEn": "THAILAND",
+        "SehirID": "824",
+        "SehirAdi": "TAYLAND",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "TAYVAN",
+    "UlkeID": "108",
+    "UlkeAdi": "TAYVAN",
+    "state": [
+      {
+        "SehirAdiEn": "TAIWAN",
+        "SehirID": "825",
+        "SehirAdi": "TAYVAN",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "TOGO",
+    "UlkeID": "71",
+    "UlkeAdi": "TOGO",
+    "state": [
+      {
+        "SehirAdiEn": "TOGO",
+        "SehirID": "826",
+        "SehirAdi": "TOGO",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "TONGA",
+    "UlkeID": "130",
+    "UlkeAdi": "TONGA",
+    "state": [
+      {
+        "SehirAdiEn": "TONGA",
+        "SehirID": "827",
+        "SehirAdi": "TONGA",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "TRINIDAT-VE-TOBAGO",
+    "UlkeID": "96",
+    "UlkeAdi": "TRINIDAT VE TOBAGO",
+    "state": [
+      {
+        "SehirAdiEn": "TRINIDAT VE TOBAGO",
+        "SehirID": "828",
+        "SehirAdi": "TRINIDAT VE TOBAGO",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "TUNUS",
+    "UlkeID": "118",
+    "UlkeAdi": "TUNUS",
+    "state": [
+      {
+        "SehirAdiEn": "TUNUSIA",
+        "SehirID": "829",
+        "SehirAdi": "TUNUS",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "TURKMENISTAN",
+    "UlkeID": "159",
+    "UlkeAdi": "TURKMENISTAN",
+    "state": [
+      {
+        "SehirAdiEn": "TURKMENISTAN",
+        "SehirID": "830",
+        "SehirAdi": "TURKMENISTAN",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "UGANDA",
+    "UlkeID": "75",
+    "UlkeAdi": "UGANDA",
+    "state": [
+      {
+        "SehirAdiEn": "UGANDA",
+        "SehirID": "831",
+        "SehirAdi": "UGANDA",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "UKRAYNA",
+    "UlkeID": "40",
+    "UlkeAdi": "UKRAYNA",
+    "state": [
+      {
+        "SehirAdiEn": "UKRAINE",
+        "SehirID": "832",
+        "SehirAdi": "UKRAYNA",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "UKRAYNA-KIRIM",
+    "UlkeID": "29",
+    "UlkeAdi": "UKRAYNA-KIRIM",
+    "state": [
+      {
+        "SehirAdiEn": "UKRAINE-KRYM",
+        "SehirID": "833",
+        "SehirAdi": "UKRAYNA-KIRIM",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "UMMAN",
+    "UlkeID": "173",
+    "UlkeAdi": "UMMAN",
+    "state": [
+      {
+        "SehirAdiEn": "UMMAN",
+        "SehirID": "834",
+        "SehirAdi": "UMMAN",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "URDUN",
+    "UlkeID": "192",
+    "UlkeAdi": "URDUN",
+    "state": [
+      {
+        "SehirAdiEn": "JORDAN",
+        "SehirID": "835",
+        "SehirAdi": "URDUN",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "URUGUAY",
+    "UlkeID": "201",
+    "UlkeAdi": "URUGUAY",
+    "state": [
+      {
+        "SehirAdiEn": "URUGUAY",
+        "SehirID": "836",
+        "SehirAdi": "URUGUAY",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "VANUATU",
+    "UlkeID": "56",
+    "UlkeAdi": "VANUATU",
+    "state": [
+      {
+        "SehirAdiEn": "VANUATU",
+        "SehirID": "837",
+        "SehirAdi": "VANUATU",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "VATIKAN",
+    "UlkeID": "10",
+    "UlkeAdi": "VATIKAN",
+    "state": [
+      {
+        "SehirAdiEn": "VATIKAN",
+        "SehirID": "838",
+        "SehirAdi": "VATIKAN",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "VENEZUELA",
+    "UlkeID": "186",
+    "UlkeAdi": "VENEZUELA",
+    "state": [
+      {
+        "SehirAdiEn": "VENEZUELA",
+        "SehirID": "839",
+        "SehirAdi": "VENEZUELA",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "VIETNAM",
+    "UlkeID": "135",
+    "UlkeAdi": "VIETNAM",
+    "state": [
+      {
+        "SehirAdiEn": "VIETNAM",
+        "SehirID": "840",
+        "SehirAdi": "VIETNAM",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "YEMEN",
+    "UlkeID": "148",
+    "UlkeAdi": "YEMEN",
+    "state": [
+      {
+        "SehirAdiEn": "YEMEN",
+        "SehirID": "841",
+        "SehirAdi": "YEMEN",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "YENI-KALEDONYA",
+    "UlkeID": "115",
+    "UlkeAdi": "YENI KALEDONYA",
+    "state": [
+      {
+        "SehirAdiEn": "YENI KALEDONYA",
+        "SehirID": "842",
+        "SehirAdi": "YENI KALEDONYA",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "YENI-ZELLANDA",
+    "UlkeID": "193",
+    "UlkeAdi": "YENI ZELLANDA",
+    "state": [
+      {
+        "SehirAdiEn": "NEW ZEALAND",
+        "SehirID": "843",
+        "SehirAdi": "YENI ZELANDA",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "YESIL-BURUN",
+    "UlkeID": "144",
+    "UlkeAdi": "YESIL BURUN",
+    "state": [
+      {
+        "SehirAdiEn": "YESIL BURUN",
+        "SehirID": "844",
+        "SehirAdi": "YESIL BURUN",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "YUNANISTAN",
+    "UlkeID": "22",
+    "UlkeAdi": "YUNANISTAN",
+    "state": [
+      {
+        "SehirAdiEn": "GREECE",
+        "SehirID": "845",
+        "SehirAdi": "YUNANISTAN",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "ZAMBIYA",
+    "UlkeID": "158",
+    "UlkeAdi": "ZAMBIYA",
+    "state": [
+      {
+        "SehirAdiEn": "ZAMBIYA",
+        "SehirID": "846",
+        "SehirAdi": "ZAMBIYA",
+        "ExtensionData": {}
+      }
+    ]
+  },
+  {
+    "UlkeAdiEn": "ZIMBABVE",
+    "UlkeID": "136",
+    "UlkeAdi": "ZIMBABVE",
+    "state": [
+      {
+        "SehirAdiEn": "ZIMBABVE",
+        "SehirID": "847",
+        "SehirAdi": "ZIMBABVE",
+        "ExtensionData": {}
+      }
+    ]
+  }
+]
