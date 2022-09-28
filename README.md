@@ -3,7 +3,7 @@
 <br />
 <div align="center">
 
-  <h3 align="center">Athan-Time</h3>
+  <h3 align="center">Namaz: Prayer, Athan, Qibla</h3>
 
   <p align="center">
     An awesome Application to calculate the prayer times and the qiblah direction!
@@ -11,9 +11,9 @@
    -
     <br />
     <br />
-    <a href="https://github.com/unkn4wn/Athan-Time/issues">Report Bug</a>
+    <a href="https://github.com/unkn4wn/namaz-prayer/issues">Report Bug</a>
     ·
-    <a href="https://github.com/unkn4wn/Athan-Time/issues">Request Feature</a>
+    <a href="https://github.com/unkn4wn/namaz-prayer/issues">Request Feature</a>
   </p>
 </div>
 
@@ -52,7 +52,7 @@ Athan-Time provides you accurate prayer times without showing you any annoying a
 * no internet connection needed to calculate prayer times
 * no ads
 * privacy oriented (open source and we dont share your data with third parties)
-* accurate qiblah direction
+* accurate qibla direction
 
 ### Supported Platforms
 
