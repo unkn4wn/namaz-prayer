@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
 
     <application
         android:allowBackup="true"
@@ -44,7 +45,7 @@
             android:exported="false" />
         <activity
             android:screenOrientation="locked"
-            android:name="com.freeislamicapps.athantime.MainActivity"
+            android:name="com.islamicproapps.namaz.MainActivity"
             android:launchMode="singleTop"
             android:exported="true">
             <intent-filter>
@@ -55,7 +56,7 @@
         </activity>
 
         <receiver
-            android:name="com.freeislamicapps.athantime.alarm.BroadcastReceiver"
+            android:name="com.islamicproapps.namaz.alarm.BroadcastReceiver"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />

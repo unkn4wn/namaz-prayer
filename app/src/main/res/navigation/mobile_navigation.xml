@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/navigation_qiblah"
-        android:name="com.freeislamicapps.athantime.ui.qiblah.QiblahFragment"
+        android:name="com.islamicproapps.namaz.ui.qiblah.QiblahFragment"
         android:label="@string/title_qiblah"
         tools:layout="@layout/fragment_qiblah" />
 
     <fragment
         android:id="@+id/navigation_prayer"
-        android:name="com.freeislamicapps.athantime.ui.prayer.PrayerFragment"
+        android:name="com.islamicproapps.namaz.ui.prayer.PrayerFragment"
         android:label="@string/title_prayer"
         tools:layout="@layout/fragment_today" />
 
     <fragment
         android:id="@+id/navigation_settings"
-        android:name="com.freeislamicapps.athantime.ui.settings.SettingsFragment"
+        android:name="com.islamicproapps.namaz.ui.settings.SettingsFragment"
         android:label="@string/title_settings"
          />
 </navigation>

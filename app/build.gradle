@@ -7,7 +7,7 @@ android {
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.freeislamicapps.athantime"
+        applicationId "com.islamicproapps.namaz"
         minSdk 21
         targetSdk 33
         versionCode 1
@@ -30,7 +30,7 @@ android {
     buildFeatures {
         viewBinding true
     }
-    namespace 'com.freeislamicapps.athantime'
+    namespace 'com.islamicproapps.namaz'
 }
 
 dependencies {
